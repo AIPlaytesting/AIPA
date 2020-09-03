@@ -18,16 +18,19 @@ class GameState:
         self.player2Decision = CONST_NONE_DECISION  
         self.winInfo = CONST_GAME_DRAWN
 
+    # NEED IMPLEMENTATION!!! 
     def Apply(self,gameEvent):
-        if gameEvent.isDecisionMade:
-            # update user decision on this step
-            if gameEvent.player == CONST_PLAYER1:
-                self.player1Decision = gameEvent.decision
-            else:
-                self.player2Decision = gameEvent.decision
-        elif gameEvent.isRoundEnd:
-            # update game result based on current state and user inputs
-             self.winInfo = gameEvent.winInfo
+        pass
+        # if gameEvent.isDecisionMade:
+        #     # update user decision on this step
+        #     if gameEvent.player == CONST_PLAYER1:
+        #         self.player1Decision = gameEvent.decision
+        #     else:
+        #         self.player2Decision = gameEvent.decision
+        # elif gameEvent.isRoundEnd:
+        #     # update game result based on current state and user inputs
+        #      self.winInfo = gameEvent.winInfo
+
     def InitForGameStart(self):
         self.player1Decision = CONST_NONE_DECISION  
         self.player2Decision = CONST_NONE_DECISION  
@@ -62,43 +65,48 @@ class Kernal:
         self.__gameState.player1Decision = CONST_NONE_DECISION
         self.__gameState.player2Decision = CONST_NONE_DECISION
 
+    # NEED IMPLEMENTATION!!! 
     def OnUserInput(self,userInput): # return GameEvent[]
-        # calculate event triggered by this input
-        events = self.__CalculateEvents(userInput)
-        # apply gameEvent to change State
-        for e in events:
-            self.__gameState.Apply(e)
-        return events
+        pass
+        # # calculate event triggered by this input
+        # events = self.__CalculateEvents(userInput)
+        # # apply gameEvent to change State
+        # for e in events:
+        #     self.__gameState.Apply(e)
+        # return events
 
+    # NEED IMPLEMENTATION!!! 
     def OnEndOfRound(self): # return GameEvent[]
-        roundEndEvent = GameEvent()      
-        roundEndEvent.isRoundEnd = True
-        # calculate win info
-        d1,d2 = self.__gameState.player1Decision,self.__gameState.player2Decision
-        if d1 == d2:
-            roundEndEvent.winInfo = CONST_GAME_DRAWN
-        elif d1 == CONST_DRAGON_DECISION:
-            roundEndEvent.winInfo = CONST_PLAYER1_WIN
-        elif d1 == CONST_ROCK_DECISION:
-            roundEndEvent.winInfo = CONST_PLAYER1_WIN if d2 == CONST_SCISSOR_DECISION else CONST_PLAYER2_WIN
-        elif d1 == CONST_PAPER_DECISION:
-            roundEndEvent.winInfo = CONST_PLAYER1_WIN if d2 == CONST_ROCK_DECISION else CONST_PLAYER2_WIN
-        elif d1 == CONST_SCISSOR_DECISION:
-            roundEndEvent.winInfo = CONST_PLAYER1_WIN if d2 == CONST_PAPER_DECISION else CONST_PLAYER2_WIN
-        else:
-            roundEndEvent.winInfo = CONST_PLAYER1_WIN
+        pass
+        # roundEndEvent = GameEvent()      
+        # roundEndEvent.isRoundEnd = True
+        # # calculate win info
+        # d1,d2 = self.__gameState.player1Decision,self.__gameState.player2Decision
+        # if d1 == d2:
+        #     roundEndEvent.winInfo = CONST_GAME_DRAWN
+        # elif d1 == CONST_DRAGON_DECISION:
+        #     roundEndEvent.winInfo = CONST_PLAYER1_WIN
+        # elif d1 == CONST_ROCK_DECISION:
+        #     roundEndEvent.winInfo = CONST_PLAYER1_WIN if d2 == CONST_SCISSOR_DECISION else CONST_PLAYER2_WIN
+        # elif d1 == CONST_PAPER_DECISION:
+        #     roundEndEvent.winInfo = CONST_PLAYER1_WIN if d2 == CONST_ROCK_DECISION else CONST_PLAYER2_WIN
+        # elif d1 == CONST_SCISSOR_DECISION:
+        #     roundEndEvent.winInfo = CONST_PLAYER1_WIN if d2 == CONST_PAPER_DECISION else CONST_PLAYER2_WIN
+        # else:
+        #     roundEndEvent.winInfo = CONST_PLAYER1_WIN
 
-        self.__gameState.Apply(roundEndEvent)
-        return [roundEndEvent]  
+        # self.__gameState.Apply(roundEndEvent)
+        # return [roundEndEvent]  
 
     def GetGameState(self):  # return GameState
         return self.__gameState.MakeCopy()
 
-    # return StateModifyEvent[]
-    def __CalculateEvents(self,userInput):
-        playerDecisonEvent = GameEvent()      
-        playerDecisonEvent.isDecisionMade = True
-        playerDecisonEvent.decision = userInput.decision
-        playerDecisonEvent.player = userInput.playerTag    
-        return [playerDecisonEvent]  
+    # NEED IMPLEMENTATION!!! 
+    def __CalculateEvents(self,userInput):    # return GameEvent[]
+        pass
+        # playerDecisonEvent = GameEvent()      
+        # playerDecisonEvent.isDecisionMade = True
+        # playerDecisonEvent.decision = userInput.decision
+        # playerDecisonEvent.player = userInput.playerTag    
+        # return [playerDecisonEvent]  
 
