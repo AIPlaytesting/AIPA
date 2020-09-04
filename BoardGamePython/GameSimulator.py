@@ -15,12 +15,13 @@ def SimulateGame(count):
         kernal.ResetGame()
         recorder.RecordGameStart(kernal.GetGameState())
         # play till game end
-        while kernal.GetGameState().winInfo == GameplayKernal.CONST_GAME_DRAWN:
+        while kernal.GetGameState().winInfo == GameplayKernal.CONST_GAME_DRAW:
+            # get current state
             curState = kernal.GetGameState()
             # players make decisions
             events1 = kernal.OnUserInput(player1.GetInput(curState))
             events2 = kernal.OnUserInput(player2.GetInput(curState))
-            # inform keranl one round end
+            # inform kernel at the end of this round
             events3 = kernal.OnEndOfRound()
             # record
             recorder.RecordEvents(events1+events2+events3)

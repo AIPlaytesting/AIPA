@@ -11,7 +11,10 @@ class AutoPlayer:
         self.mode = mode
         self.playerTag = playerTag
 
-    def GetInput(self,gameState):
+    # Get input from this player
+    # para1: gameState
+    # return: [playertag, decision]
+    def GetInput(self, gameState):
         decision = GameplayKernal.CONST_NONE_DECISION
         options = [
             GameplayKernal.CONST_ROCK_DECISION,
@@ -28,6 +31,6 @@ class AutoPlayer:
         elif self.mode == CONST_DRAGON_MODE:
             decision = options[3]
         else:
-            decision = options[random.randint(0,len(options)-1)]
+            decision = options[random.randint(0, len(options) - 1)]
         # generate input depending on decision
-        return GameplayKernal.UserInput(self.playerTag,decision)
+        return GameplayKernal.UserInput(self.playerTag, decision)
