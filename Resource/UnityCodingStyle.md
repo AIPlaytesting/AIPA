@@ -2,7 +2,7 @@
 Our overarching goals are **conciseness**, **readability** and **simplicity**. Also, this guide is written to keep **Unity** in mind. 
 
 ## Table of Contents
-
+- [Unity class layout](#UnityClassLayout)
 - [Nomenclature](#nomenclature)
   + [Namespaces](#namespaces)
   + [Classes & Interfaces](#classes--interfaces)
@@ -18,8 +18,82 @@ Our overarching goals are **conciseness**, **readability** and **simplicity**. A
 - [Brace Style](#brace-style)
 
 
+## UnityClassLayout
+### The layout of a Unity Class should be:  
+(from top to bottom)  
+1. sub class/struct/enum defination
+2. static fields
+3. static funcions
+4. config fields in unity inspector
+5. public fields
+6. private fields
+7. unity monobehaviour callbacks
+8. override funcitons
+9. public methods
+10. private methods
+### A Example:
+```csharp
+public class UnityClass:Monobehaviour{
+    # region sub class/struct/enum defination
+    public class SubClass{
+        ...
+    } 
+    enum EType{
+        ....
+    }
+    # endregion
 
+    # region static fileds
+    public static UnityClass Instance;
+    # endregion
 
+    # region static funcions
+    public static UnityClass StaticFunc(){
+        ....
+    };
+    # endregion
+
+    # region config fields in nnity inspector
+    [SerializableField]
+    private bool configField;
+    # endregion
+
+    # region public fields
+    private int publicInt;
+    # endregion
+
+    # region private fields
+    private int privateInt;
+    # endregion
+
+    # region unity monobehaviour callbacks
+    private void Awake(){
+        ...
+    }
+    private void Start(){
+        ...
+    }
+    # endregion
+
+    # region override funcitons
+    protected override void FuncFromBase(){
+        ...
+    }
+    # endregion
+
+    # region public methods
+    public void PublicMethod(){
+
+    }
+    # endregion
+
+    # region private methods
+    public void PublicMethod(){
+
+    }
+    # endregion
+}
+```
 ## Nomenclature
 
 On the whole, naming should follow C# standards.
