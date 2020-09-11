@@ -124,14 +124,16 @@ Methods are written in **PascalCase**. For example `DoSomething()`.
 
 ### Fields
 
-All non-static fields are written **camelCase**. Per Unity convention, this includes **public fields** as well.
+All **non-static** fields are written **camelCase**. Per Unity convention, this includes **public fields** as well.  
+static fields should be written in **PascalCase**.
 
 For example:
 
 ```csharp
 public class MyClass 
 {
-    public static int theAnswer = 42;
+    public static int TheAnswer = 42;
+    
     public int publicField;
     int packagePrivate;
     private int myPrivate;
