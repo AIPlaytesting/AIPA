@@ -1,4 +1,4 @@
-from combatUnit import CombatUnit
+from STP2.combatUnit import CombatUnit
 
 class GameState:
     def __init__(self):
