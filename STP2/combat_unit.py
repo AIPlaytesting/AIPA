@@ -1,4 +1,4 @@
-from STP2.buffType import BuffType
+from STP2.buff_type import BuffType
 
 class CombatUnit:
     def __init__(self,initHp):

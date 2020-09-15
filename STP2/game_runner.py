@@ -1,4 +1,4 @@
-from STP2.gameManager import GameManager
+from STP2.game_manager import GameManager
 
 game_manager = GameManager()
 game_manager.init_game()

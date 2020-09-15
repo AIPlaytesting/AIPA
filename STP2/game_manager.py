@@ -1,5 +1,5 @@
-from STP2.combatUnit import CombatUnit
-from STP2.enemyIntent import EnemyIntent
+from STP2.combat_unit import CombatUnit
+from STP2.enemy_intent import EnemyIntent
 class GameState:
     def __init__(self):
         self.player = CombatUnit(100) # placehold: hp value all 100

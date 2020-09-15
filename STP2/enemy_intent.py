@@ -1,6 +1,6 @@
-from STP2.buffType import BuffType
-from STP2.gameManager import GameState
-from STP2.combatUnit import CombatUnit
+from STP2.buff_type import BuffType
+from STP2.game_manager import GameState
+from STP2.combat_unit import CombatUnit
 
 class EnemyIntent:
     def __init__(self):
