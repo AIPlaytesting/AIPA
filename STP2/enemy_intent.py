@@ -1,20 +1,20 @@
-from STP2.buff_type import BuffType
-from STP2.game_manager import GameState
-from STP2.combat_unit import CombatUnit
+import buff_type 
+import game_manager 
+import combat_unit 
 
 class EnemyIntent:
     def __init__(self):
-        self.isAttack = False
-        self.attackValue = 0
-        self.isDebuff = False
-        self.debuffType = BuffType.Empty
-        self.debuffValue = 1
-        self.isEnbuff = False
-        self.enbuffType = BuffType.Empty
-        self.enbuffValue = 1
+        self.is_attack = False
+        self.attack_value = 0
+        self.is_debuff = False
+        self.debuff_type = buff_type.BuffType.Empty
+        self.debuff_value = 1
+        self.is_enbuff = False
+        self.enbuff_type = buff_type.BuffType.Empty
+        self.enbuff_value = 1
 
-    def apply_to(self, gameState: GameState):
-        if self.isAttack :
-            gameState.player.currentHP -= self.attackValue
-        elif self.isDebuff:
-            gameState.player.add_new_buff(self.debuffType,self.debuffValue)
+    def apply_to(self, game_state:game_manager):
+        if self.is_attack :
+            game_state.player.current_hp -= self.attack_value
+        elif self.is_debuff:
+            game_state.player.add_new_buff(self.debuff_type,self.debuff_value)
