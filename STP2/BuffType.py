@@ -1,6 +1,7 @@
 from enum import Enum, unique
 @unique
 class BuffType(Enum):
+    Empty = -1
     Weakened = 0 
     Vulnerable = 1
     Strength = 2
