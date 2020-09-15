@@ -3,8 +3,7 @@ class CombatUnit:
         self.maxHP = initHp
         self.currentHP = initHp
         self.block = 0
-        # list of ActivatedBuff[]
-        self.activatedBuffs = []
+        self.activatedBuffs = [] # list of ActivatedBuff[]
 
 class ActivatedBuff:
     def __init__(self,buffType,buffValue):
