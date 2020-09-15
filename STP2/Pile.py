@@ -1,32 +1,32 @@
-# A collection of cards saved in deck
+# A collection of cards saved in pile
 # Game flow: 
-    # draw card from drawPile (an instance of Deck class) function required: draw
-    # play out card and consume energy, card playing out will be moved in the discardPile (an instance of Deck class) function required: addCards
+    # draw card from drawPile (an instance of Pile class) function required: draw
+    # play out card and consume energy, card playing out will be moved in the discardPile (an instance of Pile class) function required: addCards
 # extaust pile is another thing to do // later
 # other useful functions: 
     # cardsLeft: number of cards left
-    # resetDeck: reset deck to initial state
-    # display: display all the cards in this deck
+    # resetPile: reset pile to initial state
+    # display: display all the cards in this pile
 
-class Deck:
+class Pile:
     def __init__(self):
         self.cards = []
 
-    # number of cards left in deck
+    # number of cards left in pile
     # return: number 
     def cardsLeft(self):
         return len(self.cards)
 
-    # reset deck to initial state
-    def resetDeck(self):
+    # reset pile to initial state
+    def resetPile(self):
         self.cards = []
 
-    # draw num of cards from deck
+    # draw num of cards from pile
     # params: number num, number of cards that you want to draw
     # return: List res, a list of cards
     def draw(self, num):
         if self.cards == []:
-            self.resetDeck()
+            self.resetPile()
         res = []
         for _ in range(num):
             res.append(self.cards.pop())
@@ -43,13 +43,13 @@ class Deck:
     def display(self):
         return self.cards
 
-drawPile = Deck()
-discardPile = Deck()
+# drawPile = Pile()
+# discardPile = Pile()
 
-drawPile.addCards([1])
-drawPile.addCards([1,2,3])
-print(drawPile.display())
+# drawPile.addCards([1])
+# drawPile.addCards([1,2,3])
+# print(drawPile.display())
 
-print(drawPile.draw(2))
-print(drawPile.display())
+# print(drawPile.draw(2))
+# print(drawPile.display())
 
