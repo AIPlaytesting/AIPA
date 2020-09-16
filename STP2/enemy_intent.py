@@ -20,7 +20,8 @@ class EnemyIntent:
             game_state.player.current_hp -= self.attack_value
         elif self.is_debuff:
             game_state.player.add_new_buff(self.debuff_type,self.debuff_value)
-
+        elif self.is_enbuff:
+            game_state.boss.add_new_buff(self.enbuff_type,self.enbuff_value)
 # class EnemyIntentPool:
 #     def __init__(self,intents:[]):
 #         self.intents = intents
