@@ -5,9 +5,9 @@ import CardPlayManager
 
 PLAYER_ENERGY = 3
 class GameState:
-    def __init__(self):
-        self.player = CombatUnit(100, self.card_play_manager.GetEmptyBuffDict()) # placehold: hp value all 100
-        self.boss = CombatUnit(100, self.card_play_manager.GetEmptyBuffDict()) # placehold: hp value all 100
+    def __init__(self, empty_buff_dict):
+        self.player = CombatUnit(100, empty_buff_dict) # placehold: hp value all 100
+        self.boss = CombatUnit(100, empty_buff_dict) # placehold: hp value all 100
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         # self.deck = Deck()
@@ -15,7 +15,7 @@ class GameState:
 class GameManager:
     def __init__(self):
         self.card_play_manager = CardPlayManager.CardPlayManager(self)
-        self.game_state = GameState()
+        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict()))
         self.boss_AI = EnemyAI()
 
     def init_game(self):
