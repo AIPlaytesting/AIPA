@@ -1,3 +1,4 @@
+import random
 # A collection of cards saved in pile
 # Game flow: 
     # draw card from drawPile (an instance of Pile class) function required: draw
@@ -21,16 +22,14 @@ class Pile:
     def resetPile(self):
         self.cards = []
 
-    # draw num of cards from pile
-    # params: number num, number of cards that you want to draw
-    # return: List res, a list of cards
-    def draw(self, num):
+    # draw 1 card from pile
+    # return: a card instance
+    def draw(self):
         if self.cards == []:
-            self.resetPile()
-        res = []
-        for _ in range(num):
-            res.append(self.cards.pop())
-        return res
+            return None
+        
+        index = random.randint(0, self.cardsLeft() - 1)
+        return self.cards.pop(index)
 
     # extends card.
     # params: List[Card] cards, 
