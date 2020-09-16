@@ -1,17 +1,20 @@
 from combat_unit import CombatUnit
 from enemy_intent import EnemyIntent
 from enemy_AI import EnemyAI
+import CardPlayManager
+
 PLAYER_ENERGY = 3
 class GameState:
     def __init__(self):
-        self.player = CombatUnit(100) # placehold: hp value all 100
-        self.boss = CombatUnit(100) # placehold: hp value all 100
+        self.player = CombatUnit(100, self.card_play_manager.GetEmptyBuffDict()) # placehold: hp value all 100
+        self.boss = CombatUnit(100, self.card_play_manager.GetEmptyBuffDict()) # placehold: hp value all 100
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         # self.deck = Deck()
 
 class GameManager:
     def __init__(self):
+        self.card_play_manager = CardPlayManager.CardPlayManager(self)
         self.game_state = GameState()
         self.boss_AI = EnemyAI()
 
