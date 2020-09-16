@@ -25,11 +25,15 @@ class Deck:
 
             self.__cards_on_hand.append(self.__draw_pile.draw())
 
-    def discard_card(self,card_name):
+    def discard_card(self,card_name,number_added_to_discard_pile):
         if card_name in self.__cards_on_hand:
             self.__cards_on_hand.remove(card_name)
-            self.discard_card.append(card_name)
+            for i in range(number_added_to_discard_pile):
+                self.discard_card.append(card_name)
+        else:
+            print("[ERROR]-Deck.discard_card(): discard a card which is not in hand")
 
+    # remove all cards from hand to discard pile
     def discard_all_cards(self):
             self.__discard_pile.addCards(self.__cards_on_hand)
             self.__cards_on_hand.clear()

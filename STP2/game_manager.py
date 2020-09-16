@@ -45,7 +45,7 @@ class GameManager:
         print("start enemy turn *****************************")
         self.game_state.deck.discard_all_cards()
 
-    def get_player_action_space(self):
+    def get_current_playable_cards(self):
         return self.game_state.deck.get_card_names_on_hand()
 
     def execute_enemy_intent(self):
