@@ -1,4 +1,6 @@
 import Pile
+
+# all cards are stored as names(str)
 class Deck:
     def __init__(self):
         super().__init__()

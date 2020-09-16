@@ -18,6 +18,7 @@ class GameManager:
         self.card_play_manager = CardPlayManager.CardPlayManager(self)
         self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict())
         self.boss_AI = EnemyAI()
+        self.__end_player_turn_flag = False
 
     def init_game(self):
         self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict())
@@ -30,20 +31,32 @@ class GameManager:
     def is_player_win(self):
         boss_hp = self.game_state.boss.current_hp
         return boss_hp <= 0
-        
+
+    def is_player_finish_turn(self):
+        return self.__end_player_turn_flag
+
     def start_player_turn(self):
         print("start player turn ===========================")
+        # refresh flag
+        self.__end_player_turn_flag = False
         # refresh energy
         self.game_state.player_energy = PLAYER_ENERGY
         # refresh boss intent
         self.game_state.boss_intent = self.boss_AI.make_intent()
         # draw cards
         self.game_state.deck.draw_cards(5)
-        # TODO -refresh buffs
+        # refresh buffs
+        self.game_state.player.refresh_buff_on_new_turn()
+
+    def end_player_turn(self):
+        self.__end_player_turn_flag = True
 
     def start_enemy_turn(self):
         print("start enemy turn *****************************")
+        # discard player cards on hand
         self.game_state.deck.discard_all_cards()
+        # refresh boss buffs
+        self.game_state.boss.refresh_buff_on_new_turn()
 
     def get_current_playable_cards(self):
         return self.game_state.deck.get_card_names_on_hand()

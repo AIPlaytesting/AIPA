@@ -12,18 +12,21 @@ def run_game(is_AI_mode):
         
         # play card till no energy 
         dead_loop_counter = 0
-        while(game_manager.game_state.player_energy > 0 and dead_loop_counter < 10):
+        while(not game_manager.is_player_finish_turn()):
             dead_loop_counter += 1
             if is_AI_mode:
                 pass
                 # TODO card_to_play = RL_AI.make_decision( )
             else:
-                # player 
-                card_to_play = input()
-                print("player play card: ",card_to_play)
-                # game_manager.card_play_manager.PlayCard(card_to_play)
-                # TODO remove it when energy is calculated by Play
-                game_manager.game_state.player_energy -= 1
+                player_input= input()
+                if player_input == 'end':
+                    game_manager.end_player_turn()
+                else:
+                    card_to_play = player_input
+                    print("player play card: ",card_to_play)
+                    # game_manager.card_play_manager.PlayCard(card_to_play)
+                    # TODO remove it when energy is calculated by Play
+                    game_manager.game_state.player_energy -= 1
                 
             if is_AI_mode:
                 pass
