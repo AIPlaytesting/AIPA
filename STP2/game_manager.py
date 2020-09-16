@@ -6,22 +6,22 @@ import CardPlayManager
 
 PLAYER_ENERGY = 3
 class GameState:
-    def __init__(self, empty_buff_dict):
+    def __init__(self, empty_buff_dict,all_card_names):
         self.player = CombatUnit(100, empty_buff_dict) # placehold: hp value all 100
         self.boss = CombatUnit(100, empty_buff_dict) # placehold: hp value all 100
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
-        self.deck = Deck()
+        self.deck = Deck(all_card_names)
 
 class GameManager:
     def __init__(self):
         self.card_play_manager = CardPlayManager.CardPlayManager(self)
-        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict())
+        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
         self.boss_AI = EnemyAI()
         self.__end_player_turn_flag = False
 
     def init_game(self):
-        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict())
+        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
 
     def is_game_end(self):
         player_hp, boss_hp = self.game_state.player.current_hp,self.game_state.boss.current_hp
@@ -58,8 +58,19 @@ class GameManager:
         # refresh boss buffs
         self.game_state.boss.refresh_buff_on_new_turn()
 
+    # return the list of card names
     def get_current_playable_cards(self):
-        return self.game_state.deck.get_card_names_on_hand()
+        playable_cards = []
+
+        for card_name in self.game_state.deck.get_card_names_on_hand():
+            if card_name in self.card_play_manager.cards_dict:
+                card = self.card_play_manager.cards_dict[card_name]
+                if card.energy_cost <= self.game_state.player_energy:
+                    playable_cards.append(card_name)
+            else:
+                print("[ERROR]-GameManager.get_current_playable_cards(): ",card_name," is not in card_dict")
+        
+        return playable_cards
 
     def execute_enemy_intent(self):
         self.game_state.boss_intent.apply_to(self.game_state)

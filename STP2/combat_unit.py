@@ -11,7 +11,7 @@ class CombatUnit:
         self.buff_dict[buff_name] += buff_value
         
     def refresh_buff_on_new_turn(self):
-        duration_buffs = ['Weakened','Vulnerable','Intangible','Frail','Entangled','Blur','Draw reduction']
+        duration_buffs = ['Weakened','Vulnerable','Intangible','Frail','Entangled','Blur','DrawReduction']
         # handle duration buffs
         for duration_buff in duration_buffs:
             if self.buff_dict[duration_buff] > 0:

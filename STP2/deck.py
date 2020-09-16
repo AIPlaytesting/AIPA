@@ -2,18 +2,18 @@ import Pile
 
 # all cards are stored as names(str)
 class Deck:
-    def __init__(self):
+    def __init__(self,all_cards_names):
         super().__init__()
         self.__draw_pile = Pile.Pile()
         self.__discard_pile = Pile.Pile()
         self.__cards_on_hand = [] # string[]  each item is the name of the card
-        self.reset_deck()
+        self.reset_deck(all_cards_names)
 
-    def reset_deck(self):
+    def reset_deck(self,all_cards_names):
+        print("deck reset as: ", all_cards_names)
         self.__draw_pile.resetPile()
         self.__discard_pile.resetPile()
-        # TODO reset the cards from real names
-        self.__draw_pile.addCards(["card1","card2","card3","card4","card5","card6","card7","card8","card9"])
+        self.__draw_pile.addCards(all_cards_names)
 
     def get_card_names_on_hand(self):
         return self.__cards_on_hand
@@ -31,7 +31,7 @@ class Deck:
         if card_name in self.__cards_on_hand:
             self.__cards_on_hand.remove(card_name)
             for i in range(number_added_to_discard_pile):
-                self.discard_card.append(card_name)
+                self.__discard_pile.addCards([card_name])
         else:
             print("[ERROR]-Deck.discard_card(): discard a card which is not in hand")
 

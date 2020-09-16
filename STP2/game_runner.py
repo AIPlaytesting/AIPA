@@ -5,15 +5,12 @@ def run_game(is_AI_mode):
     game_manager.init_game()
     while(not game_manager.is_game_end()):
         # player turn
-        game_manager.start_player_turn()
-        # generate action space
-        action_space = game_manager.get_current_playable_cards()
-        print("action space: ",action_space)
-        
-        # play card till no energy 
-        dead_loop_counter = 0
+        game_manager.start_player_turn()        
+        # play card till choose to end
         while(not game_manager.is_player_finish_turn()):
-            dead_loop_counter += 1
+            playable_cards = game_manager.get_current_playable_cards()
+            print("playable cards: ",playable_cards)
+
             if is_AI_mode:
                 pass
                 # TODO card_to_play = RL_AI.make_decision( )
@@ -27,6 +24,8 @@ def run_game(is_AI_mode):
                     # game_manager.card_play_manager.PlayCard(card_to_play)
                     # TODO remove it when energy is calculated by Play
                     game_manager.game_state.player_energy -= 1
+                    # TODO discard card in CardPlayManager.PlayCard()
+                    game_manager.game_state.deck.discard_card(card_to_play,1)
                 
             if is_AI_mode:
                 pass
