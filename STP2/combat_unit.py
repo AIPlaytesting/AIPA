@@ -9,7 +9,9 @@ class CombatUnit:
 
     def add_new_buff(self, buff_type: BuffType,buff_value:int):
         new_buff = ActivatedBuff(buff_type,buff_value)
-        self.buff_dict.append(new_buff)
+        # TODO
+        print("TO-DO: ","add buff of ", buff_type)
+        #self.buff_dict.append(new_buff)
 
 
 class ActivatedBuff:
