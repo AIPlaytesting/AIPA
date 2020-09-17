@@ -1,16 +1,16 @@
 {
-    "name" : "Anger",
-    "energy_cost" : 0,
+    "name" : "Sword Bomerang",
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 0,
-        "damage_instances" : 0,
+        "damage" : 3,
+        "damage_instances" : 3,
         "block" : 0
     },
 
     "card_life_cycle_info" : {
-        "copies_in_discard_pile_when_played" : 2,
+        "copies_in_discard_pile_when_played" : 1,
         "draw_card" : 0
     },
 
