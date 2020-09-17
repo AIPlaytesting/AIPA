@@ -50,6 +50,8 @@ class GameManager:
         self.game_state.deck.draw_cards(5)
         # refresh buffs
         self.game_state.player.refresh_buff_on_new_turn()
+        # log player status
+        self.game_state.player.print_status_info("Player")
 
     def end_player_turn(self):
         self.__end_player_turn_flag = True
@@ -64,6 +66,8 @@ class GameManager:
         self.game_state.deck.discard_all_cards()
         # refresh boss buffs
         self.game_state.boss.refresh_buff_on_new_turn()
+        # log status
+        self.game_state.boss.print_status_info("BOSS")
 
     # return the list of card names
     def get_current_playable_cards(self):
@@ -79,5 +83,19 @@ class GameManager:
         
         return playable_cards
 
+    def get_current_cards_on_hand(self):
+        return self.game_state.deck.get_card_names_on_hand()
+
     def execute_enemy_intent(self):
         self.game_state.boss_intent.apply_to(self.game_state)
+
+    def print_cards_info_on_hand(self):
+        cards_on_hand = self.get_current_cards_on_hand()
+        playable_cards = self.get_current_playable_cards()
+        cards_info = []
+        for i,card in enumerate(cards_on_hand):
+            if card in playable_cards:
+                cards_info.append(str(i)+'-'+"("+card+")")
+            else:
+                cards_info.append(card)
+        print("cards on hand: ", cards_info)

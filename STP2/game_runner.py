@@ -1,47 +1,72 @@
 from game_manager import GameManager
 
+
 def run_game(is_AI_mode):
+    # init 
     game_manager = GameManager()
     game_manager.init_game()
+    # play
     while(not game_manager.is_game_end()):
-        # player turn
-        game_manager.start_player_turn()        
-        # play card till choose to end
-        while(not game_manager.is_player_finish_turn()):
-            playable_cards = game_manager.get_current_playable_cards()
-            print("playable cards: ",playable_cards)
+       play_one_round(is_AI_mode,game_manager)
+    # print result
+    result = 'Win' if game_manager.is_player_win() else 'lost'
+    print("result:---------------------\n"+result)
+ 
+def play_one_round(is_AI_mode,game_manager:GameManager):
+    # player turn
+    game_manager.start_player_turn()
 
-            if is_AI_mode:
-                pass
-                # TODO card_to_play = RL_AI.make_decision( )
+    # play card till choose to end
+    while(not game_manager.is_player_finish_turn()):
+        cards_on_hand = game_manager.get_current_cards_on_hand()
+        playable_cards = game_manager.get_current_playable_cards()
+        # print log of cards
+        game_manager.print_cards_info_on_hand()
+        # make decison based-on AI/player mode       
+        if is_AI_mode:
+            pass
+            # TODO card_to_play = RL_AI.make_decision( )
+        else:
+            raw_input = input()
+            player_input = process_player_input(raw_input,cards_on_hand,playable_cards)
+            # process player input
+            if player_input == 'end':
+                game_manager.end_player_turn()
+            elif player_input == 'invalid':
+                print('make input again:')
             else:
-                player_input= input()
-                if player_input == 'end':
-                    game_manager.end_player_turn()
-                else:
-                    card_to_play = player_input
-                    print("player play card: ",card_to_play)
-                    game_manager.card_play_manager.PlayCard(card_to_play)
-                    # TODO remove it when energy is calculated by Play
-                    game_manager.game_state.player_energy -= 1
-                    # TODO discard card in CardPlayManager.PlayCard()
-                    game_manager.game_state.deck.discard_card(card_to_play,1)
-                
-            if is_AI_mode:
-                pass
-                # TODO RL_AI.calculate_reward(game_state,)
+                card_to_play = player_input
+                print("player play card: ", card_to_play)
+                game_manager.card_play_manager.PlayCard(card_to_play)               
+                # TODO discard card in CardPlayManager.PlayCard()
+                game_manager.game_state.deck.discard_card(card_to_play, 1)
 
-        # enemy turn
-        game_manager.start_enemy_turn()
-        # check is player killed all enemies
-        if game_manager.is_game_end():
-            break
+        if is_AI_mode:
+            pass
+            # TODO RL_AI.calculate_reward(game_state,)
+
+    # enemy turn
+    game_manager.start_enemy_turn()
+    
+    # check is player killed all enemies
+    if not game_manager.is_game_end():     
         # apply BOSS intent
-        game_manager.execute_enemy_intent()
+        game_manager.execute_enemy_intent()    
 
-    if game_manager.is_player_win():
-        print("result:---------------------\nWin")
-    else:
-        print("result:---------------------\nlost")
+# reutrn: 1) 'end' 2) "card name" 3) 'invalid'
+def process_player_input(raw_input, cards_on_hand, playable_cards):
+    if raw_input == 'end':
+        return 'end'
+    elif raw_input.isnumeric():
+        card_index = int(raw_input)
+        if card_index >= 0 and card_index < len(cards_on_hand):
+            card_to_play = cards_on_hand[card_index]
+            if card_to_play in playable_cards:
+                return card_to_play
+            else:
+                print("[ERROR]: try to play unplayable card on hand: " + card_to_play)
+    
+    print("[WARNNING - invalid input]: "+raw_input)
+    return 'invalid'
 
 run_game(False)

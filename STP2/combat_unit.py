@@ -20,3 +20,10 @@ class CombatUnit:
         if self.buff_dict['Flex'] > 0:
             self.buff_dict['Strength'] -= self.buff_dict['Flex']
             self.buff_dict['Flex'] = 0
+    
+    def print_status_info(self,owner_name):
+        buff_list= []
+        for buff_name in self.buff_dict.keys():
+            if(self.buff_dict[buff_name] != 0):
+                buff_list.append(buff_name+":"+str(self.buff_dict[buff_name]))
+        print(owner_name,"(block): "+ str(self.block),"(buffs):",buff_list)
