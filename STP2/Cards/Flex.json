@@ -1,5 +1,5 @@
 {
-    "name" : "Anger",
+    "name" : "Flex",
     "energy_cost" : 0,
     "damage_target" : "enemy",
 
@@ -10,7 +10,7 @@
     },
 
     "card_life_cycle_info" : {
-        "copies_in_discard_pile_when_played" : 2,
+        "copies_in_discard_pile_when_played" : 1,
         "draw_card" : 0
     },
 
@@ -24,7 +24,7 @@
             "target" : "enemy" 
         },
         "Strength" : {
-            "value" : 0,
+            "value" : 2,
             "target" : "self" 
         },
         "Artifact" : {
@@ -68,7 +68,7 @@
             "target" : "self" 
         },
         "Flex" : {
-            "value" : 0,
+            "value" : 2,
             "target" : "self" 
         },
         "Blur" : {
