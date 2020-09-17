@@ -58,7 +58,8 @@ class GameManager:
         print("start enemy turn *****************************")
         # refresh block
         self.game_state.boss.block = 0
-        self.boss_AI.onEnemyTurnStart(self.game_state.boss.current_hp)
+        # call back for AI
+        self.boss_AI.onEnemyTurnStart()
         # discard player cards on hand
         self.game_state.deck.discard_all_cards()
         # refresh boss buffs

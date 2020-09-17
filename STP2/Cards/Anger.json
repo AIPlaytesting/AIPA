@@ -4,8 +4,8 @@
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 0,
-        "damage_instances" : 0,
+        "damage" : 6,
+        "damage_instances" : 1,
         "block" : 0
     },
 

@@ -25,7 +25,6 @@ class EnemyAI:
            self.mode = 'Offensive'
            self.curStateIndex = 3 
         
-        
 
     # Offensive AI
     def make_intent(self)->EnemyIntent:
@@ -33,42 +32,48 @@ class EnemyAI:
         if self.mode == 'Offensive':
             curState = self.intents_offensive[self.curStateIndex]
             if curState == 'Charging Up':
-                intent.is_enbuff = True
-                intent.enbuff_type = "Block"
-                intent.enbuff_value = 9
+                intent.name = 'Charging Up'
+                intent.is_block = True
+                intent.block_value = 9
                 print('BOSS intent: -[block]-', intent.enbuff_value)
             elif curState == 'Fierce Bash':
+                intent.name = 'Fierce Bash'
                 intent.is_attack = True
                 intent.attack_value = 32
                 print("BOSS intent: -[attack]-",intent.attack_value)
             elif curState == 'Vent Steam':
+                intent.name = 'Vent Steam'
                 intent.is_debuff = True
                 intent.debuff_type = 'Weakened'
                 intent.debuff_value = 1
                 print("BOSS intent: -[debuff]-",intent.debuff_type)
             elif curState == 'Whirlwind':
+                intent.name = 'Whirlwind'
                 intent.is_attack = True
                 intent.attack_value = 32
                 print("BOSS intent: -[attack]-",intent.attack_value)
         else:
             curState = self.intents_defensive[self.curStateIndex]
             if curState == 'Defensive Mode':
-                ## directly change thorns
-                self.boss.buff_dict["Thorns"] += 3
-                intent.is_enbuff = True
-                intent.enbuff_type = 'Thorns'
-                intent.enbuff_value = 3
+                # TODO: add this effect in calculator
+                intent.name = 'Defensive Mode'
+                #intent.is_enbuff = True
+                # intent.enbuff_type = 'Thorns'
+                # intent.enbuff_value = 3
                 print('BOSS intent: -[enbuff]-', intent.enbuff_type)
 
             elif curState == 'Roll Attack':
+                intent.name = 'Roll Attack'
                 intent.is_attack = True
                 intent.attack_value = 9
                 print("BOSS intent: -[attack]-",intent.attack_value)                
             elif curState == 'Twin slam':
+                intent.name = 'Twin slam'
                 intent.is_attack = True
                 intent.attack_value = 18
                 print("BOSS intent: -[attack]-",intent.attack_value)   
             else:
+                intent.name = 'none'
                 print('error on defensive mode')
 
         # move to the next intent

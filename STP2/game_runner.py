@@ -21,7 +21,7 @@ def run_game(is_AI_mode):
                 else:
                     card_to_play = player_input
                     print("player play card: ",card_to_play)
-                    # game_manager.card_play_manager.PlayCard(card_to_play)
+                    game_manager.card_play_manager.PlayCard(card_to_play)
                     # TODO remove it when energy is calculated by Play
                     game_manager.game_state.player_energy -= 1
                     # TODO discard card in CardPlayManager.PlayCard()

@@ -1,12 +1,12 @@
 {
-    "name" : "Anger",
-    "energy_cost" : 0,
+    "name" : "Defend",
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
         "damage" : 0,
         "damage_instances" : 0,
-        "block" : 0
+        "block" : 5
     },
 
     "card_life_cycle_info" : {

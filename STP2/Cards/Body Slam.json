@@ -1,6 +1,6 @@
 {
-    "name" : "Anger",
-    "energy_cost" : 0,
+    "name" : "Body Slam",
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
@@ -94,7 +94,7 @@
     },
 
     "special_modifiers_info" : {
-        "unique_damage" : "none",
+        "unique_damage" : "block",
         "strength_multiplier" : 1
     }
 }
