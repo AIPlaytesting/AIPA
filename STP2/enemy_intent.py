@@ -16,6 +16,7 @@ class EnemyIntent:
         self.enbuff_value = 1
 
     def apply_to(self, game_state:game_manager):
+        ### TODO: apply effect manager calculation
         if self.is_attack :
             game_state.player.current_hp -= self.attack_value
         elif self.is_debuff:

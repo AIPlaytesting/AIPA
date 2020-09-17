@@ -17,11 +17,12 @@ class GameManager:
     def __init__(self):
         self.card_play_manager = CardPlayManager.CardPlayManager(self)
         self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
-        self.boss_AI = EnemyAI()
+        self.boss_AI = EnemyAI(self.game_state.boss)
         self.__end_player_turn_flag = False
 
     def init_game(self):
         self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
+        self.boss_AI = EnemyAI(self.game_state.boss)
 
     def is_game_end(self):
         player_hp, boss_hp = self.game_state.player.current_hp,self.game_state.boss.current_hp
@@ -37,6 +38,8 @@ class GameManager:
 
     def start_player_turn(self):
         print("start player turn ===========================")
+        # refresh block
+        self.game_state.player.block = 0
         # refresh flag
         self.__end_player_turn_flag = False
         # refresh energy
@@ -53,6 +56,9 @@ class GameManager:
 
     def start_enemy_turn(self):
         print("start enemy turn *****************************")
+        # refresh block
+        self.game_state.boss.block = 0
+        self.boss_AI.onEnemyTurnStart(self.game_state.boss.current_hp)
         # discard player cards on hand
         self.game_state.deck.discard_all_cards()
         # refresh boss buffs

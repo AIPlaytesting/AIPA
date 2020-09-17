@@ -40,3 +40,9 @@ class Deck:
             self.__discard_pile.addCards(self.__cards_on_hand)
             self.__cards_on_hand.clear()
 
+    # return __discard_pile.cards [fe,2,3,4] 
+    def getDiscardPile(self):
+        return self.__discard_pile
+
+    def getDrawPile(self):
+        return self.__draw_pile
