@@ -59,7 +59,9 @@ class CardEffectManager:
 
         target.current_hp -= thorn_damage_value
         
-        
+    
+    def ReducePlayerEnergy(self, energy):
+        self.game_manager.game_state.player_energy -= energy
 
 
         

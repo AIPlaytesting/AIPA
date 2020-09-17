@@ -47,6 +47,9 @@ class CardPlayManager:
 
         # TODO : Add to discard pile (pile.py) [add functionality for removing card from hand]
 
+        #Reduce player energy
+        self.card_effects_manager.ReducePlayerEnergy(card.energy_cost)
+
 
     def GetEmptyBuffDict(self):
         buff_dict = self.cards_dict['Anger'].buffs

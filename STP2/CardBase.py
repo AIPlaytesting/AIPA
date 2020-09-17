@@ -20,11 +20,4 @@ class Card:
         self.card_life_cycle = self.card_data["card_life_cycle_info"]
         self.buffs = self.card_data["buffs_info"]
         self.special_mod = self.card_data["special_modifiers_info"]
-    
-    
-    
-        
-        
-        
-         
         
