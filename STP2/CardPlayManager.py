@@ -42,7 +42,7 @@ class CardPlayManager:
 
             buff_value = card.buffs[key]['value']
 
-            self.card_effects_manager.ApplyBuff(buff_target, key, buff_value)
+            self.card_effects_manager.ApplyBuff(self.game_manager.game_state.player, buff_target, key, buff_value)
 
         # Create Block
         self.card_effects_manager.AddBlock(
