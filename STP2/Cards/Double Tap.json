@@ -1,6 +1,6 @@
 {
     "name" : "Double Tap",
-    "energy_cost" : 0,
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {

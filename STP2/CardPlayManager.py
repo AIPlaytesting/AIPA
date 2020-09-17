@@ -57,7 +57,7 @@ class CardPlayManager:
         self.game_manager.game_state.deck.draw_cards(card.card_life_cycle['draw_card'])
 
         # TODO : Add to discard pile (pile.py) [add functionality for removing card from hand]
-
+        self.game_manager.game_state.deck.discard_card(cardName,card.card_life_cycle["copies_in_discard_pile_when_played"])
 
         # Reduce player energy
         self.card_effects_manager.ReducePlayerEnergy(card.energy_cost)

@@ -15,17 +15,22 @@ class EnemyAI:
 
     # Check whether to change mode
 
-    def onEnemyTurnStart(self):
+    def onEnemyTurnStart(self,game_state):
         # change from Offensive to Defensive
         if self.prev_hp - self.boss.current_hp >= 30 and self.mode == 'Offensive':
             self.mode = 'Defensive'
             self.boss.block += 20
             self.curStateIndex = 0
+            # refresh current intent on game state
+            game_state.boss_intent = self.make_intent()
+
         # change from Defensive to Offensive
         # if defensive mode and on the stage of using Twin slam skill, boss will turn back to offensive mode
         if self.mode == 'Defensive' and self.curStateIndex == 2:
             self.mode = 'Offensive'
             self.curStateIndex = 3
+            # refresh current intent on game state
+            game_state.boss_intent = self.make_intent()
 
     # Offensive AI
     def make_intent(self) -> EnemyIntent:
@@ -46,7 +51,7 @@ class EnemyAI:
                 intent.name = 'Vent Steam'
                 intent.is_debuff = True
                 intent.debuff_type = 'Weakened'
-                intent.debuff_value = 1
+                intent.debuff_value = 2
                 print("BOSS intent: -[debuff]-", intent.debuff_type)
             elif curState == 'Whirlwind':
                 intent.name = 'Whirlwind'
@@ -61,11 +66,10 @@ class EnemyAI:
         else:
             curState = self.intents_defensive[self.curStateIndex]
             if curState == 'Defensive Mode':
-                # TODO: add this effect in calculator
                 intent.name = 'Defensive Mode'
-                #intent.is_enbuff = True
-                # intent.enbuff_type = 'Thorns'
-                # intent.enbuff_value = 3
+                intent.is_enbuff = True
+                intent.enbuff_type = 'Thorns'
+                intent.enbuff_value = 3
                 print('BOSS intent: -[enbuff]-', intent.enbuff_type)
 
             elif curState == 'Roll Attack':

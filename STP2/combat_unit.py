@@ -6,10 +6,7 @@ class CombatUnit:
         self.max_hP = init_hp
         self.current_hp = init_hp
         self.block = 0
-        self.buff_dict = empty_buffs_dict
-
-    def add_new_buff(self, buff_name: str,buff_value:int):
-        self.buff_dict[buff_name] += buff_value
+        self.buff_dict = empty_buffs_dict.copy()
         
     def refresh_buff_on_new_turn(self):
         duration_buffs = ['Weakened','Vulnerable','Intangible','Frail','Entangled','Blur','DrawReduction']

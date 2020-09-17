@@ -57,13 +57,13 @@ class GameManager:
 
     def end_player_turn(self):
         self.__end_player_turn_flag = True
-
+        
     def start_enemy_turn(self):
         print("start enemy turn *****************************")
         # refresh block
         self.game_state.boss.block = 0
         # call back for AI
-        self.boss_AI.onEnemyTurnStart()
+        self.boss_AI.onEnemyTurnStart(self.game_state)
         # discard player cards on hand
         self.game_state.deck.discard_all_cards()
         # refresh boss buffs
@@ -89,7 +89,7 @@ class GameManager:
         return self.game_state.deck.get_card_names_on_hand()
 
     def execute_enemy_intent(self):
-        self.game_state.boss_intent.apply_to(self.game_state)
+        self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
 
     def print_cards_info_on_hand(self):
         cards_on_hand = self.get_current_cards_on_hand()

@@ -1,5 +1,5 @@
 from game_manager import GameManager
-
+from enemy_intent import EnemyIntent
 
 def run_game(is_AI_mode):
     # init 
@@ -38,7 +38,6 @@ def play_one_round(is_AI_mode,game_manager:GameManager):
                 card_to_play = player_input
                 print("player play card: ", card_to_play)
                 game_manager.card_play_manager.PlayCard(card_to_play)               
-                game_manager.game_state.deck.discard_card(card_to_play, 1)
 
         if is_AI_mode:
             pass

@@ -17,31 +17,12 @@ class EnemyIntent:
         self.enbuff_type = ""
         self.enbuff_value = 1
 
-    def apply_to(self, game_state:game_manager):
-        ### TODO: apply effect manager calculation
+    def apply_to(self, game_state,effect_calculator):
         if self.is_attack :
-            game_state.player.current_hp -= self.attack_value
+            effect_calculator.DealDamage(game_state.boss,game_state.player,self.attack_value,1)
         elif self.is_block:
-            # TODO in effect calculator
-            pass
+            effect_calculator.AddBlock(game_state.boss,self.block_value)
         elif self.is_debuff:
-            game_state.player.add_new_buff(self.debuff_type,self.debuff_value)
+            effect_calculator.ApplyBuff(game_state.boss,game_state.player,self.debuff_type,self.debuff_value)
         elif self.is_enbuff:
-            game_state.boss.add_new_buff(self.enbuff_type,self.enbuff_value)
-# class EnemyIntentPool:
-#     def __init__(self,intents:[]):
-#         self.intents = intents
-
-#     @classmethod
-#     def load_from_path(cls,path):
-#         with open(path, "r") as file:
-#             raw_json_data = file.read()
-#         self.__dict__ = json.loads(raw_json_data)   
-
-#     def to_json(self):
-#         return json.dumps(self,default=lambda o: o.__dict__)
-
-# print("TEST: ")
-# dummy_intent = EnemyIntent()
-# intentPool = EnemyIntentPool([dummy_intent,dummy_intent,dummy_intent])
-# print(intentPool.to_json())
+            effect_calculator.ApplyBuff(game_state.boss,game_state.boss,self.enbuff_type,self.enbuff_value)

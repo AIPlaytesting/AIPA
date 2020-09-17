@@ -31,7 +31,7 @@ class EffectCalculator:
         damage_value = self.BlockDamage(target, damage_value)
         target.current_hp -= damage_value
         self.LogDamage(source, target, damage_value)
-        self.ThornDamage(source, target)
+        self.ThornDamage(target,source)
 
         
     def BlockDamage(self, target, damage):
@@ -69,16 +69,21 @@ class EffectCalculator:
         self.game_manager.game_state.player_energy -= energy
 
     def LogAddBlock(self, target, block_val):
-        print("[" + target.name + "]" + "[GAINS BLOCK =" + str(block_val) + "]")
+        if block_val != 0:
+            print("[" + target.name + "]" + "[GAINS BLOCK =" + str(block_val) + "]")
 
     def LogBlock (self, target, block_val):
-        print("[" + target.name + "]" + "[BLOCK DMG = " + str(block_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
+        if block_val != 0:
+            print("[" + target.name + "]" + "[BLOCK DMG = " + str(block_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.current_hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
 
     def LogDamage (self, source, target, damage_val):
-        print("[" + source.name + "]" + " [HIT] " + "[" + target.name + "]" + " [DMG = " + str(damage_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
+        if damage_val != 0:
+            print("[" + source.name + "]" + " [HIT] " + "[" + target.name + "]" + " [DMG = " + str(damage_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.current_hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
 
     def LogThornDamage(self, source, target, damage_val):
-        print("[" + source.name + "]" + " [THORN HIT] " + "[" + target.name + "]" + " [DMG = " + str(damage_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
+        if damage_val != 0:
+            print("[" + source.name + "]" + " [THORN HIT] " + "[" + target.name + "]" + " [DMG = " + str(damage_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.current_hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
 
     def LogBuffApplication(self, source, target, buff_name, buff_value):
-        print("[" + source.name + "]" + " [APPLIES BUFF] " + "[" + str(buff_value) +"]" + "[" + buff_name + "]" + "[" + target.name + "]")
+        if buff_value != 0:
+            print("[" + source.name + "]" + " [APPLIES BUFF] " + "[" + str(buff_value) +"]" + "[" + buff_name + "]" + "[" + target.name + "]")

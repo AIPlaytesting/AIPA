@@ -1,6 +1,6 @@
 {
     "name" : "Heavy Blade",
-    "energy_cost" : 0,
+    "energy_cost" : 2,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
