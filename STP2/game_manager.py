@@ -3,20 +3,22 @@ from enemy_intent import EnemyIntent
 from enemy_AI import EnemyAI
 from deck import Deck
 import CardPlayManager
+import EffectCalculator
 
 PLAYER_ENERGY = 3
 class GameState:
     def __init__(self, empty_buff_dict,all_card_names):
-        self.player = CombatUnit(100, empty_buff_dict) # placehold: hp value all 100
-        self.boss = CombatUnit(100, empty_buff_dict) # placehold: hp value all 100
+        self.player = CombatUnit('Player', 100, empty_buff_dict) # placehold: hp value all 100
+        self.boss = CombatUnit('The Guardian', 100, empty_buff_dict) # placehold: hp value all 100
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         self.deck = Deck(all_card_names)
 
 class GameManager:
     def __init__(self):
-        self.card_play_manager = CardPlayManager.CardPlayManager(self)
-        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
+        self.effect_calculator = EffectCalculator.EffectCalculator(self)
+        self.card_play_manager = CardPlayManager.CardPlayManager(self, self.effect_calculator)
+        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(), self.card_play_manager.cards_dict.keys())
         self.boss_AI = EnemyAI(self.game_state.boss)
         self.__end_player_turn_flag = False
 

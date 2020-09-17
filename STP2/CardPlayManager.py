@@ -1,15 +1,13 @@
 import CardBase
 import game_manager
-import CardEffectManager
-
+import EffectCalculator
 
 class CardPlayManager:
     # this class creates and manages instances of the cards
 
-    def __init__(self, game_manager):
+    def __init__(self, game_manager, effect_calculator):
         self.game_manager = game_manager
-        self.card_effects_manager = CardEffectManager.CardEffectManager(
-            game_manager)
+        self.card_effects_manager = effect_calculator
         self.CreateCardInstances()
 
     def CreateCardInstances(self):
@@ -53,11 +51,13 @@ class CardPlayManager:
         # Deal Damage
         for i in range(0, card.damage_block['damage_instances']):
             self.card_effects_manager.DealDamage(self.game_manager.game_state.player, self.game_manager.game_state.boss,
-                                                 card.damage_block['damage'], card.special_mod['strength_multiplier'])
+                card.damage_block['damage'], card.special_mod['strength_multiplier'])
 
-        # TODO : Draw card (pile.py)
+        #Draw card
+        self.game_manager.game_state.deck.draw_cards(card.card_life_cycle['draw_card'])
 
         # TODO : Add to discard pile (pile.py) [add functionality for removing card from hand]
+
 
         # Reduce player energy
         self.card_effects_manager.ReducePlayerEnergy(card.energy_cost)

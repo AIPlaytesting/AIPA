@@ -38,7 +38,6 @@ def play_one_round(is_AI_mode,game_manager:GameManager):
                 card_to_play = player_input
                 print("player play card: ", card_to_play)
                 game_manager.card_play_manager.PlayCard(card_to_play)               
-                # TODO discard card in CardPlayManager.PlayCard()
                 game_manager.game_state.deck.discard_card(card_to_play, 1)
 
         if is_AI_mode:
