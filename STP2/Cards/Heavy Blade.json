@@ -5,7 +5,7 @@
 
     "damage_block_info" : {
         "damage" : 14,
-        "damage_instances" : 0,
+        "damage_instances" : 1,
         "block" : 0
     },
 
