@@ -1,6 +1,7 @@
 {
     "name" : "Pommel Strike",
     "energy_cost" : 1,
+    "tpye" : "Attack",
     "damage_target" : "enemy",
 
     "damage_block_info" : {
@@ -95,6 +96,7 @@
 
     "special_modifiers_info" : {
         "unique_damage" : "none",
-        "strength_multiplier" : 1
+        "strength_multiplier" : 1,
+        "next_attack_count" : 1
     }
 }

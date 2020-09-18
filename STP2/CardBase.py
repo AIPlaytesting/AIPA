@@ -13,6 +13,7 @@ class Card:
     
     def DecodeJson(self):
         self.name = self.card_data["name"]
+        self.type = self.card_data["type"]
         self.energy_cost = self.card_data["energy_cost"]
         
         #damage and block information information

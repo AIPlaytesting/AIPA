@@ -1,5 +1,6 @@
 {
     "name" : "Clothesline",
+    "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
 
@@ -95,6 +96,7 @@
 
     "special_modifiers_info" : {
         "unique_damage" : "none",
-        "strength_multiplier" : 1
+        "strength_multiplier" : 1,
+        "next_attack_count" : 1
     }
 }

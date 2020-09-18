@@ -9,6 +9,7 @@ class CardPlayManager:
         self.game_manager = game_manager
         self.card_effects_manager = effect_calculator
         self.CreateCardInstances()
+        self.next_attack_count = 1
 
     def CreateCardInstances(self):
         self.cards_dict = {}
@@ -32,42 +33,51 @@ class CardPlayManager:
 
         card = self.cards_dict[cardName]
 
-        # Apply buffs
-        for key in card.buffs:
+        card_play_count = self.next_attack_count if card.type == 'Attack' else 1
 
-            if(card.buffs[key]['target'] == 'enemy'):
-                buff_target = self.game_manager.game_state.boss
-            else:
-                buff_target = self.game_manager.game_state.player
+        for i in range(0, card_play_count):
+            # Apply buffs
+            for key in card.buffs:
+                if(card.buffs[key]['target'] == 'enemy'):
+                    buff_target = self.game_manager.game_state.boss
+                else:
+                    buff_target = self.game_manager.game_state.player
 
-            buff_value = card.buffs[key]['value']
+                buff_value = card.buffs[key]['value']
 
-            self.card_effects_manager.ApplyBuff(self.game_manager.game_state.player, buff_target, key, buff_value)
+                self.card_effects_manager.ApplyBuff(self.game_manager.game_state.player, buff_target, key, buff_value)
 
-        # Create Block
-        self.card_effects_manager.AddBlock(
-            self.game_manager.game_state.player, card.damage_block['block'])
+            # Create Block
+            self.card_effects_manager.AddBlock(self.game_manager.game_state.player, card.damage_block['block'])
 
-        # Deal Damage
-        for i in range(0, card.damage_block['damage_instances']):
-            self.card_effects_manager.DealDamage(self.game_manager.game_state.player, self.game_manager.game_state.boss,
-                card.damage_block['damage'], card.special_mod['strength_multiplier'])
+            # Deal Damage
+            for i in range(0, card.damage_block['damage_instances']):
+                
+                if card.special_mod['unique_damage'] == 'none':
+                    damage_value = card.damage_block['damage']
+                elif card.special_mod['unique_damage'] == 'block':
+                    damage_value = self.game_manager.game_state.player.block
 
-        #Draw card
-        self.game_manager.game_state.deck.draw_cards(card.card_life_cycle['draw_card'])
+                self.card_effects_manager.DealDamage(self.game_manager.game_state.player, self.game_manager.game_state.boss,
+                    damage_value, card.special_mod['strength_multiplier'])
 
-        # TODO : Add to discard pile (pile.py) [add functionality for removing card from hand]
+            #Draw card
+            self.game_manager.game_state.deck.draw_cards(card.card_life_cycle['draw_card'])
+
+        # Add to discard pile
         self.game_manager.game_state.deck.discard_card(cardName,card.card_life_cycle["copies_in_discard_pile_when_played"])
 
         # Reduce player energy
         self.card_effects_manager.ReducePlayerEnergy(card.energy_cost)
 
+        # Modify the next_attack_count variable. [Attack card always resets it to 1]. 
+        self.next_attack_count = 1 if card.type == 'Attack' else self.next_attack_count
+        self.next_attack_count = card.special_mod['next_attack_count'] if cardName == 'Double Tap'
+
+
     def GetEmptyBuffDict(self):
         buff_dict = self.cards_dict['Anger'].buffs
-
         empty_buff_dict = {}
-
         for key in buff_dict:
             empty_buff_dict[key] = 0
-
         return empty_buff_dict
