@@ -20,7 +20,6 @@ class AI_Manager:
         return action
 
     def SendResultingStateToAI(self, game_state, playable_cards):
-
         pass
 
     def ReadStateActionDefFromFile(self, version_string):

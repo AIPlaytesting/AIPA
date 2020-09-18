@@ -6,5 +6,5 @@ class AI_Brain:
         pass
 
     def PredictAction(self, state):
-        pass
+        return None
     
