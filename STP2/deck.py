@@ -1,4 +1,5 @@
 import Pile
+import json
 
 # all cards are stored as names(str)
 class Deck:
@@ -10,10 +11,17 @@ class Deck:
         self.reset_deck(all_cards_names)
 
     def reset_deck(self,all_cards_names):
-        print("deck reset as: ", all_cards_names)
         self.__draw_pile.resetPile()
         self.__discard_pile.resetPile()
-        self.__draw_pile.addCards(all_cards_names)
+
+        card_composition = self.__load_card_composition()
+        cards_in_deck = []
+        for card in all_cards_names:
+            card_count = card_composition[card] if  card in card_composition else 1
+            for i in range(card_count):
+                cards_in_deck.append(card)
+        print("deck: ", cards_in_deck)
+        self.__draw_pile.addCards(cards_in_deck)
 
     def get_card_names_on_hand(self):
         return self.__cards_on_hand
@@ -46,3 +54,11 @@ class Deck:
 
     def getDrawPile(self):
         return self.__draw_pile
+
+    def __load_card_composition(self):
+        PATH = "Decks/" + "deck_1.0.json"
+        with open(PATH, "r") as file:
+            raw_json_data = file.read()
+            deck_info = json.loads(raw_json_data)     
+            card_composition = deck_info["Composition"]
+            return card_composition

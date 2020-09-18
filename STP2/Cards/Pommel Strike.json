@@ -1,7 +1,7 @@
 {
     "name" : "Pommel Strike",
     "energy_cost" : 1,
-    "tpye" : "Attack",
+    "type" : "Attack",
     "damage_target" : "enemy",
 
     "damage_block_info" : {
