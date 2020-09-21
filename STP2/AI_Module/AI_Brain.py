@@ -64,8 +64,32 @@ class AI_Brain:
         if self.replay_buffer.mem_ctr < self.batch_size :
             return
         
-        states, new_states, rewards, actions, terminals = self.replay_buffer.SampleBuffer(self.batch_size)
+        states, new_states, rewards, actions, isTerminals = self.replay_buffer.SampleBuffer(self.batch_size)
 
+        #predict function takes in state/s and returns action space predictions
+        q_state_predicts = self.q_model.predict(states)
+        q_new_state_predicts = self.q_model.predict(new_states)
+        
+        batch_index = np.arange(self.batch_size, dtype=int)
+        q_target = np.copy(q_state_predicts)
+
+        #creating a target that can be used for training
+        # indexing of the following is complex:
+        # batch_size, actions, rewards, q_new_state_predicts.shape[0], isTerminals have the same dimensions
+        # hence imagine that the following is iterating over the length
+        # because of numpy indexing the following can be read like :
+        # for i in range(len(batch_index)):
+        #       q_target[batch_index[i], actions[i]] = rewards[i] + self.gamma * np.max(q_new_state_predicts[i])
+        # 
+        # notice that only one value (one action neuron's value) per action_space is going to be updated here
+        # unsurprising, this value is going to be chosen by 'actions'. Therefore only the taken actions value is updated 
+        q_target[batch_index, actions] = rewards + self.gamma * np.max(q_new_state_predicts) * isTerminals
+
+        #training model
+        self.q_model.train_on_batch(states, q_target)
+
+        #epsilon update
+        self.epsilon = self.epsilon - self.epsilon_dec if self.epsilon > self.epsilon_min else self.epsilon_min
 
 
 
@@ -73,4 +97,9 @@ class AI_Brain:
         self.replay_buffer.StoreTransition(state, new_state, action, reward, isTerminal)
 
 
+    def SaveModel(self, filepath):
+        self.q_model.SaveModel(filepath)
+
+    def LoadModel(self, filepath):
+        self.q_model = self.q_model.LoadModel(filepath)
     

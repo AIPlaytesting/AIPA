@@ -5,22 +5,26 @@ import AI_Module.AI_Brain
 
 #Purpose of this class is to take information about the game state and create a gym like interface for the AI to train with.
 
-class AI_Manager:
+class AI_Transformer:
 
     def __init__(self):
-        self.ai_brain = AI_Module.AI_Brain.AI_Brain()
+        #self.ai_brain = AI_Module.AI_Brain.AI_Brain(gamma=0.99, state_space_dim=102, action_space_dim=13,
+        #                    hidden_layer_dims=512, epsilon=0.5, epsilon_dec=0.03, epsilon_min = 0.01, mem_size = 100000, batch_size = 64)
         self.ReadStateActionDefFromFile("1.0")
+        self.CreateEmptyStateActionDicts()
         pass
 
-    def GetInputFromAI(self, game_state, playable_cards):
+    def GetAIStateSpace(self, game_state, playable_cards):
         self.CreateEmptyStateActionDicts()
         self.MapGameStateToStateDicts(game_state, playable_cards)
-        flat_state_list = self.GetFlatStateList()
-        action = self.ai_brain.PredictAction(flat_state_list)
-        return action
+        flat_state_space = self.GetFlatStateList()
+        
+        return flat_state_space
 
-    def SendResultingStateToAI(self, game_state, playable_cards):
-        pass
+    def GetGameAction(self, action_neuron_number):
+        action_card = self.action_space[action_neuron_number]
+        return action_card
+
 
     def ReadStateActionDefFromFile(self, version_string):
         with open("StateActionDef/state_action_def_" + version_string + ".json", "r") as file:
@@ -59,9 +63,11 @@ class AI_Manager:
 
         for key in self.in_hand_cards:
             self.in_hand_cards[key] = game_state.deck.__cards_on_hand.count(key)
-            self.in_hand_and_playable_cards[key] = playable_cards(key)
-            #TODO draw pile
-            #TODO discard pile
+            self.in_hand_and_playable_cards[key] = playable_cards.count(key)
+            draw_pile = game_state.deck.getDrawPile().cards
+            discard_pile = game_state.deck.getDiscardPile().cards
+            self.draw_pile[key] = draw_pile.count(key)
+            self.discard_pile[key] = discard_pile.count(key)
 
         
     def GetFlatStateList(self):
