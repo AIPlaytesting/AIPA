@@ -125,18 +125,18 @@
     },
 
     "action_space" : {
-        "1": "end_turn",
-        "2": "Anger",
-        "3": "Defend" ,
-        "4": "Shrug It Off" ,
-        "5": "Pommel Strike" ,
-        "6": "Sword Bomerang" ,
-        "7": "Body Slam" ,
-        "8": "Iron Wave" ,
-        "9": "Heavy Blade" ,
-        "10": "Flex" ,
-        "11": "Double Tap" ,
-        "12": "Disarm" ,
-        "13": "Clothesline"
+        "0": "end_turn",
+        "1": "Anger",
+        "2": "Defend" ,
+        "3": "Shrug It Off" ,
+        "4": "Pommel Strike" ,
+        "5": "Sword Bomerang" ,
+        "6": "Body Slam" ,
+        "7": "Iron Wave" ,
+        "8": "Heavy Blade" ,
+        "9": "Flex" ,
+        "10": "Double Tap" ,
+        "11": "Disarm" ,
+        "12": "Clothesline"
     }
 }

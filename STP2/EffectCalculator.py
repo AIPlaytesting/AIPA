@@ -69,21 +69,21 @@ class EffectCalculator:
         self.game_manager.game_state.player_energy -= energy
 
     def LogAddBlock(self, target, block_val):
-        if block_val != 0:
+        if block_val != 0 and self.game_manager.isLoggingEnabled:
             print("[" + target.name + "]" + "[GAINS BLOCK =" + str(block_val) + "]")
 
     def LogBlock (self, target, block_val):
-        if block_val != 0:
+        if block_val != 0 and self.game_manager.isLoggingEnabled:
             print("[" + target.name + "]" + "[BLOCK DMG = " + str(block_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.current_hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
 
     def LogDamage (self, source, target, damage_val):
-        if damage_val != 0:
+        if damage_val != 0 and self.game_manager.isLoggingEnabled:
             print("[" + source.name + "]" + " [HIT] " + "[" + target.name + "]" + " [DMG = " + str(damage_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.current_hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
 
     def LogThornDamage(self, source, target, damage_val):
-        if damage_val != 0:
+        if damage_val != 0 and self.game_manager.isLoggingEnabled:
             print("[" + source.name + "]" + " [THORN HIT] " + "[" + target.name + "]" + " [DMG = " + str(damage_val) + "]  |  " + "[" + target.name + " hp]" + " = " + str(target.current_hp) + "," + "[" + target.name + " block]" + " = " + str(target.block))
 
     def LogBuffApplication(self, source, target, buff_name, buff_value):
-        if buff_value != 0:
+        if buff_value != 0 and self.game_manager.isLoggingEnabled:
             print("[" + source.name + "]" + " [APPLIES BUFF] " + "[" + str(buff_value) +"]" + "[" + buff_name + "]" + "[" + target.name + "]")

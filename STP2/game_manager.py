@@ -22,6 +22,9 @@ class GameManager:
         self.boss_AI = EnemyAI(self.game_state.boss)
         self.__end_player_turn_flag = False
 
+        #set to false when training AI
+        self.isLoggingEnabled = True
+
     def init_game(self):
         self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
         self.boss_AI = EnemyAI(self.game_state.boss)

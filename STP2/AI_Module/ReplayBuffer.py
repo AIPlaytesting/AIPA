@@ -11,7 +11,7 @@ class ReplayBuffer:
         self.new_state_memory = np.zeros((mem_size, state_space_dim), dtype=np.int)
 
         self.action_memory = np.zeros((mem_size), dtype=np.float)
-        self.reward_memory = np.zerps((mem_size), dtype=np.float)
+        self.reward_memory = np.zeros((mem_size), dtype=np.float)
 
         self.terminal_memory = np.zeros((mem_size), dtype=np.int)
 
@@ -24,7 +24,10 @@ class ReplayBuffer:
         self.action_memory[index] = action
         self.reward_memory[index] = reward
         self.terminal_memory[index] = isTerminal
-    
+
+        self.mem_ctr += 1    
+
+
     def SampleBuffer(self, batch_size):
         max_mem = min(self.mem_ctr, self.mem_size)
 

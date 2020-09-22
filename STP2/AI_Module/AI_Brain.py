@@ -1,11 +1,11 @@
 import tensorflow as tf
 from tensorflow import keras
-import ReplayBuffer
+from . import ReplayBuffer
 import numpy as np
 
 
 def BuildDeepQNetwork(state_space_dim, action_space_dim, hl1_dim, hl2_dim, hl3_dim, hl4_dim):
-    model = keras.Sequential(
+    model = keras.Sequential([
         keras.layers.Dense(state_space_dim, activation='relu'),
         keras.layers.Dense(hl1_dim, activation='relu'),
         keras.layers.Dense(hl2_dim, activation='relu'),
@@ -13,7 +13,7 @@ def BuildDeepQNetwork(state_space_dim, action_space_dim, hl1_dim, hl2_dim, hl3_d
         keras.layers.Dense(hl4_dim, activation='relu'),
         #Dont want any activation for the output layer since it is the Q-value
         keras.layers.Dense(action_space_dim, activation=None)
-    )
+    ])
 
     model.compile(optimizer='Adam', loss='mean_squared_error', metrics=['accuracy', 'mean_squared_error'])
 
@@ -27,7 +27,7 @@ class AI_Brain:
         mem_size, batch_size):
 
         self.replay_buffer = ReplayBuffer.ReplayBuffer(state_space_dim, mem_size)
-        self.action_space = np.arange(action_space_dim)
+        self.action_space = [i for i in range(action_space_dim)]
         self.gamma = gamma
         self.epsilon = epsilon
         self.epsilon_dec = epsilon_dec
@@ -37,7 +37,7 @@ class AI_Brain:
 
         self.q_model = BuildDeepQNetwork(
             state_space_dim=state_space_dim,
-            action_space_dim=action_space_dim,
+            action_space_dim= action_space_dim,
             hl1_dim=hidden_layer_dims[0],
             hl2_dim = hidden_layer_dims[1],
             hl3_dim = hidden_layer_dims[2],
@@ -50,13 +50,13 @@ class AI_Brain:
     def PredictAction(self, state):
         
         if (np.random.random() < self.epsilon) :
-            action = np.random.choice(self.action_space)
+            #create an array of random values
+            actions = np.random.rand(len(self.action_space))
         else:
-            state = np.array([state])
-            actions = self.q_model.predict(state)
-            action = np.argmax(actions)
-        
-        return action
+            actions = self.q_model.predict(np.array([state]))
+            actions = actions[0]
+
+        return actions
 
 
     def Learn(self):
@@ -71,6 +71,7 @@ class AI_Brain:
         q_new_state_predicts = self.q_model.predict(new_states)
         
         batch_index = np.arange(self.batch_size, dtype=int)
+        actions = actions.astype(int)
         q_target = np.copy(q_state_predicts)
 
         #creating a target that can be used for training
@@ -89,7 +90,12 @@ class AI_Brain:
         self.q_model.train_on_batch(states, q_target)
 
         #epsilon update
-        self.epsilon = self.epsilon - self.epsilon_dec if self.epsilon > self.epsilon_min else self.epsilon_min
+        if(self.epsilon <= 0):
+            self.epsilon = self.epsilon_min
+        elif self.epsilon > self.epsilon_min :
+            self.epsilon -= self.epsilon_dec
+        else:
+            self.epsilon = self.epsilon_min
 
 
 
@@ -98,8 +104,8 @@ class AI_Brain:
 
 
     def SaveModel(self, filepath):
-        self.q_model.SaveModel(filepath)
+        self.q_model.save(filepath)
 
     def LoadModel(self, filepath):
-        self.q_model = self.q_model.LoadModel(filepath)
+        self.q_model = self.q_model.load_model(filepath)
     
