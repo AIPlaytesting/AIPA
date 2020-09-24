@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AIP {
+namespace AIPlaytesing.Python {
     public class RPSEventPlayer : MonoBehaviour {
         public PythonProcess gameplayProcess;
 

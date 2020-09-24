@@ -8,7 +8,7 @@ using System;
 using UnityEngine;
 using System.IO;
 
-namespace AIP {
+namespace AIPlaytesing.Python {
     // receive connection from client connect point 
     // TBD: what if client lost connection?
     public class ProcessSocket:MonoBehaviour {

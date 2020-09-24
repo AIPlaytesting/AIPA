@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace AIP {
+namespace AIPlaytesing.Python {
     public class PythonProcess : MonoBehaviour {
         const int LISTEN_POART = 9999;
 
@@ -42,15 +42,11 @@ namespace AIP {
             processSocket = ProcessSocket.Create(LISTEN_POART);
         }
 
+        // TODO: donnt need to assign callback everytime. 
         public void Send(string messageStr, OnMessageResponse onMessageResponseCallBack = null) {
             processSocket.SendMessage(new Message(messageStr));
             onMessageResponse = onMessageResponseCallBack;
         }
-
-        public Message[] Read() {
-            return processSocket.Read();
-        }
-
 
         private void OnApplicationQuit() {
             if (processSocket != null) {
