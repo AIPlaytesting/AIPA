@@ -32,6 +32,16 @@ namespace GameBrowser {
 
         public void Render(GameSequenceMarkupFile source) {
             Debug.Log(JsonUtility.ToJson(source));
+
+            foreach (var card in FindObjectsOfType<SelectableCard>()) {
+                DestroyImmediate(card.gameObject);
+            }
+
+            Vector2 bias = Vector2.zero;
+            foreach (var card in source.beginingState.cardsOnHand) {
+                SelectableCard.Create(card, new CanvasPosition(Canvas.Instance.cardsOnHand, bias));
+                bias += new Vector2(2.5f, 0);
+            }
         }
 
         private void Init() {

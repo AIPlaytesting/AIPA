@@ -58,7 +58,6 @@ def send_response(player_socket,game_manager):
             game_state_markup,[],game_state_markup
         )
         game_sequence_markup_json = json.dumps(game_sequence_markup_file)
-        print("markup json: ",game_sequence_markup_json)
         response_message ={'gameSequenceMarkupJSON':game_sequence_markup_json} 
         response_message_json = json.dumps(response_message)
         player_socket.send(response_message_json.encode())

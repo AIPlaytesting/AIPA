@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 namespace GameBrowser {
     public class PlayCardInputTrigger:UserInputTrigger  {
-        [SerializeField]
-        private string cardName = "";
+        public string cardName = "";
 
         public override void TriggerUserInput() {
             var userInput = new UserInput();

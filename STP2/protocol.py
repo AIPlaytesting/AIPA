@@ -3,9 +3,9 @@ from combat_unit import CombatUnit
 from CardBase import Card
 from CardPlayManager import CardPlayManager
 
-INPUT_TYPE_NONE = '0'
-INPUT_TYPE_PLAY_CARD = '1'
-INPUT_TYPE_END_TURN = '2'
+INPUT_TYPE_NONE = 0
+INPUT_TYPE_PLAY_CARD = 1
+INPUT_TYPE_END_TURN = 2
 
 # The naming style is C#, becuase the name of class need to be the same as 
 # front end in Unity 
