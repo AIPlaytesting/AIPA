@@ -5,6 +5,10 @@ using UnityEngine;
 
 
 namespace GameBrowser.Rendering {
+    // Markup  ----MarkupRenderer---->  MarkupEntity
+    //      Markup: the information to be rendered
+    //      MarkupRenderer: render the markup to create MarkupEntity
+    //      MarkupEntity: the object in the scene, the result of Markup's rendering 
     public class RenderManager : MonoBehaviour {
 
         private ValueRenderer valueRenderer;
