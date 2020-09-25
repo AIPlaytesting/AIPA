@@ -7,6 +7,7 @@ namespace GameBrowser {
         public static ResourceTable Instance = null;
 
         public GameObject cardTemplate;
+        public GameObject valueEntityTemplate;
 
         private void Awake() {
             if (Instance == null) {

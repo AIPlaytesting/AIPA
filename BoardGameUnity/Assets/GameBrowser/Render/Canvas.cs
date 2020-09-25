@@ -7,6 +7,7 @@ namespace GameBrowser {
         public static Canvas Instance = null;
 
         public CanvasAnchor cardsOnHand;
+        public CanvasAnchor leftBottom;
 
         private void Awake() {
             if (Instance == null) {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameBrowser.Rendering;
 
 namespace GameBrowser {
     public class GameBrowser:MonoBehaviour {
@@ -8,6 +9,7 @@ namespace GameBrowser {
         private class Dependencies{
             public FrontEndConnection frontEndConnection;
             public UserInputManager userInputManager;
+            public RenderManager renderManager;
         }
 
         public static GameBrowser Instance { get; private set; } = null;
@@ -32,21 +34,13 @@ namespace GameBrowser {
 
         public void Render(GameSequenceMarkupFile source) {
             Debug.Log(JsonUtility.ToJson(source));
-
-            foreach (var card in FindObjectsOfType<SelectableCard>()) {
-                DestroyImmediate(card.gameObject);
-            }
-
-            Vector2 bias = Vector2.zero;
-            foreach (var card in source.beginingState.cardsOnHand) {
-                SelectableCard.Create(card, new CanvasPosition(Canvas.Instance.cardsOnHand, bias));
-                bias += new Vector2(2.5f, 0);
-            }
+            dependencies.renderManager.RenderGameState(source.beginingState);
         }
 
         private void Init() {
             dependencies.frontEndConnection.Init();
             frontEndConnection.onReceiveResponse += RenderResponse;
+            dependencies.renderManager.Init();
         }
 
         private void RenderResponse(ResponseMessage responseMessage) {
