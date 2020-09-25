@@ -40,7 +40,8 @@ namespace GameBrowser {
         }
 
         private void RenderResponse(ResponseMessage responseMessage) {
-            var gameSequenceMarkupFile = GameSequenceMarkupFile.Parse(responseMessage.gameSequenceMarkupFile);
+            Debug.Log("Markup JSON: "+responseMessage.gameSequenceMarkupJSON);
+            var gameSequenceMarkupFile = GameSequenceMarkupFile.Parse(responseMessage.gameSequenceMarkupJSON);
             Render(gameSequenceMarkupFile);
         }
     }

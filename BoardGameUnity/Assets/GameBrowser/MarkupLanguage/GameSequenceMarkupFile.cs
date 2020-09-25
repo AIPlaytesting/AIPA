@@ -9,8 +9,9 @@ namespace GameBrowser {
         public List<GameEventMarkup> gameEvents;
         public GameStateMarkup endingState;
 
-        public static GameSequenceMarkupFile Parse(string gameFlowMarkupString) {
-            throw new System.NotImplementedException();
+        public static GameSequenceMarkupFile Parse(string gameSequenceMarkupJSON) {
+            var gameSequenceMarkupFile = FullSerializerWrapper.Deserialize(typeof(GameSequenceMarkupFile), gameSequenceMarkupJSON) as GameSequenceMarkupFile;
+            return gameSequenceMarkupFile;
         }
 
         public static string EncodeToString(GameSequenceMarkupFile gameFlowMarkupFile) {

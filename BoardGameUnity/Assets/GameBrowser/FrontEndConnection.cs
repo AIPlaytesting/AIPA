@@ -14,7 +14,7 @@ namespace GameBrowser {
         public OnReceiveResponse onReceiveResponse;
 
         public void Init() {
-            pythonProcess.WaitProcessConnect();
+            pythonProcess.Run();
         }
 
         public void SendRequest(RequestMessage requestMessage) {

@@ -12,6 +12,7 @@ namespace AIPlaytesing.Python {
             public string directiory = "";
             public string entryFileName = "main.py";
             public bool showWindow = true;
+            public bool startManually = false;
         }
 
         public delegate void OnMessageResponse(string response);
@@ -22,12 +23,6 @@ namespace AIPlaytesing.Python {
         private ProcessSocket processSocket = null;
         private OnMessageResponse onMessageResponse = null;
 
-        private void Awake() {
-            WaitProcessConnect();
-            var entryFilePath = config.directiory + @"\" + config.entryFileName;
-            process = StartProcess(entryFilePath, config.showWindow);
-        }
-
         private void Update() {
             var newMessages = processSocket.Read();
             if (newMessages.Length > 0 && onMessageResponse != null) {
@@ -35,7 +30,16 @@ namespace AIPlaytesing.Python {
                 onMessageResponse = null;
             }
         }
-        public void WaitProcessConnect() {
+
+        public void Run() {
+            WaitProcessConnect();
+            if (!config.startManually) {
+                var entryFilePath = config.directiory + @"\" + config.entryFileName;
+                process = StartProcess(entryFilePath, config.showWindow);
+            }
+        }
+
+        private void WaitProcessConnect() {
             if (processSocket != null) {
                 processSocket.Abort();
             }

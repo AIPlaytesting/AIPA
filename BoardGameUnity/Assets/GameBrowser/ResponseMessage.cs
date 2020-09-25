@@ -4,6 +4,6 @@ using UnityEngine;
 
 namespace GameBrowser {
     public class ResponseMessage {
-        public string gameSequenceMarkupFile = "";
+        public string gameSequenceMarkupJSON = "";
     }
 }

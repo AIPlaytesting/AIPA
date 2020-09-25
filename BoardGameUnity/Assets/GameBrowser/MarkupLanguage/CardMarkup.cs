@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class CardMarkup
 {
-    public string cardName = "cardName";
-
+    public string name = "cardName";
+    public int energyCost = 0;
 }
