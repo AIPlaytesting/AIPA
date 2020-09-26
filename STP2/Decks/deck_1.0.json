@@ -2,7 +2,7 @@
     "version" : "1.0",
 
     "Composition" :{
-        "Anger" : 5,
+        "Anger" : 1,
         "Defend" : 2,
         "Shrug It Off" : 2,
         "Pommel Strike" : 1,

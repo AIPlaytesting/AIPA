@@ -1,6 +1,6 @@
 import game_manager
 import json
-import AI_Module.AI_Brain
+
 
 
 #Purpose of this class is to take information about the game state and create a gym like interface for the AI to train with.

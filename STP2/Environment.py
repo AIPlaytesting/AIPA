@@ -8,6 +8,7 @@ class Environment:
     def __init__(self):
         self.ai_transformer = AI_Module.AI_Transformer.AI_Transformer()
         self.game_manager = game_manager.GameManager()
+        self.action_cards_played = {}
 
     def Reset(self):
         self.game_manager.init_game()
@@ -22,8 +23,8 @@ class Environment:
 
     def IsCardPlayable(self, action_neuron_number):
         #end turn is always doable
-        if(action_neuron_number == 0):
-            return True
+        # if(action_neuron_number == 0):
+        #     return True
 
         action_card = self.ai_transformer.GetGameAction(action_neuron_number)
         isPlayable = action_card in self.game_manager.get_current_playable_cards()
@@ -33,7 +34,17 @@ class Environment:
     def Step(self, action_space_vec):
 
         action_neuron_number = self.ChoosePossibleActionWithMaxQVal(action_space_vec)
-        action_card = self.ai_transformer.GetGameAction(action_neuron_number)
+
+        if(action_neuron_number == -1):
+            action_card = 'end_turn'
+        else:
+            action_card = self.ai_transformer.GetGameAction(action_neuron_number)
+        
+        if(action_card in self.action_cards_played):
+            self.action_cards_played[action_card] += 1
+        else:
+            self.action_cards_played[action_card] = 1
+        
         reward = 0
 
         #action_card contains string of card name
@@ -62,8 +73,8 @@ class Environment:
         # reward by transitioning from current state to new state
         if (isTerminal and isPlayerWin) : 
             reward = 1
-        elif (isTerminal and not isPlayerWin) : 
-            reward = -1
+        # elif (isTerminal and not isPlayerWin) : 
+        #     reward = -1
         elif (not isTerminal):
             #{negative reward to player for losing hp}
             reward += (new_player_hp - old_player_hp) * 0.01  
@@ -88,12 +99,9 @@ class Environment:
         action_space_vec_dec = np.sort(action_space_vec)[::-1].tolist()
         action_space_vec = action_space_vec.tolist()
 
-        print(action_space_vec)
-        print(action_space_vec_dec)
-
         for i in range(len(action_space_vec_dec)):
             index = action_space_vec.index(action_space_vec_dec[i])
             if self.IsCardPlayable(index):
                 return index
         
-        return 0
+        return -1

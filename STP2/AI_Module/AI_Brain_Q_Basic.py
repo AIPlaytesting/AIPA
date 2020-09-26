@@ -6,11 +6,11 @@ import numpy as np
 
 def BuildDeepQNetwork(state_space_dim, action_space_dim, hl1_dim, hl2_dim, hl3_dim, hl4_dim):
     model = keras.Sequential([
-        keras.layers.Dense(state_space_dim, activation='relu'),
-        keras.layers.Dense(hl1_dim, activation='relu'),
-        keras.layers.Dense(hl2_dim, activation='relu'),
-        keras.layers.Dense(hl3_dim, activation='relu'),
-        keras.layers.Dense(hl4_dim, activation='relu'),
+        keras.layers.Dense(state_space_dim, activation='sigmoid'),
+        keras.layers.Dense(hl1_dim, activation='sigmoid'),
+        keras.layers.Dense(hl2_dim, activation='sigmoid'),
+        keras.layers.Dense(hl3_dim, activation='sigmoid'),
+        keras.layers.Dense(hl4_dim, activation='sigmoid'), 
         #Dont want any activation for the output layer since it is the Q-value
         keras.layers.Dense(action_space_dim, activation=None)
     ])
@@ -53,7 +53,7 @@ class AI_Brain:
             #create an array of random values
             actions = np.random.rand(len(self.action_space))
         else:
-            actions = self.q_model.predict(np.array([state]))
+            actions = self.q_model.predict(np.array([state], dtype=float))
             actions = actions[0]
 
         return actions
@@ -85,6 +85,7 @@ class AI_Brain:
         # notice that only one value (one action neuron's value) per action_space is going to be updated here
         # unsurprising, this value is going to be chosen by 'actions'. Therefore only the taken actions value is updated 
         q_target[batch_index, actions] = rewards + self.gamma * np.max(q_new_state_predicts) * isTerminals
+
 
         #training model
         self.q_model.train_on_batch(states, q_target)

@@ -9,10 +9,8 @@ class ReplayBuffer:
 
         self.state_memory = np.zeros((mem_size, state_space_dim), dtype=np.int)
         self.new_state_memory = np.zeros((mem_size, state_space_dim), dtype=np.int)
-
         self.action_memory = np.zeros((mem_size), dtype=np.float)
         self.reward_memory = np.zeros((mem_size), dtype=np.float)
-
         self.terminal_memory = np.zeros((mem_size), dtype=np.int)
 
 
@@ -23,7 +21,7 @@ class ReplayBuffer:
         self.new_state_memory[index] = new_state
         self.action_memory[index] = action
         self.reward_memory[index] = reward
-        self.terminal_memory[index] = isTerminal
+        self.terminal_memory[index] = 1 - int(isTerminal)
 
         self.mem_ctr += 1    
 
@@ -38,7 +36,19 @@ class ReplayBuffer:
         new_states = self.new_state_memory[batch]
         actions = self.action_memory[batch]
         rewards = self.reward_memory[batch]
-        terminals = self.terminal_memory[batch]
+        isTerminals = self.terminal_memory[batch]
 
-        return states, new_states, actions, rewards, terminals
+        return states, new_states, actions, rewards, isTerminals
+
+
+    def GetFromBuffer(self, index_array):
+        states = self.state_memory[index_array]
+        new_states = self.new_state_memory[index_array]
+        actions = self.action_memory[index_array]
+        rewards = self.reward_memory[index_array]
+        isTerminals = self.terminal_memory[index_array]
+        
+        return states, new_states, actions, rewards, isTerminals
+        
+        
 
