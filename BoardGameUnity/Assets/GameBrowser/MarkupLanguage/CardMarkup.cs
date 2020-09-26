@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class CardMarkup
-{
-    public string name = "cardName";
-    public int energyCost = 0;
+namespace GameBrowser {
+    [System.Serializable]
+    public class CardMarkup : Markup {
+        public string name = "cardName";
+        public int energyCost = 0;
+    }
 }

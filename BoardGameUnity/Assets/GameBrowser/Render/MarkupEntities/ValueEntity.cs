@@ -14,7 +14,7 @@ namespace GameBrowser.Rendering {
             return valueEntity;
         }
 
-        protected override void HookTo(Markup markup) {
+        public override void HookTo(Markup markup) {
             base.HookTo(markup);
             var valueMarkup = markup as ValueMarkup;
             valueText.text = string.Format("{0}/{1}", valueMarkup.curValue, valueMarkup.maxValue);

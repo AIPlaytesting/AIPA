@@ -5,34 +5,26 @@ using UnityEngine;
 
 
 namespace GameBrowser.Rendering {
-    // Markup  ----MarkupRenderer---->  MarkupEntity
-    //      Markup: the information to be rendered
-    //      MarkupRenderer: render the markup to create MarkupEntity
-    //      MarkupEntity: the object in the scene, the result of Markup's rendering 
     public class RenderManager : MonoBehaviour {
 
         private ValueRenderer valueRenderer;
+        private CardsRenderer cardsRenderer;
 
         public void Init() {
             valueRenderer = new ValueRenderer();
+            cardsRenderer = new CardsRenderer();
         }
 
         public void RenderGameState(GameStateMarkup gameStateMarkup) {
-            RenderCardsOnHand(gameStateMarkup.cardsOnHand);
+            var mainSceneCanvas = GameBrowser.Instance.mainSceneCanvas;
+
+            cardsRenderer.Clear();
+            cardsRenderer.RenderCardsOnHand(gameStateMarkup.cardsOnHand);
+            cardsRenderer.RenderDrawPileWindow(gameStateMarkup.drawPile);
+            cardsRenderer.RenderDiscardPileWindow(gameStateMarkup.discardPile);
+
             valueRenderer.Clear();
-            valueRenderer.Render(gameStateMarkup.energy, new CanvasPosition(1, 3));
-        }
-
-        private void RenderCardsOnHand(CardMarkup[] cardsOnHand) {
-            foreach (var card in FindObjectsOfType<SelectableCard>()) {
-                DestroyImmediate(card.gameObject);
-            }
-
-            Vector2 bias = Vector2.zero;
-            foreach (var card in cardsOnHand) {
-                SelectableCard.Create(card, new CanvasPosition(Canvas.Instance.cardsOnHand, bias));
-                bias += new Vector2(2.5f, 0);
-            }
+            valueRenderer.Render(gameStateMarkup.energy, new CanvasPosition(mainSceneCanvas, 1, 3));
         }
     }
 }

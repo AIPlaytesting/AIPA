@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameBrowser {
+namespace GameBrowser.Rendering {
     public class CanvasPosition {
         public CanvasAnchor anchor;
         public Vector2 bias;
@@ -13,8 +13,8 @@ namespace GameBrowser {
             this.bias = bias;
         }
 
-        public CanvasPosition(float x,float y) {
-            this.anchor = Canvas.Instance.leftBottom;
+        public CanvasPosition(BrowserCanvas canvas, float x,float y) {
+            this.anchor = canvas.leftBottom;
             this.bias = new Vector2(x,y);
         }
     }

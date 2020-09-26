@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace GameBrowser {
+namespace GameBrowser.Rendering {
     public class SelectableCard : MonoBehaviour {
         public GameObject glow;
         public TextMeshPro name;

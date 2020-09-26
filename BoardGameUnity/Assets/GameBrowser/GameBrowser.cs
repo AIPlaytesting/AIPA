@@ -12,6 +12,9 @@ namespace GameBrowser {
             public RenderManager renderManager;
         }
 
+        public BrowserCanvas mainSceneCanvas;
+        public BrowserCanvas mainUICanvas;
+
         public static GameBrowser Instance { get; private set; } = null;
 
         public UserInputManager userInputManager { get { return dependencies.userInputManager; } }

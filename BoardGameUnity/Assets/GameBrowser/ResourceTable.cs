@@ -8,6 +8,8 @@ namespace GameBrowser {
 
         public GameObject cardTemplate;
         public GameObject valueEntityTemplate;
+        public GameObject drawPileWindowPrefab;
+        public GameObject discardPileWindowPrefab;
 
         private void Awake() {
             if (Instance == null) {
