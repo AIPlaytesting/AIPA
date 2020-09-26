@@ -10,6 +10,8 @@ namespace GameBrowser {
         public GameObject valueEntityTemplate;
         public GameObject drawPileWindowPrefab;
         public GameObject discardPileWindowPrefab;
+        public GameObject playerEntityPrefab;
+        public GameObject bossEntityPrefab;
 
         private void Awake() {
             if (Instance == null) {

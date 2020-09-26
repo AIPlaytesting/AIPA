@@ -6,7 +6,7 @@ from CardPlayManager import CardPlayManager
 INPUT_TYPE_NONE = 0
 INPUT_TYPE_PLAY_CARD = 1
 INPUT_TYPE_END_TURN = 2
-
+INPUT_TYPE_START_GAME = 3
 # The naming style is C#, becuase the name of class need to be the same as 
 # front end in Unity 
 class UserInput:
@@ -47,6 +47,7 @@ class MarkupFactory:
         markup['name'] = combat_unit.name
         markup['currentHP'] = combat_unit.current_hp
         markup['maxHP'] = combat_unit.max_hP
+        markup['block'] = combat_unit.block
         return markup
 
     @classmethod

@@ -7,7 +7,7 @@ namespace GameBrowser {
     public class UserInput{
         [System.Serializable]
         public enum Type { 
-            None,PlayCard,EndTurn
+            None,PlayCard,EndTurn,StartGame
         }
         public Type type = Type.None;
         public string cardName = "";

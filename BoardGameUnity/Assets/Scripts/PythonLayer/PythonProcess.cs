@@ -25,9 +25,8 @@ namespace AIPlaytesing.Python {
 
         private void Update() {
             var newMessages = processSocket.Read();
-            if (newMessages.Length > 0 && onMessageResponse != null) {
+            foreach (var message in newMessages) {
                 onMessageResponse(newMessages[0].body);
-                onMessageResponse = null;
             }
         }
 

@@ -7,6 +7,18 @@ from game_manager import GameManager
 from enemy_intent import EnemyIntent
 from collections import namedtuple
 
+def back_end_main_loop(player_socket):
+    while True:
+        wait_start_game_request(player_socket)
+        run_game(player_socket)
+
+def wait_start_game_request(player_socket):
+    while True:
+        player_input = get_player_input(player_socket)
+        if player_input.type == protocol.INPUT_TYPE_START_GAME:
+            break
+    print("start game request received!")
+
 def run_game(player_socket):
     # init 
     game_manager = GameManager()
@@ -21,7 +33,8 @@ def run_game(player_socket):
 def play_one_round(game_manager,player_socket):
     # player turn
     game_manager.start_player_turn()
-
+    print('send response, start turn')
+    send_response(player_socket,game_manager)
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
         cards_on_hand = game_manager.get_current_cards_on_hand()
@@ -40,6 +53,7 @@ def play_one_round(game_manager,player_socket):
         else:
             print('invalid input, type == ',player_input.type)      
         # send response every time play card
+        print('send response, card play')
         send_response(player_socket,game_manager)
 
     # enemy turn
@@ -49,8 +63,6 @@ def play_one_round(game_manager,player_socket):
     if not game_manager.is_game_end():     
         # apply BOSS intent
         game_manager.execute_enemy_intent()   
-    # send respone when enemy end
-    send_response(player_socket,game_manager)
 
 def send_response(player_socket,game_manager):
         game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state,game_manager.card_play_manager)
@@ -82,10 +94,8 @@ sock.connect(server_address)
 print ('connected to: ',server_address)
 
 # play game
-try:
-    run_game(sock)
-except Exception as e:
-    print(e)
+
+back_end_main_loop(sock)
 
 time.sleep(2)
 
