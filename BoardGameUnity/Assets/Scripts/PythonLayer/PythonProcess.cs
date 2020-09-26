@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace AIP {
+namespace AIPlaytesing.Python {
     public class PythonProcess : MonoBehaviour {
         const int LISTEN_POART = 9999;
 
@@ -12,6 +12,7 @@ namespace AIP {
             public string directiory = "";
             public string entryFileName = "main.py";
             public bool showWindow = true;
+            public bool startManually = false;
         }
 
         public delegate void OnMessageResponse(string response);
@@ -22,35 +23,33 @@ namespace AIP {
         private ProcessSocket processSocket = null;
         private OnMessageResponse onMessageResponse = null;
 
-        private void Awake() {
-            WaitProcessConnect();
-            var entryFilePath = config.directiory + @"\" + config.entryFileName;
-            process = StartProcess(entryFilePath, config.showWindow);
-        }
-
         private void Update() {
             var newMessages = processSocket.Read();
-            if (newMessages.Length > 0 && onMessageResponse != null) {
+            foreach (var message in newMessages) {
                 onMessageResponse(newMessages[0].body);
-                onMessageResponse = null;
             }
         }
-        public void WaitProcessConnect() {
+
+        public void Run() {
+            WaitProcessConnect();
+            if (!config.startManually) {
+                var entryFilePath = config.directiory + @"\" + config.entryFileName;
+                process = StartProcess(entryFilePath, config.showWindow);
+            }
+        }
+
+        private void WaitProcessConnect() {
             if (processSocket != null) {
                 processSocket.Abort();
             }
             processSocket = ProcessSocket.Create(LISTEN_POART);
         }
 
+        // TODO: donnt need to assign callback everytime. 
         public void Send(string messageStr, OnMessageResponse onMessageResponseCallBack = null) {
             processSocket.SendMessage(new Message(messageStr));
             onMessageResponse = onMessageResponseCallBack;
         }
-
-        public Message[] Read() {
-            return processSocket.Read();
-        }
-
 
         private void OnApplicationQuit() {
             if (processSocket != null) {
