@@ -51,6 +51,8 @@ class GameManager:
         self.game_state.player_energy = PLAYER_ENERGY
         # refresh boss intent
         self.game_state.boss_intent = self.boss_AI.make_intent()
+        # retrieve boss hp before player's action
+        self.boss_AI.prev_hp = self.game_state.boss.current_hp
         # draw cards
         self.game_state.deck.draw_cards(5)
         # refresh buffs
