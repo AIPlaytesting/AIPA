@@ -10,6 +10,14 @@ namespace GameBrowser.Rendering {
     public abstract class MarkupEntity : MonoBehaviour {
         protected Markup hookedMarkup;
 
+        public static MarkupEntity CreateEntity(CanvasAnchor anchor, GameObject prefab, Markup markupToHook) {
+            var GO = Instantiate(prefab);
+            anchor.AttachGameObjectToAnchor(GO);
+            var entity = GO.GetComponent<MarkupEntity>();
+            entity.HookTo(markupToHook);
+            return entity;
+        }
+
         protected static GameObject InstantiateEntity(CanvasPosition position, GameObject template) {
             var GO = Instantiate(template);
             GO.transform.SetParent(position.anchor.transform);

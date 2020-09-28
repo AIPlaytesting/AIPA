@@ -49,6 +49,11 @@ class MarkupFactory:
         markup['currentHP'] = combat_unit.current_hp
         markup['maxHP'] = combat_unit.max_hP
         markup['block'] = combat_unit.block
+        markup['buffs'] = []
+        for buff_name,buff_value in combat_unit.buff_dict.items():
+            if buff_value != 0:
+                markup['buffs'].append({"buffName":buff_name,"buffValue":buff_value})
+
         return markup
 
     @classmethod

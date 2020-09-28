@@ -10,7 +10,7 @@ namespace GameBrowser.Rendering {
         public TextMeshProUGUI blockValue;
         public Slider hpSlider;
         public TextMeshProUGUI hpValue;
-        public Transform statusBarRoot;
+        public CanvasAnchor statusBarRoot;
        
         public override void HookTo(Markup markup) {
             base.HookTo(markup);
@@ -18,6 +18,9 @@ namespace GameBrowser.Rendering {
             hpValue.text = string.Format("{0}/{1}", combatUnitMarkup.currentHP, combatUnitMarkup.maxHP);
             hpSlider.value = (float)combatUnitMarkup.currentHP /(float) combatUnitMarkup.maxHP;
             blockValue.text = combatUnitMarkup.block.ToString();
+            foreach (var buff in combatUnitMarkup.buffs) {
+                CreateEntity(statusBarRoot, ResourceTable.Instance.buffEntityPrefab, buff);
+            }
         }
     }
 }
