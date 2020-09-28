@@ -23,14 +23,17 @@ class EnemyAI:
             self.curStateIndex = 0
             # refresh current intent on game state
             game_state.boss_intent = self.make_intent()
+            print('Transfer to Defensive mode')
 
         # change from Defensive to Offensive
         # if defensive mode and on the stage of using Twin slam skill, boss will turn back to offensive mode
-        if self.mode == 'Defensive' and self.curStateIndex == 2:
+        if self.mode == 'Defensive' and self.curStateIndex == 0:
             self.mode = 'Offensive'
-            self.curStateIndex = 3
+            self.boss.buff_dict['Thorns'] = 0
+            self.curStateIndex = len(self.intents_offensive) - 1
             # refresh current intent on game state
             game_state.boss_intent = self.make_intent()
+            print('Transfer to Offensive mode')
 
     # Offensive AI
     def make_intent(self) -> EnemyIntent:
@@ -56,7 +59,7 @@ class EnemyAI:
             elif curState == 'Whirlwind':
                 intent.name = 'Whirlwind'
                 intent.is_attack = True
-                intent.attack_value = 32
+                intent.attack_value = 20
                 print("BOSS intent: -[attack]-", intent.attack_value)
 
             # move to the next intent
