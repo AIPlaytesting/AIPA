@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace GameBrowser.Rendering {
     public class CombatUnitEntity : MarkupEntity {
+        public CanvasAnchor intentAnchor;
         public TextMeshProUGUI blockValue;
         public Slider hpSlider;
         public TextMeshProUGUI hpValue;

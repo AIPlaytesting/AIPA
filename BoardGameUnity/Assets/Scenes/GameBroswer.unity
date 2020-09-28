@@ -467,6 +467,8 @@ MonoBehaviour:
     type: 3}
   bossEntityPrefab: {fileID: 1033572493813456803, guid: b38ca0f5d73c9a346a6679988317e03e,
     type: 3}
+  enemyIntentEntityPrefab: {fileID: 7039832459725128526, guid: 70d441d51ee29a74aa09de616d34ab51,
+    type: 3}
 --- !u!4 &342934668
 Transform:
   m_ObjectHideFlags: 0

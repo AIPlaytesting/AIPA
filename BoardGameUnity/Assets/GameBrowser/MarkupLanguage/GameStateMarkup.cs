@@ -7,6 +7,7 @@ namespace GameBrowser {
     public class GameStateMarkup{
         public CombatUnitMarkup player;
         public CombatUnitMarkup[] enemies;
+        public EnemyIntentMarkup[] enemyIntents;
         public CardMarkup[] cardsOnHand;
         public CardMarkup[] drawPile;
         public CardMarkup[] discardPile;

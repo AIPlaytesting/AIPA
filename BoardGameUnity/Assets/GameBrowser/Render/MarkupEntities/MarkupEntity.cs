@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameBrowser.Rendering {
+    /// <summary>
+    /// override HookTo() to initialize based on the markup hooked
+    /// </summary>
     public abstract class MarkupEntity : MonoBehaviour {
         protected Markup hookedMarkup;
 

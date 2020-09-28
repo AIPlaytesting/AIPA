@@ -4,6 +4,6 @@ using UnityEngine;
 
 namespace GameBrowser {
     public class Markup{
-        
+
     }
 }

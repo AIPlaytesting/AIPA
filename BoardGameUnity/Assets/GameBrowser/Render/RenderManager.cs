@@ -28,7 +28,7 @@ namespace GameBrowser.Rendering {
             characterRenderer.Clear();
             characterRenderer.RenderPlayer(gameStateMarkup.player);
             //TODO: only conside one enemy(BOSS) for now
-            characterRenderer.RenderEnemy(gameStateMarkup.enemies[0]);
+            characterRenderer.RenderEnemy(gameStateMarkup.enemies[0],gameStateMarkup.enemyIntents[0]);
 
             valueRenderer.Clear();
             valueRenderer.Render(gameStateMarkup.energy, new CanvasPosition(mainSceneCanvas, 1, 3));

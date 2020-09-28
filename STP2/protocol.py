@@ -35,6 +35,7 @@ class MarkupFactory:
         markup ={}
         markup['player'] = cls.create_combat_unit_markup(game_state.player)
         markup['enemies'] = [cls.create_combat_unit_markup(game_state.boss)]
+        markup['enemyIntents'] = [cls.create_enemy_intent_markup(game_state.boss_intent)]
         markup['cardsOnHand'] = create_cards_markup_by_names(game_state.deck.get_card_names_on_hand())
         markup['drawPile'] = create_cards_markup_by_names(game_state.deck.getDrawPile().cards)
         markup['discardPile'] = create_cards_markup_by_names(game_state.deck.getDiscardPile().cards)
@@ -64,7 +65,11 @@ class MarkupFactory:
         markup['curValue'] = cur_value
         markup['maxValue'] = max_value
         return markup
-
+    @classmethod
+    def create_enemy_intent_markup(cls,enemy_intent):
+        markup = vars(enemy_intent)
+        return markup
+                
 class GameStateMarkup:
     # TODO: card information should get from data in disk
     def __init__(self,game_state:GameState,card_play_manager:CardPlayManager):
