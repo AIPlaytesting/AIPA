@@ -17,6 +17,10 @@ namespace GameBrowser.Rendering {
             characterRenderer = new CharacterRenderer(); 
         }
 
+        /// <summary>
+        /// it will clear everthing on the current canvas, then start to render based-on new state
+        /// </summary>
+        /// <param name="gameStateMarkup"></param>
         public void RenderGameState(GameStateMarkup gameStateMarkup) {
             var mainSceneCanvas = GameBrowser.Instance.mainSceneCanvas;
 
@@ -32,6 +36,10 @@ namespace GameBrowser.Rendering {
 
             valueRenderer.Clear();
             valueRenderer.Render(gameStateMarkup.energy, new CanvasPosition(mainSceneCanvas, 1, 3));
+        }
+
+        public void RenderGameEvents(GameEventMarkup[] gameEventMarkups) { 
+        
         }
     }
 }
