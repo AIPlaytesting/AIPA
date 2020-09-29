@@ -13,7 +13,7 @@ class GameState:
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         self.deck = Deck(all_card_names)
-        
+
 class GameManager:
     def __init__(self):
         self.effect_calculator = EffectCalculator.EffectCalculator(self)

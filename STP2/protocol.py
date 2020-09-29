@@ -2,6 +2,7 @@ from game_manager import GameState
 from combat_unit import CombatUnit
 from CardBase import Card
 from CardPlayManager import CardPlayManager
+from game_event import GameEvent
 
 INPUT_TYPE_NONE = 0
 INPUT_TYPE_PLAY_CARD = 1
@@ -23,6 +24,15 @@ class MarkupFactory:
         markup['endingState'] = endingState
         return markup
 
+    @classmethod
+    def create_game_event_markup(cls,game_event:GameEvent):
+        markup = {}
+        markup['eventChannel'] = game_event.event_channel
+        markup['cardEventType'] = game_event.card_event_type
+        markup['characterEventType'] = game_event.character_event_type
+        markup['inforamtion'] = game_event.inforamtion
+        return markup
+        
     @classmethod
     def create_game_state_markup(cls,game_state:GameState,card_play_manager:CardPlayManager):
         def create_cards_markup_by_names(names):
