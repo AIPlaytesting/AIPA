@@ -26,6 +26,7 @@ class CardPlayManager:
         self.cards_dict['Shrug It Off'] = CardBase.Card('Shrug It Off')
         self.cards_dict['Sword Boomerang'] = CardBase.Card('Sword Boomerang')
 
+    # return GameEvent[] which happens after play this card
     def PlayCard(self, cardName):
 
         if not cardName in self.cards_dict:
