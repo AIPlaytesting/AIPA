@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace GameBrowser.Rendering {
     public class ValueEntity : MarkupEntity {
-        public TextMeshPro valueText;
+        public TextMeshProUGUI valueText;
 
-        public static ValueEntity Create(ValueMarkup valueMarkup, CanvasPosition position) {
-            var GO = InstantiateEntity(position, ResourceTable.Instance.valueEntityTemplate);
+        public static ValueEntity Create(ValueMarkup valueMarkup, CanvasAnchor anchor) {
+            var GO = CreateEntity(anchor,ResourceTable.Instance.valueEntityTemplate,valueMarkup);
             var valueEntity = GO.GetComponent<ValueEntity>();
             valueEntity.HookTo(valueMarkup);
             return valueEntity;

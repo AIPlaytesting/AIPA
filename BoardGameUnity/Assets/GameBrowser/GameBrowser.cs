@@ -15,15 +15,14 @@ namespace GameBrowser {
         public BrowserCanvas mainSceneCanvas;
         public BrowserCanvas mainUICanvas;
 
+        [SerializeField]
+        private Dependencies dependencies = new Dependencies();
+
         public static GameBrowser Instance { get; private set; } = null;
 
         public UserInputManager userInputManager { get { return dependencies.userInputManager; } }
         public FrontEndConnection frontEndConnection { get { return dependencies.frontEndConnection; } }
-
-        [SerializeField]
-        private Dependencies dependencies = new Dependencies();
-
-       
+    
         private void Awake() {
             if (Instance == null) {
                 Instance = this;
@@ -35,15 +34,21 @@ namespace GameBrowser {
             }
         }
 
+        /// <summary>
+        /// firstly will clear everything related to pervious GameSequenceMarkupFile
+        /// </summary>
+        /// <param name="source"></param>
+        // TODO: render the endingState when all animation is done
         public void Render(GameSequenceMarkupFile source) {
             Debug.Log(JsonUtility.ToJson(source));
             dependencies.renderManager.RenderGameState(source.beginingState);
+            dependencies.renderManager.RenderGameEvents(source.gameEvents);
         }
 
         private void Init() {
             dependencies.frontEndConnection.Init();
-            frontEndConnection.onReceiveResponse += RenderResponse;
             dependencies.renderManager.Init();
+            frontEndConnection.onReceiveResponse += RenderResponse;
         }
 
         private void RenderResponse(ResponseMessage responseMessage) {

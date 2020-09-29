@@ -19,6 +19,6 @@ namespace GameBrowser.Rendering {
         /// if there is an aniamtion on the render target, then speed == 1.0 means normal speed
         /// </summary>
         /// <param name="speed"></param>
-        public abstract void Render(Markup markup, CanvasPosition position, float speed = 1f);
+        public abstract void Render(Markup markup, CanvasPosition position);
     }
 }

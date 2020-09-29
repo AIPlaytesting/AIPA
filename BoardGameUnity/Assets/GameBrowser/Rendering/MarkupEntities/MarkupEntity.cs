@@ -18,13 +18,6 @@ namespace GameBrowser.Rendering {
             return entity;
         }
 
-        protected static GameObject InstantiateEntity(CanvasPosition position, GameObject template) {
-            var GO = Instantiate(template);
-            GO.transform.SetParent(position.anchor.transform);
-            GO.transform.localPosition = position.bias;
-            return GO;
-        }
-
         public virtual void HookTo(Markup markup) {
             hookedMarkup = markup;
         }

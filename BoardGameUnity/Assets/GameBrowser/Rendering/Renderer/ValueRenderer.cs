@@ -10,8 +10,8 @@ namespace GameBrowser.Rendering {
             }
         }
 
-        public override void Render(Markup markup, CanvasPosition position, float speed = 1f) {
-            ValueEntity.Create(markup as ValueMarkup, position);
+        public override void Render(Markup markup,CanvasPosition position) {
+            ValueEntity.Create(markup as ValueMarkup, position.anchor);
         }
     }
 }

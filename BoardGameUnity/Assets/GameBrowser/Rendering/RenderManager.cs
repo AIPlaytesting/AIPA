@@ -10,18 +10,24 @@ namespace GameBrowser.Rendering {
         private ValueRenderer valueRenderer;
         private CardsRenderer cardsRenderer;
         private CharacterRenderer characterRenderer;
+        private AnimationRenderer animationRenderer;
 
         public void Init() {
             valueRenderer = new ValueRenderer();
             cardsRenderer = new CardsRenderer();
-            characterRenderer = new CharacterRenderer(); 
+            characterRenderer = new CharacterRenderer();
+            animationRenderer = new AnimationRenderer();
         }
 
         /// <summary>
-        /// it will clear everthing on the current canvas, then start to render based-on new state
+        /// it will clear everthing(including animation) on the current canvas,
+        /// then start to render based-on new state
         /// </summary>
         /// <param name="gameStateMarkup"></param>
         public void RenderGameState(GameStateMarkup gameStateMarkup) {
+            // clear all running animtion first
+            animationRenderer.Clear();
+
             var mainSceneCanvas = GameBrowser.Instance.mainSceneCanvas;
 
             cardsRenderer.Clear();
@@ -35,11 +41,14 @@ namespace GameBrowser.Rendering {
             characterRenderer.RenderEnemy(gameStateMarkup.enemies[0],gameStateMarkup.enemyIntents[0]);
 
             valueRenderer.Clear();
-            valueRenderer.Render(gameStateMarkup.energy, new CanvasPosition(mainSceneCanvas, 1, 3));
+            var energyPosition = new CanvasPosition(GameBrowser.Instance.mainUICanvas.FindCustomAnchor("energy"), Vector3.zero);
+            valueRenderer.Render(gameStateMarkup.energy, energyPosition);
         }
 
-        public void RenderGameEvents(GameEventMarkup[] gameEventMarkups) { 
-        
+        public void RenderGameEvents(GameEventMarkup[] gameEventMarkups) {
+            foreach (var gameEventMarkup in gameEventMarkups) {
+                animationRenderer.EnqueueGameEventAnimaton(gameEventMarkup);
+            }
         }
     }
 }
