@@ -2,7 +2,7 @@
     "version" : "3.0",
 
     "Composition" :{
-        "Strike" : 5,
+        "Clothesline" : 5,
         "Anger" : 1,
         "Defend" : 4,
         "Shrug It Off" : 1,
