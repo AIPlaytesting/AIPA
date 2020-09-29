@@ -33,8 +33,7 @@ class Environment:
 
 
     def Step(self, action_space_vec):
-        self.game_manager.print_cards_info_on_hand()
-        
+
         action_neuron_number = self.ChoosePossibleActionWithMaxQVal(action_space_vec)
 
         if(action_neuron_number == -1):
