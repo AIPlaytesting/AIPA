@@ -6,9 +6,9 @@ from . import ReplayBuffer
 
 def BuildBuffModel():
     model1 = keras.Sequential([
-        keras.layers.Dense(7, activation='relu'),
-        keras.layers.Dense(32, activation='relu'),
-        keras.layers.Dense(32, activation='relu'),
+        keras.layers.Dense(9, activation='sigmoid'),
+        keras.layers.Dense(32, activation='sigmoid'),
+        keras.layers.Dense(32, activation='sigmoid'),
         keras.layers.Dense(12, activation=None)
     ])
 
@@ -18,9 +18,9 @@ def BuildBuffModel():
 
 def BuildCardsModel():
     model2 = keras.Sequential([
-        keras.layers.Dense(13, activation='relu'),
-        keras.layers.Dense(32, activation='relu'),
-        keras.layers.Dense(32, activation='relu'),
+        keras.layers.Dense(15, activation='sigmoid'),
+        keras.layers.Dense(32, activation='sigmoid'),
+        keras.layers.Dense(32, activation='sigmoid'),
         #Dont want any activation for the output layer since it is the Q-value
         keras.layers.Dense(12, activation=None)
     ])
@@ -31,9 +31,9 @@ def BuildCardsModel():
 
 def BuildBossIntentModel():
     model3 = keras.Sequential([
-        keras.layers.Dense(7, activation='relu'),
-        keras.layers.Dense(32, activation='relu'),
-        keras.layers.Dense(32, activation='relu'),
+        keras.layers.Dense(9, activation='sigmoid'),
+        keras.layers.Dense(32, activation='sigmoid'),
+        keras.layers.Dense(32, activation='sigmoid'),
         keras.layers.Dense(12, activation=None)
     ])
 
@@ -58,9 +58,9 @@ class AI_Brain:
         self.b_intent_q_model = BuildBossIntentModel()
 
         #buffers
-        self.buff_buffer = ReplayBuffer.ReplayBuffer(7, 200000)
-        self.cards_buffer = ReplayBuffer.ReplayBuffer(13, 200000)
-        self.b_intent_buffer = ReplayBuffer.ReplayBuffer(7, 200000)
+        self.buff_buffer = ReplayBuffer.ReplayBuffer(9, 200000)
+        self.cards_buffer = ReplayBuffer.ReplayBuffer(15, 200000)
+        self.b_intent_buffer = ReplayBuffer.ReplayBuffer(9, 200000)
 
 
     #Diving the entire model into 3 parts
@@ -79,12 +79,12 @@ class AI_Brain:
             actions = np.random.rand(12)
         else:
             buff_model_state, card_model_state, boss_intent_model_state = self.DivideStateSpace(state)
-            #buff_actions = self.buff_q_model.predict(np.array([buff_model_state], dtype=float))[0]
+            buff_actions = self.buff_q_model.predict(np.array([buff_model_state], dtype=float))[0]
             card_actions = self.cards_q_model.predict(np.array([card_model_state], dtype=float))[0]
-            #boss_intent_actions = self.b_intent_q_model.predict(np.array([boss_intent_model_state], dtype=float))[0]
+            boss_intent_actions = self.b_intent_q_model.predict(np.array([boss_intent_model_state], dtype=float))[0]
 
-            #actions = 0.33*buff_actions + 0.33*card_actions + 0.33*boss_intent_actions
-            actions = card_actions
+            actions = 0.4*buff_actions + 0.2*card_actions + 0.4*boss_intent_actions
+            #actions = card_actions
 
         return actions
 
@@ -94,20 +94,20 @@ class AI_Brain:
             return
 
         #training for the buff model
-        # bu_states, bu_new_states, bu_rewards, bu_actions, bu_isTerminals = self.buff_buffer.SampleBuffer(self.batch_size)
+        bu_states, bu_new_states, bu_actions, bu_rewards , bu_isTerminals = self.buff_buffer.SampleBuffer(self.batch_size)
         
-        # bu_state_predicts = self.buff_q_model.predict(bu_states)
-        # bu_new_state_predicts = self.buff_q_model.predict(bu_new_states)
+        bu_state_predicts = self.buff_q_model.predict(bu_states)
+        bu_new_state_predicts = self.buff_q_model.predict(bu_new_states)
         
         batch_index = np.arange(self.batch_size, dtype=int)
-        # bu_actions = bu_actions.astype(int)
-        # bu_target = np.copy(bu_state_predicts)
+        bu_actions = bu_actions.astype(int)
+        bu_target = np.copy(bu_state_predicts)
         
-        # bu_target[batch_index, bu_actions] = bu_rewards + self.gamma * np.max(bu_new_state_predicts) * bu_isTerminals
-        # self.buff_q_model.train_on_batch(bu_states, bu_target)
+        bu_target[batch_index, bu_actions] = bu_rewards + self.gamma * np.max(bu_new_state_predicts) * bu_isTerminals
+        self.buff_q_model.train_on_batch(bu_states, bu_target)
         
         #training for the cards model
-        ca_states, ca_new_states, ca_rewards, ca_actions, ca_isTerminals = self.cards_buffer.SampleBuffer(self.batch_size)
+        ca_states, ca_new_states, ca_actions, ca_rewards, ca_isTerminals = self.cards_buffer.SampleBuffer(self.batch_size)
 
         ca_state_predicts = self.cards_q_model.predict(ca_states)
         ca_new_state_predicts = self.cards_q_model.predict(ca_new_states)
@@ -119,16 +119,16 @@ class AI_Brain:
         self.cards_q_model.train_on_batch(ca_states, ca_target)
         
         #training for the buff model
-        # bi_states, bi_new_states, bi_rewards, bi_actions, bi_isTerminals = self.b_intent_buffer.SampleBuffer(self.batch_size)
+        bi_states, bi_new_states, bi_actions, bi_rewards, bi_isTerminals = self.b_intent_buffer.SampleBuffer(self.batch_size)
         
-        # bi_state_predicts = self.b_intent_q_model.predict(bi_states)
-        # bi_new_state_predicts = self.b_intent_q_model.predict(bi_new_states)
+        bi_state_predicts = self.b_intent_q_model.predict(bi_states)
+        bi_new_state_predicts = self.b_intent_q_model.predict(bi_new_states)
         
-        # bi_actions = bi_actions.astype(int)
-        # bi_target = np.copy(bi_state_predicts)
+        bi_actions = bi_actions.astype(int)
+        bi_target = np.copy(bi_state_predicts)
         
-        # bi_target[batch_index, bi_actions] = bi_rewards + self.gamma * np.max(bi_new_state_predicts) * bi_isTerminals
-        # self.b_intent_q_model.train_on_batch(bi_states, bi_target)
+        bi_target[batch_index, bi_actions] = bi_rewards + self.gamma * np.max(bi_new_state_predicts) * bi_isTerminals
+        self.b_intent_q_model.train_on_batch(bi_states, bi_target)
         
         #epsilon update
         if(self.epsilon <= 0):
@@ -141,9 +141,9 @@ class AI_Brain:
 
     def DivideStateSpace(self, state):
 
-        buff_model_state = [state[3], state[4], state[5], state[16], state[24], state[25], state[28]]
-        card_model_state = [state[0], state[55], state[56], state[57], state[58], state[59], state[60], state[61], state[62], state[63], state[64], state[65], state[66]]
-        boss_intent_model_state = [state[91], state[92], state[93], state[94], state[95], state[96], state[97]]
+        buff_model_state = [state[1], state[22], state[3], state[4], state[5], state[16], state[24], state[25], state[28]]
+        card_model_state = [state[1], state[22], state[0], state[55], state[56], state[57], state[58], state[59], state[60], state[61], state[62], state[63], state[64], state[65], state[66]]
+        boss_intent_model_state = [state[1], state[22], state[91], state[92], state[93], state[94], state[95], state[96], state[97]]
         
         return buff_model_state, card_model_state, boss_intent_model_state
 
@@ -153,6 +153,6 @@ class AI_Brain:
         buff_model_state, card_model_state, boss_intent_model_state = self.DivideStateSpace(state)
         buff_model_n_state, card_model_n_state, boss_intent_model_n_state = self.DivideStateSpace(new_state)
 
-        #self.buff_buffer.StoreTransition(buff_model_state, buff_model_n_state, action,reward, isTerminal)
+        self.buff_buffer.StoreTransition(buff_model_state, buff_model_n_state, action,reward, isTerminal)
         self.cards_buffer.StoreTransition(card_model_state, card_model_n_state, action,reward, isTerminal)
-        #self.b_intent_buffer.StoreTransition(boss_intent_model_state, boss_intent_model_n_state, action,reward, isTerminal)
+        self.b_intent_buffer.StoreTransition(boss_intent_model_state, boss_intent_model_n_state, action,reward, isTerminal)

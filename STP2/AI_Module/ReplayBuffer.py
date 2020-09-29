@@ -50,5 +50,14 @@ class ReplayBuffer:
         
         return states, new_states, actions, rewards, isTerminals
         
-        
+    
+    def ResetBuffer(self):
+        self.mem_ctr = 0
+
+        self.state_memory.fill(0)
+        self.new_state_memory.fill(0)
+        self.action_memory.fill(0)
+        self.reward_memory.fill(0)
+        self.terminal_memory.fill(0)
+
 
