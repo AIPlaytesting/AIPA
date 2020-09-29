@@ -1,0 +1,15 @@
+{
+    "version" : "3.0",
+
+    "Composition" :{
+        "Strike" : 5,
+        "Anger" : 1,
+        "Defend" : 4,
+        "Shrug It Off" : 1,
+        "Pommel Strike" : 1,
+        "Body Slam" : 1,
+        "Iron Wave" : 1,
+        "Heavy Blade" : 1,
+        "Flex" : 1
+    }
+}
