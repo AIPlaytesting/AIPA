@@ -2,14 +2,17 @@
     "version" : "3.0",
 
     "Composition" :{
-        "Clothesline" : 5,
         "Anger" : 1,
         "Defend" : 4,
-        "Shrug It Off" : 1,
+        "Shrug It Off" : 2,
         "Pommel Strike" : 1,
-        "Body Slam" : 1,
-        "Iron Wave" : 1,
-        "Heavy Blade" : 1,
-        "Flex" : 1
+        "Sword Boomerang" : 2,
+        "Body Slam" : 2,
+        "Iron Wave" : 2,
+        "Heavy Blade" : 2,
+        "Flex" : 1,
+        "Double Tap" : 1,
+        "Disarm" : 1,
+        "Clothesline" : 1
     }
 }
