@@ -64,7 +64,7 @@ class AI_Brain:
         if self.replay_buffer.mem_ctr < self.batch_size :
             return
         
-        states, new_states, rewards, actions, isTerminals = self.replay_buffer.SampleBuffer(self.batch_size)
+        states, new_states, actions, rewards, isTerminals = self.replay_buffer.SampleBuffer(self.batch_size)
 
         #predict function takes in state/s and returns action space predictions
         q_state_predicts = self.q_model.predict(states)

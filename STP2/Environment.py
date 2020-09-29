@@ -9,6 +9,7 @@ class Environment:
         self.ai_transformer = AI_Module.AI_Transformer.AI_Transformer()
         self.game_manager = game_manager.GameManager()
         self.action_cards_played = {}
+        self.win_count = 0
 
     def Reset(self):
         self.game_manager.init_game()
@@ -46,14 +47,22 @@ class Environment:
             self.action_cards_played[action_card] = 1
         
         reward = 0
+        isTurnEnd = False
 
         #action_card contains string of card name
         old_player_hp = self.game_manager.game_state.player.current_hp
+        old_player_block = self.game_manager.game_state.player.block
+        old_player_buffs = self.game_manager.game_state.player.buff_dict.copy()
+        old_player_energy = self.game_manager.game_state.player_energy
         old_boss_hp = self.game_manager.game_state.boss.current_hp
+        old_boss_block = self.game_manager.game_state.boss.block
+        old_boss_buffs = self.game_manager.game_state.boss.buff_dict.copy()
+        
 
         #TODO: play the action card in the environment
         # new_state = state in flat list after playing card
         if(action_card == 'end_turn'): 
+            isTurnEnd = True
             self.ExecutePlayerEndFunctions()
             print("Player ended turn")
         else:
@@ -61,32 +70,45 @@ class Environment:
             print("Player took action : " + action_card)
 
         new_state = self.ai_transformer.GetAIStateSpace(self.game_manager.game_state, self.game_manager.get_current_playable_cards())
-        new_player_hp = self.game_manager.game_state.player.current_hp
-        new_boss_hp = self.game_manager.game_state.boss.current_hp
 
-        #TODO: calculate isTerminal
+        new_player_hp = self.game_manager.game_state.player.current_hp
+        new_player_block = self.game_manager.game_state.player.block
+        new_player_buffs = self.game_manager.game_state.player.buff_dict
+        new_player_energy = self.game_manager.game_state.player_energy
+        new_boss_hp = self.game_manager.game_state.boss.current_hp
+        new_boss_block = self.game_manager.game_state.boss.block
+        new_boss_buffs = self.game_manager.game_state.boss.buff_dict
+
+        #calculate isTerminal
         # isTerminal = true if the game has ended by taking action 
         isTerminal = self.game_manager.is_game_end()
         isPlayerWin = self.game_manager.is_player_win() if isTerminal else False 
 
-        #TODO: reward calculation
+        #reward calculation
         # reward by transitioning from current state to new state
+
+        reward = 0
+
+        old_player_info = (old_player_hp, old_player_block, old_player_buffs, old_player_energy)
+        new_player_info = (new_player_hp, new_player_block, new_player_buffs, new_player_energy)
+        old_boss_info = (old_boss_hp, old_boss_block, old_boss_buffs)
+        new_boss_info = (new_boss_hp, new_boss_block, new_boss_buffs)
+
+        pac_state = (old_player_info, new_player_info, old_boss_info, new_boss_info)
+
         if (isTerminal and isPlayerWin) : 
-            reward = 1
+            reward += 1
+            self.win_count += 1
         # elif (isTerminal and not isPlayerWin) : 
         #     reward = -1
-        elif (not isTerminal):
-            #{negative reward to player for losing hp}
-            reward += (new_player_hp - old_player_hp) * 0.01  
-            #{positive reward to player for boss losing hp}
-            reward += -(new_boss_hp - old_boss_hp) * 0.01  
+        elif (not isTerminal) and (not isTurnEnd):
+            reward += self.CalculateImmediateReward(old_player_info, new_player_info, old_boss_info, new_boss_info)
 
-        return new_state, int(action_neuron_number), reward, isTerminal
+        return new_state, int(action_neuron_number), reward, isTerminal, pac_state, isTurnEnd
 
 
     def ExecutePlayerEndFunctions(self):
         self.game_manager.end_player_turn()
-
         self.game_manager.start_enemy_turn()
 
         if(not self.game_manager.is_game_end()):
@@ -105,3 +127,47 @@ class Environment:
                 return index
         
         return -1
+
+
+    def CalculateImmediateReward(self, old_player_info, new_player_info, old_boss_info, new_boss_info):
+        old_player_hp = old_player_info[0]
+        old_player_block = old_player_info[1]
+        old_player_buffs = old_player_info[2]
+        old_player_energy = old_player_info[3]
+        old_boss_hp = old_boss_info[0]
+        old_boss_block = old_boss_info[1]
+        old_boss_buffs = old_boss_info[2]
+
+        new_player_hp = new_player_info[0]
+        new_player_block = new_player_info[1]
+        new_player_buffs = new_player_info[2]
+        new_player_energy = new_player_info[3]
+        new_boss_hp = new_boss_info[0]
+        new_boss_block = new_boss_info[1]
+        new_boss_buffs = new_boss_info[2]
+
+        reward = 0
+
+        energy_multiplier = old_player_energy - new_player_energy
+        
+        if(energy_multiplier > 0):
+            energy_multiplier = 1 / energy_multiplier
+        else:
+            energy_multiplier = 2
+
+        #Add reward if the players block gets used
+        if old_player_block > new_player_block:
+            reward += (old_player_block - new_player_block) * 0.01 * energy_multiplier
+        
+        #Add (lower) reward if boss block gets used
+        if old_boss_block > new_boss_block:
+            reward += (old_boss_block - new_boss_block) * 0.0075 * energy_multiplier
+        
+        #Add reward if player deals damage
+        reward += (old_boss_hp - new_boss_hp) * 0.01 * energy_multiplier
+
+        #Negative reward for losing healthbar
+        reward -= (old_player_hp - new_player_hp) * 0.01 * energy_multiplier
+
+        return reward
+
