@@ -56,7 +56,7 @@ namespace GameBrowser.Rendering {
             }
 
             if (combatUnitEventMarkup.combatUnitEvent == GameEventMarkup.CombatUnitEvent.GetHurt) {
-                // play block change aniamtion
+                // play get hurt aniamtion
                 var getHurtAnimation = GO.AddComponent<GetHurtAnimationEntity>();
                 getHurtAnimation.combatUnitGetHurt = combatUnitEntity;
                 var hurtValueStr = combatUnitEventMarkup.information[GameEventMarkup.HURT_VALUE_KEY];

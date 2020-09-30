@@ -10,7 +10,7 @@ namespace GameBrowser.Rendering {
 
         public override void Play() {
             combatUnit.blockValue.text = newBlockValue.ToString();
-            combatUnit.blockValue.transform.DOShakeScale(0.7f).onComplete = () => onAnimationComplete(this);
+            combatUnit.blockValue.transform.parent.DOShakeScale(0.7f,2).onComplete = () => onAnimationComplete(this);
         }
     }
 }
