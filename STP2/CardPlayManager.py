@@ -47,7 +47,7 @@ class CardPlayManager:
                 else:
                     buff_target = self.game_manager.game_state.player
 
-                buff_value += card.buffs[key]['value']
+                buff_value = card.buffs[key]['value']
                 self.card_effects_manager.ApplyBuff(self.game_manager.game_state.player, buff_target, key, buff_value)
                 
                 # TODO: should record buff only it change
