@@ -1,6 +1,5 @@
 {
-    "game_app": "DafaultApp",
+    "game_app": "game2",
     "root_directory": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA",
-    "resource_directory": "Resources",
-    "game_app_cards_directory": "Cards"
+    "resource_directory": "Resources"
 }

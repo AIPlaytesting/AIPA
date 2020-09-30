@@ -1,18 +1,14 @@
 {
-    "version" : "1.0",
-
-    "Composition" :{
-        "Anger" : 1,
-        "Defend" : 2,
-        "Shrug It Off" : 2,
-        "Pommel Strike" : 1,
-        "Sword Boomerang" : 1,
-        "Body Slam" : 1,
-        "Iron Wave" : 1,
-        "Heavy Blade" : 1,
-        "Flex" : 1,
-        "Double Tap" : 1,
-        "Disarm" : 1,
-        "Clothesline" : 1
-    }
+    "Anger" : 1,
+    "Defend" : 1,
+    "Shrug It Off" : 1,
+    "Pommel Strike" : 1,
+    "Sword Boomerang" : 1,
+    "Body Slam" : 1,
+    "Iron Wave" : 1,
+    "Heavy Blade" : 1,
+    "Flex" : 1,
+    "Double Tap" : 1,
+    "Disarm" : 1,
+    "Clothesline" : 1
 }
