@@ -41,13 +41,20 @@ namespace GameBrowser {
         // TODO: render the endingState when all animation is done
         public void Render(GameSequenceMarkupFile source) {
             Debug.Log(JsonUtility.ToJson(source));
+            DOM.Instance.latestGameStateMarkup = source.endingState;
             StartCoroutine(RenderGameSeuqncePlaceHolder(source));
         }
 
         private IEnumerator RenderGameSeuqncePlaceHolder(GameSequenceMarkupFile source) {
             dependencies.renderManager.RenderGameEvents(source.gameEvents);
-            yield return new WaitForSeconds(1.5f*source.gameEvents.Length);
-            dependencies.renderManager.RenderGameState(source.beginingState);
+            while (dependencies.renderManager.anyAniamtionRendering) {
+                yield return null;
+            }
+
+            if (DOM.Instance.latestGameStateMarkup == source.endingState) {
+                Debug.Log("game state overrided when animation complete");
+                dependencies.renderManager.RenderGameState(source.beginingState);
+            }
         }
 
         private void Init() {

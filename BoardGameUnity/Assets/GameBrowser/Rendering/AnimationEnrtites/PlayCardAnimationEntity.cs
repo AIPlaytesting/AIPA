@@ -16,8 +16,8 @@ namespace GameBrowser.Rendering {
             var discardPilePosition = GameBrowser.Instance.mainSceneCanvas.FindCustomAnchor("discardPile").transform.position;
             cardBePlayed.transform.DOMove(showCardPosition, 0.5f);
             yield return new WaitForSeconds(1f);
-            cardBePlayed.transform.DOMove(discardPilePosition, 1f);
-            cardBePlayed.transform.DOScale(Vector3.zero, 0.4f);
+            cardBePlayed.transform.DOMove(discardPilePosition, 0.4f);
+            cardBePlayed.transform.DOScale(Vector3.zero, 0.4f).onComplete = ()=>onComplete(this); 
         }
     }
 }

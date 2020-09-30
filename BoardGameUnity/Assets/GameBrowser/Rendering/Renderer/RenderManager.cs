@@ -12,6 +12,8 @@ namespace GameBrowser.Rendering {
         private CharacterRenderer characterRenderer;
         private AnimationRenderer animationRenderer;
 
+        public bool anyAniamtionRendering { get { return animationRenderer.anyAnimationRunning; } }
+
         public void Init() {
             valueRenderer = new ValueRenderer();
             cardsRenderer = new CardsRenderer();

@@ -1282,7 +1282,7 @@ MonoBehaviour:
   - {fileID: 1389679622}
   - {fileID: 969561044}
   - {fileID: 185066899}
-  - {fileID: 0}
+  - {fileID: 2068226525}
   - {fileID: 362043703}
 --- !u!1 &910660896
 GameObject:
@@ -3026,7 +3026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295e84cf68732d949a0997786f5241f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchorName: anchor
+  anchorName: discardPile
 --- !u!61 &370692733048188123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4182,10 +4182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e02b926bdb356d42855f6974f818d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glow: {fileID: 3401802071770296213}
-  name: {fileID: 2754930434299777662}
-  energy: {fileID: 9166805866871866620}
-  isSelected: 0
 --- !u!224 &8170022454312108056
 RectTransform:
   m_ObjectHideFlags: 0

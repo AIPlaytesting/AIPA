@@ -31,7 +31,7 @@ class CardPlayManager:
 
         if not cardName in self.cards_dict:
             print(cardName + ' is an invalid card name')
-            return
+            return []
 
         game_events = []
 

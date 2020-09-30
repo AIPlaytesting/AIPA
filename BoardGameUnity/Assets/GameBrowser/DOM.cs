@@ -13,7 +13,10 @@ namespace GameBrowser {
                 return _instance;
             }
         }
+
         private static DOM _instance = null;
+
+        public GameStateMarkup latestGameStateMarkup = null;
 
         public MarkupEntity GetMarkupEntityByID(string gameUniqueID) {
             foreach (var markupEntity in GameObject.FindObjectsOfType<MarkupEntity>()) {

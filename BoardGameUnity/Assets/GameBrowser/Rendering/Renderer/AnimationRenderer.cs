@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace GameBrowser.Rendering {
     public class AnimationRenderer:HighLevelRenderer {
+
+        public bool anyAnimationRunning { get; private set; } = false;
+
+        private List<AnimationEntity> runningAniamtionEntities = new List<AnimationEntity>();
+
         /// <summary>
         /// Clear all animation entities
         /// </summary>
@@ -11,6 +16,8 @@ namespace GameBrowser.Rendering {
             foreach (var entity in GameObject.FindObjectsOfType<AnimationEntity>()) {
                 entity.DestorySelf();
             }
+            anyAnimationRunning = false;
+            runningAniamtionEntities.Clear();
         }
 
         // TODO: now we just render aniamtion immediatly whenever receive
@@ -22,10 +29,20 @@ namespace GameBrowser.Rendering {
         private void RenderAnimation(GameEventMarkup gameEventMarkup) {
             var animationEntity = AnimationEntityFactory.CreateAnimationEntity(gameEventMarkup);
             if (animationEntity) {
+                runningAniamtionEntities.Add(animationEntity);
+                animationEntity.onComplete += OnAniamitionComplete;
+                anyAnimationRunning = true;
                 animationEntity.Play();
             }
             else {
                 Debug.LogError("render aniamtion fail with entity == null");
+            }
+        }
+
+        private void OnAniamitionComplete(AnimationEntity animationEntity) {
+            runningAniamtionEntities.Remove(animationEntity);
+            if (runningAniamtionEntities.Count == 0) {
+                anyAnimationRunning = false;
             }
         }
     }
