@@ -6,7 +6,7 @@ namespace GameBrowser {
     [System.Serializable]
     public class GameSequenceMarkupFile{
         public GameStateMarkup beginingState;
-        public List<GameEventMarkup> gameEvents;
+        public GameEventMarkup[] gameEvents;
         public GameStateMarkup endingState;
 
         public static GameSequenceMarkupFile Parse(string gameSequenceMarkupJSON) {

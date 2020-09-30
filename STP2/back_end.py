@@ -4,6 +4,7 @@ import protocol
 import json
 import time
 from game_manager import GameManager
+from game_event import GameEvent
 from enemy_intent import EnemyIntent
 from collections import namedtuple
 
@@ -34,7 +35,7 @@ def play_one_round(game_manager,player_socket):
     # player turn
     game_manager.start_player_turn()
     print('send response, start turn')
-    send_response(player_socket,game_manager)
+    send_response(player_socket,game_manager,[])
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
         cards_on_hand = game_manager.get_current_cards_on_hand()
@@ -44,17 +45,25 @@ def play_one_round(game_manager,player_socket):
         
         # get input    
         player_input = get_player_input(player_socket)
-        # process player input
+        # game events triggered after apply this player input
+        game_events_of_input = []
         if player_input.type == protocol.INPUT_TYPE_PLAY_CARD:
+            # record play card event
+            play_card_event = GameEvent.create_play_card_event(player_input.cardGUID)
+            game_events_of_input.append(play_card_event)
+            # play card
             card_name = player_input.cardName
-            game_manager.card_play_manager.PlayCard(card_name)  
+            events_after_played_card = game_manager.card_play_manager.PlayCard(card_name)  
+            # record events after played card
+            game_events_of_input.extend(events_after_played_card)
         elif player_input.type == protocol.INPUT_TYPE_END_TURN:
             game_manager.end_player_turn()             
         else:
             print('invalid input, type == ',player_input.type)      
+
         # send response every time play card
         print('send response, card play')
-        send_response(player_socket,game_manager)
+        send_response(player_socket,game_manager,game_events_of_input)
 
     # enemy turn
     game_manager.start_enemy_turn()
@@ -64,10 +73,10 @@ def play_one_round(game_manager,player_socket):
         # apply BOSS intent
         game_manager.execute_enemy_intent()   
 
-def send_response(player_socket,game_manager):
+def send_response(player_socket,game_manager,game_events):
         game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state,game_manager.card_play_manager)
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
-            game_state_markup,[],game_state_markup
+            game_state_markup,game_events,game_state_markup
         )
         game_sequence_markup_json = json.dumps(game_sequence_markup_file)
         response_message ={'gameSequenceMarkupJSON':game_sequence_markup_json} 
@@ -80,7 +89,10 @@ def get_player_input(socket)->protocol.UserInput:
     message_json_data = data.decode()
     message_dict = json.loads(message_json_data) 
     user_input_dict = message_dict['userInput']
-    user_input = protocol.UserInput(user_input_dict['type'],user_input_dict['cardName'])
+    user_input = protocol.UserInput(
+        user_input_dict['type'],
+        user_input_dict['cardName'],
+        user_input_dict['cardGUID'])
     print("type: ",user_input.type,"cardName",user_input.cardName)
     return user_input
 

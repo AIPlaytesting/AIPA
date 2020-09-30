@@ -12,6 +12,8 @@ namespace GameBrowser {
         public GameObject discardPileWindowPrefab;
         public GameObject playerEntityPrefab;
         public GameObject bossEntityPrefab;
+        public GameObject enemyIntentEntityPrefab;
+        public GameObject buffEntityPrefab;
 
         private void Awake() {
             if (Instance == null) {

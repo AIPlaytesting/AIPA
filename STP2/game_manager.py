@@ -8,12 +8,12 @@ import EffectCalculator
 PLAYER_ENERGY = 3
 class GameState:
     def __init__(self, empty_buff_dict,all_card_names):
-        self.player = CombatUnit('Player', 100, empty_buff_dict) # placehold: hp value all 100
-        self.boss = CombatUnit('The Guardian', 100, empty_buff_dict) # placehold: hp value all 100
+        self.player = CombatUnit('Player', "player",100, empty_buff_dict) # placehold: hp value all 100
+        self.boss = CombatUnit('The Guardian',"boss", 100, empty_buff_dict) # placehold: hp value all 100
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         self.deck = Deck(all_card_names)
-        
+
 class GameManager:
     def __init__(self):
         self.effect_calculator = EffectCalculator.EffectCalculator(self)

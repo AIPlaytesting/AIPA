@@ -1,7 +1,8 @@
 from buff_type import BuffType
 
 class CombatUnit:
-    def __init__(self, name, init_hp, empty_buffs_dict):
+    def __init__(self,name, game_unique_id, init_hp, empty_buffs_dict):
+        self.game_unique_id = game_unique_id
         self.name = name
         self.max_hP = init_hp
         self.current_hp = init_hp
