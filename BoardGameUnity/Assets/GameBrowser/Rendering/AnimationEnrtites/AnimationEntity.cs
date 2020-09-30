@@ -13,5 +13,7 @@ namespace GameBrowser.Rendering {
         /// must be stopped when destroyself
         /// </summary>
         public virtual void DestorySelf() { }
+
+        public abstract void Play();
     }
 }

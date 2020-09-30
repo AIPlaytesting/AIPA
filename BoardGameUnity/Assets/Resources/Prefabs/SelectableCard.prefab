@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5148119977451497916}
   - component: {fileID: 2898726831381102618}
   - component: {fileID: 8558796828524663491}
-  - component: {fileID: 181203293327408655}
+  - component: {fileID: 5424217117205804743}
   m_Layer: 8
-  m_Name: Card
+  m_Name: SelectableCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.4341702, y: 4.839536}
   m_EdgeRadius: 0
---- !u!114 &181203293327408655
+--- !u!114 &5424217117205804743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 181203293327408652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e02b926bdb356d42855f6974f818d71, type: 3}
+  m_Script: {fileID: 11500000, guid: 377a0ff844b1aa04b94ced13e29f896b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   glow: {fileID: 6689995782870421901}

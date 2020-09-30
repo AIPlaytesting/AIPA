@@ -7,6 +7,7 @@ namespace GameBrowser {
     public class PlayCardInputTrigger:UserInputTrigger  {
         public string cardName = "";
         public string cardGUID = "";
+
         public override void TriggerUserInput() {
             var userInput = new UserInput();
             userInput.type = UserInput.Type.PlayCard;

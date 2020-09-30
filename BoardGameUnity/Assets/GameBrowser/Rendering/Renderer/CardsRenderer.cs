@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GameBrowser.Rendering {
     public class CardsRenderer:HighLevelRenderer {
         public override void Clear() {
-            foreach (var card in GameObject.FindObjectsOfType<SelectableCard>()) {
+            foreach (var card in GameObject.FindObjectsOfType<SelectableCardEntity>()) {
                 GameObject.DestroyImmediate(card.gameObject);
             }
 
@@ -18,7 +18,7 @@ namespace GameBrowser.Rendering {
             Vector2 bias = Vector2.zero;
             var anchor = GameBrowser.Instance.mainSceneCanvas.FindCustomAnchor("cardsOnHand");
             foreach (var card in cards) {
-                SelectableCard.Create(card, new CanvasPosition(anchor, bias));
+                MarkupEntity.CreateEntity(new CanvasPosition(anchor,bias), ResourceTable.Instance.cardTemplate, card);
                 bias += new Vector2(2.5f, 0);
             }
         }

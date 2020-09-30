@@ -15,5 +15,13 @@ namespace GameBrowser.Rendering {
             }
             throw new System.Exception("cannot find anchor: " + name);
         }
+
+        [ContextMenu("update anchors in child")]
+        private void UpdateCustomAnchorsBySerachInChild() {
+            customAnchors.Clear();
+            foreach (var anchor in GetComponentsInChildren<CanvasAnchor>()) {
+                customAnchors.Add(anchor);
+            }
+        }
     }
 }

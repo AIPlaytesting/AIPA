@@ -8,11 +8,17 @@ namespace GameBrowser.Rendering {
     /// override HookTo() to initialize based on the markup hooked
     /// </summary>
     public abstract class MarkupEntity : MonoBehaviour {
-        protected Markup hookedMarkup;
+        public Markup hookedMarkup { get; private set; }
 
         public static MarkupEntity CreateEntity(CanvasAnchor anchor, GameObject prefab, Markup markupToHook) {
+            var canvasPosition = new CanvasPosition(anchor, Vector2.zero);
+            return CreateEntity(canvasPosition, prefab, markupToHook);
+        }
+
+        public static MarkupEntity CreateEntity(CanvasPosition canvasPosition, GameObject prefab, Markup markupToHook) {
             var GO = Instantiate(prefab);
-            anchor.AttachGameObjectToAnchor(GO);
+            canvasPosition.anchor.AttachGameObjectToAnchor(GO);
+            GO.transform.position += new Vector3( canvasPosition.bias.x, canvasPosition.bias.y,0);
             var entity = GO.GetComponent<MarkupEntity>();
             entity.HookTo(markupToHook);
             return entity;

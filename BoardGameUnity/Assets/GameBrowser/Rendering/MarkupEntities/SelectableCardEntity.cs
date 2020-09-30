@@ -5,23 +5,20 @@ using TMPro;
 using UnityEngine;
 
 namespace GameBrowser.Rendering {
-    public class SelectableCard : MonoBehaviour {
+    public class SelectableCardEntity : MarkupEntity {
         public GameObject glow;
         public TextMeshPro name;
         public TextMeshPro energy;
         
         private bool isSelected = false;
-        private CardMarkup hookedCardMarkup;
 
-        public static SelectableCard Create(CardMarkup cardMarkup, CanvasPosition position) {
-            var GO = Instantiate(ResourceTable.Instance.cardTemplate);
-            GO.transform.SetParent(position.anchor.transform);
-            GO.transform.localPosition = position.bias;
-            var card = GO.GetComponent<SelectableCard>();
-            card.Render(cardMarkup);
-            return card;
+        public override void HookTo(Markup markup) {
+            base.HookTo(markup);
+            var hookedCardMarkup = hookedMarkup as CardMarkup;
+            name.text = hookedCardMarkup.name;
+            energy.text = hookedCardMarkup.energyCost.ToString();
         }
-    
+
         private void Awake() {
             isSelected = false;
             OnIsSelectedChange();
@@ -35,23 +32,18 @@ namespace GameBrowser.Rendering {
         private void OnIsSelectedChange() {
             // TODO : temp method!
             if (isSelected) {
-                foreach (var card in FindObjectsOfType<SelectableCard>()) {
+                foreach (var card in FindObjectsOfType<SelectableCardEntity>()) {
                     if (card != this) {
                         card.isSelected = false;
                         card.OnIsSelectedChange();
                     }
                 }
                 var playerInputTrigger = FindObjectOfType<PlayCardInputTrigger>();
+                var hookedCardMarkup = hookedMarkup as CardMarkup;
                 playerInputTrigger.cardName = hookedCardMarkup.name;
                 playerInputTrigger.cardGUID = hookedCardMarkup.gameUniqueID;
             }
             glow.SetActive(isSelected);
-        }
-
-        private void Render(CardMarkup cardMarkup) {
-            hookedCardMarkup = cardMarkup;
-            name.text = cardMarkup.name;
-            energy.text = cardMarkup.energyCost.ToString();
         }
     }
 }
