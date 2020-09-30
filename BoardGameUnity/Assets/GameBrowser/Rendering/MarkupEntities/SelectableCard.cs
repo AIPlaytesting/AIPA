@@ -41,7 +41,9 @@ namespace GameBrowser.Rendering {
                         card.OnIsSelectedChange();
                     }
                 }
-                FindObjectOfType<PlayCardInputTrigger>().cardName = hookedCardMarkup.name;
+                var playerInputTrigger = FindObjectOfType<PlayCardInputTrigger>();
+                playerInputTrigger.cardName = hookedCardMarkup.name;
+                playerInputTrigger.cardGUID = hookedCardMarkup.gameUniqueID;
             }
             glow.SetActive(isSelected);
         }

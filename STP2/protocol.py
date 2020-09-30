@@ -4,23 +4,26 @@ from CardBase import Card
 from CardPlayManager import CardPlayManager
 from game_event import GameEvent
 
+# The naming style is C#, becuase the name of class need to be the same as 
+# front end in Unity 
+
 INPUT_TYPE_NONE = 0
 INPUT_TYPE_PLAY_CARD = 1
 INPUT_TYPE_END_TURN = 2
 INPUT_TYPE_START_GAME = 3
-# The naming style is C#, becuase the name of class need to be the same as 
-# front end in Unity 
+
 class UserInput:
-    def __init__(self,type,card_name):
+    def __init__(self,type,card_name,card_guid):
         self.type = type
         self.cardName = card_name
+        self.cardGUID = card_guid
 
 class MarkupFactory:
     @classmethod
     def create_game_sequence_markup_file(cls,beginingState,gameEvents, endingState):
         markup = {}
         markup['beginingState'] = beginingState
-        markup['gameEvents'] = gameEvents
+        markup['gameEvents'] = [cls.create_game_event_markup(e) for e in gameEvents]
         markup['endingState'] = endingState
         return markup
 
@@ -28,9 +31,9 @@ class MarkupFactory:
     def create_game_event_markup(cls,game_event:GameEvent):
         markup = {}
         markup['eventChannel'] = game_event.event_channel
-        markup['cardEventType'] = game_event.card_event_type
-        markup['characterEventType'] = game_event.character_event_type
-        markup['inforamtion'] = game_event.inforamtion
+        markup['cardEvent'] = game_event.card_event_type
+        markup['combatUnitEvent'] = game_event.combat_unit_event_type
+        markup['information'] = game_event.information
         return markup
 
     @classmethod
@@ -89,19 +92,4 @@ class MarkupFactory:
     def create_enemy_intent_markup(cls,enemy_intent):
         markup = vars(enemy_intent)
         return markup
-                
-class GameStateMarkup:
-    # TODO: card information should get from data in disk
-    def __init__(self,game_state:GameState,card_play_manager:CardPlayManager):
-        self.player = CombatUnitMarkup(game_state.player)
-        self.enimes = [CombatUnitMarkup(game_state.boss)]
-
-        self.cardsOnHand = []
-        for card_name in game_state.deck.get_card_names_on_hand():
-            card = card_play_manager.cards_dict[card_name]
-            self.cardsOnHand.append(CardMarkup(card))
-
-        self.drawPile = []
-        self.discardPile = []
-        self.energy = []
-
+    

@@ -11,5 +11,6 @@ namespace GameBrowser {
         }
         public Type type = Type.None;
         public string cardName = "";
+        public string cardGUID = "";
     }
 }

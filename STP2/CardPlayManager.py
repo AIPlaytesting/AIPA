@@ -26,12 +26,14 @@ class CardPlayManager:
         self.cards_dict['Shrug It Off'] = CardBase.Card('Shrug It Off')
         self.cards_dict['Sword Boomerang'] = CardBase.Card('Sword Boomerang')
 
-    # return GameEvent[] which happens after play this card
+    # return GameEvent[] which happens AFATER played this card
     def PlayCard(self, cardName):
 
         if not cardName in self.cards_dict:
             print(cardName + ' is an invalid card name')
             return
+
+        game_events = []
 
         card = self.cards_dict[cardName]
 
@@ -45,12 +47,25 @@ class CardPlayManager:
                 else:
                     buff_target = self.game_manager.game_state.player
 
+                # TODO: should be += card.buffs[key]['value'], however becuase of thron bug in Guardien, will fix in future
                 buff_value = card.buffs[key]['value']
-
                 self.card_effects_manager.ApplyBuff(self.game_manager.game_state.player, buff_target, key, buff_value)
+                
+                # TODO: should record buff only it change
+                if buff_value != 0:
+                    # record game event
+                    buff_change_event = GameEvent.create_buff_change_event(buff_target.game_unique_id,key,buff_value)
+                    game_events.append(buff_change_event)
 
             # Create Block
             self.card_effects_manager.AddBlock(self.game_manager.game_state.player, card.damage_block['block'])
+            # record bock change event
+            block_diff  = card.damage_block['block']
+            if block_diff != 0:
+                block_change_event = GameEvent.create_block_change_event(
+                    self.game_manager.game_state.player.game_unique_id,
+                    self.game_manager.game_state.player.block)
+                game_events.append(block_change_event)
 
             # Deal Damage
             for i in range(0, card.damage_block['damage_instances']):
@@ -76,6 +91,7 @@ class CardPlayManager:
         self.next_attack_count = 1 if card.type == 'Attack' else self.next_attack_count
         self.next_attack_count = card.special_mod['next_attack_count'] if cardName == 'Double Tap' else self.next_attack_count
 
+        return game_events
 
     def GetEmptyBuffDict(self):
         buff_dict = self.cards_dict['Anger'].buffs
