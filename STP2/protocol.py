@@ -29,6 +29,10 @@ class MarkupFactory:
 
     @classmethod
     def create_game_event_markup(cls,game_event:GameEvent):
+        if game_event == None:
+            print("[ERROR]: gameEvent is none!")
+            return {}
+
         markup = {}
         markup['eventChannel'] = game_event.event_channel
         markup['cardEvent'] = game_event.card_event_type

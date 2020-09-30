@@ -17,7 +17,7 @@ namespace GameBrowser.Rendering {
             cardBePlayed.transform.DOMove(showCardPosition, 0.5f);
             yield return new WaitForSeconds(1f);
             cardBePlayed.transform.DOMove(discardPilePosition, 0.4f);
-            cardBePlayed.transform.DOScale(Vector3.zero, 0.4f).onComplete = ()=>onComplete(this); 
+            cardBePlayed.transform.DOScale(Vector3.zero, 0.4f).onComplete = ()=>onAnimationComplete(this); 
         }
     }
 }

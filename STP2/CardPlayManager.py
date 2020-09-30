@@ -75,8 +75,10 @@ class CardPlayManager:
                 elif card.special_mod['unique_damage'] == 'block':
                     damage_value = self.game_manager.game_state.player.block
 
-                self.card_effects_manager.DealDamage(self.game_manager.game_state.player, self.game_manager.game_state.boss,
+                damage_events = self.card_effects_manager.DealDamage(self.game_manager.game_state.player, self.game_manager.game_state.boss,
                     damage_value, card.special_mod['strength_multiplier'])
+                # record damage events 
+                game_events.extend(damage_events)
 
             #Draw card
             self.game_manager.game_state.deck.draw_cards(card.card_life_cycle['draw_card'])

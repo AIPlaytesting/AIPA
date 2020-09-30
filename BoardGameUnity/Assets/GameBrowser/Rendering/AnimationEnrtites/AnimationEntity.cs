@@ -8,7 +8,7 @@ namespace GameBrowser.Rendering {
         
         public float speed = 1f;
 
-        public OnComplete onComplete;
+        public OnComplete onAnimationComplete;
         /// <summary>
         /// if derived class own other resources(like animation on other objects).
         /// must be stopped when destroyself

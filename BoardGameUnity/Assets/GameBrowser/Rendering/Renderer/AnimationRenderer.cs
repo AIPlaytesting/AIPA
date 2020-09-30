@@ -30,7 +30,7 @@ namespace GameBrowser.Rendering {
             var animationEntity = AnimationEntityFactory.CreateAnimationEntity(gameEventMarkup);
             if (animationEntity) {
                 runningAniamtionEntities.Add(animationEntity);
-                animationEntity.onComplete += OnAniamitionComplete;
+                animationEntity.onAnimationComplete += OnAniamitionComplete;
                 anyAnimationRunning = true;
                 animationEntity.Play();
             }

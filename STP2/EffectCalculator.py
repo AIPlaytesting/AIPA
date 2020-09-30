@@ -1,5 +1,6 @@
 import game_manager
 import buff_type
+from game_event import GameEvent
 
 class EffectCalculator:
 
@@ -14,7 +15,9 @@ class EffectCalculator:
         target.block += value
         self.LogAddBlock(target, value)
 
+    # return GameEvent[]
     def DealDamage(self, source, target, value, strength_multiplier):
+        damage_game_events = []
         #calculate damage modifications
         # strength -> add (strength value * special_mod.strength_multiplier) to damage
         # player weakened -> (damage + str bonus) * 0.75
@@ -30,10 +33,17 @@ class EffectCalculator:
         damage_value = int(damage_value)
         damage_value = self.BlockDamage(target, damage_value)
         target.current_hp -= damage_value
-        self.LogDamage(source, target, damage_value)
-        self.ThornDamage(target,source)
 
-        
+        # record damge event
+        damage_game_events.append(GameEvent.create_get_hurt_event(target.game_unique_id,damage_value))
+
+        self.LogDamage(source, target, damage_value)
+        thron_damage_event = self.ThornDamage(target,source)
+        # record thoron demage event
+        if thron_damage_event != None:
+            damage_game_events.append(thron_damage_event)
+        return damage_game_events
+
     def BlockDamage(self, target, damage):
         damage_value = damage
         #calculate damage reduction from block
@@ -52,18 +62,19 @@ class EffectCalculator:
         
         return damage_value
     
-
+    # returnd demage event
     def ThornDamage(self, source, target):
         #thorn damage is different because it does not get affected by modifiers
         thorn_damage_value = source.buff_dict['Thorns']
 
         if not thorn_damage_value > 0:
-            return
+            return None
 
         thorn_damage_value = self.BlockDamage(target, thorn_damage_value)
         target.current_hp -= thorn_damage_value
         self.LogThornDamage(source, target, thorn_damage_value)
         
+        return GameEvent.create_get_hurt_event(target.game_unique_id,thorn_damage_value)
     
     def ReducePlayerEnergy(self, energy):
         self.game_manager.game_state.player_energy -= energy
