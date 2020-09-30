@@ -30,7 +30,7 @@ class Deck:
                 card_instance = CardInstance(card_name,guid)
                 cards_in_deck.append(card_instance)
 
-        print("deck: ", cards_in_deck)
+        print("deck: ", all_cards_names)
         self.__draw_pile.addCards(cards_in_deck)
 
     def get_card_names_on_hand(self):
@@ -65,10 +65,15 @@ class Deck:
             self.__discard_pile.addCards(self.__cards_on_hand)
             self.__cards_on_hand.clear()
 
-    # return __discard_pile.cards [fe,2,3,4] 
+    def get_card_names_in_discard_pile(self):
+        return [card_instance.card_name for card_instance in self.__discard_pile.cards]
+
     def get_discard_pile(self):
         return self.__discard_pile
 
+    def get_card_names_in_draw_pile(self):
+        return [card_instance.card_name for card_instance in self.__draw_pile.cards]
+        
     def get_draw_pile(self):
         return self.__draw_pile
 
