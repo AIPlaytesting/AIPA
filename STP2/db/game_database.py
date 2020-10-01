@@ -1,30 +1,32 @@
 import sys
 import os 
 import json
+import shutil
+
 from pathlib import Path
 from distutils.dir_util import copy_tree
 
-from manifest import Manifest
-from game_app_data import GameAppData
-from const_setting import *
+from . import manifest
+from . import game_app_data
+from . import const_setting
 
-class GameDataBase:
+class GameDatabase:
     def __init__(self,root_dir:str):
-        manifest_path = root_dir + "\\" + MANIFEST_FILENAME
+        manifest_path = root_dir + "\\" + const_setting.MANIFEST_FILENAME
         print("try read manifest at: "+manifest_path)
-        self.manifest = Manifest.load_from_file(manifest_path)
+        self.manifest = manifest.Manifest.load_from_file(manifest_path)
 
         game_app_root_dir = root_dir + "\\" + self.manifest.game_app
         print("try load game app data at: "+game_app_root_dir)
-        self.game_app_data = GameAppData(game_app_root_dir)
+        self.game_app_data = game_app_data.GameAppData(game_app_root_dir)
 
         print("succeeed to create GameDataBase from root: "+root_dir)
 
     @classmethod
     def load_database(cls,root_dir:str):
-        game_db = GameDataBase()
+        game_db = GameDatabase()
         # load manifest file
-        manifest_path = root_dir + '\\'+ MANIFEST_FILENAME
+        manifest_path = root_dir + '\\'+ const_setting.MANIFEST_FILENAME
         with open(manifest_path, "r") as file:
                 raw_json_data = file.read()
                 self.card_data = json.loads(raw_json_data)    
@@ -55,7 +57,7 @@ def init_game_database():
 
     if os.path.exists(root_dir):
         print("[game database] - [Is folder exist?]: yes")
-        print("[game database] - [Fail] need mannually delete existing folder")
+        print ("[Fail] need mannally delete folder: "+root_dir+" !!!!!!!!!!!!!!!!!!!")
         return
     else:
         print("[game database] - [Is folder exist?]: no")
@@ -64,14 +66,14 @@ def init_game_database():
     os.makedirs(root_dir)
 
     # create manifest file
-    manifest_path = root_dir + '\\'+ MANIFEST_FILENAME
+    manifest_path = root_dir + '\\'+ const_setting.MANIFEST_FILENAME
     print("[game database] - make manifest file at: "+manifest_path)
-    manifest = Manifest()    
-    manifest.game_app = "DefaultApp"
-    manifest.root_directory = root_dir
-    manifest_json = json.dumps(manifest.__dict__, indent = 4)
+    mf = manifest.Manifest()    
+    mf.game_app = "DefaultApp"
+    mf.root_directory = root_dir
+    mf_json = json.dumps(mf.__dict__, indent = 4)
     f= open(manifest_path,"w+")
-    f.write(manifest_json)
+    f.write(mf_json)
     f.close()
 
     # create default game app
@@ -84,11 +86,5 @@ def init_game_database():
 
 def check_game_database():
     root_dir = calculate_root_dir()
-    game_db = GameDataBase(root_dir)
+    game_db = GameDatabase(root_dir)
     game_db.print_data_to_terminal()
-
-argv = sys.argv
-if len(argv) > 1 and argv[1] == 'init':
-    init_game_database()
-if len(argv) > 1 and argv[1] == 'check':
-    check_game_database()

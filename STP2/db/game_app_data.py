@@ -1,6 +1,6 @@
 import json
 import glob
-from const_setting import *
+from .const_setting import *
 
 class GameAppData:
     def __init__(self,root_dir:str):
