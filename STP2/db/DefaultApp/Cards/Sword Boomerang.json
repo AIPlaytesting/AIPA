@@ -1,5 +1,5 @@
 {
-    "name" : "Sword Bomerang",
+    "name" : "Sword Boomerang",
     "type" : "Attack",
     "energy_cost" : 1,
     "damage_target" : "enemy",
