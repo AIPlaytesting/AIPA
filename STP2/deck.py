@@ -76,11 +76,3 @@ class Deck:
         guid = card_name + str(self.internal_id_counter)
         self.internal_id_counter+=1
         return guid
-
-    # def __load_card_composition(self):
-    #     PATH = "Decks/" + "deck_1.0.json"
-    #     with open(PATH, "r") as file:
-    #         raw_json_data = file.read()
-    #         deck_info = json.loads(raw_json_data)     
-    #         card_composition = deck_info["Composition"]
-    #         return card_composition
