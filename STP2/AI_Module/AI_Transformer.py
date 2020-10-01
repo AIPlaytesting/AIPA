@@ -63,8 +63,8 @@ class AI_Transformer:
             cards_on_hand = game_state.deck.get_card_names_on_hand()
             self.in_hand_cards[key] = cards_on_hand.count(key)
             self.in_hand_and_playable_cards[key] = playable_cards.count(key)
-            draw_pile = game_state.deck.getDrawPile().cards
-            discard_pile = game_state.deck.getDiscardPile().cards
+            draw_pile = game_state.deck.get_card_names_in_draw_pile()
+            discard_pile = game_state.deck.get_card_names_in_discard_pile()
             self.draw_pile[key] = draw_pile.count(key)
             self.discard_pile[key] = discard_pile.count(key)
 
