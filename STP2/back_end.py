@@ -3,10 +3,12 @@ import sys
 import protocol
 import json
 import time
+import db.game_database
 from game_manager import GameManager
 from game_event import GameEvent
 from enemy_intent import EnemyIntent
 from collections import namedtuple
+from game_recorder.game_recorder import GameRecorder
 
 def back_end_main_loop(player_socket):
     while True:
@@ -20,24 +22,35 @@ def wait_start_game_request(player_socket):
             break
     print("start game request received!")
 
-def run_game(player_socket):
+def run_game(player_socket): 
+    # load database
+    db_root = db.game_database.calculate_root_dir()
+    game_db = db.game_database.GameDatabase(db_root)
     # init 
-    game_manager = GameManager()
+    game_manager = GameManager(game_db.game_app_data)
     game_manager.init_game()
+    game_recorder.start_record_one_battle()
     # play
     while(not game_manager.is_game_end()):
        play_one_round(game_manager,player_socket)
     # print result
     result = 'Win' if game_manager.is_player_win() else 'lost'
     print("result:---------------------\n"+result)
+    game_recorder.save_record_data()
  
 def play_one_round(game_manager,player_socket):
     # player turn
     game_manager.start_player_turn()
+    # record player turn start state
+    game_recorder.record_game_state(game_manager.game_state)
+    # send resonce back
     print('send response, start turn')
     send_response(player_socket,game_manager,[])
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
+        # record state before play card
+        game_recorder.record_game_state(game_manager.game_state)
+
         cards_on_hand = game_manager.get_current_cards_on_hand()
         playable_cards = game_manager.get_current_playable_cards()
         # print log of cards
@@ -61,6 +74,9 @@ def play_one_round(game_manager,player_socket):
         else:
             print('invalid input, type == ',player_input.type)      
 
+        # record game events
+        game_recorder.record_game_events(game_events_of_input)
+
         # send response every time play card
         print('send response, card play')
         send_response(player_socket,game_manager,game_events_of_input)
@@ -74,7 +90,7 @@ def play_one_round(game_manager,player_socket):
         game_manager.execute_enemy_intent()   
 
 def send_response(player_socket,game_manager,game_events):
-        game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state,game_manager.card_play_manager)
+        game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
             game_state_markup,game_events,game_state_markup
         )
@@ -105,19 +121,10 @@ print ('connecting to: ',server_address)
 sock.connect(server_address)
 print ('connected to: ',server_address)
 
-# play game
+# create game_recorder 
+game_recorder = GameRecorder()
 
+# play game
 back_end_main_loop(sock)
 
 time.sleep(2)
-
-# try:     
-#     while True:
-#         # recv data
-#         data = sock.recv(1024) 
-#         print('recv:',data.decode())
-#         # echo back
-#         sock.send("I received your message!".encode())
-# finally:
-#     print ('closing socket') 
-#     sock.close()

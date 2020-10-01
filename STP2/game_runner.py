@@ -1,9 +1,15 @@
 from game_manager import GameManager
 from enemy_intent import EnemyIntent
+import db.game_database
 
 def run_game(is_AI_mode):
+    # load game data based 
+    db_root = db.game_database.calculate_root_dir()
+    game_db = db.game_database.GameDatabase(db_root)
+    game_db.print_data_to_terminal()
+
     # init 
-    game_manager = GameManager()
+    game_manager = GameManager(game_db.game_app_data)
     game_manager.init_game()
     # play
     while(not game_manager.is_game_end()):

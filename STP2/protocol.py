@@ -41,11 +41,11 @@ class MarkupFactory:
         return markup
 
     @classmethod
-    def create_game_state_markup(cls,game_state:GameState,card_play_manager:CardPlayManager):
+    def create_game_state_markup(cls,game_state:GameState):
         def create_cards_markup_by_card_instances(card_instances):
             card_markups = []
             for card_instance in card_instances:
-                card = card_play_manager.cards_dict[card_instance.card_name]
+                card = game_state.cards_dict[card_instance.card_name]
                 card_markups.append(cls.create_card_markup(card,card_instance.game_unique_id))
             return card_markups
 

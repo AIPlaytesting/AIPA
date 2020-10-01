@@ -1,36 +1,36 @@
 import Pile
 import json
+from db.game_app_data import GameAppData
 
 class CardInstance:
     def __init__(self,card_name,game_unique_id):
         self.card_name = card_name
         self.game_unique_id = game_unique_id
+    def __str__(self):
+        return self.card_name 
 
-# all cards are stored as names(str)
+# all cards are stored as CardInstance
 class Deck:
-
-    def __init__(self,all_cards_names):
+    def __init__(self,deck_config):
         super().__init__()
         self.internal_id_counter = 0
         self.__draw_pile = Pile.Pile()# CardInstance[]  
         self.__discard_pile = Pile.Pile()# CardInstance[]  
         self.__cards_on_hand = [] # CardInstance[]  
-        self.reset_deck(all_cards_names)
+        self.reset_deck(deck_config)
 
-    def reset_deck(self,all_cards_names):
+    def reset_deck(self,deck_config):
         self.__draw_pile.resetPile()
         self.__discard_pile.resetPile()
-
-        card_composition = self.__load_card_composition()
+        print(deck_config)
         cards_in_deck = []
-        for card_name in all_cards_names:
-            card_count = card_composition[card_name] if  card_name in card_composition else 1
-            for i in range(card_count):
+        for card_name,card_number in deck_config.items():
+            for i in range(card_number):
                 guid = self.__assign_game_uniqe_id(card_name)
                 card_instance = CardInstance(card_name,guid)
                 cards_in_deck.append(card_instance)
 
-        print("deck: ", all_cards_names)
+        print("deck: ", [str(card_instance) for card_instance in cards_in_deck])
         self.__draw_pile.addCards(cards_in_deck)
 
     def get_card_names_on_hand(self):
@@ -81,11 +81,3 @@ class Deck:
         guid = card_name + str(self.internal_id_counter)
         self.internal_id_counter+=1
         return guid
-
-    def __load_card_composition(self):
-        PATH = "Decks/" + "deck_1.0.json"
-        with open(PATH, "r") as file:
-            raw_json_data = file.read()
-            deck_info = json.loads(raw_json_data)     
-            card_composition = deck_info["Composition"]
-            return card_composition
