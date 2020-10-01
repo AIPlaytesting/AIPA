@@ -2,23 +2,26 @@ from combat_unit import CombatUnit
 from enemy_intent import EnemyIntent
 from enemy_AI import EnemyAI
 from deck import Deck
+from db.game_app_data import GameAppData
 import CardPlayManager
 import EffectCalculator
 
 PLAYER_ENERGY = 3
 class GameState:
-    def __init__(self, empty_buff_dict,all_card_names):
-        self.player = CombatUnit('Player', "player",100, empty_buff_dict) # placehold: hp value all 100
-        self.boss = CombatUnit('The Guardian',"boss", 100, empty_buff_dict) # placehold: hp value all 100
+    def __init__(self,game_app_data:GameAppData, empty_buff_dict,all_card_names):
+        rules = game_app_data.rules
+        self.player = CombatUnit('Player', "player",rules['player_hp'], empty_buff_dict) 
+        self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], empty_buff_dict) 
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         self.deck = Deck(all_card_names)
 
 class GameManager:
-    def __init__(self):
+    def __init__(self,game_app_data:GameAppData):
+        self.game_app_data = game_app_data
         self.effect_calculator = EffectCalculator.EffectCalculator(self)
         self.card_play_manager = CardPlayManager.CardPlayManager(self, self.effect_calculator)
-        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(), self.card_play_manager.cards_dict.keys())
+        self.game_state = GameState(game_app_data, self.card_play_manager.GetEmptyBuffDict(), self.card_play_manager.cards_dict.keys())
         self.boss_AI = EnemyAI(self.game_state.boss)
         self.__end_player_turn_flag = False
 
@@ -26,7 +29,7 @@ class GameManager:
         self.isLoggingEnabled = True
 
     def init_game(self):
-        self.game_state = GameState(self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
+        self.game_state = GameState(self.game_app_data, self.card_play_manager.GetEmptyBuffDict(),self.card_play_manager.cards_dict.keys())
         self.boss_AI = EnemyAI(self.game_state.boss)
 
     def is_game_end(self):

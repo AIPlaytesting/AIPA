@@ -1,5 +1,6 @@
 import Pile
 import json
+from db.game_app_data import GameAppData
 
 class CardInstance:
     def __init__(self,card_name,game_unique_id):

@@ -9,7 +9,7 @@ def run_game(is_AI_mode):
     game_db.print_data_to_terminal()
 
     # init 
-    game_manager = GameManager()
+    game_manager = GameManager(game_db.game_app_data)
     game_manager.init_game()
     # play
     while(not game_manager.is_game_end()):
