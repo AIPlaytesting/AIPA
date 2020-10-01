@@ -3,6 +3,7 @@ import sys
 import protocol
 import json
 import time
+import db.game_database
 from game_manager import GameManager
 from game_event import GameEvent
 from enemy_intent import EnemyIntent
@@ -22,8 +23,11 @@ def wait_start_game_request(player_socket):
     print("start game request received!")
 
 def run_game(player_socket): 
+    # load database
+    db_root = db.game_database.calculate_root_dir()
+    game_db = db.game_database.GameDatabase(db_root)
     # init 
-    game_manager = GameManager()
+    game_manager = GameManager(game_db.game_app_data)
     game_manager.init_game()
     game_recorder.start_record_one_battle()
     # play
@@ -86,7 +90,7 @@ def play_one_round(game_manager,player_socket):
         game_manager.execute_enemy_intent()   
 
 def send_response(player_socket,game_manager,game_events):
-        game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state,game_manager.card_play_manager)
+        game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
             game_state_markup,game_events,game_state_markup
         )

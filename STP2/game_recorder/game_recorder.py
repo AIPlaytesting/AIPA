@@ -1,5 +1,5 @@
 from .record_data import SingleBattleData,FragmentRecord
-from ..protocol import MarkupFactory
+from protocol import MarkupFactory
 
 class GameRecorder:
     def __init__(self):
