@@ -2,12 +2,15 @@
 import AI_Module.AI_Transformer
 import game_manager
 import numpy as np
+import db.game_database
 
 class Environment:
 
     def __init__(self):
         self.ai_transformer = AI_Module.AI_Transformer.AI_Transformer()
-        self.game_manager = game_manager.GameManager()
+        db_root = db.game_database.calculate_root_dir()
+        game_db = db.game_database.GameDatabase(db_root)
+        self.game_manager = game_manager.GameManager(game_db.game_app_data)
         self.action_cards_played = {}
         self.win_count = 0
 
