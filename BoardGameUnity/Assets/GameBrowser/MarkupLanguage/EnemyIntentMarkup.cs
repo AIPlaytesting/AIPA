@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameBrowser {
+    [System.Serializable]
     public class EnemyIntentMarkup:Markup {
         public string name = "unnamed_intent";
         public bool is_attack = false;

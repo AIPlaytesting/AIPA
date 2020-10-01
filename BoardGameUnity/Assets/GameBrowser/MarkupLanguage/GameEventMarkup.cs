@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameBrowser {
+    [System.Serializable]
     public class GameEventMarkup : Markup {
         public enum EventChannel { None, NewTurn,Card, CombatUnit }
         public enum CardEvent { None, Played, Draw }

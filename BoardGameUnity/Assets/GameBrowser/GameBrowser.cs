@@ -22,7 +22,8 @@ namespace GameBrowser {
 
         public UserInputManager userInputManager { get { return dependencies.userInputManager; } }
         public FrontEndConnection frontEndConnection { get { return dependencies.frontEndConnection; } }
-    
+        public RenderManager renderManager { get { return dependencies.renderManager; } }
+
         private void Awake() {
             if (Instance == null) {
                 Instance = this;
