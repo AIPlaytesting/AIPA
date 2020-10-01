@@ -41,7 +41,19 @@ class GameDatabase:
         print(self.game_app_data.deck_config)
         print("rules:")
         print(self.game_app_data.rules)
+        print("[data base end]----------------------------------------------")
 
+    def check_consistency(self):
+        print("[data base] check consistency")
+        print("[data base] current app: "+ self.manifest.game_app)
+        print("[data base] check cards and deck...")
+        for card_name in self.game_app_data.deck_config.keys():
+            if card_name not in self.game_app_data.cards_dict: 
+                print("[data base]-[ERROR]: ",card_name," in deckConfig is not found in Cards")
+        for card_name in self.game_app_data.cards_dict.keys():
+            if card_name not in self.game_app_data.deck_config: 
+                print("[data base]-[WARNNING]: ",card_name," in Cards is not used in DeckConfig")
+        
 def calculate_root_dir():
     ROOT_FOLDER_NAME = "DATA" 
     cur_dir = os.path.dirname(os.path.realpath(__file__))
@@ -88,3 +100,4 @@ def check_game_database():
     root_dir = calculate_root_dir()
     game_db = GameDatabase(root_dir)
     game_db.print_data_to_terminal()
+    game_db.check_consistency()

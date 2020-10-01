@@ -9,22 +9,23 @@ class CardPlayManager:
     def __init__(self, game_manager, effect_calculator):
         self.game_manager = game_manager
         self.card_effects_manager = effect_calculator
-        self.CreateCardInstances()
+        self.CreateCardInstances(game_manager.game_app_data)
         self.next_attack_count = 1
 
-    def CreateCardInstances(self):
-        self.cards_dict = {}
-        self.cards_dict['Anger'] = CardBase.Card('Anger')
-        self.cards_dict['Body Slam'] = CardBase.Card('Body Slam')
-        self.cards_dict['Clothesline'] = CardBase.Card('Clothesline')
-        self.cards_dict['Defend'] = CardBase.Card('Defend')
-        self.cards_dict['Double Tap'] = CardBase.Card('Double Tap')
-        self.cards_dict['Flex'] = CardBase.Card('Flex')
-        self.cards_dict['Heavy Blade'] = CardBase.Card('Heavy Blade')
-        self.cards_dict['Iron Wave'] = CardBase.Card('Iron Wave')
-        self.cards_dict['Pommel Strike'] = CardBase.Card('Pommel Strike')
-        self.cards_dict['Shrug It Off'] = CardBase.Card('Shrug It Off')
-        self.cards_dict['Sword Boomerang'] = CardBase.Card('Sword Boomerang')
+    def CreateCardInstances(self,game_app_data):
+        self.cards_dict = game_app_data.cards_dict.copy()
+        # TODO remove
+        # self.cards_dict['Anger'] = CardBase.Card('Anger')
+        # self.cards_dict['Body Slam'] = CardBase.Card('Body Slam')
+        # self.cards_dict['Clothesline'] = CardBase.Card('Clothesline')
+        # self.cards_dict['Defend'] = CardBase.Card('Defend')
+        # self.cards_dict['Double Tap'] = CardBase.Card('Double Tap')
+        # self.cards_dict['Flex'] = CardBase.Card('Flex')
+        # self.cards_dict['Heavy Blade'] = CardBase.Card('Heavy Blade')
+        # self.cards_dict['Iron Wave'] = CardBase.Card('Iron Wave')
+        # self.cards_dict['Pommel Strike'] = CardBase.Card('Pommel Strike')
+        # self.cards_dict['Shrug It Off'] = CardBase.Card('Shrug It Off')
+        # self.cards_dict['Sword Boomerang'] = CardBase.Card('Sword Boomerang')
 
     # return GameEvent[] which happens AFATER played this card
     def PlayCard(self, cardName):

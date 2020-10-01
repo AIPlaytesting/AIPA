@@ -7,6 +7,7 @@ from game_manager import GameManager
 from game_event import GameEvent
 from enemy_intent import EnemyIntent
 from collections import namedtuple
+from game_recorder.game_recorder import GameRecorder
 
 def back_end_main_loop(player_socket):
     while True:
@@ -20,7 +21,7 @@ def wait_start_game_request(player_socket):
             break
     print("start game request received!")
 
-def run_game(player_socket):
+def run_game(player_socket): 
     # init 
     game_manager = GameManager()
     game_manager.init_game()
@@ -105,19 +106,10 @@ print ('connecting to: ',server_address)
 sock.connect(server_address)
 print ('connected to: ',server_address)
 
-# play game
+# create game_recorder 
+game_recorder = GameRecorder()
 
+# play game
 back_end_main_loop(sock)
 
 time.sleep(2)
-
-# try:     
-#     while True:
-#         # recv data
-#         data = sock.recv(1024) 
-#         print('recv:',data.decode())
-#         # echo back
-#         sock.send("I received your message!".encode())
-# finally:
-#     print ('closing socket') 
-#     sock.close()
