@@ -61,6 +61,10 @@ def calculate_root_dir():
     root_dir = parent_dir+'\\'+ROOT_FOLDER_NAME
     return root_dir
 
+def clear_game_database():
+    root_dir = calculate_root_dir()
+    shutil.rmtree(root_dir)
+
 def init_game_database():
     print("[game database] - start to init database...")
 
@@ -69,7 +73,8 @@ def init_game_database():
 
     if os.path.exists(root_dir):
         print("[game database] - [Is folder exist?]: yes")
-        print ("[Fail] need mannally delete folder: "+root_dir+" !!!!!!!!!!!!!!!!!!!")
+        print ("[Fail] root folder already existed: "+root_dir+" !!!!!!!!!!!!!!!!!!!")
+        print("(run 'db_manager.py clear' or delete it mannualy)")
         return
     else:
         print("[game database] - [Is folder exist?]: no")
