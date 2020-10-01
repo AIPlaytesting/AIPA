@@ -25,20 +25,28 @@ def run_game(player_socket):
     # init 
     game_manager = GameManager()
     game_manager.init_game()
+    game_recorder.start_record_one_battle()
     # play
     while(not game_manager.is_game_end()):
        play_one_round(game_manager,player_socket)
     # print result
     result = 'Win' if game_manager.is_player_win() else 'lost'
     print("result:---------------------\n"+result)
+    game_recorder.save_record_data()
  
 def play_one_round(game_manager,player_socket):
     # player turn
     game_manager.start_player_turn()
+    # record player turn start state
+    game_recorder.record_game_state(game_manager.game_state)
+    # send resonce back
     print('send response, start turn')
     send_response(player_socket,game_manager,[])
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
+        # record state before play card
+        game_recorder.record_game_state(game_manager.game_state)
+
         cards_on_hand = game_manager.get_current_cards_on_hand()
         playable_cards = game_manager.get_current_playable_cards()
         # print log of cards
@@ -61,6 +69,9 @@ def play_one_round(game_manager,player_socket):
             game_manager.end_player_turn()             
         else:
             print('invalid input, type == ',player_input.type)      
+
+        # record game events
+        game_recorder.record_game_events(game_events_of_input)
 
         # send response every time play card
         print('send response, card play')
