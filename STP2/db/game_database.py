@@ -21,15 +21,6 @@ class GameDatabase:
         self.game_app_data = game_app_data.GameAppData(game_app_root_dir)
 
         print("succeeed to create GameDataBase from root: "+root_dir)
-
-    @classmethod
-    def load_database(cls,root_dir:str):
-        game_db = GameDatabase()
-        # load manifest file
-        manifest_path = root_dir + '\\'+ const_setting.MANIFEST_FILENAME
-        with open(manifest_path, "r") as file:
-                raw_json_data = file.read()
-                self.card_data = json.loads(raw_json_data)    
             
     def print_data_to_terminal(self):
         print("[manifest]----------------------------------------------------")
