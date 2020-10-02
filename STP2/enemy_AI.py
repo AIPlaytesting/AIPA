@@ -12,28 +12,34 @@ class EnemyAI:
         self.curStateIndex = 0
         self.mode = 'Offensive'
         self.prev_hp = self.boss.max_hP
+        # accumulator to store power for boss transition from offensive mode to defensive mode
+        self.accumulator = 0
 
     # Check whether to change mode
 
+    def boss_current_mode(self, mode):
+        return self.mode
+
     def onEnemyTurnStart(self,game_state):
+        pass
         # change from Offensive to Defensive
-        if self.prev_hp - self.boss.current_hp >= 30 and self.mode == 'Offensive':
-            self.mode = 'Defensive'
-            self.boss.block += 20
-            self.curStateIndex = 0
-            # refresh current intent on game state
-            game_state.boss_intent = self.make_intent()
-            print('Transfer to Defensive mode')
+        # if self.prev_hp - self.boss.current_hp >= 30 and self.mode == 'Offensive':
+        #     self.mode = 'Defensive'
+        #     self.boss.block += 20
+        #     self.curStateIndex = 0
+        #     # refresh current intent on game state
+        #     game_state.boss_intent = self.make_intent()
+        #     print('Transfer to Defensive mode')
 
         # change from Defensive to Offensive
         # if defensive mode and on the stage of using Twin slam skill, boss will turn back to offensive mode
-        if self.mode == 'Defensive' and self.curStateIndex == 0:
-            self.mode = 'Offensive'
-            self.boss.buff_dict['Thorns'] = 0
-            self.curStateIndex = len(self.intents_offensive) - 1
-            # refresh current intent on game state
-            game_state.boss_intent = self.make_intent()
-            print('Transfer to Offensive mode')
+        # if self.mode == 'Defensive' and self.curStateIndex == 0:
+        #     self.mode = 'Offensive'
+        #     self.boss.buff_dict['Thorns'] = 0
+        #     self.curStateIndex = len(self.intents_offensive) - 1
+        #     # refresh current intent on game state
+        #     game_state.boss_intent = self.make_intent()
+        #     print('Transfer to Offensive mode')
 
     # Offensive AI
     def make_intent(self) -> EnemyIntent:
@@ -67,6 +73,20 @@ class EnemyAI:
                                   1) % len(self.intents_offensive)
 
         else:
+            # if boss go through every stage of defensive mode, boss go back to offensive mode
+            if self.curStateIndex == 3:
+                print('Transfer to Offensive mode')
+                self.mode = 'Offensive'
+                self.boss.buff_dict['Thorns'] = 0
+                self.curStateIndex = 0
+                self.accumulator = 0
+                intent.name = 'Whirlwind'
+                intent.is_attack = True
+                intent.attack_value = 20
+                print("BOSS intent: -[attack]-", intent.attack_value)
+
+                return intent
+
             curState = self.intents_defensive[self.curStateIndex]
             if curState == 'Defensive Mode':
                 intent.name = 'Defensive Mode'
@@ -90,8 +110,7 @@ class EnemyAI:
                 print('error on defensive mode')
 
             # move to the next intent
-            self.curStateIndex = (self.curStateIndex +
-                                  1) % len(self.intents_defensive)
+            self.curStateIndex = self.curStateIndex + 1
 
         return intent
 

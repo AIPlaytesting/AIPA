@@ -33,6 +33,19 @@ class EffectCalculator:
         damage_value = int(damage_value)
         damage_value = self.BlockDamage(target, damage_value)
         target.current_hp -= damage_value
+        # if boss is in offensive mode, charge accumulator and turn to defensive if over 30
+        boss_AI = self.game_manager.boss_AI 
+        if target.game_unique_id == 'boss' and \
+            boss_AI.mode == 'Offensive':
+                boss_AI.accumulator += damage_value
+                if boss_AI.accumulator >= 30:
+                    boss_AI.mode = 'Defensive'
+                    boss_AI.boss.block += 20
+                    boss_AI.curStateIndex = 0
+                    # refresh current intent on game state
+                    self.game_manager.game_state.boss_intent = boss_AI.make_intent()
+                    print('Transform to Defensive mode')
+
 
         # record damge event
         damage_game_events.append(GameEvent.create_get_hurt_event(target.game_unique_id,damage_value))
