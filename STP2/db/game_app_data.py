@@ -16,8 +16,9 @@ class GameAppData:
         self.rules = load_json_from_file(rules_file_path)
 
         # self.deckConfig: cardname,number
+        deck_path = root_dir + "\\" +self.rules['deck'] + ".json"
         deck_config_path = root_dir +"\\" + DECK_CONFIG_FILENAME
-        self.deck_config = load_json_from_file(deck_config_path)
+        self.deck_config = load_json_from_file(deck_path)
 
     @classmethod
     def load_cards_under_directory(cls,cards_dir:str):    
