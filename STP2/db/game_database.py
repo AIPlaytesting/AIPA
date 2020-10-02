@@ -16,12 +16,19 @@ class GameDatabase:
         print("try read manifest at: "+manifest_path)
         self.manifest = manifest.Manifest.load_from_file(manifest_path)
 
-        game_app_root_dir = root_dir + "\\" + self.manifest.game_app
-        print("try load game app data at: "+game_app_root_dir)
-        self.game_app_data = game_app_data.GameAppData(game_app_root_dir)
+        gameapp_root_dir = self.search_gameapp_root_with_name(root_dir,self.manifest.game_app)
+
+        print("try load game app data at: " + gameapp_root_dir)
+        self.game_app_data = game_app_data.GameAppData(gameapp_root_dir)
 
         print("succeeed to create GameDataBase from root: "+root_dir)
-            
+
+    def search_gameapp_root_with_name(self,db_root_dir,gameapp_name):
+        for path in Path(db_root_dir).rglob('init.json'):
+            if path.parent.name == gameapp_name:
+                return  os.path.dirname(path)
+        raise Exception("fail to game app named: "+gameapp_name)
+
     def print_data_to_terminal(self):
         print("[manifest]----------------------------------------------------")
         print(self.manifest.__dict__)
@@ -86,10 +93,10 @@ def init_game_database():
 
     # create default game app
     print("[game database] - create default game app")
-    default_app_dir = root_dir + "\\" + "DefaultAPP"
+    default_app_dir = root_dir + "\\" + "DefaultApp"
     os.makedirs(default_app_dir)
     cur_dir = os.path.dirname(os.path.realpath(__file__))
-    app_src_dir = cur_dir+"\\" + "DefaultAPP"
+    app_src_dir = cur_dir+"\\" + "DefaultApp"
     copy_tree(app_src_dir, default_app_dir)
 
 def check_game_database():
