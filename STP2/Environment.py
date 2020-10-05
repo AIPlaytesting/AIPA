@@ -34,24 +34,20 @@ class Environment:
         isPlayable = action_card in self.game_manager.get_current_playable_cards()
         return isPlayable
 
+    def IsAnyCardPlayable(self):
+        #return true is ANY card can be played from the deck. False if no card is playable.
+        is_any_playable = False
+        if(len(self.game_manager.get_current_playable_cards()) > 0):
+            is_any_playable = True
+        return is_any_playable
 
-    def Step(self, action_space_vec):
+
+    def Step(self, action_space_vec,  isRandomTurn = False):
         self.game_manager.print_cards_info_on_hand()
-        
-        action_neuron_number = self.ChoosePossibleActionWithMaxQVal(action_space_vec)
-
-        if(action_neuron_number == -1):
-            action_card = 'end_turn'
-        else:
-            action_card = self.ai_transformer.GetGameAction(action_neuron_number)
-        
-        if(action_card in self.action_cards_played):
-            self.action_cards_played[action_card] += 1
-        else:
-            self.action_cards_played[action_card] = 1
         
         reward = 0
         isTurnEnd = False
+        unplayableCardSelected = False
 
         #action_card contains string of card name
         old_player_hp = self.game_manager.game_state.player.current_hp
@@ -65,13 +61,38 @@ class Environment:
 
         #TODO: play the action card in the environment
         # new_state = state in flat list after playing card
-        if(action_card == 'end_turn'): 
+        if(not self.IsAnyCardPlayable()): 
             isTurnEnd = True
             self.ExecutePlayerEndFunctions()
+            #Ending turn hence -1
+            action_neuron_number = -1
             print("Player ended turn")
         else:
-            self.game_manager.card_play_manager.PlayCard(action_card)
-            print("Player took action : " + action_card)
+
+            #Get the index with the maximum q-value
+            if(not isRandomTurn):
+                action_neuron_number = np.argmax(action_space_vec)
+                print("Took Action :" + str(action_neuron_number))
+            else:                
+                action_neuron_number = self.ChoosePossibleActionWithMaxQVal(action_space_vec)
+                print("Took Random Action :" + str(action_neuron_number))
+                
+            
+            action_card = self.ai_transformer.GetGameAction(action_neuron_number)
+
+            if self.IsCardPlayable(action_neuron_number):
+                self.game_manager.card_play_manager.PlayCard(action_card)
+                print("Player took action : " + action_card)
+            else:
+                #negative reward for trying to play a card that is not playable
+                #Player loses if wrong move is made
+                unplayableCardSelected = True
+                self.game_manager.game_state.player.current_hp = 0
+
+            if action_card in self.action_cards_played:
+                self.action_cards_played[action_card] += 1
+            else:
+                self.action_cards_played[action_card] = 1
 
         new_state = self.ai_transformer.GetAIStateSpace(self.game_manager.game_state, self.game_manager.get_current_playable_cards())
 
@@ -103,8 +124,14 @@ class Environment:
         if (isTerminal and isPlayerWin) : 
             reward += 1
             self.win_count += 1
-        # elif (isTerminal and not isPlayerWin) : 
-        #     reward = -1
+        elif (isTerminal and not isPlayerWin) : 
+            
+            if unplayableCardSelected:
+                #higher reward for choosing wrong card
+                reward -= 1
+            else:
+                reward -= 0.75
+
         elif (not isTerminal) and (not isTurnEnd):
             reward += self.CalculateImmediateReward(old_player_info, new_player_info, old_boss_info, new_boss_info)
 
@@ -152,26 +179,22 @@ class Environment:
 
         reward = 0
 
-        energy_multiplier = old_player_energy - new_player_energy
+        # energy_multiplier = old_player_energy - new_player_energy
         
-        if(energy_multiplier > 0):
-            energy_multiplier = 1 / energy_multiplier
-        else:
-            energy_multiplier = 2
-
-        #Add reward if the players block gets used
-        if old_player_block > new_player_block:
-            reward += (old_player_block - new_player_block) * 0.01 * energy_multiplier
+        # if(energy_multiplier > 0):
+        #     energy_multiplier = 1 / energy_multiplier
+        # else:
+        #     energy_multiplier = 2
         
         #Add (lower) reward if boss block gets used
         if old_boss_block > new_boss_block:
-            reward += (old_boss_block - new_boss_block) * 0.0075 * energy_multiplier
+            reward += (old_boss_block - new_boss_block) * 0.015 
         
         #Add reward if player deals damage
-        reward += (old_boss_hp - new_boss_hp) * 0.01 * energy_multiplier
+        reward += (old_boss_hp - new_boss_hp) * 0.02 
 
         #Negative reward for losing healthbar
-        reward -= (old_player_hp - new_player_hp) * 0.01 * energy_multiplier
+        #reward -= (old_player_hp - new_player_hp) * 0.1 
 
         return reward
 
