@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using GameBrowser;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 
 namespace AIPlaytesing.Python {
     public class PythonProcess : MonoBehaviour {
         const int LISTEN_POART = 9999;
-
+  
         [System.Serializable]
         public class FilePath {
             public string directiory = "";
@@ -41,7 +44,12 @@ namespace AIPlaytesing.Python {
             WaitProcessConnect();
             if (!config.startManually) {
                 var entryFilePath = CalculateFilePath(config);
-                process = StartProcess(entryFilePath, config.showWindow);
+                try {
+                    process = StartProcess(entryFilePath, config.showWindow);
+                }
+                catch (Exception e) {
+                    DebugText.Log("Error: " + e.Message);
+                }
             }
         }
 
@@ -60,6 +68,7 @@ namespace AIPlaytesing.Python {
 
                 var filePath = directory + "/" + path.entryFileName;
                 UnityEngine.Debug.Log("file path: " + filePath);
+                DebugText.Log("file path: " + filePath);
                 return filePath;
             }
             return "";
