@@ -1,4 +1,5 @@
 ﻿using GameBrowser;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,7 +44,12 @@ namespace AIPlaytesing.Python {
             WaitProcessConnect();
             if (!config.startManually) {
                 var entryFilePath = CalculateFilePath(config);
-                process = StartProcess(entryFilePath, config.showWindow);
+                try {
+                    process = StartProcess(entryFilePath, config.showWindow);
+                }
+                catch (Exception e) {
+                    DebugText.Log("Error: " + e.Message);
+                }
             }
         }
 
