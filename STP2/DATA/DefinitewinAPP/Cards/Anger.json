@@ -1,5 +1,5 @@
 {
-    "name" : "Bash+",
+    "name" : "Anger",
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
