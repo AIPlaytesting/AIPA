@@ -4,20 +4,23 @@ from .const_setting import *
 
 class GameAppData:
     def __init__(self,root_dir:str):
+        # get init info
+        init_info = load_json_from_file(root_dir + '\\' + INIT_FILENAME)
+
         # self.cards_dict: cardname,Card
         self.cards_dict = {}
-        cards_dir = root_dir + "\\" + CARDS_FOLDER_NAME
+        cards_dir = root_dir + "\\" + init_info['cards_directory']
         cards = GameAppData.load_cards_under_directory(cards_dir)
         for card in cards:
             self.cards_dict[card.name] = card
 
         # self.rules: rulename,rulevalue
-        rules_file_path = root_dir +"\\" + RULES_FILENAME
+        rules_file_path = root_dir +"\\" + init_info['rules_file']
         self.rules = load_json_from_file(rules_file_path)
 
         # self.deckConfig: cardname,number
-        deck_config_path = root_dir +"\\" + DECK_CONFIG_FILENAME
-        self.deck_config = load_json_from_file(deck_config_path)
+        deck_path = root_dir + "\\" + init_info['decks_directory'] + '\\' +self.rules['deck'] + ".json"
+        self.deck_config = load_json_from_file(deck_path)
 
     @classmethod
     def load_cards_under_directory(cls,cards_dir:str):    

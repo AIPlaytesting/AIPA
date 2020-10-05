@@ -1648,8 +1648,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config:
-    directiory: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2
-    entryFileName: back_end.py
+    paths:
+    - directiory: PythonGameplay
+      enabled: 0
+      entryFileName: back_end.py
+      useRelativePath: 1
+    - directiory: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2
+      enabled: 1
+      entryFileName: back_end.py
+      useRelativePath: 0
     showWindow: 1
     startManually: 0
 --- !u!4 &1185227819

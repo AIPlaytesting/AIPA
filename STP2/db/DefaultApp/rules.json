@@ -1,4 +1,5 @@
 {
+    "deck" : "default_deck",
     "player_hp":100,
     "boss_hp":100
 }
