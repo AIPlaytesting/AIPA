@@ -23,7 +23,6 @@ namespace GameBrowser {
 
         private void ProcessResponse(string response) {
             Debug.Log("[recv response]: " + response);
-            DebugText.Log("[recv response]: " + response);
             var responseMessage = JsonUtility.FromJson<ResponseMessage>(response);
             onReceiveResponse(responseMessage);
         }
