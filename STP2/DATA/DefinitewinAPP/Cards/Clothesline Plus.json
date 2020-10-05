@@ -1,11 +1,11 @@
 {
-    "name" : "Clothesline",
+    "name" : "Clothesline Plus",
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 12,
+        "damage" : 14,
         "damage_instances" : 1,
         "block" : 0
     },
@@ -17,7 +17,7 @@
 
     "buffs_info":{
         "Weakened" : {
-            "value" : 2,
+            "value" : 3,
             "target" : "enemy" 
         },
         "Vulnerable" : {

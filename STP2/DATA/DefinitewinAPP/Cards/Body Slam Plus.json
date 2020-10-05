@@ -1,11 +1,11 @@
 {
-    "name" : "Clothesline",
+    "name" : "Body Slam Plus",
     "type" : "Attack",
-    "energy_cost" : 2,
+    "energy_cost" : 0,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 12,
+        "damage" : 0,
         "damage_instances" : 1,
         "block" : 0
     },
@@ -17,7 +17,7 @@
 
     "buffs_info":{
         "Weakened" : {
-            "value" : 2,
+            "value" : 0,
             "target" : "enemy" 
         },
         "Vulnerable" : {
@@ -95,7 +95,7 @@
     },
 
     "special_modifiers_info" : {
-        "unique_damage" : "none",
+        "unique_damage" : "block",
         "strength_multiplier" : 1,
         "next_attack_count" : 1
     }

@@ -1,13 +1,13 @@
 {
-    "name" : "Clothesline",
-    "type" : "Attack",
-    "energy_cost" : 2,
+    "name" : "Defend Plus",
+    "type" : "Skill",
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 12,
-        "damage_instances" : 1,
-        "block" : 0
+        "damage" : 0,
+        "damage_instances" : 0,
+        "block" : 8
     },
 
     "card_life_cycle_info" : {
@@ -17,7 +17,7 @@
 
     "buffs_info":{
         "Weakened" : {
-            "value" : 2,
+            "value" : 0,
             "target" : "enemy" 
         },
         "Vulnerable" : {

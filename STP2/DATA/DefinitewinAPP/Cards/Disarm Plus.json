@@ -1,12 +1,12 @@
 {
-    "name" : "Clothesline",
-    "type" : "Attack",
-    "energy_cost" : 2,
+    "name" : "Disarm Plus",
+    "type" : "Skill",
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 12,
-        "damage_instances" : 1,
+        "damage" : 0,
+        "damage_instances" : 0,
         "block" : 0
     },
 
@@ -17,7 +17,7 @@
 
     "buffs_info":{
         "Weakened" : {
-            "value" : 2,
+            "value" : 0,
             "target" : "enemy" 
         },
         "Vulnerable" : {
@@ -25,8 +25,8 @@
             "target" : "enemy" 
         },
         "Strength" : {
-            "value" : 0,
-            "target" : "self" 
+            "value" : -3,
+            "target" : "enemy" 
         },
         "Artifact" : {
             "value" : 0,

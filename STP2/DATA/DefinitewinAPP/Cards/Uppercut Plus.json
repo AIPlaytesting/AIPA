@@ -1,11 +1,11 @@
 {
-    "name" : "Clothesline",
+    "name" : "Uppercut Plus",
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 12,
+        "damage" : 13,
         "damage_instances" : 1,
         "block" : 0
     },
@@ -21,7 +21,7 @@
             "target" : "enemy" 
         },
         "Vulnerable" : {
-            "value" : 0,
+            "value" : 2,
             "target" : "enemy" 
         },
         "Strength" : {

@@ -1,11 +1,11 @@
 {
-    "name" : "Clothesline",
+    "name" : "Bash",
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 12,
+        "damage" : 8,
         "damage_instances" : 1,
         "block" : 0
     },
@@ -17,11 +17,11 @@
 
     "buffs_info":{
         "Weakened" : {
-            "value" : 2,
+            "value" : 0,
             "target" : "enemy" 
         },
         "Vulnerable" : {
-            "value" : 0,
+            "value" : 2,
             "target" : "enemy" 
         },
         "Strength" : {

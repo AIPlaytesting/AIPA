@@ -1,11 +1,11 @@
 {
-    "name" : "Clothesline",
+    "name" : "Thunderclap",
     "type" : "Attack",
-    "energy_cost" : 2,
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 12,
+        "damage" : 4,
         "damage_instances" : 1,
         "block" : 0
     },
@@ -17,11 +17,11 @@
 
     "buffs_info":{
         "Weakened" : {
-            "value" : 2,
+            "value" : 0,
             "target" : "enemy" 
         },
         "Vulnerable" : {
-            "value" : 0,
+            "value" : 1,
             "target" : "enemy" 
         },
         "Strength" : {
