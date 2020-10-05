@@ -1,12 +1,12 @@
 {
-    "name" : "Bludgeon+",
+    "name" : "Sword Boomerang",
     "type" : "Attack",
-    "energy_cost" : 3,
+    "energy_cost" : 1,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 42,
-        "damage_instances" : 1,
+        "damage" : 3,
+        "damage_instances" : 3,
         "block" : 0
     },
 

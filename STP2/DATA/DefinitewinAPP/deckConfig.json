@@ -1,10 +1,22 @@
 {
     "Defend" : 3,
-    "Strike+" : 4,
+    "Strike Plus" : 4,
     "Shrug It Off" : 1,
-    "Pommel Strike+" : 1,
+    "Pommel Strike Plus" : 1,
     "Flex" : 1,
     "Anger" : 1,
-    "Twin Strike+" : 1,
-    "Bludgeon+" : 1
+    "Twin Strike Plus" : 1,
+    "Bludgeon Plus" : 1,
+
+
+    
+    "Anger Real" : 0,
+    "Pommel Strike" : 0,
+    "Sword Boomerang" : 0,
+    "Body Slam" : 0,
+    "Iron Wave" : 0,
+    "Heavy Blade" : 0,
+    "Double Tap" : 0,
+    "Disarm" : 0,
+    "Clothesline" : 0
 }
