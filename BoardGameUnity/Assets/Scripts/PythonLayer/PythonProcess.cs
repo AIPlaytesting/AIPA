@@ -8,9 +8,16 @@ namespace AIPlaytesing.Python {
         const int LISTEN_POART = 9999;
 
         [System.Serializable]
-        public class Config {
+        public class FilePath {
             public string directiory = "";
+            public bool enabled = true;
             public string entryFileName = "main.py";
+            public bool useRelativePath = true;
+        }
+
+        [System.Serializable]
+        public class Config {
+            public List<FilePath> paths = new List<FilePath>();
             public bool showWindow = true;
             public bool startManually = false;
         }
@@ -33,9 +40,29 @@ namespace AIPlaytesing.Python {
         public void Run() {
             WaitProcessConnect();
             if (!config.startManually) {
-                var entryFilePath = config.directiory + @"\" + config.entryFileName;
+                var entryFilePath = CalculateFilePath(config);
                 process = StartProcess(entryFilePath, config.showWindow);
             }
+        }
+
+        private string CalculateFilePath(Config config) {
+            foreach (var path in config.paths) {
+                if (!path.enabled) {
+                    continue;
+                }
+                string directory = "";
+                if (path.useRelativePath) {
+                    directory = Application.dataPath + "/" + path.directiory;
+                }
+                else {
+                    directory = path.directiory;
+                }
+
+                var filePath = directory + "/" + path.entryFileName;
+                UnityEngine.Debug.Log("file path: " + filePath);
+                return filePath;
+            }
+            return "";
         }
 
         private void WaitProcessConnect() {
