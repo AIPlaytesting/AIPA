@@ -61,6 +61,12 @@ def play_one_round(game_manager,player_socket):
         # game events triggered after apply this player input
         game_events_of_input = []
         if player_input.type == protocol.INPUT_TYPE_PLAY_CARD:
+            # validate card play input
+            valid, message = validate_play_card_input(player_input.cardName,game_manager.game_state)
+            if not valid:
+                send_error_message_response(player_socket, message)
+                continue
+
             # record play card event
             play_card_event = GameEvent.create_play_card_event(player_input.cardGUID)
             game_events_of_input.append(play_card_event)
@@ -88,6 +94,19 @@ def play_one_round(game_manager,player_socket):
     if not game_manager.is_game_end():     
         # apply BOSS intent
         game_manager.execute_enemy_intent()   
+
+def validate_play_card_input(card_name_to_play,game_state):
+    card = game_state.cards_dict[card_name_to_play]
+    card_energy = card.energy_cost
+    player_energy = game_state.player_energy
+    if card_energy <= player_energy:
+        return True,""
+    else:
+        return False,"no energy to play this card"
+
+def send_error_message_response(player_socket,error_message):
+    response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_ERROR,error_message)
+    player_socket.send(response_message.to_json().encode())
 
 def send_game_sequenec_response(player_socket,game_manager,game_events):
         # encode game sequence markup file to json

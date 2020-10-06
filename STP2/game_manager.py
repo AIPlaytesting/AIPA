@@ -14,7 +14,7 @@ class GameState:
         self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], empty_buff_dict) 
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
-        self.cards_dict = game_app_data.cards_dict.copy()
+        self.cards_dict = game_app_data.cards_dict.copy()# cardname:str , card:game_app_data.Card
         self.deck = Deck(game_app_data.deck_config)
 
 class GameManager:

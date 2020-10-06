@@ -70,8 +70,11 @@ namespace GameBrowser {
                 var gameSequenceMarkupFile = GameSequenceMarkupFile.Parse(responseMessage.content);
                 Render(gameSequenceMarkupFile);
             }
+            else if (responseMessage.contentType == ResponseMessage.ContentType.Error) {
+                WarningBox.Warn(responseMessage.content);
+            }
             else {
-                Debug.LogError("unknown type of message");
+                Debug.LogError("unknown type of message: " + responseMessage.contentType.ToString());
             }
         }
     }

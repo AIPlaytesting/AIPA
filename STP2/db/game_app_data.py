@@ -7,7 +7,7 @@ class GameAppData:
         # get init info
         init_info = load_json_from_file(root_dir + '\\' + INIT_FILENAME)
 
-        # self.cards_dict: cardname,Card
+        # self.cards_dict: cardname:str,Card:game_app_data.Card
         self.cards_dict = {}
         cards_dir = root_dir + "\\" + init_info['cards_directory']
         cards = GameAppData.load_cards_under_directory(cards_dir)
