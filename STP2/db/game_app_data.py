@@ -7,6 +7,10 @@ class GameAppData:
         # get init info
         init_info = load_json_from_file(root_dir + '\\' + INIT_FILENAME)
 
+        # self.buff_dict: buffname, buffObject
+        buff_path = root_dir + "\\" + init_info['buffs_file']
+        self.buff_dict = load_json_from_file(buff_path)
+
         # self.cards_dict: cardname:str,Card:game_app_data.Card
         self.cards_dict = {}
         cards_dir = root_dir + "\\" + init_info['cards_directory']
