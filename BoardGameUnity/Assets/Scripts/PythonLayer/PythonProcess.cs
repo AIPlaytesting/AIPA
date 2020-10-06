@@ -27,16 +27,17 @@ namespace AIPlaytesing.Python {
 
         public delegate void OnMessageResponse(string response);
 
+        public OnMessageResponse onMessageResponse;
+
         [SerializeField]
         private Config config;
         private Process process = null;
         private ProcessSocket processSocket = null;
-        private OnMessageResponse onMessageResponse = null;
 
         private void Update() {
             var newMessages = processSocket.Read();
             foreach (var message in newMessages) {
-                onMessageResponse(newMessages[0].body);
+                onMessageResponse(message.body);
             }
         }
 
@@ -82,9 +83,8 @@ namespace AIPlaytesing.Python {
         }
 
         // TODO: donnt need to assign callback everytime. 
-        public void Send(string messageStr, OnMessageResponse onMessageResponseCallBack = null) {
+        public void Send(string messageStr) {
             processSocket.SendMessage(new Message(messageStr));
-            onMessageResponse = onMessageResponseCallBack;
         }
 
         private void OnApplicationQuit() {

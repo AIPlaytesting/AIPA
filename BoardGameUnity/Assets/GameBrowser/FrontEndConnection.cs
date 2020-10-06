@@ -14,14 +14,15 @@ namespace GameBrowser {
 
         public void Init() {
             pythonProcess.Run();
+            pythonProcess.onMessageResponse += ProcessResponse;
         }
 
         public void SendRequest(RequestMessage requestMessage) {
-            pythonProcess.Send(JsonUtility.ToJson(requestMessage), ProcessResponse);
+            pythonProcess.Send(JsonUtility.ToJson(requestMessage));
         }
 
         private void ProcessResponse(string response) {
-            Debug.Log("[recv response]: " + response);
+            Debug.Log("[Front End Conenct]-recv:  " + response);
             var responseMessage = JsonUtility.FromJson<ResponseMessage>(response);
             onReceiveResponse(responseMessage);
         }

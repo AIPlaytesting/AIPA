@@ -41,7 +41,6 @@ namespace GameBrowser {
         /// <param name="source"></param>
         // TODO: render the endingState when all animation is done
         public void Render(GameSequenceMarkupFile source) {
-            Debug.Log(JsonUtility.ToJson(source));
             DOM.Instance.latestGameStateMarkup = source.endingState;
             StartCoroutine(RenderGameSeuqncePlaceHolder(source));
         }
@@ -66,14 +65,16 @@ namespace GameBrowser {
 
         private void ProcessResponse(ResponseMessage responseMessage) {
             if (responseMessage.contentType == ResponseMessage.ContentType.GameSequenceMarkup) {
-                Debug.Log("Markup JSON: " + responseMessage.content);
+                Debug.Log("[GameBrowser]-process game sequecnce");
                 var gameSequenceMarkupFile = GameSequenceMarkupFile.Parse(responseMessage.content);
                 Render(gameSequenceMarkupFile);
             }
             else if (responseMessage.contentType == ResponseMessage.ContentType.Error) {
+                Debug.Log("[GameBrowser]-process error message");
                 WarningBox.Warn(responseMessage.content);
             }
             else if (responseMessage.contentType == ResponseMessage.ContentType.GameStageChange) {
+                Debug.Log("[GameBrowser]-process game state change");
                 MessageBox.PopupMessage(responseMessage.content);
             }
             else {

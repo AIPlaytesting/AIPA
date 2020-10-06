@@ -118,7 +118,7 @@ namespace AIPlaytesing.Python {
                 else {
                     lock (msgRecvQueue) {
                         var msgStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
-                        Debug.Log("recv data: " + msgStr);
+                        Debug.Log("[Socket]-recv data: " + msgStr);
                         msgRecvQueue.Add(new Message(msgStr));
                     }
                 }             
