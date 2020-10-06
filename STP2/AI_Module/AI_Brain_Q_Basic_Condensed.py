@@ -46,7 +46,6 @@ class AI_Brain:
 
     def PredictAction(self, state):
         #use the condense function to reduce the state space
-        state = self.CondenseStateSpace(state)
         isRandom = False
 
         if (np.random.random() < self.epsilon) :
@@ -59,15 +58,6 @@ class AI_Brain:
 
         return actions, isRandom
 
-
-    def CondenseStateSpace(self,state):
-        combat_stats = [state[1], state[2], state[22], state[23]]
-        buff_model_state = [ state[3], state[4], state[5], state[16], state[24], state[25], state[28]]
-        card_model_state = [state[0], state[55], state[56], state[57], state[58], state[59], state[60], state[61], state[62], state[63], state[64], state[65], state[66]]
-        boss_intent_model_state = [state[91], state[92], state[93], state[94], state[95], state[96], state[97]]
-
-        return combat_stats + buff_model_state + card_model_state + boss_intent_model_state
-        #return card_model_state
 
     def Learn(self):
         
@@ -101,7 +91,7 @@ class AI_Brain:
         q_target[batch_index, actions] = rewards + self.gamma * np.max(q_new_state_predicts) * isTerminals
 
 
-        #training model
+        #training model 0
         self.q_model.train_on_batch(states, q_target)
         #self.q_model.fit(states, q_target)
         
@@ -117,8 +107,6 @@ class AI_Brain:
 
 
     def StoreTransition(self, state, new_state, action, reward, isTerminal):
-        state = self.CondenseStateSpace(state)
-        new_state = self.CondenseStateSpace(new_state)
         self.replay_buffer.StoreTransition(state, new_state, action, reward, isTerminal)
 
 

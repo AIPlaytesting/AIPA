@@ -8,6 +8,9 @@ class Environment:
 
     def __init__(self):
         self.ai_transformer = AI_Module.AI_Transformer.AI_Transformer()
+        self.state_space_dim = self.ai_transformer.state_space_dim
+        self.action_space_dim = self.ai_transformer.action_space_dim
+
         db_root = db.game_database.calculate_root_dir()
         game_db = db.game_database.GameDatabase(db_root)
         self.game_manager = game_manager.GameManager(game_db.game_app_data)
@@ -77,7 +80,7 @@ class Environment:
                 action_neuron_number = self.ChoosePossibleActionWithMaxQVal(action_space_vec)
                 print("Took Random Action :" + str(action_neuron_number))
                 
-            
+
             action_card = self.ai_transformer.GetGameAction(action_neuron_number)
 
             if self.IsCardPlayable(action_neuron_number):
