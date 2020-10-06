@@ -11,7 +11,7 @@
     },
 
     "card_life_cycle_info" : {
-        "copies_in_discard_pile_when_played" : 1,
+        "copies_in_discard_pile_when_played" : 0,
         "draw_card" : 0
     },
 
