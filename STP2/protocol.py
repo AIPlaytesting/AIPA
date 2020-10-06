@@ -1,3 +1,5 @@
+import json
+
 from game_manager import GameState
 from combat_unit import CombatUnit
 from CardBase import Card
@@ -11,6 +13,19 @@ INPUT_TYPE_NONE = 0
 INPUT_TYPE_PLAY_CARD = 1
 INPUT_TYPE_END_TURN = 2
 INPUT_TYPE_START_GAME = 3
+
+MESSAGE_TYPE_NONE = 0 # content is invalid message
+MESSAGE_TYPE_GAME_SEQUENCE = 1 # contetnt is the json string of GameSequenceMarkup
+MESSAGE_TYPE_ERROR = 2 # content is the string of error message
+
+class ResponseMessage:
+    def __init__(self,content_type,content):
+        self.content_type = content_type
+        self.content = content
+    
+    def to_json(self):
+        json_obj = {'contentType':self.content_type,'content':self.content}
+        return json.dumps(json_obj)
 
 class UserInput:
     def __init__(self,type,card_name,card_guid):

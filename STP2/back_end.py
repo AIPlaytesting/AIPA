@@ -45,7 +45,7 @@ def play_one_round(game_manager,player_socket):
     game_recorder.record_game_state(game_manager.game_state)
     # send resonce back
     print('send response, start turn')
-    send_response(player_socket,game_manager,[])
+    send_game_sequenec_response(player_socket,game_manager,[])
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
         # record state before play card
@@ -79,7 +79,7 @@ def play_one_round(game_manager,player_socket):
 
         # send response every time play card
         print('send response, card play')
-        send_response(player_socket,game_manager,game_events_of_input)
+        send_game_sequenec_response(player_socket,game_manager,game_events_of_input)
 
     # enemy turn
     game_manager.start_enemy_turn()
@@ -89,15 +89,16 @@ def play_one_round(game_manager,player_socket):
         # apply BOSS intent
         game_manager.execute_enemy_intent()   
 
-def send_response(player_socket,game_manager,game_events):
+def send_game_sequenec_response(player_socket,game_manager,game_events):
+        # encode game sequence markup file to json
         game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
             game_state_markup,game_events,game_state_markup
         )
         game_sequence_markup_json = json.dumps(game_sequence_markup_file)
-        response_message ={'gameSequenceMarkupJSON':game_sequence_markup_json} 
-        response_message_json = json.dumps(response_message)
-        player_socket.send(response_message_json.encode())
+        # send message
+        response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAME_SEQUENCE,game_sequence_markup_json)
+        player_socket.send(response_message.to_json().encode())
 
 def get_player_input(socket)->protocol.UserInput:
     data = socket.recv(1024) 
