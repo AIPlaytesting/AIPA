@@ -22,6 +22,16 @@ namespace GameBrowser.Rendering {
         }
 
         /// <summary>
+        /// clear every markup entity and every animations is rendering or going to render
+        /// </summary>
+        public void Clear() {
+            animationRenderer.Clear();
+            cardsRenderer.Clear();
+            characterRenderer.Clear();
+            valueRenderer.Clear();
+        }
+
+        /// <summary>
         /// it will clear everthing(including animation) on the current canvas,
         /// then start to render based-on new state
         /// </summary>

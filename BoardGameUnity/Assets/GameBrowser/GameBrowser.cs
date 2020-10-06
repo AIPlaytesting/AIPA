@@ -75,12 +75,27 @@ namespace GameBrowser {
             }
             else if (responseMessage.contentType == ResponseMessage.ContentType.GameStageChange) {
                 Debug.Log("[GameBrowser]-process game state change");
-                MessageBox.PopupMessage(responseMessage.content);
+                var newGameStage = (ResponseMessage.GameStage)System.Enum.Parse(typeof(ResponseMessage.GameStage), responseMessage.content);
+                ProcessGameStateChange(newGameStage);
             }
             else {
                 Debug.LogError("unknown type of message: "
                     + responseMessage.contentType.ToString()
                     + " " + responseMessage.content);
+            }
+        }
+
+        private void ProcessGameStateChange(ResponseMessage.GameStage newState) {
+            if (newState == ResponseMessage.GameStage.Win || newState == ResponseMessage.GameStage.Lost) {
+                // win or lost
+                var battleResultBoard = FindObjectOfType<BattleResultBoard>();
+                battleResultBoard.ShowResult(newState == ResponseMessage.GameStage.Win);
+
+                renderManager.Clear();
+            }
+            else {
+                // other stage
+                MessageBox.PopupMessage(newState.ToString());
             }
         }
     }
