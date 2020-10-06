@@ -1,17 +1,17 @@
 {
     "name" : "Anger",
     "type" : "Attack",
-    "energy_cost" : 2,
+    "energy_cost" : 0,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 10,
+        "damage" : 6,
         "damage_instances" : 1,
         "block" : 0
     },
 
     "card_life_cycle_info" : {
-        "copies_in_discard_pile_when_played" : 1,
+        "copies_in_discard_pile_when_played" : 2,
         "draw_card" : 0
     },
 
@@ -21,7 +21,7 @@
             "target" : "enemy" 
         },
         "Vulnerable" : {
-            "value" : 3,
+            "value" : 0,
             "target" : "enemy" 
         },
         "Strength" : {

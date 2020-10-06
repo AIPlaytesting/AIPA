@@ -1,17 +1,17 @@
 {
-    "name" : "Anger Real",
+    "name" : "Bash Plus",
     "type" : "Attack",
-    "energy_cost" : 0,
+    "energy_cost" : 2,
     "damage_target" : "enemy",
 
     "damage_block_info" : {
-        "damage" : 6,
+        "damage" : 10,
         "damage_instances" : 1,
         "block" : 0
     },
 
     "card_life_cycle_info" : {
-        "copies_in_discard_pile_when_played" : 2,
+        "copies_in_discard_pile_when_played" : 1,
         "draw_card" : 0
     },
 
@@ -21,7 +21,7 @@
             "target" : "enemy" 
         },
         "Vulnerable" : {
-            "value" : 0,
+            "value" : 3,
             "target" : "enemy" 
         },
         "Strength" : {
