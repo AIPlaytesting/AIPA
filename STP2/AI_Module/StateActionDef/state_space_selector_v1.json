@@ -1,0 +1,21 @@
+{
+    "player_energy" : true,
+    "player_health" : true,
+    "player_block" : true,
+
+    "boss_health" : true,
+    "boss_block" : true,
+
+    "buff_minimal" : true,
+
+    "player_buffs" : true,
+    "boss_buffs" : true,
+
+    "boss_intent" : true,
+
+    "draw_pile" : true,
+    "discard_pile" : true,
+    
+    "in_hand_cards" : true,
+    "in_hand_playable_cards" : true
+}

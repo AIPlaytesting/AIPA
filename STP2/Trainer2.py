@@ -15,6 +15,8 @@ import winsound
 #initialize the environment
 env = Environment.Environment()
 game_buffer = AI_Module.GameBuffer.GameBuffer()
+state_space_len = env.state_space_dim
+action_space_len = env.action_space_dim
 
 number_of_games = 50000
 
@@ -33,7 +35,7 @@ start_time = time.time()
 #ai_agent = AI_Module.AI_Brain_Q_Multiple.AI_Brain(action_space_dim=12, batch_size = 64, gamma = 0.9, eps=0.8, eps_min = 0.03, eps_dec = 0.003)
 
 #Q-Learning Condensed State
-ai_agent = AI_Module.AI_Brain_Q_Basic_Condensed.AI_Brain(gamma=0, state_space_dim=31, action_space_dim=12,
+ai_agent = AI_Module.AI_Brain_Q_Basic_Condensed.AI_Brain(gamma=0, state_space_dim=state_space_len, action_space_dim=action_space_len,
                    hidden_layer_dims=[128, 128, 1024, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 10000, batch_size = 128)
 
 total_episode_rewards = []

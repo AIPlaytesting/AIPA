@@ -59,7 +59,13 @@
         },
 
         "boss_intent" : {
-
+            "Charging Up" : 0,
+            "Fierce Bash" : 0,
+            "Vent Steam" : 0,
+            "Whirlwind" : 0,
+            "Defensive Mode" : 0,
+            "Roll Attack" : 0,
+            "Twin slam" : 0
         },
 
         "in_hand_cards" : {
