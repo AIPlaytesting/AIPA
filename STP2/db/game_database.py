@@ -59,7 +59,7 @@ class GameDatabase:
         print("[data base] check cards and buffs...")
         for card in self.game_app_data.cards_dict.values():
             for buff_name in card.buffs.keys():
-                if buff_name not in self.game_app_data.buff_dict:
+                if buff_name not in self.game_app_data.registered_buffnames:
                     is_consist = False
                     print("[data base]-[ERROR]: buffname ",buff_name,"int",card.name, "is not found in buffs")
         return is_consist

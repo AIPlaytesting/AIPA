@@ -10,7 +10,7 @@ PLAYER_ENERGY = 3
 class GameState:
     def __init__(self,game_app_data:GameAppData,all_card_names):
         rules = game_app_data.rules
-        buff_dict = game_app_data.buff_dict.copy()
+        buff_dict = game_app_data.registered_buffnames
         self.player = CombatUnit('Player', "player",rules['player_hp'], buff_dict) 
         self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], buff_dict) 
         self.player_energy = PLAYER_ENERGY
