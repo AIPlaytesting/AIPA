@@ -61,13 +61,26 @@ namespace GameBrowser {
         private void Init() {
             dependencies.frontEndConnection.Init();
             dependencies.renderManager.Init();
-            frontEndConnection.onReceiveResponse += RenderResponse;
+            frontEndConnection.onReceiveResponse += ProcessResponse;
         }
 
-        private void RenderResponse(ResponseMessage responseMessage) {
-            Debug.Log("Markup JSON: "+responseMessage.gameSequenceMarkupJSON);
-            var gameSequenceMarkupFile = GameSequenceMarkupFile.Parse(responseMessage.gameSequenceMarkupJSON);
-            Render(gameSequenceMarkupFile);
+        private void ProcessResponse(ResponseMessage responseMessage) {
+            if (responseMessage.contentType == ResponseMessage.ContentType.GameSequenceMarkup) {
+                Debug.Log("Markup JSON: " + responseMessage.content);
+                var gameSequenceMarkupFile = GameSequenceMarkupFile.Parse(responseMessage.content);
+                Render(gameSequenceMarkupFile);
+            }
+            else if (responseMessage.contentType == ResponseMessage.ContentType.Error) {
+                WarningBox.Warn(responseMessage.content);
+            }
+            else if (responseMessage.contentType == ResponseMessage.ContentType.GameStageChange) {
+                MessageBox.PopupMessage(responseMessage.content);
+            }
+            else {
+                Debug.LogError("unknown type of message: "
+                    + responseMessage.contentType.ToString()
+                    + " " + responseMessage.content);
+            }
         }
     }
 }

@@ -1,14 +1,17 @@
 from buff_type import BuffType
 
 class CombatUnit:
-    def __init__(self,name, game_unique_id, init_hp, empty_buffs_dict):
+    def __init__(self,name, game_unique_id, init_hp, buffs_dict):
         self.game_unique_id = game_unique_id
         self.name = name
         self.max_hP = init_hp
         self.current_hp = init_hp
         self.block = 0
-        self.buff_dict = empty_buffs_dict.copy()
-        
+        # the value in buff dict is the value(int) of buff
+        self.buff_dict = {}
+        for key in buffs_dict:
+            self.buff_dict[key] = 0
+
     def refresh_buff_on_new_turn(self):
         duration_buffs = ['Weakened','Vulnerable','Intangible','Frail','Entangled','Blur','DrawReduction']
         # handle duration buffs

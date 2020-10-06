@@ -33,19 +33,28 @@ def run_game(player_socket):
     # play
     while(not game_manager.is_game_end()):
        play_one_round(game_manager,player_socket)
-    # print result
-    result = 'Win' if game_manager.is_player_win() else 'lost'
-    print("result:---------------------\n"+result)
+
+    # process result
+    if game_manager.is_player_win():
+        print("Player win")
+        send_gamestage_change_message(player_socket,protocol.GAMESTAGE_WIN)
+    else:
+        print("Player lost")
+        send_gamestage_change_message(player_socket,protocol.GAMESTAGE_LOST)
+
+    # save recorded data
     game_recorder.save_record_data()
  
 def play_one_round(game_manager,player_socket):
     # player turn
     game_manager.start_player_turn()
+    send_gamestage_change_message(player_socket,protocol.GAMESTAGE_PLAYER_TURN)
+
     # record player turn start state
     game_recorder.record_game_state(game_manager.game_state)
     # send resonce back
     print('send response, start turn')
-    send_response(player_socket,game_manager,[])
+    send_game_sequenec_response(player_socket,game_manager,[])
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
         # record state before play card
@@ -61,6 +70,12 @@ def play_one_round(game_manager,player_socket):
         # game events triggered after apply this player input
         game_events_of_input = []
         if player_input.type == protocol.INPUT_TYPE_PLAY_CARD:
+            # validate card play input
+            valid, message = validate_play_card_input(player_input.cardName,game_manager.game_state)
+            if not valid:
+                send_error_message_response(player_socket, message)
+                continue
+
             # record play card event
             play_card_event = GameEvent.create_play_card_event(player_input.cardGUID)
             game_events_of_input.append(play_card_event)
@@ -79,25 +94,44 @@ def play_one_round(game_manager,player_socket):
 
         # send response every time play card
         print('send response, card play')
-        send_response(player_socket,game_manager,game_events_of_input)
+        send_game_sequenec_response(player_socket,game_manager,game_events_of_input)
 
     # enemy turn
     game_manager.start_enemy_turn()
-    
+    send_gamestage_change_message(player_socket,protocol.GAMESTAGE_ENEMY_TURN)
+
     # check is player killed all enemies
     if not game_manager.is_game_end():     
         # apply BOSS intent
         game_manager.execute_enemy_intent()   
 
-def send_response(player_socket,game_manager,game_events):
+def validate_play_card_input(card_name_to_play,game_state):
+    card = game_state.cards_dict[card_name_to_play]
+    card_energy = card.energy_cost
+    player_energy = game_state.player_energy
+    if card_energy <= player_energy:
+        return True,""
+    else:
+        return False,"no energy to play this card"
+
+def send_error_message_response(player_socket,error_message):
+    response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_ERROR,error_message)
+    player_socket.send(response_message.to_json().encode())
+
+def send_game_sequenec_response(player_socket,game_manager,game_events):
+        # encode game sequence markup file to json
         game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
             game_state_markup,game_events,game_state_markup
         )
         game_sequence_markup_json = json.dumps(game_sequence_markup_file)
-        response_message ={'gameSequenceMarkupJSON':game_sequence_markup_json} 
-        response_message_json = json.dumps(response_message)
-        player_socket.send(response_message_json.encode())
+        # send message
+        response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAME_SEQUENCE,game_sequence_markup_json)
+        player_socket.send(response_message.to_json().encode())
+
+def send_gamestage_change_message(player_socket,gamestage):
+    response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAMESTAGE_CHANGE,gamestage)
+    player_socket.send(response_message.to_json().encode())
 
 def get_player_input(socket)->protocol.UserInput:
     data = socket.recv(1024) 
