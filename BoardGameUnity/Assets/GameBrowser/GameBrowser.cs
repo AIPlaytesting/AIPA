@@ -73,10 +73,13 @@ namespace GameBrowser {
             else if (responseMessage.contentType == ResponseMessage.ContentType.Error) {
                 WarningBox.Warn(responseMessage.content);
             }
+            else if (responseMessage.contentType == ResponseMessage.ContentType.GameStageChange) {
+                MessageBox.PopupMessage(responseMessage.content);
+            }
             else {
-                Debug.LogError("unknown type of message: " 
+                Debug.LogError("unknown type of message: "
                     + responseMessage.contentType.ToString()
-                    +" " + responseMessage.content);
+                    + " " + responseMessage.content);
             }
         }
     }
