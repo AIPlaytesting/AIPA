@@ -55,14 +55,14 @@ class GameManager:
         self.game_state.player_energy = PLAYER_ENERGY
         # refresh boss intent
         self.game_state.boss_intent = self.boss_AI.make_intent()
-        # retrieve boss hp before player's action
-        self.boss_AI.prev_hp = self.game_state.boss.current_hp
         # draw cards
         self.game_state.deck.draw_cards(5)
         # refresh buffs
         self.game_state.player.refresh_buff_on_new_turn()
         # log player status
         self.game_state.player.print_status_info("Player")
+        if self.boss_AI.mode == "Offensive":
+            print("Boss will switch mode in", self.boss_AI.transformTriggerPoint - self.boss_AI.accumulator, "damages")
 
     def end_player_turn(self):
         self.__end_player_turn_flag = True

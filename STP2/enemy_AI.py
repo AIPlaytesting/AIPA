@@ -11,9 +11,10 @@ class EnemyAI:
         self.intents_defensive = ['Defensive Mode', 'Roll Attack', 'Twin slam']
         self.curStateIndex = 0
         self.mode = 'Offensive'
-        self.prev_hp = self.boss.max_hP
+        # self.prev_hp = self.boss.max_hP
         # accumulator to store power for boss transition from offensive mode to defensive mode
         self.accumulator = 0
+        self.transformTriggerPoint = 30
 
     # Check whether to change mode
 
@@ -103,7 +104,7 @@ class EnemyAI:
             elif curState == 'Twin slam':
                 intent.name = 'Twin slam'
                 intent.is_attack = True
-                intent.attack_value = 18
+                intent.attack_value = 16
                 print("BOSS intent: -[attack]-", intent.attack_value)
             else:
                 intent.name = 'none'
