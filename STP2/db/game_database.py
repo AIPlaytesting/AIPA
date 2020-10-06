@@ -42,16 +42,28 @@ class GameDatabase:
         print("[data base end]----------------------------------------------")
 
     def check_consistency(self):
+        is_consist = True
         print("[data base] check consistency")
         print("[data base] current app: "+ self.manifest.game_app)
+
         print("[data base] check cards and deck...")
         for card_name in self.game_app_data.deck_config.keys():
             if card_name not in self.game_app_data.cards_dict: 
+                is_consist = False
                 print("[data base]-[ERROR]: ",card_name," in deckConfig is not found in Cards")
         for card_name in self.game_app_data.cards_dict.keys():
             if card_name not in self.game_app_data.deck_config: 
-                print("[data base]-[WARNNING]: ",card_name," in Cards is not used in DeckConfig")
-        
+                is_consist = False
+                print("[data base]-[ERROR]]: ",card_name," in Cards is not used in DeckConfig")
+                
+        print("[data base] check cards and buffs...")
+        for card in self.game_app_data.cards_dict.values():
+            for buff_name in card.buffs.keys():
+                if buff_name not in self.game_app_data.buff_dict:
+                    is_consist = False
+                    print("[data base]-[ERROR]: buffname ",buff_name,"int",card.name, "is not found in buffs")
+        return is_consist
+
 def calculate_root_dir():
     ROOT_FOLDER_NAME = "DATA" 
     cur_dir = os.path.dirname(os.path.realpath(__file__))

@@ -45,7 +45,7 @@ class Card:
         self.energy_cost = card_data["energy_cost"]
         self.damage_block = card_data["damage_block_info"]
         self.card_life_cycle = card_data["card_life_cycle_info"]
-        self.buffs = card_data["buffs_info"]
+        self.buffs = card_data["buffs_info"] # key: buffname value: buffobject
         self.special_mod = card_data["special_modifiers_info"]
 
 def load_json_from_file(file_path):
