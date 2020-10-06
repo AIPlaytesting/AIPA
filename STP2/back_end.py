@@ -33,14 +33,23 @@ def run_game(player_socket):
     # play
     while(not game_manager.is_game_end()):
        play_one_round(game_manager,player_socket)
-    # print result
-    result = 'Win' if game_manager.is_player_win() else 'lost'
-    print("result:---------------------\n"+result)
+
+    # process result
+    if game_manager.is_player_win():
+        print("Player win")
+        send_gamestage_change_message(player_socket,protocol.GAMESTAGE_WIN)
+    else:
+        print("Player lost")
+        send_gamestage_change_message(player_socket,protocol.GAMESTAGE_LOST)
+
+    # save recorded data
     game_recorder.save_record_data()
  
 def play_one_round(game_manager,player_socket):
     # player turn
     game_manager.start_player_turn()
+    send_gamestage_change_message(player_socket,protocol.GAMESTAGE_PLAYER_TURN)
+
     # record player turn start state
     game_recorder.record_game_state(game_manager.game_state)
     # send resonce back
@@ -89,7 +98,8 @@ def play_one_round(game_manager,player_socket):
 
     # enemy turn
     game_manager.start_enemy_turn()
-    
+    send_gamestage_change_message(player_socket,protocol.GAMESTAGE_ENEMY_TURN)
+
     # check is player killed all enemies
     if not game_manager.is_game_end():     
         # apply BOSS intent
@@ -118,6 +128,10 @@ def send_game_sequenec_response(player_socket,game_manager,game_events):
         # send message
         response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAME_SEQUENCE,game_sequence_markup_json)
         player_socket.send(response_message.to_json().encode())
+
+def send_gamestage_change_message(player_socket,gamestage):
+    response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAMESTAGE_CHANGE,gamestage)
+    player_socket.send(response_message.to_json().encode())
 
 def get_player_input(socket)->protocol.UserInput:
     data = socket.recv(1024) 

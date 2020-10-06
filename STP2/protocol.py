@@ -17,6 +17,12 @@ INPUT_TYPE_START_GAME = 3
 MESSAGE_TYPE_NONE = 0 # content is invalid message
 MESSAGE_TYPE_GAME_SEQUENCE = 1 # contetnt is the json string of GameSequenceMarkup
 MESSAGE_TYPE_ERROR = 2 # content is the string of error message
+MESSAGE_TYPE_GAMESTAGE_CHANGE = 3 # content is string (can parsed to enum of GameStage)
+
+GAMESTAGE_PLAYER_TURN = 'PlayerTurn'
+GAMESTAGE_ENEMY_TURN = 'EnemyTurn'
+GAMESTAGE_WIN = 'Win'
+GAMESTAGE_LOST = 'Lost'
 
 class ResponseMessage:
     def __init__(self,content_type,content):

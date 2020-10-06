@@ -74,7 +74,9 @@ namespace GameBrowser {
                 WarningBox.Warn(responseMessage.content);
             }
             else {
-                Debug.LogError("unknown type of message: " + responseMessage.contentType.ToString());
+                Debug.LogError("unknown type of message: " 
+                    + responseMessage.contentType.ToString()
+                    +" " + responseMessage.content);
             }
         }
     }
