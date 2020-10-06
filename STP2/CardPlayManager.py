@@ -82,10 +82,3 @@ class CardPlayManager:
         self.next_attack_count = card.special_mod['next_attack_count'] if cardName == 'Double Tap' else self.next_attack_count
 
         return game_events
-
-    def GetEmptyBuffDict(self):
-        buff_dict = self.cards_dict['Anger'].buffs
-        empty_buff_dict = {}
-        for key in buff_dict:
-            empty_buff_dict[key] = 0
-        return empty_buff_dict
