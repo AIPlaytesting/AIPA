@@ -25,7 +25,7 @@ namespace GameBrowser {
             displayRoot.transform.DOKill();
             displayRoot.transform.localScale = Vector3.zero;
             displayRoot.transform.DOScale(Vector3.one, 1f).onComplete = () => {
-                displayRoot.transform.DOShakeScale(1f).onComplete = () => {
+                displayRoot.transform.DOShakeScale(0.5f,0.1f).onComplete = () => {
                     displayRoot.SetActive(false);
                 };
             };               
