@@ -22,6 +22,13 @@ def wait_start_game_request(player_socket):
             break
     print("start game request received!")
 
+def wait_end_boss_turn_request(player_socket):
+    while True:
+        player_input = get_player_input(player_socket)
+        if player_input.type == protocol.INPUT_TYPE_END_TURN:
+            break
+    print("end boss turn request received!")
+
 def run_game(player_socket): 
     # load database
     db_root = db.game_database.calculate_root_dir()
@@ -104,6 +111,12 @@ def play_one_round(game_manager,player_socket):
     if not game_manager.is_game_end():     
         # apply BOSS intent
         game_manager.execute_enemy_intent()   
+    
+    # send game sequence of boss turn
+    send_game_sequenec_response(player_socket,game_manager,[])
+    
+    # wait player input to end boss turn_buffer
+    wait_end_boss_turn_request(player_socket)
 
 def validate_play_card_input(card_name_to_play,game_state):
     card = game_state.cards_dict[card_name_to_play]
