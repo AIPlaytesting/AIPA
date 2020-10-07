@@ -12,12 +12,17 @@ class AI_Transformer:
         
         self.state_space_dim = 0
         self.state_space_strings = []
+        self.state_space = {} #key : string name, value : index
         self.action_space_dim = 0
+        self.action_space = {} #key : index, valuee : name
 
         db_root = db.game_database.calculate_root_dir()
         game_db = db.game_database.GameDatabase(db_root)
         self.deck_config = game_db.game_app_data.deck_config.copy()
-        print(self.deck_config)
+        registered_buffnames = game_db.game_app_data.registered_buffnames.copy()
+        self.empty_buff_dict = {}
+        for buff_name in registered_buffnames:
+            self.empty_buff_dict[buff_name] = 0
         
         self.CreateEmptyStateDicts()
         self.InitializeActionSpace()
@@ -38,7 +43,6 @@ class AI_Transformer:
 
 
     def InitializeActionSpace(self):
-        self.action_space = {}
         itr = 0
         for key in self.deck_config:
             if self.deck_config[key] > 0:
@@ -53,18 +57,24 @@ class AI_Transformer:
             raw_json_data = file.read()
             self.sa_json_data = json.loads(raw_json_data)
 
+
     def ReadSelectorFromFile(self, version_string):
         with open("AI_Module/StateActionDef/state_space_selector_" + version_string + ".json", "r") as file:
             raw_json_data = file.read()
-            self.selector = json.loads(raw_json_data)
+            selection_data = json.loads(raw_json_data)
+            self.selector = selection_data['selectors']
+            self.player_buffs_minimal = selection_data['player_minimal_buffs']
+            self.boss_buffs_minimal = selection_data['boss_minimal_buffs']
 
 
     def CreateEmptyStateDicts(self, version_string = None):
         self.player_basic = self.sa_json_data['state_dict']['player_basic']
-        self.player_buffs = self.sa_json_data['state_dict']['player_buffs']
         self.boss_basic = self.sa_json_data['state_dict']['boss_basic']
-        self.boss_buffs = self.sa_json_data['state_dict']['boss_buffs']
+        
         self.boss_intent = self.sa_json_data['state_dict']['boss_intent']
+
+        self.player_buffs = self.empty_buff_dict.copy()
+        self.boss_buffs = self.empty_buff_dict.copy()
 
         self.in_hand_cards = self.deck_config.copy()
         self.in_hand_and_playable_cards = self.deck_config.copy()
@@ -93,8 +103,8 @@ class AI_Transformer:
             self.in_hand_cards[key] = cards_on_hand.count(key)
             self.in_hand_and_playable_cards[key] = playable_cards.count(key)
             draw_pile = game_state.deck.get_card_names_in_draw_pile()
-            discard_pile = game_state.deck.get_card_names_in_discard_pile()
             self.draw_pile[key] = draw_pile.count(key)
+            discard_pile = game_state.deck.get_card_names_in_discard_pile()
             self.discard_pile[key] = discard_pile.count(key)
 
         current_intent = game_state.boss_intent.name
@@ -124,12 +134,9 @@ class AI_Transformer:
         
         #Player Buffs
         if self.selector['player_buffs']:
-            if self.selector['buff_minimal']:
-                flat_list.append(self.player_buffs['Weakened'])
-                flat_list.append(self.player_buffs['Vulnerable'])
-                flat_list.append(self.player_buffs['Strength'])
-                flat_list.append(self.player_buffs['Flex'])
-                #TODO flat_list.append(self.player_buffs['DoubleTapActive'])
+            if self.selector['player_buff_minimal']:
+                for buff_name in self.player_buffs_minimal:
+                    flat_list.append(self.player_buffs[buff_name])
             else:
                 #include all buffs if buff minimal is false
                 for key in self.player_buffs : 
@@ -138,11 +145,9 @@ class AI_Transformer:
 
         #Boss Buffs
         if self.selector['boss_buffs']:
-            if self.selector['buff_minimal']:
-                flat_list.append(self.boss_buffs['Weakened'])
-                flat_list.append(self.boss_buffs['Vulnerable'])
-                flat_list.append(self.boss_buffs['Strength'])
-                flat_list.append(self.boss_buffs['Thorns'])
+            if self.selector['boss_buff_minimal']:
+                for buff_name in self.boss_buffs_minimal:
+                    flat_list.append(self.boss_buffs[buff_name])
             else:
                 #include all buffs if buff minimal is false
                 for key in self.boss_buffs : 
@@ -174,79 +179,88 @@ class AI_Transformer:
 
 
     def GetStateSpaceStringList(self):
-        self.state_space_strings = []
+        state_space_index = 0
 
         #Basics
         if self.selector['player_energy']:
-            self.state_space_strings.append(str(len(self.state_space_strings) + 1) + " Player energy")
+            self.state_space['player_energy'] = state_space_index
+            state_space_index += 1
         
         if self.selector['player_health']:
-            self.state_space_strings.append(str(len(self.state_space_strings) + 1) + " Player health")
+            self.state_space['player_health'] = state_space_index
+            state_space_index += 1
 
         if self.selector['player_block']:
-            self.state_space_strings.append(str(len(self.state_space_strings) + 1) + " Player block")
+            self.state_space['player_block'] = state_space_index
+            state_space_index += 1
         
         if self.selector['boss_health']:
-            self.state_space_strings.append(str(len(self.state_space_strings) + 1) + " Boss health")
+            self.state_space['boss_health'] = state_space_index
+            state_space_index += 1
         
         if self.selector['boss_block']:
-            self.state_space_strings.append(str(len(self.state_space_strings) + 1) + " Boss block")
+            self.state_space['boss_block'] = state_space_index
+            state_space_index += 1
 
         
         #Player Buffs
         if self.selector['player_buffs']:
-            if self.selector['buff_minimal']:
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Player buff - Weakened')
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Player buff - Vulnerable')
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Player buff - Strength')
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Player buff - Flex')
-                #TODO self.state_space_strings.append(self.player_buffs['DoubleTapActive'])
+            if self.selector['player_buff_minimal']:
+                for buff_name in self.player_buffs_minimal:
+                    self.state_space["player_buff-" + buff_name] = state_space_index
+                    state_space_index += 1
             else:
                 #include all buffs if buff minimal is false
                 for key in self.player_buffs : 
-                    self.state_space_strings.append(str(len(self.state_space_strings) + 1)+ ' Player buff - ' + key)
+                    self.state_space["player_buff-" + key] = state_space_index
+                    state_space_index += 1
 
 
         #Boss Buffs
         if self.selector['boss_buffs']:
-            if self.selector['buff_minimal']:
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Boss buff - Weakened')
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Boss buff - Vulnerable')
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Boss buff - Strength')
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Boss buff - Thorns')
+            if self.selector['boss_buff_minimal']:
+                for buff_name in self.boss_buffs_minimal:
+                    self.state_space["boss_buff-" + buff_name] = state_space_index
+                    state_space_index += 1
             else:
                 #include all buffs if buff minimal is false
                 for key in self.boss_buffs : 
-                    self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Boss buff - ' + key)
+                    self.state_space["boss_buff-" + key] = state_space_index
+                    state_space_index += 1
         
         #Cards
         if self.selector['in_hand_cards']:
             for key in self.in_hand_cards :
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' In hand card - ' + key)
+                self.state_space["in_hand_card-" + key] = state_space_index
+                state_space_index += 1
         
         if self.selector['in_hand_playable_cards']:
             for key in self.in_hand_and_playable_cards :
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' In hand and playable card - ' + key)
+                self.state_space["in_hand_playable_card-" + key] = state_space_index
+                state_space_index += 1
 
         if self.selector['draw_pile']:
             for key in self.draw_pile :
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Draw Pile - ' + key)
+                self.state_space["draw_pile-" + key] = state_space_index
+                state_space_index += 1
         
         if self.selector['discard_pile']:
             for key in self.discard_pile :
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Discard Pile - ' + key)
+                self.state_space["draw_pile-" + key] = state_space_index
+                state_space_index += 1
 
         if self.selector['boss_intent']:
             for key in self.boss_intent:
-                self.state_space_strings.append(str(len(self.state_space_strings) + 1) + ' Boss Intent - ' + key)
+                self.state_space["boss_intent-" + key] = state_space_index
+                state_space_index += 1
 
-        self.state_space_dim = len(self.state_space_strings)
+        self.state_space_dim = state_space_index
 
 
     def PrintStateActionDef(self):
         print("Detailed State Space : ")
-        for state_space_string in self.state_space_strings:
-            print(state_space_string)
+        for key in self.state_space:
+            print(str(self.state_space[key])+ " - " + key)
         print("State Space Length = " + str(self.state_space_dim))
         print("Detailed Action Space : ")
         print(self.action_space)

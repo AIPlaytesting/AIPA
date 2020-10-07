@@ -91,6 +91,10 @@
         "Shackled" : {
             "value" : 0,
             "target" : "self" 
+        },
+        "DoubleTapActive" : {
+            "value" : 1,
+            "target" : "self" 
         }
     },
 

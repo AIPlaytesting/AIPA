@@ -79,6 +79,12 @@ class CardPlayManager:
 
         # Modify the next_attack_count variable. [Attack card always resets it to 1]. 
         self.next_attack_count = 1 if card.type == 'Attack' else self.next_attack_count
-        self.next_attack_count = card.special_mod['next_attack_count'] if cardName == 'Double Tap' else self.next_attack_count
+
+        if card.type == 'Attack':
+            self.next_attack_count = 1
+            self.game_manager.game_state.player.buff_dict['DoubleTapActive'] = 0
+
+        if self.game_manager.game_state.player.buff_dict['DoubleTapActive'] > 0:
+            self.next_attack_count = self.game_manager.game_state.player.buff_dict['DoubleTapActive'] + 1
 
         return game_events

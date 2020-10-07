@@ -18,6 +18,7 @@
         "DrawReduction",
         "Minion",
         "Poison",
-        "Shackled"
+        "Shackled",
+        "DoubleTapActive"
     ]
 }
