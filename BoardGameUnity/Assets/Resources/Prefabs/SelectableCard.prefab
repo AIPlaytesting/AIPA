@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2898726831381102618}
   - component: {fileID: 8558796828524663491}
   - component: {fileID: 5424217117205804743}
+  - component: {fileID: 3382439092228186181}
   m_Layer: 8
   m_Name: SelectableCard
   m_TagString: Untagged
@@ -145,6 +146,21 @@ MonoBehaviour:
   glow: {fileID: 6689995782870421901}
   cardName: {fileID: 6186109634391960678}
   energy: {fileID: 924656379057765092}
+  playCardInputTrigger: {fileID: 3382439092228186181}
+--- !u!114 &3382439092228186181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181203293327408652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30cd48ac754baaf4c9a0b81191117391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardName: 
+  cardGUID: 
 --- !u!1 &1052743719826891357
 GameObject:
   m_ObjectHideFlags: 0
