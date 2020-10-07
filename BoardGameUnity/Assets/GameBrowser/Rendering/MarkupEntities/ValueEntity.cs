@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 namespace GameBrowser.Rendering {
-    public class ValueEntity : MarkupEntity {
+    public class ValueEntity : HoverableEntity {
         public TextMeshProUGUI valueText;
 
         public static ValueEntity Create(ValueMarkup valueMarkup, CanvasAnchor anchor) {
