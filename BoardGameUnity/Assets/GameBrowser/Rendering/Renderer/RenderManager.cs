@@ -59,8 +59,11 @@ namespace GameBrowser.Rendering {
             // TODO: ugly implementation
             // Render GuadianBossValue
             var guadianBossEntity = FindObjectOfType<GuardianCombatUnitEntity>();
-            var guadianModeValuePosition = new CanvasPosition(guadianBossEntity.switchModeValueAcnhor,Vector2.zero);
-            valueRenderer.Render(gameStateMarkup.guadianModeValue, guadianModeValuePosition);
+            var guadianBossCombatUnitMarkup = guadianBossEntity.hookedMarkup as CombatUnitMarkup;
+            if (guadianBossCombatUnitMarkup.information["mode"] == "Offensive") {
+                var guadianModeValuePosition = new CanvasPosition(guadianBossEntity.switchModeValueAcnhor, Vector2.zero);
+                valueRenderer.Render(gameStateMarkup.guadianModeValue, guadianModeValuePosition);
+            }
         }
 
         public void RenderGameEvents(GameEventMarkup[] gameEventMarkups) {
