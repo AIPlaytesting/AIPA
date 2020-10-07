@@ -43,7 +43,7 @@ class EffectCalculator:
         target.current_hp -= damage_value
         # print remaining number to trigger mode shift
         # if boss is in offensive mode, charge accumulator and turn to defensive if over 30
-        boss_AI = self.game_manager.boss_AI 
+        boss_AI = self.game_manager.game_state.boss_AI 
         if target.game_unique_id == 'boss' and \
             boss_AI.mode == 'Offensive':
                 boss_AI.accumulator += damage_value

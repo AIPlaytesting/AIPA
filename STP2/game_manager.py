@@ -14,6 +14,8 @@ class GameState:
         all_buffnames = game_app_data.registered_buffnames
         self.player = CombatUnit('Player', "player",rules['player_hp'], all_buffnames) 
         self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], all_buffnames) 
+        # TODO: EnemyAI is not pure data, it is an object with methods.which against the concept of game state
+        self.boss_AI = EnemyAI(self.boss)
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         self.cards_dict = game_app_data.cards_dict.copy()# cardname:str , card:game_app_data.Card
@@ -25,7 +27,6 @@ class GameManager:
         self.effect_calculator = EffectCalculator.EffectCalculator(self)
         self.card_play_manager = CardPlayManager.CardPlayManager(self, self.effect_calculator)
         self.game_state = GameState(game_app_data,self.card_play_manager.cards_dict.keys())
-        self.boss_AI = EnemyAI(self.game_state.boss)
         self.__end_player_turn_flag = False
 
         #set to false when training AI
@@ -33,7 +34,6 @@ class GameManager:
 
     def init_game(self):
         self.game_state = GameState(self.game_app_data,self.card_play_manager.cards_dict.keys())
-        self.boss_AI = EnemyAI(self.game_state.boss)
 
     def is_game_end(self):
         player_hp, boss_hp = self.game_state.player.current_hp,self.game_state.boss.current_hp
@@ -56,15 +56,15 @@ class GameManager:
         # refresh energy
         self.game_state.player_energy = PLAYER_ENERGY
         # refresh boss intent
-        self.game_state.boss_intent = self.boss_AI.make_intent()
+        self.game_state.boss_intent = self.game_state.boss_AI.make_intent()
         # draw cards
         self.game_state.deck.draw_cards(5)
         # refresh buffs
         self.game_state.player.refresh_buff_on_new_turn()
         # log player status
         self.game_state.player.print_status_info("Player")
-        if self.boss_AI.mode == "Offensive":
-            print("Boss will switch mode in", self.boss_AI.transformTriggerPoint - self.boss_AI.accumulator, "damages")
+        if self.game_state.boss_AI.mode == "Offensive":
+            print("Boss will switch mode in", self.game_state.boss_AI.transformTriggerPoint - self.game_state.boss_AI.accumulator, "damages")
 
     def end_player_turn(self):
         self.__end_player_turn_flag = True
@@ -74,7 +74,7 @@ class GameManager:
         # refresh block
         self.game_state.boss.block = 0
         # call back for AI
-        self.boss_AI.onEnemyTurnStart(self.game_state)
+        self.game_state.boss_AI.onEnemyTurnStart(self.game_state)
         # discard player cards on hand
         self.game_state.deck.discard_all_cards()
         # refresh boss buffs
