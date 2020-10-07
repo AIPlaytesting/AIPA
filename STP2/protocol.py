@@ -72,7 +72,9 @@ class MarkupFactory:
 
         markup ={}
         markup['player'] = cls.create_combat_unit_markup(game_state.player)
-        markup['enemies'] = [cls.create_combat_unit_markup(game_state.boss)]
+        boss_markup = cls.create_combat_unit_markup(game_state.boss)
+        cls.add_boss_AI_inforamtion(boss_markup,game_state)
+        markup['enemies'] = [boss_markup]
         markup['enemyIntents'] = [cls.create_enemy_intent_markup(game_state.boss_intent)]
         markup['cardsOnHand'] = create_cards_markup_by_card_instances(game_state.deck.get_card_instances_on_hand())
         markup['drawPile'] = create_cards_markup_by_card_instances(game_state.deck.get_draw_pile().cards)
@@ -89,13 +91,17 @@ class MarkupFactory:
         markup['maxHP'] = combat_unit.max_hP
         markup['block'] = combat_unit.block
         markup['gameUniqueID'] = combat_unit.game_unique_id
-
         markup['buffs'] = []
+        markup['information'] = {}
         for buff_name,buff_value in combat_unit.buff_dict.items():
             if buff_value != 0:
                 markup['buffs'].append({"buffName":buff_name,"buffValue":buff_value})
 
         return markup
+    
+    @classmethod
+    def add_boss_AI_inforamtion(cls,combat_unit_markup,game_state):
+        pass
 
     @classmethod
     def create_card_markup( cls,card:Card,game_unique_id:str):
