@@ -91,12 +91,15 @@
         "Shackled" : {
             "value" : 0,
             "target" : "self" 
+        },
+        "DoubleTapActive" : {
+            "value" : 1,
+            "target" : "self" 
         }
     },
 
     "special_modifiers_info" : {
         "unique_damage" : "none",
-        "strength_multiplier" : 1,
-        "next_attack_count" : 2
+        "strength_multiplier" : 1
     }
 }

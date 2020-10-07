@@ -14,7 +14,7 @@ import winsound
 
 #initialize the environment
 env = Environment.Environment()
-game_buffer = AI_Module.GameBuffer.GameBuffer()
+game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, env.ai_transformer.action_space)
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
 
@@ -36,7 +36,7 @@ start_time = time.time()
 
 #Q-Learning Condensed State
 ai_agent = AI_Module.AI_Brain_Q_Basic_Condensed.AI_Brain(gamma=0, state_space_dim=state_space_len, action_space_dim=action_space_len,
-                   hidden_layer_dims=[128, 128, 1024, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 10000, batch_size = 128)
+                   hidden_layer_dims=[256, 256, 1024, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 10000, batch_size = 128)
 
 total_episode_rewards = []
 eps_history = []
