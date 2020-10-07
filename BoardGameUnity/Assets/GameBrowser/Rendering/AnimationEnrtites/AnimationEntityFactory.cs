@@ -65,8 +65,8 @@ namespace GameBrowser.Rendering {
             }
 
             if (combatUnitEventMarkup.combatUnitEvent == GameEventMarkup.CombatUnitEvent.EnemyIntent) {
-                Debug.Log("enemy intent!");
-                return null;
+                var enemyIntentAnimation = GO.AddComponent<IntentHighligtAnimationEntity>();
+                return enemyIntentAnimation;
             }
             return null;
         }
