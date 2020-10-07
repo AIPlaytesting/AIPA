@@ -9,6 +9,7 @@ namespace GameBrowser {
     /// Guardian is one of the BOSS in the game
     /// </summary>
     public class GuardianCombatUnitEntity : CombatUnitEntity {
+        public CanvasAnchor switchModeValueAcnhor;
         public Image bossImage;
         public Sprite offensiveModeSprite;
         public Sprite defensiveModeSprite;

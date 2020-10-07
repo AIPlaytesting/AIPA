@@ -17,7 +17,8 @@ namespace GameBrowser.Rendering {
         private float _curValue = 0;
 
         public static ValueEntity Create(ValueMarkup valueMarkup, CanvasAnchor anchor) {
-            var GO = CreateEntity(anchor,ResourceTable.Instance.valueEntityTemplate,valueMarkup);
+            var prefab = MatchPrefabByValueName(valueMarkup.name);
+            var GO = CreateEntity(anchor,prefab,valueMarkup);
             var valueEntity = GO.GetComponent<ValueEntity>();
             valueEntity.HookTo(valueMarkup);
             return valueEntity;
@@ -33,6 +34,10 @@ namespace GameBrowser.Rendering {
             var valueMarkup = hookedMarkup as ValueMarkup;
             valueText.text = string.Format("{0}/{1}", curValue, valueMarkup.maxValue);
             transform.DOPunchPosition(5*Random.insideUnitSphere,1f);
+        }
+
+        private static GameObject MatchPrefabByValueName(string valueName) {
+            return ResourceTable.Instance.valueEntityTemplate;
         }
     }
 }

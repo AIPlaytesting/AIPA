@@ -55,6 +55,12 @@ namespace GameBrowser.Rendering {
             valueRenderer.Clear();
             var energyPosition = new CanvasPosition(GameBrowser.Instance.mainUICanvas.FindCustomAnchor("energy"), Vector3.zero);
             valueRenderer.Render(gameStateMarkup.energy, energyPosition);
+
+            // TODO: ugly implementation
+            // Render GuadianBossValue
+            var guadianBossEntity = FindObjectOfType<GuardianCombatUnitEntity>();
+            var guadianModeValuePosition = new CanvasPosition(guadianBossEntity.switchModeValueAcnhor,Vector2.zero);
+            valueRenderer.Render(gameStateMarkup.guadianModeValue, guadianModeValuePosition);
         }
 
         public void RenderGameEvents(GameEventMarkup[] gameEventMarkups) {
