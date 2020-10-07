@@ -17,7 +17,6 @@ class CardPlayManager:
         
     # return GameEvent[] which happens AFATER played this card
     def PlayCard(self, cardName):
-
         if not cardName in self.cards_dict:
             print(cardName + ' is an invalid card name')
             return []
@@ -46,14 +45,9 @@ class CardPlayManager:
                     game_events.append(buff_change_event)
 
             # Create Block
-            self.card_effects_manager.AddBlock(self.game_manager.game_state.player, card.damage_block['block'])
+            block_events  = self.card_effects_manager.AddBlock(self.game_manager.game_state.player, card.damage_block['block'])
             # record bock change event
-            block_diff  = card.damage_block['block']
-            if block_diff != 0:
-                block_change_event = GameEvent.create_block_change_event(
-                    self.game_manager.game_state.player.game_unique_id,
-                    self.game_manager.game_state.player.block)
-                game_events.append(block_change_event)
+            game_events.extend(block_events)
 
             # Deal Damage
             for i in range(0, card.damage_block['damage_instances']):

@@ -13,11 +13,15 @@ class EffectCalculator:
         self.LogBuffApplication(source, target, buff_key, buff_value)
         return []
 
-    # TODO:return GameEvent[]
     def AddBlock(self, target, value):
         target.block += value
         self.LogAddBlock(target, value)
-        return []
+
+        if value != 0:
+            block_change_event = GameEvent.create_block_change_event(target.game_unique_id,target.block)
+            return [block_change_event]
+        else:
+            return []
 
     # return GameEvent[]
     def DealDamage(self, source, target, value, strength_multiplier):
