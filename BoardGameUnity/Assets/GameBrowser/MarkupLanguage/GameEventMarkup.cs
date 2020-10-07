@@ -7,7 +7,7 @@ namespace GameBrowser {
     public class GameEventMarkup : Markup {
         public enum EventChannel { None, NewTurn,Card, CombatUnit }
         public enum CardEvent { None, Played, Draw }
-        public enum CombatUnitEvent { None, GetHurt, BlockChange, BuffChange }
+        public enum CombatUnitEvent { None, GetHurt, BlockChange, BuffChange,EnemyIntent}
 
         // these are the commone key would appear in Dictionary<string, string> information
         public const string TURN_NAME_KEY = "turnName";

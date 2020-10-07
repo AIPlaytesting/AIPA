@@ -55,10 +55,10 @@ namespace GameBrowser.Rendering {
         }
 
         private void Update() {
-            if (isInteractable && isDraged) {
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                transform.position = new Vector3( worldPosition.x,worldPosition.y,transform.position.z);
-            }
+            //if (isInteractable && isDraged) {
+            //    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //    transform.position = new Vector3( worldPosition.x,worldPosition.y,transform.position.z);
+            //}
         }
     }
 }

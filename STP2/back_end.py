@@ -61,11 +61,14 @@ def play_one_round(game_manager,player_socket):
     game_recorder.record_game_state(game_manager.game_state)
     # send resonce back
     print('send response, start turn')
-    send_game_sequenec_response(player_socket,game_manager,[])
+    gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)    
+    send_game_sequence_response(player_socket, gamestate_markup,[],gamestate_markup)
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
         # record state before play card
         game_recorder.record_game_state(game_manager.game_state)
+        # record end game state markup
+        playerturn_start_gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
 
         cards_on_hand = game_manager.get_current_cards_on_hand()
         playable_cards = game_manager.get_current_playable_cards()
@@ -98,23 +101,37 @@ def play_one_round(game_manager,player_socket):
 
         # record game events
         game_recorder.record_game_events(game_events_of_input)
-
+        # record end game state markup
+        playerturn_end_gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
         # send response every time play card
         print('send response, card play')
-        send_game_sequenec_response(player_socket,game_manager,game_events_of_input)
+        send_game_sequence_response(
+            player_socket,
+            playerturn_start_gamestate_markup,
+            game_events_of_input,
+            playerturn_end_gamestate_markup)
 
     # enemy turn
     game_manager.start_enemy_turn()
-    send_gamestage_change_message(player_socket,protocol.GAMESTAGE_ENEMY_TURN)
 
+    send_gamestage_change_message(player_socket,protocol.GAMESTAGE_ENEMY_TURN)
+    # record start game state as markup
+    bossturn_start_gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
+    
     enemy_intent_game_events = []
     # check is player killed all enemies
     if not game_manager.is_game_end():     
         # apply BOSS intent
         enemy_intent_game_events = game_manager.execute_enemy_intent()   
     
+    #record start game state as markup
+    bossturn_end_gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
     # send game sequence of boss turn
-    send_game_sequenec_response(player_socket,game_manager,enemy_intent_game_events)
+    send_game_sequence_response(
+        player_socket,
+        bossturn_start_gamestate_markup,
+        enemy_intent_game_events, 
+        bossturn_end_gamestate_markup)
 
     # wait player input to end boss turn_buffer
     wait_end_boss_turn_request(player_socket)
@@ -132,12 +149,10 @@ def send_error_message_response(player_socket,error_message):
     response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_ERROR,error_message)
     player_socket.send(response_message.to_json().encode())
 
-def send_game_sequenec_response(player_socket,game_manager,game_events):
-        # encode game sequence markup file to json
-        game_state_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
+def send_game_sequence_response(player_socket,start_gamestate_markup,game_events,end_gamestate_markup):
+        # encode game sequence markup file to json      
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
-            game_state_markup,game_events,game_state_markup
-        )
+            start_gamestate_markup,game_events,end_gamestate_markup)
         game_sequence_markup_json = json.dumps(game_sequence_markup_file)
         # send message
         response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAME_SEQUENCE,game_sequence_markup_json)

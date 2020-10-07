@@ -64,6 +64,10 @@ namespace GameBrowser.Rendering {
                 return getHurtAnimation;
             }
 
+            if (combatUnitEventMarkup.combatUnitEvent == GameEventMarkup.CombatUnitEvent.EnemyIntent) {
+                Debug.Log("enemy intent!");
+                return null;
+            }
             return null;
         }
     }

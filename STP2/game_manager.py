@@ -1,6 +1,7 @@
 from combat_unit import CombatUnit
 from enemy_intent import EnemyIntent
 from enemy_AI import EnemyAI
+from game_event import GameEvent
 from deck import Deck
 from db.game_app_data import GameAppData
 import CardPlayManager
@@ -100,7 +101,11 @@ class GameManager:
 
     # return: game_event.GameEvent[]
     def execute_enemy_intent(self):
-        return self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
+        game_events = []
+        game_events.append(GameEvent.create_enemy_intent_event(self.game_state.boss.game_unique_id))
+        intent_execte_events = self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
+        game_events.extend(intent_execte_events)
+        return game_events
 
     def print_cards_info_on_hand(self):
         cards_on_hand = self.get_current_cards_on_hand()
