@@ -7,7 +7,8 @@ namespace GameBrowser {
         public static ResourceTable Instance = null;
 
         public GameObject cardTemplate;
-        public GameObject valueEntityTemplate;
+        public GameObject energyValueEntity;
+        public GameObject bossSwitchModeValueEntity;
         public GameObject drawPileWindowPrefab;
         public GameObject discardPileWindowPrefab;
         public GameObject playerEntityPrefab;

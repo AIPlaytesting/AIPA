@@ -37,7 +37,15 @@ namespace GameBrowser.Rendering {
         }
 
         private static GameObject MatchPrefabByValueName(string valueName) {
-            return ResourceTable.Instance.valueEntityTemplate;
+            if (valueName == "energy") {
+                return ResourceTable.Instance.energyValueEntity;
+            }
+            else if (valueName == "guadianModeValue") {
+                return ResourceTable.Instance.bossSwitchModeValueEntity;
+            }
+            else {
+                return ResourceTable.Instance.energyValueEntity;
+            }
         }
     }
 }
