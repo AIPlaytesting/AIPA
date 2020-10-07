@@ -74,6 +74,8 @@ for i in range(number_of_games):
     total_episode_rewards.append(total_episode_reward)
     episode_length_history.append(episode_len)
 
+    game_buffer.StoreGameData(ai_agent.epsilon, env.win_int, new_state, total_episode_reward, episode_len)
+
 
     print("================================================")
     print("Total reward from episode " + str(i) + " : " + str(total_episode_reward))
@@ -82,7 +84,7 @@ for i in range(number_of_games):
     rows = zip(total_episode_rewards, eps_history, episode_length_history)
 
     if (i != 0 and i % 1000 == 0):
-        with open('zero gamma with game buffer.csv', 'w+', newline='') as f:
+        with open('reward function updated - new deck.csv', 'w+', newline='') as f:
             filewriter = csv.writer(f)
             for row in rows:
                 filewriter.writerow(row)

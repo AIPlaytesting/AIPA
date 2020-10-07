@@ -16,11 +16,13 @@ class Environment:
         self.game_manager = game_manager.GameManager(game_db.game_app_data)
         self.action_cards_played = {}
         self.win_count = 0
+        self.win_int = 0
 
     def Reset(self):
         self.game_manager.init_game()
         self.game_manager.start_player_turn()
         current_state = self.ai_transformer.GetAIStateSpace(self.game_manager.game_state, self.game_manager.get_current_playable_cards())
+        self.win_int = 0
         # TODO: function to reset environment
         # if game is currently executing, stop it
         # start the game execution
@@ -127,13 +129,16 @@ class Environment:
         if (isTerminal and isPlayerWin) : 
             reward += 1
             self.win_count += 1
+            self.win_int = 1
         elif (isTerminal and not isPlayerWin) : 
             
             if unplayableCardSelected:
-                #higher reward for choosing wrong card
+                #higher negative reward for choosing wrong card
                 reward -= 1
+                self.win_int = -2
             else:
                 reward -= 0.75
+                self.win_int = -1
 
         elif (not isTerminal) and (not isTurnEnd):
             reward += self.CalculateImmediateReward(old_player_info, new_player_info, old_boss_info, new_boss_info)

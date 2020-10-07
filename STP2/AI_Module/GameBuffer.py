@@ -1,12 +1,14 @@
 import AI_Module.RewardFunctions
+import AI_Module.TrainingDataCollector
 
 class GameBuffer:
     
     def __init__(self, state_space, action_space):
         
         self.state_space = state_space #key : string name, value : index
-        self.action_space = action_space #key : index, valuee : name
+        self.action_space = action_space #key : index, value : name
         self.reward_functions = AI_Module.RewardFunctions.RewardFunctions(self.state_space, self.action_space)
+        self.data_collector = AI_Module.TrainingDataCollector.TrainingDataCollector(self.state_space, self.action_space)
 
         self.cur_states = []
         self.cur_new_states = []
@@ -71,10 +73,14 @@ class GameBuffer:
         for state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list in \
             zip(self.state_list_turns, self.new_state_list_turns, self.action_list_turns, self.reward_list_turns, self.add_reward_list_turns, self.terminal_list_turns):
 
+            self.data_collector.CollectDataFromTurn(state_list, new_state_list, action_list, reward_list)
+
             for state, new_state, action, reward, add_reward, terminal in zip(state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list):
 
                 ai_agent.StoreTransition(state, new_state, action, reward + add_reward, terminal)
                 ai_agent.Learn()
+            
+        self.data_collector.AddCurrentTurnDataToGameLists()
 
 
     def RewardCalculations(self):
@@ -140,6 +146,15 @@ class GameBuffer:
                 self.add_reward_list_turns[turn_index][step_index] += end_reward_discounted
 
 
+    def StoreGameData(self, epsilon, win_int, new_state, total_reward, episode_length):
+        
+        boss_hp_index = self.state_space['boss_health']
+        boss_end_hp = new_state[boss_hp_index]
+
+        player_hp_index = self.state_space['player_health']
+        player_end_hp = new_state[player_hp_index]
+
+        self.data_collector.StoreGameData(epsilon, win_int, player_end_hp, boss_end_hp, total_reward, episode_length)
 
 
 
