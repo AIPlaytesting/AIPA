@@ -14,6 +14,15 @@ namespace GameBrowser.Rendering {
         private IEnumerator AnimationCoroutine() {
             cardBePlayed.hoverEnabled = false;
 
+            //update energy
+            var cardMarkup = cardBePlayed.hookedMarkup as CardMarkup;
+            foreach (var valueEntity in FindObjectsOfType<ValueEntity>()) {
+                var valueMarkup = valueEntity.hookedMarkup as ValueMarkup;
+                if (valueMarkup.name == "energy") {
+                    valueEntity.curValue -= cardMarkup.energyCost;
+                }
+            }
+
             var showCardPosition = GameBrowser.Instance.mainSceneCanvas.FindCustomAnchor("showCard").transform.position;
             var discardPilePosition = GameBrowser.Instance.mainSceneCanvas.FindCustomAnchor("discardPile").transform.position;
 
