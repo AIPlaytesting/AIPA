@@ -10,6 +10,7 @@ namespace GameBrowser {
     public abstract class HoverableEntity : MarkupEntity, IPointerEnterHandler,IPointerExitHandler {
         public GameObject tooltipPrefab;
         public string tooltipText = "";
+        public bool hoverEnabled = true;
 
         private Tooltip tooltip;
         private Vector3 initScale;
@@ -29,12 +30,20 @@ namespace GameBrowser {
         }
 
         private void OnHoverEnter() {
+            if (!hoverEnabled) {
+                return;
+            }
+
             transform.DOKill();
             transform.DOScale(1.1f * initScale, 0.3f);
             tooltip.ActivteTooltip(tooltipText);
         }
 
         private void OnHoverExit() {
+            if (!hoverEnabled) {
+                return;
+            }
+
             transform.DOKill();
             transform.DOScale(1f * initScale, 0.3f);
             tooltip.DisactivateTooltip();
