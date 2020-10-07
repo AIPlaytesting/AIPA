@@ -92,6 +92,7 @@ class MarkupFactory:
         markup['block'] = combat_unit.block
         markup['gameUniqueID'] = combat_unit.game_unique_id
         markup['buffs'] = []
+        # must be <str,str> dict
         markup['information'] = {}
         for buff_name,buff_value in combat_unit.buff_dict.items():
             if buff_value != 0:
@@ -100,8 +101,10 @@ class MarkupFactory:
         return markup
     
     @classmethod
-    def add_boss_AI_inforamtion(cls,combat_unit_markup,game_state):
-        pass
+    def add_boss_AI_inforamtion(cls,combat_unit_markup,game_state:GameState):
+        combat_unit_markup['information']['mode'] = game_state.boss_AI.mode
+        change_mode_val = str(game_state.boss_AI.transformTriggerPoint-game_state.boss_AI.accumulator)
+        combat_unit_markup['information']['changeModeVal'] = change_mode_val
 
     @classmethod
     def create_card_markup( cls,card:Card,game_unique_id:str):
