@@ -282,7 +282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6393724223898342107}
-  - component: {fileID: 6072735330676870455}
+  - component: {fileID: 9159536374030208146}
   m_Layer: 5
   m_Name: boss entity
   m_TagString: Untagged
@@ -314,7 +314,7 @@ RectTransform:
   m_AnchoredPosition: {x: -321.5, y: 141}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6072735330676870455
+--- !u!114 &9159536374030208146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1033572493813456803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f80ed1a2baad6994f8fe41572663ae7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 15cd86e673b79f3419eb2689bd2b10b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   intentAnchor: {fileID: 1391619260387113909}
@@ -331,6 +331,11 @@ MonoBehaviour:
   hpSlider: {fileID: 3241112508119877117}
   hpValue: {fileID: 4835014395879156123}
   statusBarRoot: {fileID: 8339978444387562936}
+  bossImage: {fileID: 6890036108640917740}
+  offensiveModeSprite: {fileID: 21300008, guid: 5cf1b4629c7cb104e98d369448084abd,
+    type: 3}
+  defensiveModeSprite: {fileID: 21300014, guid: 5cf1b4629c7cb104e98d369448084abd,
+    type: 3}
 --- !u!1 &1757476703167225350
 GameObject:
   m_ObjectHideFlags: 0
