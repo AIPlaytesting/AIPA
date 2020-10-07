@@ -18,7 +18,7 @@ namespace GameBrowser.Rendering {
         public override void HookTo(Markup markup) {
             base.HookTo(markup);
             var hookedCardMarkup = hookedMarkup as CardMarkup;
-            tooltipText = "description: "+ hookedCardMarkup.name;
+            tooltipText = hookedCardMarkup.description;
             cardName.text = hookedCardMarkup.name;
             energy.text = hookedCardMarkup.energyCost.ToString();
 

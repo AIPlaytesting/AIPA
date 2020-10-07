@@ -2,7 +2,7 @@ import json
 
 from game_manager import GameState
 from combat_unit import CombatUnit
-from CardBase import Card
+from db.game_app_data import Card
 from CardPlayManager import CardPlayManager
 from game_event import GameEvent
 
@@ -103,6 +103,7 @@ class MarkupFactory:
         markup['gameUniqueID'] = game_unique_id
         markup['name'] = card.name
         markup['energyCost'] = card.energy_cost
+        markup['description'] = card.description
         return markup
 
     @classmethod

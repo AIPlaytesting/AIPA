@@ -32,7 +32,7 @@ namespace GameBrowser.Rendering {
         private void OnValueUpdate() {
             var valueMarkup = hookedMarkup as ValueMarkup;
             valueText.text = string.Format("{0}/{1}", curValue, valueMarkup.maxValue);
-            transform.DOPunchPosition(3*Random.insideUnitSphere, 0.5f);
+            transform.DOPunchPosition(5*Random.insideUnitSphere,1f);
         }
     }
 }
