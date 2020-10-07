@@ -5,9 +5,9 @@ using TMPro;
 using UnityEngine;
 
 namespace GameBrowser.Rendering {
-    public class SelectableCardEntity : MarkupEntity {
+    public class SelectableCardEntity : HoverableEntity {
         public GameObject glow;
-        public TextMeshPro name;
+        public TextMeshPro cardName;
         public TextMeshPro energy;
         
         private bool isSelected = false;
@@ -15,11 +15,13 @@ namespace GameBrowser.Rendering {
         public override void HookTo(Markup markup) {
             base.HookTo(markup);
             var hookedCardMarkup = hookedMarkup as CardMarkup;
-            name.text = hookedCardMarkup.name;
+            tooltipText = "description: "+ hookedCardMarkup.name;
+            cardName.text = hookedCardMarkup.name;
             energy.text = hookedCardMarkup.energyCost.ToString();
         }
 
         private void Awake() {
+            base.Awake();
             isSelected = false;
             OnIsSelectedChange();
         }
