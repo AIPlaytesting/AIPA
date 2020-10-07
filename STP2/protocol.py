@@ -80,6 +80,10 @@ class MarkupFactory:
         markup['drawPile'] = create_cards_markup_by_card_instances(game_state.deck.get_draw_pile().cards)
         markup['discardPile'] = create_cards_markup_by_card_instances(game_state.deck.get_discard_pile().cards)
         markup['energy'] = cls.create_value_markup('energy',game_state.player_energy,3)
+        markup['guadianModeValue'] = cls.create_value_markup(
+            'guadianModeValue',
+            game_state.boss_AI.accumulator,
+            game_state.boss_AI.transformTriggerPoint)
         return markup
 
     @classmethod
@@ -103,8 +107,6 @@ class MarkupFactory:
     @classmethod
     def add_boss_AI_inforamtion(cls,combat_unit_markup,game_state:GameState):
         combat_unit_markup['information']['mode'] = game_state.boss_AI.mode
-        change_mode_val = str(game_state.boss_AI.transformTriggerPoint-game_state.boss_AI.accumulator)
-        combat_unit_markup['information']['changeModeVal'] = change_mode_val
 
     @classmethod
     def create_card_markup( cls,card:Card,game_unique_id:str):
