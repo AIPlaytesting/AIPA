@@ -11,8 +11,7 @@ namespace GameBrowser.Rendering {
         public TextMeshPro energy;
         public PlayCardInputTrigger playCardInputTrigger;
 
-        private bool isSelectable = true;
-        private bool isSelected = false;
+        private bool isInteractable = true;
         private bool isDraged = false;
         private Vector3 initPosition;
 
@@ -30,55 +29,36 @@ namespace GameBrowser.Rendering {
 
         private void Awake() {
             base.Awake();
-            isSelected = false;
             initPosition = transform.position;
-            OnIsSelectedChange();
+            glow.SetActive(false);
         }
 
         private void OnMouseDown() {
-            if (!isSelectable) {
+            if (!isInteractable) {
                 return;
             }
-
-            isSelected = !isSelected;
+            glow.SetActive(true);
             initPosition = transform.position;
             isDraged = true;
-            OnIsSelectedChange();
         }
 
         private void OnMouseUp() {
+            if (!isInteractable) {
+                return;
+            }
+
             isDraged = false;
-            //transform.position = initPosition;
-            isSelectable = false;
+            transform.position = initPosition;
+            isInteractable = false;
+            glow.SetActive(false);
             playCardInputTrigger.TriggerUserInput();
         }
 
         private void Update() {
-            if (!isSelectable) {
-                return;
-            }
-
-            if (isDraged) {
+            if (isInteractable && isDraged) {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 transform.position = new Vector3( worldPosition.x,worldPosition.y,transform.position.z);
             }
-        }
-
-        private void OnIsSelectedChange() {
-            // TODO : temp method!
-            if (isSelected) {
-                foreach (var card in FindObjectsOfType<SelectableCardEntity>()) {
-                    if (card != this) {
-                        card.isSelected = false;
-                        card.OnIsSelectedChange();
-                    }
-                }
-                var playerInputTrigger = FindObjectOfType<PlayCardInputTrigger>();
-                var hookedCardMarkup = hookedMarkup as CardMarkup;
-                playerInputTrigger.cardName = hookedCardMarkup.name;
-                playerInputTrigger.cardGUID = hookedCardMarkup.gameUniqueID;
-            }
-            glow.SetActive(isSelected);
         }
     }
 }
