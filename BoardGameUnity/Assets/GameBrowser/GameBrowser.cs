@@ -10,10 +10,12 @@ namespace GameBrowser {
             public FrontEndConnection frontEndConnection;
             public UserInputManager userInputManager;
             public RenderManager renderManager;
+            public SceneReference sceneReference;
         }
 
-        public BrowserCanvas mainSceneCanvas;
-        public BrowserCanvas mainUICanvas;
+        public BrowserCanvas mainSceneCanvas { get { return dependencies.sceneReference.mainSceneCanvas; } }
+        public BrowserCanvas mainUICanvas { get { return dependencies.sceneReference.mainUICanvas; } }
+
 
         [SerializeField]
         private Dependencies dependencies = new Dependencies();
@@ -98,9 +100,22 @@ namespace GameBrowser {
                 var battleResultBoard = FindObjectOfType<BattleResultBoard>();
                 battleResultBoard.ShowResult(newState == ResponseMessage.GameStage.Win);
 
+                dependencies.sceneReference.endTurnBtn.SetActive(false);
+                dependencies.sceneReference.skipBossTurnBtn.SetActive(false);
+
                 renderManager.Clear();
             }
-            else {
+            else if(newState == ResponseMessage.GameStage.PlayerTurn) {
+                dependencies.sceneReference.endTurnBtn.SetActive(true);
+                dependencies.sceneReference.skipBossTurnBtn.SetActive(false);
+                MessageBox.PopupMessage(newState.ToString());
+            }
+            else if (newState == ResponseMessage.GameStage.EnemyTurn) {
+                dependencies.sceneReference.endTurnBtn.SetActive(false);
+                dependencies.sceneReference.skipBossTurnBtn.SetActive(true);
+                MessageBox.PopupMessage(newState.ToString());
+            }
+            else{
                 // other stage
                 MessageBox.PopupMessage(newState.ToString());
             }
