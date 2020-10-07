@@ -10,9 +10,9 @@ PLAYER_ENERGY = 3
 class GameState:
     def __init__(self,game_app_data:GameAppData,all_card_names):
         rules = game_app_data.rules
-        buff_dict = game_app_data.registered_buffnames
-        self.player = CombatUnit('Player', "player",rules['player_hp'], buff_dict) 
-        self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], buff_dict) 
+        all_buffnames = game_app_data.registered_buffnames
+        self.player = CombatUnit('Player', "player",rules['player_hp'], all_buffnames) 
+        self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], all_buffnames) 
         self.player_energy = PLAYER_ENERGY
         self.boss_intent = EnemyIntent()
         self.cards_dict = game_app_data.cards_dict.copy()# cardname:str , card:game_app_data.Card
@@ -98,8 +98,9 @@ class GameManager:
     def get_current_cards_on_hand(self):
         return self.game_state.deck.get_card_names_on_hand()
 
+    # return: game_event.GameEvent[]
     def execute_enemy_intent(self):
-        self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
+        return self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
 
     def print_cards_info_on_hand(self):
         cards_on_hand = self.get_current_cards_on_hand()

@@ -7,13 +7,17 @@ class EffectCalculator:
     def __init__(self, game_manager):
         self.game_manager = game_manager
 
+    # TODO:return GameEvent[]
     def ApplyBuff(self, source, target, buff_key, buff_value):
         target.buff_dict[buff_key] += buff_value
         self.LogBuffApplication(source, target, buff_key, buff_value)
+        return []
 
+    # TODO:return GameEvent[]
     def AddBlock(self, target, value):
         target.block += value
         self.LogAddBlock(target, value)
+        return []
 
     # return GameEvent[]
     def DealDamage(self, source, target, value, strength_multiplier):
@@ -80,7 +84,7 @@ class EffectCalculator:
         
         return damage_value
     
-    # returnd demage event
+    # return demage event
     def ThornDamage(self, source, target):
         #thorn damage is different because it does not get affected by modifiers
         thorn_damage_value = source.buff_dict['Thorns']

@@ -107,14 +107,15 @@ def play_one_round(game_manager,player_socket):
     game_manager.start_enemy_turn()
     send_gamestage_change_message(player_socket,protocol.GAMESTAGE_ENEMY_TURN)
 
+    enemy_intent_game_events = []
     # check is player killed all enemies
     if not game_manager.is_game_end():     
         # apply BOSS intent
-        game_manager.execute_enemy_intent()   
+        enemy_intent_game_events = game_manager.execute_enemy_intent()   
     
     # send game sequence of boss turn
-    send_game_sequenec_response(player_socket,game_manager,[])
-    
+    send_game_sequenec_response(player_socket,game_manager,enemy_intent_game_events)
+
     # wait player input to end boss turn_buffer
     wait_end_boss_turn_request(player_socket)
 

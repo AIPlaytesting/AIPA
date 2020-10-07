@@ -17,12 +17,14 @@ class EnemyIntent:
         self.enbuff_type = ""
         self.enbuff_value = 1
 
+    # return: game_event.GameEvent[]
     def apply_to(self, game_state,effect_calculator):
         if self.is_attack :
-            effect_calculator.DealDamage(game_state.boss,game_state.player,self.attack_value,1)
+            return effect_calculator.DealDamage(game_state.boss,game_state.player,self.attack_value,1)
         elif self.is_block:
-            effect_calculator.AddBlock(game_state.boss,self.block_value)
+            return effect_calculator.AddBlock(game_state.boss,self.block_value)
         elif self.is_debuff:
-            effect_calculator.ApplyBuff(game_state.boss,game_state.player,self.debuff_type,self.debuff_value)
+            return effect_calculator.ApplyBuff(game_state.boss,game_state.player,self.debuff_type,self.debuff_value)
         elif self.is_enbuff:
-            effect_calculator.ApplyBuff(game_state.boss,game_state.boss,self.enbuff_type,self.enbuff_value)
+            return effect_calculator.ApplyBuff(game_state.boss,game_state.boss,self.enbuff_type,self.enbuff_value)
+        return  []
