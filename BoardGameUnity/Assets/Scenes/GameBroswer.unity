@@ -2828,6 +2828,11 @@ MonoBehaviour:
       argumentPath: PythonGameplay\back_end.py
       argvUseRelativePath: 1
       enabled: 1
+    - applicationPath: python
+      appUseRelativePath: 0
+      argumentPath: PythonGameplay\back_end.py
+      argvUseRelativePath: 1
+      enabled: 1
     - applicationPath: backend.bat
       appUseRelativePath: 1
       argumentPath: 

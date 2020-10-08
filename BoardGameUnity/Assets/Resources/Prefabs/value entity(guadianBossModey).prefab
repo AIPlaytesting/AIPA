@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7811271982953427434}
   - component: {fileID: 7657176578046985803}
   m_Layer: 5
-  m_Name: guadianBossModeValueEntity
+  m_Name: value entity(guadianBossModey)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPrefab: {fileID: 5398948009001218998, guid: 4dc32b6b29ff3f54fafcc052c780eeb8,
     type: 3}
-  tooltipText: boss will switch mode when get enough damage
+  tooltipText: boss will switch to defend mode when get enough damage
   hoverEnabled: 1
   valueText: {fileID: 2196330770311818062}
 --- !u!1 &5523553656032791983
