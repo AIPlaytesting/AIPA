@@ -10,11 +10,15 @@ namespace GameBrowser {
         [SerializeField]
         private PythonProcess pythonProcess;
 
+        public delegate void  OnConnect();
+
         public OnReceiveResponse onReceiveResponse;
+        public OnConnect onConnect;
 
         public void Init() {
             pythonProcess.Run();
             pythonProcess.onMessageResponse += ProcessResponse;
+            pythonProcess.onLaunchSucceed += ()=> { onConnect(); };
         }
 
         public void SendRequest(RequestMessage requestMessage) {

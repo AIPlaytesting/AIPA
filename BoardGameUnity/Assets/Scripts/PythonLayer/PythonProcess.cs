@@ -45,8 +45,10 @@ namespace AIPlaytesing.Python {
         }
 
         public delegate void OnMessageResponse(string response);
+        public delegate void OnLaunchSucceed();
 
         public OnMessageResponse onMessageResponse;
+        public OnLaunchSucceed onLaunchSucceed;
 
         [SerializeField]
         private Config config;
@@ -64,27 +66,39 @@ namespace AIPlaytesing.Python {
             WaitProcessConnect();
 
             if (!config.startManually) {
-                foreach (var launchInfo in config.launchOrder) {
-                    if (!launchInfo.enabled) {
-                        continue;
-                    }
-
-                    var p = LaunchProcess(launchInfo);
-                    if (p != null) {
-                        process = p;
-                        break;
-                    }
-                }
-
-                if (process == null) {
-                    UnityEngine.Debug.LogError("unable to launch process with any enabled option!");
-                    WarningBox.Warn("unable to launch process, please click '../AIPA/backend.bat' mannualy");
-                }
+                StartCoroutine(TryLaucnhProcessByOrder());
             }
         }
 
         public void Send(string messageStr) {
-            processSocket.SendMessage(new Message(messageStr));
+            try {
+                processSocket.SendMessage(new Message(messageStr));
+            }
+            catch(Exception e) {
+                UnityEngine.Debug.LogError(e.Message);
+            }
+        }
+
+        private IEnumerator TryLaucnhProcessByOrder() {
+            var heartBeatTime = 1f;
+            foreach (var launchInfo in config.launchOrder) {
+                if (!launchInfo.enabled) {
+                    continue;
+                }
+
+                var p = LaunchProcess(launchInfo);
+                yield return new WaitForSeconds(heartBeatTime);
+                if (p != null && !p.HasExited) {
+                    process = p;
+                    onLaunchSucceed();
+                    break;
+                }
+            }
+
+            if (process == null) {
+                UnityEngine.Debug.LogError("unable to launch process with any enabled option!");
+                WarningBox.Warn("unable to launch process, please click '../AIPA/backend.bat' mannualy");
+            }
         }
 
         // return null if fail
@@ -100,6 +114,7 @@ namespace AIPlaytesing.Python {
                 p.StartInfo.RedirectStandardError = false;
                 p.StartInfo.CreateNoWindow = !config.showWindow;
 
+                DebugText.Log(string.Format("{0} {1}", p.StartInfo.FileName, p.StartInfo.Arguments));
                 UnityEngine.Debug.Log("application: " + p.StartInfo.FileName + "Arguments: " + p.StartInfo.Arguments);
                 p.Start();
                 return p;

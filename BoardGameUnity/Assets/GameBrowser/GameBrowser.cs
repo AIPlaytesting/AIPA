@@ -41,7 +41,7 @@ namespace GameBrowser {
         /// firstly will clear everything related to pervious GameSequenceMarkupFile
         /// </summary>
         /// <param name="source"></param>
-        public void Render(GameSequenceMarkupFile source) {
+        private void Render(GameSequenceMarkupFile source) {
             DOM.Instance.latestGameStateMarkup = source.endingState;
             StartCoroutine(RenderGameSeuqncePlaceHolder(source));
         }
@@ -70,6 +70,9 @@ namespace GameBrowser {
             dependencies.frontEndConnection.Init();
             dependencies.renderManager.Init();
             frontEndConnection.onReceiveResponse += ProcessResponse;
+            frontEndConnection.onConnect += () => {
+                dependencies.sceneReference.startGameBtn.SetActive(true);
+            };
         }
 
         private void ProcessResponse(ResponseMessage responseMessage) {
