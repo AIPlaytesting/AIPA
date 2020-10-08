@@ -78,6 +78,7 @@ namespace AIPlaytesing.Python {
 
                 if (process == null) {
                     UnityEngine.Debug.LogError("unable to launch process with any enabled option!");
+                    WarningBox.Warn("unable to launch process, please click '../AIPA/backend.bat' mannualy");
                 }
             }
         }
@@ -104,7 +105,8 @@ namespace AIPlaytesing.Python {
                 return p;
             }
             catch (Exception e) {
-                UnityEngine.Debug.Log("failt to start application: " + launchInfo.applicationPath + " with Arguments: " + launchInfo.argumentPath);
+                UnityEngine.Debug.LogWarning(e.Message);
+                UnityEngine.Debug.LogWarning("failt to start application: " + launchInfo.applicationPath + " with Arguments: " + launchInfo.argumentPath);
                 return null;
             }
         }
