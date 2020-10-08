@@ -27,6 +27,7 @@ namespace GameBrowser.Rendering {
             var discardPilePosition = GameBrowser.Instance.mainSceneCanvas.FindCustomAnchor("discardPile").transform.position;
 
             cardBePlayed.transform.position = showCardPosition;
+            cardBePlayed.glow.SetActive(true);
 
             cardBePlayed.transform.DOKill();
             cardBePlayed.transform.DOPunchScale(1.2f * cardBePlayed.transform.localScale, 0.5f);

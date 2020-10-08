@@ -71,6 +71,12 @@ def calculate_root_dir():
     root_dir = parent_dir+'\\'+ROOT_FOLDER_NAME
     return root_dir
 
+def calculate_resouces_dir():
+    root_dir = calculate_root_dir()
+    manifest_path = root_dir + "\\" + const_setting.MANIFEST_FILENAME
+    resource_dir = manifest.Manifest.load_from_file(manifest_path).resource_directory
+    return root_dir + "\\" + resource_dir
+
 def clear_game_database():
     root_dir = calculate_root_dir()
     shutil.rmtree(root_dir)

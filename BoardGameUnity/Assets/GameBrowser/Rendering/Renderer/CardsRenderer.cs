@@ -19,7 +19,7 @@ namespace GameBrowser.Rendering {
             var anchor = GameBrowser.Instance.mainSceneCanvas.FindCustomAnchor("cardsOnHand");
             foreach (var card in cards) {
                 MarkupEntity.CreateEntity(new CanvasPosition(anchor,bias), ResourceTable.Instance.cardTemplate, card);
-                bias += new Vector2(2.5f, 0);
+                bias += new Vector2(2f, 0);
             }
         }
 

@@ -55,10 +55,18 @@ class Card:
             else:
                 self.buffs[buff_name] = {"value" : 0, "target" : "self"}
         self.special_mod = card_data["special_modifiers_info"]
+
+        # optional fields
         if 'description' in card_data:
             self.description = card_data['description']
         else:
             self.description = self.name
+
+        # img_src is the relative path under resouces dir
+        if "img_relative_path" in card_data:
+            self.img_relative_path = card_data['img_relative_path']
+        else:
+            self.img_relative_path = ""
 
 def load_json_from_file(file_path):
     with open(file_path, "r") as file:

@@ -3,6 +3,7 @@ import json
 from game_manager import GameState
 from combat_unit import CombatUnit
 from db.game_app_data import Card
+from db.game_database import calculate_resouces_dir
 from CardPlayManager import CardPlayManager
 from game_event import GameEvent
 
@@ -115,6 +116,8 @@ class MarkupFactory:
         markup['name'] = card.name
         markup['energyCost'] = card.energy_cost
         markup['description'] = card.description
+        resource_dir = calculate_resouces_dir()
+        markup['imgAbsPath'] = resource_dir +'\\'+ card.img_relative_path
         return markup
 
     @classmethod

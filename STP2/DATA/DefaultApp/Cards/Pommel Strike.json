@@ -3,6 +3,7 @@
     "energy_cost" : 1,
     "type" : "Attack",
     "damage_target" : "enemy",
+    "img_relative_path":"pommelstrike.png",
 
     "damage_block_info" : {
         "damage" : 9,

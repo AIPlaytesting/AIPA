@@ -8,5 +8,6 @@ namespace GameBrowser {
         public string name = "cardName";
         public string description = "";
         public int energyCost = 0;
+        public string imgAbsPath = "";
     }
 }

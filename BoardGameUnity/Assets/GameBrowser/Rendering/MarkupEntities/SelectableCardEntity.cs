@@ -9,7 +9,9 @@ namespace GameBrowser.Rendering {
         public GameObject glow;
         public TextMeshPro cardName;
         public TextMeshPro energy;
+        public TextMeshPro descripiton;
         public PlayCardInputTrigger playCardInputTrigger;
+        public SpriteRenderer cardImgRenderer;
 
         private bool isInteractable = true;
         private bool isDraged = false;
@@ -21,10 +23,14 @@ namespace GameBrowser.Rendering {
             tooltipText = hookedCardMarkup.description;
             cardName.text = hookedCardMarkup.name;
             energy.text = hookedCardMarkup.energyCost.ToString();
+            descripiton.text = hookedCardMarkup.description;
 
             // set input trigger
             playCardInputTrigger.cardName = hookedCardMarkup.name;
             playCardInputTrigger.cardGUID = hookedCardMarkup.gameUniqueID;
+
+            // load img
+            StartCoroutine(LoadCardImg(hookedCardMarkup.imgAbsPath));
         }
 
         private void Awake() {
@@ -54,6 +60,16 @@ namespace GameBrowser.Rendering {
             playCardInputTrigger.TriggerUserInput();
         }
 
+        private IEnumerator LoadCardImg(string path) {
+            var wwwPath = "file:///" + path;
+            WWW www = new WWW(wwwPath);
+            while (!www.isDone)
+                yield return null;
+            var srcTex = www.texture;
+            if (srcTex) {
+                cardImgRenderer.sprite = Sprite.Create(srcTex, new Rect(0, 0, srcTex.width, srcTex.height), Vector2.zero);
+            }
+        }
         private void Update() {
             //if (isInteractable && isDraged) {
             //    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

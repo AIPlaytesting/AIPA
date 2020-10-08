@@ -43,7 +43,7 @@ PlayerSettings:
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1600
-  defaultScreenHeight: 900
+  defaultScreenHeight: 1000
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
@@ -277,7 +277,7 @@ PlayerSettings:
   - m_BuildTarget: Standalone
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: e2b78d2fe5dcb4955931f4e60683e9df, type: 3}
+      m_Icon: {fileID: 2800000, guid: 3cba52786130c480e9b17c454d56e322, type: 3}
       m_Width: 1024
       m_Height: 1024
       m_Kind: 0
