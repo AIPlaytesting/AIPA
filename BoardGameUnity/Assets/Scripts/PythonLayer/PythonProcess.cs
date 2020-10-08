@@ -11,16 +11,35 @@ namespace AIPlaytesing.Python {
         const int LISTEN_POART = 9999;
   
         [System.Serializable]
-        public class FilePath {
-            public string directiory = "";
+        public class LaunchInfo {
+            public string applicationPath = "";
+            public bool appUseRelativePath = true;
+            public string argumentPath = "";
+            public bool argvUseRelativePath = true;
             public bool enabled = true;
-            public string entryFileName = "main.py";
-            public bool useRelativePath = true;
+
+            public string CalculatateApplicationPath() {
+                if (appUseRelativePath) {
+                    return Application.dataPath + "\\" + applicationPath;
+                }
+                else {
+                    return applicationPath;
+                }
+            }
+
+            public string CalculatateArgumentPath() {
+                if (argvUseRelativePath) {
+                    return Application.dataPath + "\\" + argumentPath;
+                }
+                else {
+                    return argumentPath;
+                }
+            }
         }
 
         [System.Serializable]
         public class Config {
-            public List<FilePath> paths = new List<FilePath>();
+            public List<LaunchInfo> launchOrder = new List<LaunchInfo>();
             public bool showWindow = true;
             public bool startManually = false;
         }
@@ -43,36 +62,51 @@ namespace AIPlaytesing.Python {
 
         public void Run() {
             WaitProcessConnect();
+
             if (!config.startManually) {
-                var entryFilePath = CalculateFilePath(config);
-                try {
-                    process = StartProcess(entryFilePath, config.showWindow);
+                foreach (var launchInfo in config.launchOrder) {
+                    if (!launchInfo.enabled) {
+                        continue;
+                    }
+
+                    var p = LaunchProcess(launchInfo);
+                    if (p != null) {
+                        process = p;
+                        break;
+                    }
                 }
-                catch (Exception e) {
-                    DebugText.Log("Error: " + e.Message);
+
+                if (process == null) {
+                    UnityEngine.Debug.LogError("unable to launch process with any enabled option!");
                 }
             }
         }
 
-        private string CalculateFilePath(Config config) {
-            foreach (var path in config.paths) {
-                if (!path.enabled) {
-                    continue;
-                }
-                string directory = "";
-                if (path.useRelativePath) {
-                    directory = Application.dataPath + "/" + path.directiory;
-                }
-                else {
-                    directory = path.directiory;
-                }
+        public void Send(string messageStr) {
+            processSocket.SendMessage(new Message(messageStr));
+        }
 
-                var filePath = directory + "/" + path.entryFileName;
-                UnityEngine.Debug.Log("file path: " + filePath);
-                DebugText.Log("file path: " + filePath);
-                return filePath;
+        // return null if fail
+        private Process LaunchProcess(LaunchInfo launchInfo) {
+            try {
+                Process p = new Process();
+
+                p.StartInfo.FileName = launchInfo.CalculatateApplicationPath();
+                p.StartInfo.UseShellExecute = config.showWindow;
+                p.StartInfo.Arguments = launchInfo.CalculatateArgumentPath();
+                p.StartInfo.RedirectStandardOutput = false;
+                p.StartInfo.RedirectStandardInput = false;
+                p.StartInfo.RedirectStandardError = false;
+                p.StartInfo.CreateNoWindow = !config.showWindow;
+
+                UnityEngine.Debug.Log("application: " + p.StartInfo.FileName + "Arguments: " + p.StartInfo.Arguments);
+                p.Start();
+                return p;
             }
-            return "";
+            catch (Exception e) {
+                UnityEngine.Debug.Log("failt to start application: " + launchInfo.applicationPath + " with Arguments: " + launchInfo.argumentPath);
+                return null;
+            }
         }
 
         private void WaitProcessConnect() {
@@ -80,11 +114,6 @@ namespace AIPlaytesing.Python {
                 processSocket.Abort();
             }
             processSocket = ProcessSocket.Create(LISTEN_POART);
-        }
-
-        // TODO: donnt need to assign callback everytime. 
-        public void Send(string messageStr) {
-            processSocket.SendMessage(new Message(messageStr));
         }
 
         private void OnApplicationQuit() {
@@ -95,33 +124,6 @@ namespace AIPlaytesing.Python {
             if (process != null) {
                 process.Kill();
             }
-        }
-
-        private Process StartProcess(string entryFilePath, bool showWindow) {
-            string[] filesToTry = new string[] {"py", @"python3.exe", @"python.exe" };
-            foreach (var file in filesToTry) {
-                try {
-                    Process p = new Process();
-                    string sArguments = entryFilePath;
-
-                    p.StartInfo.FileName = file;
-                    p.StartInfo.UseShellExecute = showWindow;
-                    p.StartInfo.Arguments = sArguments;
-                    p.StartInfo.RedirectStandardOutput = false;
-                    p.StartInfo.RedirectStandardInput = false;
-                    p.StartInfo.RedirectStandardError = false;
-                    p.StartInfo.CreateNoWindow = !showWindow;
-
-                    UnityEngine.Debug.Log("application: " + p.StartInfo.FileName + "Arguments: " + sArguments);
-                    p.Start();
-                    return p;
-                }
-                catch(Exception e) {
-                    UnityEngine.Debug.Log("failt to start with file: " + file);
-                }
-            }
-
-            throw new System.Exception("fail to start process with given info");
         }
     }
 }
