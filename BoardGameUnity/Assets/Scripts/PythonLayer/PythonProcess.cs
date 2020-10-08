@@ -90,7 +90,6 @@ namespace AIPlaytesing.Python {
                 yield return new WaitForSeconds(heartBeatTime);
                 if (p != null && !p.HasExited) {
                     process = p;
-                    onLaunchSucceed();
                     break;
                 }
             }
@@ -131,6 +130,7 @@ namespace AIPlaytesing.Python {
                 processSocket.Abort();
             }
             processSocket = ProcessSocket.Create(LISTEN_POART);
+            processSocket.onReceiveConnection += () => { onLaunchSucceed(); };
         }
 
         private void OnApplicationQuit() {

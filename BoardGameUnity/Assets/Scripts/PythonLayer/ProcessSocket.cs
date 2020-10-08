@@ -14,6 +14,10 @@ namespace AIPlaytesing.Python {
     public class ProcessSocket:MonoBehaviour {
         const int RECV_BUFFER_SIZE = 16384;
 
+        public delegate void OnReceiveConnection();
+
+        public OnReceiveConnection onReceiveConnection;
+
         private Socket listener;
         private Socket peerSocket;
 
@@ -24,6 +28,11 @@ namespace AIPlaytesing.Python {
         private  List<Message> msgSendQueue = new List<Message>();
 
         private int listenPort = 10000;
+        private bool connected = false;
+
+        private void Awake() {
+            StartCoroutine(ConnectSucceedMonitor());
+        }
 
         public static ProcessSocket Create(int listenPort) {
             var GO = new GameObject("Process Socket - Port: " + listenPort.ToString());
@@ -45,6 +54,16 @@ namespace AIPlaytesing.Python {
             }
         }
         #endregion
+
+        IEnumerator ConnectSucceedMonitor() {
+            while (true) {
+                if (connected) {
+                    onReceiveConnection();
+                    break;
+                }
+                yield return null;
+            }
+        }
 
         // send all messages in the pool every frame
         private void FixedUpdate() {
@@ -107,6 +126,8 @@ namespace AIPlaytesing.Python {
         }
 
         private void ClientRecvThread(Socket handler) {
+            connected = true;
+
             byte[] recvData = new byte[RECV_BUFFER_SIZE];
             while (true) {
                 // An incoming connection needs to be processed.  
