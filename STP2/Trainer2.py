@@ -4,6 +4,7 @@ import AI_Module.AI_Brain_Q_Simple
 import AI_Module.AI_Brain_Q_Basic_Condensed
 import AI_Module.ReplayBuffer
 import AI_Module.GameBuffer
+import AI_Module.DataWriter
 import Environment
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,11 +15,17 @@ import winsound
 
 #initialize the environment
 env = Environment.Environment()
+
 game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, env.ai_transformer.action_space)
+game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
+
+#Replace string with file description is needed
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'file_name')
+
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
 
-number_of_games = 50000
+number_of_games = 100
 
 start_time = time.time()
 
@@ -81,19 +88,8 @@ for i in range(number_of_games):
     print("Total reward from episode " + str(i) + " : " + str(total_episode_reward))
     print("================================================")
 
-    rows = zip(total_episode_rewards, eps_history, episode_length_history)
-
-    if (i != 0 and i % 1000 == 0):
-        with open('reward function updated - new deck.csv', 'w+', newline='') as f:
-            filewriter = csv.writer(f)
-            for row in rows:
-                filewriter.writerow(row)
-
-            for key in env.action_cards_played:
-                filewriter.writerow([key])
-                filewriter.writerow([env.action_cards_played[key]])
-
-            filewriter.writerow([(env.win_count/i)*100])
+    if (i != 0 and (i + 1) % 10 == 0):
+        data_writer.WriteFile()
 
 
 
@@ -111,6 +107,7 @@ for i in range(number_of_games):
 time_taken = time.time() - start_time
 
 print("Time taken to run training : %.2f Hours" % (time_taken/3600))
+
 
 
 #Code to play a small sound when training is done
