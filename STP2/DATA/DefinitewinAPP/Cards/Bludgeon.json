@@ -3,6 +3,8 @@
     "type" : "Attack",
     "energy_cost" : 3,
     "damage_target" : "enemy",
+    "description":"Deal 32 demage",
+    "img_relative_path":"bludgeon.png",
 
     "damage_block_info" : {
         "damage" : 32,

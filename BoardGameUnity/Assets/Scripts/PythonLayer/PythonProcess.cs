@@ -11,67 +11,118 @@ namespace AIPlaytesing.Python {
         const int LISTEN_POART = 9999;
   
         [System.Serializable]
-        public class FilePath {
-            public string directiory = "";
+        public class LaunchInfo {
+            public string applicationPath = "";
+            public bool appUseRelativePath = true;
+            public string argumentPath = "";
+            public bool argvUseRelativePath = true;
             public bool enabled = true;
-            public string entryFileName = "main.py";
-            public bool useRelativePath = true;
+
+            public string CalculatateApplicationPath() {
+                if (appUseRelativePath) {
+                    return Application.dataPath + "\\" + applicationPath;
+                }
+                else {
+                    return applicationPath;
+                }
+            }
+
+            public string CalculatateArgumentPath() {
+                if (argvUseRelativePath) {
+                    return Application.dataPath + "\\" + argumentPath;
+                }
+                else {
+                    return argumentPath;
+                }
+            }
         }
 
         [System.Serializable]
         public class Config {
-            public List<FilePath> paths = new List<FilePath>();
+            public List<LaunchInfo> launchOrder = new List<LaunchInfo>();
             public bool showWindow = true;
             public bool startManually = false;
         }
 
         public delegate void OnMessageResponse(string response);
+        public delegate void OnLaunchSucceed();
+
+        public OnMessageResponse onMessageResponse;
+        public OnLaunchSucceed onLaunchSucceed;
 
         [SerializeField]
         private Config config;
         private Process process = null;
         private ProcessSocket processSocket = null;
-        private OnMessageResponse onMessageResponse = null;
 
         private void Update() {
             var newMessages = processSocket.Read();
             foreach (var message in newMessages) {
-                onMessageResponse(newMessages[0].body);
+                onMessageResponse(message.body);
             }
         }
 
         public void Run() {
             WaitProcessConnect();
+
             if (!config.startManually) {
-                var entryFilePath = CalculateFilePath(config);
-                try {
-                    process = StartProcess(entryFilePath, config.showWindow);
-                }
-                catch (Exception e) {
-                    DebugText.Log("Error: " + e.Message);
-                }
+                StartCoroutine(TryLaucnhProcessByOrder());
             }
         }
 
-        private string CalculateFilePath(Config config) {
-            foreach (var path in config.paths) {
-                if (!path.enabled) {
+        public void Send(string messageStr) {
+            try {
+                processSocket.SendMessage(new Message(messageStr));
+            }
+            catch(Exception e) {
+                UnityEngine.Debug.LogError(e.Message);
+            }
+        }
+
+        private IEnumerator TryLaucnhProcessByOrder() {
+            var heartBeatTime = 1f;
+            foreach (var launchInfo in config.launchOrder) {
+                if (!launchInfo.enabled) {
                     continue;
                 }
-                string directory = "";
-                if (path.useRelativePath) {
-                    directory = Application.dataPath + "/" + path.directiory;
-                }
-                else {
-                    directory = path.directiory;
-                }
 
-                var filePath = directory + "/" + path.entryFileName;
-                UnityEngine.Debug.Log("file path: " + filePath);
-                DebugText.Log("file path: " + filePath);
-                return filePath;
+                var p = LaunchProcess(launchInfo);
+                yield return new WaitForSeconds(heartBeatTime);
+                if (p != null && !p.HasExited) {
+                    process = p;
+                    break;
+                }
             }
-            return "";
+
+            if (process == null) {
+                UnityEngine.Debug.LogError("unable to launch process with any enabled option!");
+                WarningBox.Warn("unable to launch process, please click '../AIPA/backend.bat' mannualy");
+            }
+        }
+
+        // return null if fail
+        private Process LaunchProcess(LaunchInfo launchInfo) {
+            try {
+                Process p = new Process();
+
+                p.StartInfo.FileName = launchInfo.CalculatateApplicationPath();
+                p.StartInfo.UseShellExecute = config.showWindow;
+                p.StartInfo.Arguments = launchInfo.CalculatateArgumentPath();
+                p.StartInfo.RedirectStandardOutput = false;
+                p.StartInfo.RedirectStandardInput = false;
+                p.StartInfo.RedirectStandardError = false;
+                p.StartInfo.CreateNoWindow = !config.showWindow;
+
+                DebugText.Log(string.Format("{0} {1}", p.StartInfo.FileName, p.StartInfo.Arguments));
+                UnityEngine.Debug.Log("application: " + p.StartInfo.FileName + "Arguments: " + p.StartInfo.Arguments);
+                p.Start();
+                return p;
+            }
+            catch (Exception e) {
+                UnityEngine.Debug.LogWarning(e.Message);
+                UnityEngine.Debug.LogWarning("failt to start application: " + launchInfo.applicationPath + " with Arguments: " + launchInfo.argumentPath);
+                return null;
+            }
         }
 
         private void WaitProcessConnect() {
@@ -79,12 +130,7 @@ namespace AIPlaytesing.Python {
                 processSocket.Abort();
             }
             processSocket = ProcessSocket.Create(LISTEN_POART);
-        }
-
-        // TODO: donnt need to assign callback everytime. 
-        public void Send(string messageStr, OnMessageResponse onMessageResponseCallBack = null) {
-            processSocket.SendMessage(new Message(messageStr));
-            onMessageResponse = onMessageResponseCallBack;
+            processSocket.onReceiveConnection += () => { onLaunchSucceed(); };
         }
 
         private void OnApplicationQuit() {
@@ -95,33 +141,6 @@ namespace AIPlaytesing.Python {
             if (process != null) {
                 process.Kill();
             }
-        }
-
-        private Process StartProcess(string entryFilePath, bool showWindow) {
-            string[] filesToTry = new string[] {"py", @"python3.exe", @"python.exe" };
-            foreach (var file in filesToTry) {
-                try {
-                    Process p = new Process();
-                    string sArguments = entryFilePath;
-
-                    p.StartInfo.FileName = file;
-                    p.StartInfo.UseShellExecute = showWindow;
-                    p.StartInfo.Arguments = sArguments;
-                    p.StartInfo.RedirectStandardOutput = false;
-                    p.StartInfo.RedirectStandardInput = false;
-                    p.StartInfo.RedirectStandardError = false;
-                    p.StartInfo.CreateNoWindow = !showWindow;
-
-                    UnityEngine.Debug.Log("application: " + p.StartInfo.FileName + "Arguments: " + sArguments);
-                    p.Start();
-                    return p;
-                }
-                catch(Exception e) {
-                    UnityEngine.Debug.Log("failt to start with file: " + file);
-                }
-            }
-
-            throw new System.Exception("fail to start process with given info");
         }
     }
 }

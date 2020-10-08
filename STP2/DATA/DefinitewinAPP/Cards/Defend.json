@@ -3,6 +3,8 @@
     "type" : "Skill",
     "energy_cost" : 1,
     "damage_target" : "enemy",
+    "description":"Gain 5 Block",
+    "img_relative_path":"defend.png",
 
     "damage_block_info" : {
         "damage" : 0,

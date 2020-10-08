@@ -10,5 +10,6 @@ namespace GameBrowser {
         public int maxHP = 100;
         public int block = 0;
         public BuffMarkup[] buffs;
+        public Dictionary<string, string> information;
     }
 }

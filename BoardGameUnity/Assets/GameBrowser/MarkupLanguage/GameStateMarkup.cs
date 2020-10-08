@@ -12,5 +12,7 @@ namespace GameBrowser {
         public CardMarkup[] drawPile;
         public CardMarkup[] discardPile;
         public ValueMarkup energy;
+        //TODO: temporary implementation
+        public ValueMarkup guadianModeValue;
     }
 }

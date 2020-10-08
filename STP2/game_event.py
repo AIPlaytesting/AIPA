@@ -23,6 +23,7 @@ COMBAT_UNIT_EVENT_NONE = 0
 COMBAT_UNIT_EVENT_GETHURT = 1
 COMBAT_UNIT_EVENT_BLOCKCHANGE = 2
 COMBAT_UNIT_EVENT_BUFFCHANGE = 3
+COMBAT_UNIT_ENVET_ENEMY_INTENT = 4
 
 class GameEvent:
     def __init__(self,event_channel,card_event_type,combat_unit_event_type,information:dict):
@@ -97,3 +98,12 @@ class GameEvent:
             card_event_type, 
             combat_unit_event_type,
             information)
+
+    @classmethod
+    def create_enemy_intent_event(cls,enemy_game_unique_id):
+        return GameEvent(
+            EVENTCHANNLE_COMBAT_UNIT,
+            CARD_EVENT_NONE, 
+            COMBAT_UNIT_ENVET_ENEMY_INTENT,
+            {COMBAT_UNIT_GUID_KEY:enemy_game_unique_id}
+            )

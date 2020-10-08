@@ -9,6 +9,7 @@ namespace GameBrowser.Rendering {
         public float speed = 1f;
 
         public OnComplete onAnimationComplete;
+
         /// <summary>
         /// if derived class own other resources(like animation on other objects).
         /// must be stopped when destroyself
@@ -16,7 +17,7 @@ namespace GameBrowser.Rendering {
         public virtual void DestorySelf() { }
 
         /// <summary>
-        /// in the implementation, must call onComplete() when aniamiton complete!
+        /// in the implementation, must call onAnimationComplete() when aniamiton complete!
         /// </summary>
         public abstract void Play();
     }

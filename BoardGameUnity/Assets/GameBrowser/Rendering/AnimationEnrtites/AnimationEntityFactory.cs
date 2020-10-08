@@ -64,6 +64,10 @@ namespace GameBrowser.Rendering {
                 return getHurtAnimation;
             }
 
+            if (combatUnitEventMarkup.combatUnitEvent == GameEventMarkup.CombatUnitEvent.EnemyIntent) {
+                var enemyIntentAnimation = GO.AddComponent<IntentHighligtAnimationEntity>();
+                return enemyIntentAnimation;
+            }
             return null;
         }
     }

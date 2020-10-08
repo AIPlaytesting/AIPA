@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7811271982953427434}
   - component: {fileID: 7657176578046985803}
   m_Layer: 5
-  m_Name: value entity
+  m_Name: value entity(guadianBossModey)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,6 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0edee791ccc4fdd4692dc1aaf2c57be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 5398948009001218998, guid: 4dc32b6b29ff3f54fafcc052c780eeb8,
+    type: 3}
+  tooltipText: boss will switch to defend mode when get enough damage
+  hoverEnabled: 1
   valueText: {fileID: 2196330770311818062}
 --- !u!1 &5523553656032791983
 GameObject:
@@ -78,7 +82,7 @@ RectTransform:
   m_GameObject: {fileID: 5523553656032791983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6600792, y: 2.1794193, z: 1}
   m_Children: []
   m_Father: {fileID: 7811271982953427434}
   m_RootOrder: 1
@@ -114,17 +118,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 3/3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278249471
+  m_fontColor: {r: 1, g: 0.9048885, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -183,13 +187,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2196330770311818062}
-    characterCount: 0
+    characterCount: 3
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -233,7 +237,7 @@ RectTransform:
   m_GameObject: {fileID: 7597496996353474213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2458253, y: 1.324805, z: 1}
   m_Children: []
   m_Father: {fileID: 7811271982953427434}
   m_RootOrder: 0
@@ -269,7 +273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 24d0bd1def18f4b68a234d67fbeb592c, type: 3}
+  m_Sprite: {fileID: 21300014, guid: 5cf1b4629c7cb104e98d369448084abd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

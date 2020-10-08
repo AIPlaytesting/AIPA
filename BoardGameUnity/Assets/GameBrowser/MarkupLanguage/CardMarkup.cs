@@ -6,6 +6,8 @@ namespace GameBrowser {
     [System.Serializable]
     public class CardMarkup : Markup {
         public string name = "cardName";
+        public string description = "";
         public int energyCost = 0;
+        public string imgAbsPath = "";
     }
 }

@@ -7,13 +7,21 @@ class EffectCalculator:
     def __init__(self, game_manager):
         self.game_manager = game_manager
 
+    # TODO:return GameEvent[]
     def ApplyBuff(self, source, target, buff_key, buff_value):
         target.buff_dict[buff_key] += buff_value
         self.LogBuffApplication(source, target, buff_key, buff_value)
+        return []
 
     def AddBlock(self, target, value):
         target.block += value
         self.LogAddBlock(target, value)
+
+        if value != 0:
+            block_change_event = GameEvent.create_block_change_event(target.game_unique_id,target.block)
+            return [block_change_event]
+        else:
+            return []
 
     # return GameEvent[]
     def DealDamage(self, source, target, value, strength_multiplier):
@@ -35,7 +43,7 @@ class EffectCalculator:
         target.current_hp -= damage_value
         # print remaining number to trigger mode shift
         # if boss is in offensive mode, charge accumulator and turn to defensive if over 30
-        boss_AI = self.game_manager.boss_AI 
+        boss_AI = self.game_manager.game_state.boss_AI 
         if target.game_unique_id == 'boss' and \
             boss_AI.mode == 'Offensive':
                 boss_AI.accumulator += damage_value
@@ -80,7 +88,7 @@ class EffectCalculator:
         
         return damage_value
     
-    # returnd demage event
+    # return demage event
     def ThornDamage(self, source, target):
         #thorn damage is different because it does not get affected by modifiers
         thorn_damage_value = source.buff_dict['Thorns']
