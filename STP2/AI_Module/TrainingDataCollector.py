@@ -18,13 +18,13 @@ class TrainingDataCollector:
         self.max_damage = []
         self.average_damage = []
         self.roll_avg_reward = []
+        self.q_model_switch_episode_index = []
 
         self.cur_available_card_turns = []
         self.cur_played_card_turns = []
         self.cur_damage_done_in_turns = []
         self.cur_card_play_sequence_turns = []
         self.cur_reward_list = []
-
 
         self.damage_done_per_turn = []
         self.card_play_sequence_per_turn = []
@@ -81,7 +81,6 @@ class TrainingDataCollector:
             self.roll_avg_reward.append(sum(self.total_reward_list[start_index:end_index]) / len(self.total_reward_list[start_index:end_index]))
 
 
-
         #card count in deck
         for card_index in self.action_space:
             card_name = self.action_space[card_index]
@@ -110,7 +109,6 @@ class TrainingDataCollector:
             self.card_played_when_available[card_name] = self.card_play_count[card_name] / self.available_cards[card_name]
 
         
-
 
     def StoreDeckConfig(self, deck_config):
         self.deck_config = deck_config
@@ -178,6 +176,10 @@ class TrainingDataCollector:
 
         self.reward_list_per_turn.append(self.cur_reward_list)
         self.cur_reward_list = []
+
+
+    def RecordQModelSwitch(self):
+        self.q_model_switch_episode_index.append(len(self.episode_index_list) - 1)
 
 
 

@@ -24,6 +24,8 @@ class GameBuffer:
         self.add_reward_list_turns = []
         self.terminal_list_turns = []
 
+        self.q_model_switch_count = 0
+
 
     def ResetCurrentLists(self):
         self.cur_states = []
@@ -42,7 +44,6 @@ class GameBuffer:
         self.terminal_list_turns = []
         self.ResetCurrentLists()
 
-
     def AddCurrentListsToTurnList(self):
         self.state_list_turns.append(self.cur_states)
         self.new_state_list_turns.append(self.cur_new_states)
@@ -50,7 +51,7 @@ class GameBuffer:
         self.reward_list_turns.append(self.cur_rewards)
         self.add_reward_list_turns.append(self.cur_add_rewards)
         self.terminal_list_turns.append(self.cur_terminals)
-        
+
 
     def StoreByTurns(self, state, new_state, action, reward, isTerminal, isTurnEnd):
         
@@ -79,6 +80,9 @@ class GameBuffer:
 
                 ai_agent.StoreTransition(state, new_state, action, reward + add_reward, terminal)
                 ai_agent.Learn()
+
+                if self.CheckForQModelSwitch(ai_agent):
+                    self.data_collector.RecordQModelSwitch()
             
         self.data_collector.AddCurrentTurnDataToGameLists()
 
@@ -156,6 +160,16 @@ class GameBuffer:
 
         self.data_collector.StoreGameData(epsilon, win_int, player_end_hp, boss_end_hp, total_reward, episode_length)
 
+
+    def CheckForQModelSwitch(self, ai_agent):
+        if not hasattr(ai_agent, 'q_model_switch_count'): 
+            return False
+        
+        if self.q_model_switch_count < ai_agent.q_model_switch_count:
+            self.q_model_switch_count = ai_agent.q_model_switch_count
+            return True
+        else:
+            return False
 
 
 

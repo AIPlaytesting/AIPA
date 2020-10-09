@@ -1,11 +1,11 @@
-import AI_Module.AI_Brain_Q_Basic
-import AI_Module.AI_Brain_Q_Multiple
-import AI_Module.AI_Brain_Q_Simple
 import AI_Module.AI_Brain_Q_Basic_Condensed
+import AI_Module.AI_Brain_Q_Double
+
 import AI_Module.ReplayBuffer
 import AI_Module.GameBuffer
 import AI_Module.DataWriter
-import Environment
+import Environment #also a part of the AI
+
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
@@ -20,12 +20,12 @@ game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, en
 game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
 
 #Replace string with file description is needed
-data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'file_name')
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'overnight')
 
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
 
-number_of_games = 5000
+number_of_games = 20000
 
 start_time = time.time()
 
@@ -42,8 +42,13 @@ start_time = time.time()
 #ai_agent = AI_Module.AI_Brain_Q_Multiple.AI_Brain(action_space_dim=12, batch_size = 64, gamma = 0.9, eps=0.8, eps_min = 0.03, eps_dec = 0.003)
 
 #Q-Learning Condensed State
-ai_agent = AI_Module.AI_Brain_Q_Basic_Condensed.AI_Brain(gamma=0, state_space_dim=state_space_len, action_space_dim=action_space_len,
-                   hidden_layer_dims=[256, 256, 256, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 10000, batch_size = 128)
+#ai_agent = AI_Module.AI_Brain_Q_Basic_Condensed.AI_Brain(gamma=0, state_space_dim=state_space_len, action_space_dim=action_space_len,
+#               hidden_layer_dims=[256, 256, 256, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 10000, batch_size = 128)
+
+#Double Q-Learning
+ai_agent = AI_Module.AI_Brain_Q_Double.AI_Brain(gamma=0, state_space_dim=state_space_len, action_space_dim=action_space_len,
+                hidden_layer_dims=[256, 256, 256, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 15000, batch_size = 128)
+
 
 total_episode_rewards = []
 eps_history = []
@@ -88,10 +93,8 @@ for i in range(number_of_games):
     print("Total reward from episode " + str(i) + " : " + str(total_episode_reward))
     print("================================================")
 
-    if (i != 0 and (i + 1) % 10 == 0):
+    if (i != 0 and (i + 1) % 500 == 0):
         data_writer.WriteFile()
-
-
 
 
 # x = [i for i in range(number_of_games)]

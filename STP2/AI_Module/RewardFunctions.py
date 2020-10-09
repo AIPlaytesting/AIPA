@@ -33,14 +33,11 @@ class RewardFunctions:
         state = self.state_list_turns[turn_index][step_index]
         new_state = self.new_state_list_turns[turn_index][step_index]
 
-        
         self.old_player_hp = state[self.player_hp_index]
         self.new_player_hp = new_state[self.player_hp_index]
 
-        
         self.old_player_block = state[self.player_block_index]
         self.new_player_block = new_state[self.player_block_index]
-        
         
         self.old_player_energy = state[self.player_energy_index]
         self.new_player_energy = new_state[self.player_energy_index]
@@ -48,11 +45,9 @@ class RewardFunctions:
         player_energy_used = self.old_player_energy - self.new_player_energy
         energy_multiplier = 2 if player_energy_used == 0 else 1/(player_energy_used)
 
-        
         self.old_boss_hp = state[self.boss_hp_index]
         self.new_boss_hp = new_state[self.boss_hp_index]
 
-        
         self.old_boss_block = state[self.boss_block_index]
         self.new_boss_block = new_state[self.boss_block_index]
 
@@ -73,9 +68,21 @@ class RewardFunctions:
         #REWARD for BLOCKing damage
         reward_blocked = 0
 
-        if(self.old_player_block > self.new_player_block):
-            reward_blocked += (self.old_player_block - self.new_player_block) * 0.01
+        attack_boss_intents = ['boss_intent-Fierce Bash', 'boss_intent-Whirlwind', 'boss_intent-Roll Attack', 'boss_intent-Twin slam']
+        attack_boss_intent_indices = []
+        for boss_intent in attack_boss_intents:
+            attack_boss_intent_indices.append(self.state_space[boss_intent])
         
+        is_boss_intent_attack = False
+        turn_end_step_index = len(self.state_list_turns[turn_index]) - 1
+
+        for attack_boss_intent_index in attack_boss_intent_indices:
+            if self.state_list_turns[turn_index][turn_end_step_index][attack_boss_intent_index] > 0:
+                is_boss_intent_attack = True
+
+        if(self.old_player_block > self.new_player_block) and is_boss_intent_attack:
+            reward_blocked += (self.old_player_block - self.new_player_block) * 0.03
+
         #check when block was added in the steps before this step (in the same turn)
         
         blocking_cards = {
@@ -98,13 +105,11 @@ class RewardFunctions:
                 block_indices.append(another_step_index)
                 total_block_gained += blocking_cards[card_name]
 
-
-        
         for block_index in block_indices:
             action_neuron_number = self.action_list_turns[turn_index][block_index]
             card_name = self.action_space[action_neuron_number]
 
-            self.add_reward_list_turns[turn_index][block_index] += reward_blocked * (blocking_cards[card_name] / total_block_gained)
+            self.add_reward_list_turns[turn_index][block_index] += reward_blocked * (blocking_cards[card_name] / total_block_gained) / len(block_indices)
 
 
 
@@ -160,14 +165,13 @@ class RewardFunctions:
 
         strength_multiplier = 0.5 if isPlus else 0.25
 
-        if(self.action_list_turns[turn_index][step_index] == 8):
-            step_end_index = len(self.state_list_turns[turn_index])
-            cumulative_reward = 0
+        step_end_index = len(self.state_list_turns[turn_index])
+        cumulative_reward = 0
 
-            for another_step_index in range(step_index, step_end_index):
-                cumulative_reward += self.add_reward_list_turns[turn_index][another_step_index]
+        for another_step_index in range(step_index, step_end_index):
+            cumulative_reward += self.add_reward_list_turns[turn_index][another_step_index]
 
-            reward_flex = cumulative_reward * strength_multiplier * 2
+        reward_flex = cumulative_reward * strength_multiplier * 2
 
         return reward_flex
 
