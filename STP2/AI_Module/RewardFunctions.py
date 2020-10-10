@@ -51,6 +51,11 @@ class RewardFunctions:
         self.old_boss_block = state[self.boss_block_index]
         self.new_boss_block = new_state[self.boss_block_index]
 
+        action_number = self.action_list_turns[turn_index][step_index]
+        action_card = self.action_space[action_number]
+
+
+
         reward_damage = 0
 
         #REWARD for dealing damage
@@ -64,6 +69,9 @@ class RewardFunctions:
 
         reward_damage = damage_dealt * 0.01 * energy_multiplier
         self.add_reward_list_turns[turn_index][step_index] += reward_damage
+
+        if(action_card == 'Bludgeon'): 
+            a = 1
 
         #REWARD for BLOCKing damage
         reward_blocked = 0
@@ -80,8 +88,8 @@ class RewardFunctions:
             if self.state_list_turns[turn_index][turn_end_step_index][attack_boss_intent_index] > 0:
                 is_boss_intent_attack = True
 
-        if(self.old_player_block > self.new_player_block) and is_boss_intent_attack:
-            reward_blocked += (self.old_player_block - self.new_player_block) * 0.03
+        if(self.new_player_block > self.old_player_block) and is_boss_intent_attack:
+            reward_blocked += (self.new_player_block - self.old_player_block) * 0.03
 
         #check when block was added in the steps before this step (in the same turn)
         
@@ -163,7 +171,7 @@ class RewardFunctions:
     def RewardFromFlex(self, turn_index, step_index, isPlus):
         reward_flex = 0
 
-        strength_multiplier = 0.5 if isPlus else 0.25
+        strength_multiplier = 1.5 if isPlus else 1
 
         step_end_index = len(self.state_list_turns[turn_index])
         cumulative_reward = 0
@@ -171,7 +179,7 @@ class RewardFunctions:
         for another_step_index in range(step_index, step_end_index):
             cumulative_reward += self.add_reward_list_turns[turn_index][another_step_index]
 
-        reward_flex = cumulative_reward * strength_multiplier * 2
+        reward_flex = cumulative_reward * strength_multiplier * 2    #2 is the energy multiplier
 
         return reward_flex
 

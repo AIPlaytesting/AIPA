@@ -127,11 +127,10 @@ class Environment:
         pac_state = (old_player_info, new_player_info, old_boss_info, new_boss_info)
 
         if (isTerminal and isPlayerWin) : 
-            reward += 1
+            reward += 2
             self.win_count += 1
             self.win_int = 1
         elif (isTerminal and not isPlayerWin) : 
-            
             if unplayableCardSelected:
                 #higher negative reward for choosing wrong card
                 reward -= 1
@@ -139,9 +138,6 @@ class Environment:
             else:
                 reward -= 0.75
                 self.win_int = -1
-
-        elif (not isTerminal) and (not isTurnEnd):
-            reward += self.CalculateImmediateReward(old_player_info, new_player_info, old_boss_info, new_boss_info)
 
         return new_state, int(action_neuron_number), reward, isTerminal, pac_state, isTurnEnd
 
@@ -166,43 +162,3 @@ class Environment:
                 return index
         
         return -1
-
-
-    def CalculateImmediateReward(self, old_player_info, new_player_info, old_boss_info, new_boss_info):
-        old_player_hp = old_player_info[0]
-        old_player_block = old_player_info[1]
-        old_player_buffs = old_player_info[2]
-        old_player_energy = old_player_info[3]
-        old_boss_hp = old_boss_info[0]
-        old_boss_block = old_boss_info[1]
-        old_boss_buffs = old_boss_info[2]
-
-        new_player_hp = new_player_info[0]
-        new_player_block = new_player_info[1]
-        new_player_buffs = new_player_info[2]
-        new_player_energy = new_player_info[3]
-        new_boss_hp = new_boss_info[0]
-        new_boss_block = new_boss_info[1]
-        new_boss_buffs = new_boss_info[2]
-
-        reward = 0
-
-        # energy_multiplier = old_player_energy - new_player_energy
-        
-        # if(energy_multiplier > 0):
-        #     energy_multiplier = 1 / energy_multiplier
-        # else:
-        #     energy_multiplier = 2
-        
-        #Add (lower) reward if boss block gets used
-        if old_boss_block > new_boss_block:
-            reward += (old_boss_block - new_boss_block) * 0.015 
-        
-        #Add reward if player deals damage
-        reward += (old_boss_hp - new_boss_hp) * 0.02 
-
-        #Negative reward for losing healthbar
-        #reward -= (old_player_hp - new_player_hp) * 0.1 
-
-        return reward
-

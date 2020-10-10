@@ -69,22 +69,31 @@ class GameBuffer:
         self.ResetCurrentLists()
 
 
-    def TransferToReplayBuffer(self, ai_agent):
+    def TransferToReplayBuffer(self, ai_agent, win_int):
 
-        for state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list in \
-            zip(self.state_list_turns, self.new_state_list_turns, self.action_list_turns, self.reward_list_turns, self.add_reward_list_turns, self.terminal_list_turns):
+        store_count = 5 if win_int == 1 else 1
+        is_add_to_collector = False
 
-            self.data_collector.CollectDataFromTurn(state_list, new_state_list, action_list, reward_list)
+        for turn_index in range(len(self.reward_list_turns)):
+            for step_index in range(len(self.reward_list_turns[turn_index])):
+                self.reward_list_turns[turn_index][step_index] += self.add_reward_list_turns[turn_index][step_index]
 
-            for state, new_state, action, reward, add_reward, terminal in zip(state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list):
+            for state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list in \
+                zip(self.state_list_turns, self.new_state_list_turns, self.action_list_turns, self.reward_list_turns, self.add_reward_list_turns, self.terminal_list_turns):
 
-                ai_agent.StoreTransition(state, new_state, action, reward + add_reward, terminal)
-                ai_agent.Learn()
+                self.data_collector.CollectDataFromTurn(state_list, new_state_list, action_list, reward_list)
 
-                if self.CheckForQModelSwitch(ai_agent):
-                    self.data_collector.RecordQModelSwitch()
+                for state, new_state, action, reward, add_reward, terminal in zip(state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list):
+
+                    for x in range(store_count):
+                        ai_agent.StoreTransition(state, new_state, action, reward, terminal)
+                    
+                    ai_agent.Learn()
+
+                    if self.CheckForQModelSwitch(ai_agent):
+                        self.data_collector.RecordQModelSwitch()
             
-        self.data_collector.AddCurrentTurnDataToGameLists()
+            self.data_collector.AddCurrentTurnDataToGameLists()
 
 
     def RewardCalculations(self):
@@ -150,8 +159,17 @@ class GameBuffer:
                 self.add_reward_list_turns[turn_index][step_index] += end_reward_discounted
 
 
-    def StoreGameData(self, epsilon, win_int, new_state, total_reward, episode_length):
+    def StoreGameData(self, epsilon, win_int, new_state):
         
+        #calculate total reward of episode
+        total_reward = 0
+        episode_length = 0
+
+        for reward_list in self.reward_list_turns:
+            for step_reward in reward_list:
+                total_reward += step_reward
+                episode_length += 1
+
         boss_hp_index = self.state_space['boss_health']
         boss_end_hp = new_state[boss_hp_index]
 

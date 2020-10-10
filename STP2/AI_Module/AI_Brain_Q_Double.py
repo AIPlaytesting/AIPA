@@ -138,7 +138,7 @@ class AI_Brain:
         #update q_model training count
         self.q_model_current.training_counter += 1
 
-        if self.q_model_current.training_counter >= 60000:
+        if self.q_model_current.training_counter >= 30000:
             self.SwitchQModels()
 
 
@@ -151,7 +151,7 @@ class AI_Brain:
         if self.gamma > self.gamma_max:
             self.gamma = self.gamma_max
         
-        self.q_model_trained = self.q_model_current
+        #self.q_model_trained = self.q_model_current.copy()
         self.q_model_current = self.InitializeNewQModel()
         self.q_model_switch_count += 1
     

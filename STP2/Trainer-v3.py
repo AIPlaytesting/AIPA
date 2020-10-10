@@ -20,12 +20,12 @@ game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, en
 game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
 
 #Replace string with file description is needed
-data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'overnight')
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'overnight 100000')
 
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
 
-number_of_games = 20000
+number_of_games = 100000
 
 start_time = time.time()
 
@@ -67,7 +67,6 @@ for i in range(number_of_games):
         print(action_space_vec)
         new_state, action, reward, done, pac_state, isTurnEnd = env.Step(action_space_vec, isRandom)
         
-        total_episode_reward += reward
         episode_len += 1
         
         if(action != -1):
@@ -79,18 +78,12 @@ for i in range(number_of_games):
     
     game_buffer.TurnEnd()
     game_buffer.RewardCalculations()
-    game_buffer.TransferToReplayBuffer(ai_agent)
+    game_buffer.TransferToReplayBuffer(ai_agent, env.win_int)
+    game_buffer.StoreGameData(ai_agent.epsilon, env.win_int, new_state)
     game_buffer.ResetBuffer()
 
-    eps_history.append(ai_agent.epsilon)
-    total_episode_rewards.append(total_episode_reward)
-    episode_length_history.append(episode_len)
-
-    game_buffer.StoreGameData(ai_agent.epsilon, env.win_int, new_state, total_episode_reward, episode_len)
-
-
     print("================================================")
-    print("Total reward from episode " + str(i) + " : " + str(total_episode_reward))
+    print("Episode Ended - " + str(i))
     print("================================================")
 
     if (i != 0 and (i + 1) % 500 == 0):

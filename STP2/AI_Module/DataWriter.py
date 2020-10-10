@@ -11,7 +11,7 @@ class DataWriter:
         self.data_collector = data_collector
         now = datetime.now()
         dt_string = now.strftime("%d-%b-%y %H-%M")
-        self.filename = dt_string + " Training _ " + add_string
+        self.filename = dt_string + " Training _ " + add_string + '.xlsx'
         
         self.trainin_data_header = ['Episode #', 'Epsilon', 'Total Cards Played', 'Total Reward', 'Win/Loss', 'Boss End HP', 'Player End HP', 'Max Dmg (1 Turn)', 'Avg Dmg Per Turn', 'Roll Avg Reward']
         self.training_data = [self.data_collector.episode_index_list, self.data_collector.epsilon_list, self.data_collector.episode_length_list, self.data_collector.total_reward_list,\
