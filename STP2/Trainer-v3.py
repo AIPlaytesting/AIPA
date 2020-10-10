@@ -20,7 +20,7 @@ game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, en
 game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
 
 #Replace string with file description is needed
-data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'overnight 100000')
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'day test')
 
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
