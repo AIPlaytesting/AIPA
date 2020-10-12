@@ -96,7 +96,7 @@ namespace AIPlaytesing.Python {
 
             if (process == null) {
                 UnityEngine.Debug.LogError("unable to launch process with any enabled option!");
-                WarningBox.Warn("unable to launch process, please click '../AIPA/backend.bat' mannualy");
+                WarningBox.Warn("unable to launch process, please click '../AIPA_DATA/backend.bat' mannualy");
             }
         }
 

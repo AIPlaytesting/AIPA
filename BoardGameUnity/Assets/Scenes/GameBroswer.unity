@@ -2838,6 +2838,11 @@ MonoBehaviour:
       argumentPath: 
       argvUseRelativePath: 0
       enabled: 1
+    - applicationPath: py
+      appUseRelativePath: 0
+      argumentPath: PythonGameplay\back_end.py
+      argvUseRelativePath: 1
+      enabled: 1
     showWindow: 1
     startManually: 0
 --- !u!4 &1185227819
