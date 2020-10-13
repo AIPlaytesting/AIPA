@@ -64,6 +64,12 @@ namespace GameBrowser.Rendering {
                 var guadianModeValuePosition = ValueRenderer.GetCanvasPositionByRenderClass(gameStateMarkup.guadianModeValue);
                 valueRenderer.Render(gameStateMarkup.guadianModeValue, guadianModeValuePosition);
             }
+
+            // render reenforcement learning rewards value
+            foreach (var rlValue in gameStateMarkup.rlRewardValues) {
+                var position = ValueRenderer.GetCanvasPositionByRenderClass(rlValue);
+                valueRenderer.Render(rlValue, position);
+            }
         }
 
         public void RenderGameEvents(GameEventMarkup[] gameEventMarkups) {
