@@ -84,11 +84,12 @@ class MarkupFactory:
         markup['cardsOnHand'] = create_cards_markup_by_card_instances(game_state.deck.get_card_instances_on_hand())
         markup['drawPile'] = create_cards_markup_by_card_instances(game_state.deck.get_draw_pile().cards)
         markup['discardPile'] = create_cards_markup_by_card_instances(game_state.deck.get_discard_pile().cards)
-        markup['energy'] = cls.create_value_markup('energy',game_state.player_energy,3)
+        markup['energy'] = cls.create_value_markup('energy',game_state.player_energy,3,'energy')
         markup['guadianModeValue'] = cls.create_value_markup(
             'guadianModeValue',
             game_state.boss_AI.accumulator,
-            game_state.boss_AI.transformTriggerPoint)
+            game_state.boss_AI.transformTriggerPoint,
+            'guadian')
         return markup
 
     @classmethod
@@ -125,11 +126,12 @@ class MarkupFactory:
         return markup
 
     @classmethod
-    def create_value_markup(cls,value_name,cur_value,max_value):
+    def create_value_markup(cls,value_name,cur_value,max_value,renderclass):
         markup = {}
         markup['name'] = value_name
         markup['curValue'] = cur_value
         markup['maxValue'] = max_value
+        markup['renderClass'] = renderclass
         return markup
 
     @classmethod
