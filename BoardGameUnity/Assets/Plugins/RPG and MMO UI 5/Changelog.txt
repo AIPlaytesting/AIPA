@@ -1,0 +1,19 @@
+Version 1.2:
+- Added list style character select scene.
+- Added hero select scene.
+- Added Quest Log window.
+- Added Vendor window.
+- Transition components now take into account canvas groups interactable parameter.
+- Implemented interfaces for spell slot and item slot.
+- Added new on assign even to the item slots that also referes to the source slot as a second parameter.
+- Added UIDragObject inertia position rounding.
+- Added more tooltip anchoring options.
+- Tooltip anchored position is now being rounded.
+- Improved UIInputEvent script.
+- Optimized raycast targets.
+
+Version 1.1:
+- All scripts are using DuloGames.UI as namespace now.
+
+Version 1.0:
+- Initial release.
