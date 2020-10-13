@@ -16,8 +16,7 @@ namespace GameBrowser.Rendering {
 
         private float _curValue = 0;
 
-        public static ValueEntity Create(ValueMarkup valueMarkup, CanvasAnchor anchor) {
-            var prefab = MatchPrefabByValueName(valueMarkup.name);
+        public static ValueEntity Create(ValueMarkup valueMarkup, CanvasAnchor anchor,GameObject prefab) {
             var GO = CreateEntity(anchor,prefab,valueMarkup);
             var valueEntity = GO.GetComponent<ValueEntity>();
             valueEntity.HookTo(valueMarkup);
@@ -34,18 +33,6 @@ namespace GameBrowser.Rendering {
             var valueMarkup = hookedMarkup as ValueMarkup;
             valueText.text = string.Format("{0}/{1}", curValue, valueMarkup.maxValue);
             transform.DOPunchPosition(5*Random.insideUnitSphere,1f);
-        }
-
-        private static GameObject MatchPrefabByValueName(string valueName) {
-            if (valueName == "energy") {
-                return ResourceTable.Instance.energyValueEntity;
-            }
-            else if (valueName == "guadianModeValue") {
-                return ResourceTable.Instance.bossSwitchModeValueEntity;
-            }
-            else {
-                return ResourceTable.Instance.energyValueEntity;
-            }
         }
     }
 }
