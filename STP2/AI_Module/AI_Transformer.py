@@ -94,6 +94,7 @@ class AI_Transformer:
 
         self.boss_basic['health'] = game_state.boss.current_hp
         self.boss_basic['block'] = game_state.boss.block
+        self.boss_basic['boss_phase_switch_damage'] = game_state.boss_AI.transformTriggerPoint - game_state.boss_AI.accumulator
 
         for key in self.boss_buffs:
             self.boss_buffs[key] = game_state.boss.buff_dict[key]
@@ -130,6 +131,9 @@ class AI_Transformer:
         
         if self.selector['boss_block']:
             flat_list.append(self.boss_basic['block'])
+        
+        if self.selector['boss_phase_switch_damage']:
+            flat_list.append(self.boss_basic['boss_phase_switch_damage'])
 
         
         #Player Buffs
@@ -201,6 +205,10 @@ class AI_Transformer:
         if self.selector['boss_block']:
             self.state_space['boss_block'] = state_space_index
             state_space_index += 1
+        
+        if self.selector['boss_phase_switch_damage']:
+            self.state_space['boss_phase_switch_damage'] = state_space_index
+            state_space_index += 1
 
         
         #Player Buffs
@@ -246,7 +254,7 @@ class AI_Transformer:
         
         if self.selector['discard_pile']:
             for key in self.discard_pile :
-                self.state_space["draw_pile-" + key] = state_space_index
+                self.state_space["discard_pile-" + key] = state_space_index
                 state_space_index += 1
 
         if self.selector['boss_intent']:

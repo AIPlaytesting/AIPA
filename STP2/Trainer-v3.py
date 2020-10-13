@@ -62,9 +62,17 @@ for i in range(number_of_games):
     state = env.Reset()
     episode_len = 0
 
+    game_start_time = time.time()
+    prediction_time = 0
+
     while not done:
+        start_prediction_time = time.time()
+        
         action_space_vec, isRandom = ai_agent.PredictAction(state)
-        print(action_space_vec)
+        
+        end_prediction_time = time.time()
+        prediction_time += end_prediction_time - start_prediction_time
+
         new_state, action, reward, done, pac_state, isTurnEnd = env.Step(action_space_vec, isRandom)
         
         episode_len += 1
@@ -76,17 +84,30 @@ for i in range(number_of_games):
             
         state = new_state
     
+    game_end_time = time.time()
+    game_play_time = (game_end_time - game_start_time) - prediction_time
+    total_game_play_time = game_end_time - game_start_time
+
+
+
     game_buffer.TurnEnd()
     game_buffer.RewardCalculations()
+
+    start_train_time = time.time()
+    
     game_buffer.TransferToReplayBuffer(ai_agent, env.win_int)
-    game_buffer.StoreGameData(ai_agent.epsilon, env.win_int, new_state)
+    
+    end_train_time = time.time()
+    train_time = end_train_time - start_train_time
+
+    game_buffer.StoreGameData(ai_agent.epsilon, env.win_int, new_state, prediction_time, game_play_time, train_time)
     game_buffer.ResetBuffer()
 
     print("================================================")
     print("Episode Ended - " + str(i))
     print("================================================")
 
-    if (i != 0 and (i + 1) % 500 == 0):
+    if (i != 0 and (i + 1) % 250 == 0):
         data_writer.WriteFile()
 
 

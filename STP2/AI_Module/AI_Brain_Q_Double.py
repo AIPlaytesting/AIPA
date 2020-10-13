@@ -77,9 +77,9 @@ class AI_Brain:
             isRandom = True
         else:
             if self.q_model_trained != None:
-                actions = self.q_model_trained.model.predict(np.array([state], dtype=float))
+                actions = self.q_model_trained.model.__call__(np.array([state], dtype=float))
             else:
-                actions = self.q_model_current.model.predict(np.array([state], dtype=float))
+                actions = self.q_model_current.model.__call__(np.array([state], dtype=float))
             
             actions = actions[0]
 
@@ -138,7 +138,7 @@ class AI_Brain:
         #update q_model training count
         self.q_model_current.training_counter += 1
 
-        if self.q_model_current.training_counter >= 100000:
+        if self.q_model_current.training_counter >= 500000:
             self.SwitchQModels()
 
 

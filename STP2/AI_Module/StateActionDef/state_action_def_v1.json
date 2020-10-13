@@ -33,7 +33,8 @@
 
         "boss_basic" : {
             "health" : 0,
-            "block" : 0
+            "block" : 0,
+            "boss_phase_switch_damage" : 0
         },
 
         "boss_buffs" : {

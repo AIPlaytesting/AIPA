@@ -20,6 +20,11 @@ class TrainingDataCollector:
         self.roll_avg_reward = []
         self.q_model_switch_episode_index = []
 
+        self.game_play_time = []
+        self.prediction_time = []
+        self.total_game_play_time = []
+        self.train_time = []
+
         self.cur_available_card_turns = []
         self.cur_played_card_turns = []
         self.cur_damage_done_in_turns = []
@@ -49,6 +54,12 @@ class TrainingDataCollector:
         self.total_reward_list.append(total_reward)
         self.episode_length_list.append(episode_length)
         self.epsilon_list.append(epsilon)
+
+    def StoreTimeInformation(self, prediction_time, game_play_time, training_time):
+        self.prediction_time.append(prediction_time)
+        self.game_play_time.append(game_play_time)
+        self.train_time.append(training_time)
+        self.total_game_play_time.append(game_play_time + prediction_time)
 
     def PostDataCollectionAnalysis(self):
         #average damage and max damage

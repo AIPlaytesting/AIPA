@@ -72,7 +72,6 @@ class GameBuffer:
     def TransferToReplayBuffer(self, ai_agent, win_int):
 
         store_count = 5 if win_int == 1 else 1
-        is_add_to_collector = False
 
         for turn_index in range(len(self.reward_list_turns)):
             for step_index in range(len(self.reward_list_turns[turn_index])):
@@ -94,6 +93,7 @@ class GameBuffer:
                         self.data_collector.RecordQModelSwitch()
             
             self.data_collector.AddCurrentTurnDataToGameLists()
+
 
 
     def RewardCalculations(self):
@@ -159,8 +159,7 @@ class GameBuffer:
                 self.add_reward_list_turns[turn_index][step_index] += end_reward_discounted
 
 
-    def StoreGameData(self, epsilon, win_int, new_state):
-        
+    def StoreGameData(self, epsilon, win_int, new_state, prediction_time, game_time, train_time):
         #calculate total reward of episode
         total_reward = 0
         episode_length = 0
@@ -177,6 +176,7 @@ class GameBuffer:
         player_end_hp = new_state[player_hp_index]
 
         self.data_collector.StoreGameData(epsilon, win_int, player_end_hp, boss_end_hp, total_reward, episode_length)
+        self.data_collector.StoreTimeInformation(prediction_time, game_time, train_time)
 
 
     def CheckForQModelSwitch(self, ai_agent):

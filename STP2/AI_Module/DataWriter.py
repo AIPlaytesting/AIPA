@@ -81,6 +81,36 @@ class DataWriter:
             card_stat_worksheet.write(row, 5, self.data_collector.average_card_play_pos[card_name], self.float_format)
             card_stat_worksheet.write(row, 6, self.data_collector.card_average_reward[card_name], self.float_format)
 
+        time_info_worksheet = self.workbook.add_worksheet('Time Information')
+
+        time_info_worksheet.write(0, 0, 'Episode #', self.bold)
+        time_info_worksheet.write(0, 1, 'Pure Gameplay Time', self.bold)
+        time_info_worksheet.write(0, 2, 'Prediction Time', self.bold)
+        time_info_worksheet.write(0, 3, 'Total Gameplay Time', self.bold)
+        time_info_worksheet.write(0, 4, 'Train Time', self.bold)
+
+        for i in range(0, len(self.data_collector.game_play_time)):
+            time_info_worksheet.write(i+1, 0, i+1, self.border)
+            time_info_worksheet.write(i+1, 1, "%.2f s" % self.data_collector.game_play_time[i], self.border)
+            time_info_worksheet.write(i+1, 2, "%.2f s" % self.data_collector.prediction_time[i], self.border)
+            time_info_worksheet.write(i+1, 3, "%.2f s" % self.data_collector.total_game_play_time[i], self.border)
+            time_info_worksheet.write(i+1, 4, "%.2f s" % self.data_collector.train_time[i], self.border)
+
+        time_info_worksheet.write(1, 6, 'Pure Gameplay Time', self.bold)
+        time_info_worksheet.write(1, 7, "%.2f hr" % (sum(self.data_collector.game_play_time)/3600), self.border)
+        time_info_worksheet.write(2, 6, 'Prediction Time', self.bold)
+        time_info_worksheet.write(2, 7, "%.2f hr" % (sum(self.data_collector.prediction_time)/3600), self.border)
+        time_info_worksheet.write(3, 6, 'Total Gameplay Time', self.bold)
+        time_info_worksheet.write(3, 7, "%.2f hr" % (sum(self.data_collector.total_game_play_time)/3600), self.border)
+        time_info_worksheet.write(4, 6, 'Train Time', self.bold)
+        time_info_worksheet.write(4, 7, "%.2f hr" % (sum(self.data_collector.train_time)/3600), self.border)
+
+        time_info_worksheet.set_column(0, 1, 20)
+        time_info_worksheet.set_column(0, 2, 20)
+        time_info_worksheet.set_column(0, 3, 20)
+        time_info_worksheet.set_column(0, 4, 20)
+        time_info_worksheet.set_column(0, 6, 20)
+        time_info_worksheet.set_column(0, 7, 20)
 
         #card statistics charts
         card_dist_chart = self.workbook.add_chart({'type' : 'column'})
@@ -126,7 +156,6 @@ class DataWriter:
         roll_avg_reward_chart.set_x_axis({'name' : 'Iterations'})
         roll_avg_reward_chart.set_y_axis({'name' : 'Rolling Total Reward (20)'})
         roll_avg_reward_chart.set_title({'name' : 'Rolling Total Reward vs Iterations'})
-        training_data_worksheet.insert_chart('M4', roll_avg_reward_chart)
 
         
         #Mention Q_model_switches
@@ -136,22 +165,92 @@ class DataWriter:
             training_data_worksheet.write(row + 1, 10, self.data_collector.q_model_switch_episode_index[row] , self.border)
 
         #Mention winrate
-        win_rate = self.data_collector.win_data_list.count('Win') / len(self.data_collector.win_data_list)
-        training_data_worksheet.write(0, 12, 'WIN RATE :', self.bold_center)
-        training_data_worksheet.set_column(0, 12, 15)
+        wdl = self.data_collector.win_data_list #win data list
+
+        if len(wdl) > 0 :
+            total_win_rate = wdl.count('Win') / len(wdl)  
+        else :
+            total_win_rate = 'undefined'
+        if wdl.count('Win') + wdl.count('Loss by Boss Damage') > 0 :
+            pure_win_rate = wdl.count('Win') / (wdl.count('Win') + wdl.count('Loss by Boss Damage'))  
+        else :
+            pure_win_rate ='undefined'
+        
+        #splitting up for calculating win rates
+        win_rate_list_pure = []
+        win_rate_list_total = []
+
+        for i in range(0, len(wdl), 1000):
+            if i + 1000 > len(wdl):
+                wdl_sliced = wdl[i:i + 1000]
+            else:
+                wdl_sliced = wdl[i:len(wdl)]
+            
+            if wdl_sliced.count('Win') + wdl_sliced.count('Loss by Boss Damage') > 0 :
+                win_rate_list_pure.append(wdl_sliced.count('Win') / (wdl_sliced.count('Win') + wdl_sliced.count('Loss by Boss Damage')))
+            else:
+                win_rate_list_pure.append('undefined')
+
+            if len(wdl_sliced) > 0:
+                win_rate_list_total.append(wdl_sliced.count('Win') / len(wdl_sliced))  
+            else:
+                win_rate_list_total.append('undefined')
+
+        training_data_worksheet.write(0, 12, 'Iterations', self.bold_center)
+        training_data_worksheet.write(0, 13, 'Pure Win Rate', self.bold_center)
+        training_data_worksheet.write(0, 14, 'Total Win Rate', self.bold_center)
+
         percentage_format = self.workbook.add_format({'border' : 3, 'bold' : True})
         percentage_format.set_num_format('0.00%')
         percentage_format.set_bg_color('#A1E3B3') #light green color
-        training_data_worksheet.write(0, 13, win_rate, percentage_format)
+        
+        itr = 0
+        for win_rate_p, win_rate_t in zip(win_rate_list_pure, win_rate_list_total):
+            training_data_worksheet.write(itr + 1, 12, str(itr * 1000) + ' - ' + str((itr+ 1) * 1000), self.bold_center)
+            training_data_worksheet.write(itr + 1, 13, win_rate_p, percentage_format)
+            training_data_worksheet.write(itr + 1, 14, win_rate_t, percentage_format)
 
+        training_data_worksheet.write(0, 16, 'Total WIN RATE :', self.bold_center)
+        training_data_worksheet.write(1, 16, 'Pure WIN RATE :', self.bold_center)
+        training_data_worksheet.write(0, 17, total_win_rate, percentage_format)
+        training_data_worksheet.write(1, 17, pure_win_rate, percentage_format)
+
+        training_data_worksheet.set_column(0, 12, 20)
+        training_data_worksheet.set_column(0, 13, 20)
+        training_data_worksheet.set_column(0, 14, 20)
+        training_data_worksheet.set_column(0, 16, 20)
+        training_data_worksheet.set_column(0, 17, 20)
 
         #Freeze top row
         training_data_worksheet.freeze_panes(1, 0)
 
+        #Insert Training Chart
+        training_data_worksheet.insert_chart(itr + 5, 13 , roll_avg_reward_chart)
+
+        #State-Action Space
+        sa_space_worksheet = self.workbook.add_worksheet('State-Action Space')
+
+        sa_space_worksheet.write(0, 0, '#', self.bold)
+        sa_space_worksheet.write(0, 1, 'State Space Item', self.bold)
+        sa_space_worksheet.set_column(0, 0, 5)
+        sa_space_worksheet.set_column(0, 1, 70)
+
+        i = 0
+        for key in self.data_collector.state_space:
+            i += 1
+            sa_space_worksheet.write(i, 0, i, self.border)
+            sa_space_worksheet.write(i, 1, key, self.border)
+            
+
+        sa_space_worksheet.write(0, 4, '#', self.bold)
+        sa_space_worksheet.write(0, 5, 'Action Space Item', self.bold)
+        sa_space_worksheet.set_column(0, 4, 5)
+        sa_space_worksheet.set_column(0, 5, 50)
+
+        i = 0
+        for key in self.data_collector.action_space:
+            i += 1
+            sa_space_worksheet.write(i, 4, i, self.border)
+            sa_space_worksheet.write(i, 5, self.data_collector.action_space[key], self.border)
+
         self.workbook.close()
-        
-
-
-
-
-    
