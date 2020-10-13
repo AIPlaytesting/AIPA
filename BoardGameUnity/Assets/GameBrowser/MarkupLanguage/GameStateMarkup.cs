@@ -14,5 +14,6 @@ namespace GameBrowser {
         public ValueMarkup energy;
         //TODO: temporary implementation
         public ValueMarkup guadianModeValue;
+        public ValueMarkup[] rlRewardValues;
     }
 }

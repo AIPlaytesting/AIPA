@@ -9,6 +9,7 @@ namespace GameBrowser {
         public GameObject cardTemplate;
         public GameObject energyValueEntity;
         public GameObject bossSwitchModeValueEntity;
+        public GameObject rlrewardValueEntity;
         public GameObject drawPileWindowPrefab;
         public GameObject discardPileWindowPrefab;
         public GameObject playerEntityPrefab;

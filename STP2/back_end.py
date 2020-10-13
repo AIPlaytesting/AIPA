@@ -161,6 +161,7 @@ def send_game_sequence_response(player_socket,start_gamestate_markup,game_events
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
             start_gamestate_markup,game_events,end_gamestate_markup)
         game_sequence_markup_json = json.dumps(game_sequence_markup_file)
+
         # send message
         response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAME_SEQUENCE,game_sequence_markup_json)
         player_socket.send(response_message.to_json().encode())

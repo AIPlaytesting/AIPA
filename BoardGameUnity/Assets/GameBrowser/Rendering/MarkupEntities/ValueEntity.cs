@@ -7,6 +7,8 @@ using UnityEngine;
 namespace GameBrowser.Rendering {
     public class ValueEntity : HoverableEntity {
         public TextMeshProUGUI valueText;
+        public bool showMaxValue = true;
+
         public float curValue  { 
             get{ return _curValue; 
             } 
@@ -31,7 +33,12 @@ namespace GameBrowser.Rendering {
 
         private void OnValueUpdate() {
             var valueMarkup = hookedMarkup as ValueMarkup;
-            valueText.text = string.Format("{0}/{1}", curValue, valueMarkup.maxValue);
+            if (showMaxValue) {
+                valueText.text = string.Format("{0}/{1}", curValue, valueMarkup.maxValue);
+            }
+            else {
+                valueText.text = curValue.ToString();
+            }
             transform.DOPunchPosition(5*Random.insideUnitSphere,1f);
         }
     }

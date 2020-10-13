@@ -26,6 +26,9 @@ namespace GameBrowser.Rendering {
                 var guadianBossEntity = GameObject.FindObjectOfType<GuardianCombatUnitEntity>();
                 return new CanvasPosition(guadianBossEntity.switchModeValueAcnhor, Vector2.zero);
             }
+            else if (renderClass == ValueMarkup.RENDER_CLASS_RLREWARD) {
+                return new CanvasPosition(GameBrowser.Instance.mainUICanvas.FindCustomAnchor("energy"), Vector3.zero);
+            }
             else {
                 throw new System.Exception("undefined render class");
             }
@@ -38,6 +41,9 @@ namespace GameBrowser.Rendering {
             }
             else if (renderClass == ValueMarkup.RENDER_CLASS_GUADIAN) {
                 return ResourceTable.Instance.bossSwitchModeValueEntity;
+            }
+            else if (renderClass == ValueMarkup.RENDER_CLASS_RLREWARD) {
+                return ResourceTable.Instance.rlrewardValueEntity;
             }
             else {
                 return ResourceTable.Instance.energyValueEntity;

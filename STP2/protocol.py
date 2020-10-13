@@ -64,7 +64,14 @@ class MarkupFactory:
 
     @classmethod
     def enrich_game_state_markup_with_RLinfo(cls,game_state_markup,rlbot):
-        game_state_markup['rlRewardValues'] = [reward for reward in rlbot.get_rewards()]       
+        game_state_markup['rlRewardValues'] = []      
+        for reward in rlbot.get_rewards():
+            rewardvalue_markup  = cls.create_value_markup(
+                reward['cardname'],
+                reward['reward'],
+                reward['reward'],
+                'rlreward')
+            game_state_markup['rlRewardValues'].append(rewardvalue_markup)
 
     @classmethod
     def create_game_state_markup(cls,game_state:GameState):
