@@ -53,7 +53,7 @@ namespace GameBrowser.Rendering {
             characterRenderer.RenderEnemy(gameStateMarkup.enemies[0],gameStateMarkup.enemyIntents[0]);
 
             valueRenderer.Clear();
-            var energyPosition = new CanvasPosition(GameBrowser.Instance.mainUICanvas.FindCustomAnchor("energy"), Vector3.zero);
+            var energyPosition = ValueRenderer.GetCanvasPositionByRenderClass(gameStateMarkup.energy);
             valueRenderer.Render(gameStateMarkup.energy, energyPosition);
 
             // TODO: ugly implementation
@@ -61,7 +61,7 @@ namespace GameBrowser.Rendering {
             var guadianBossEntity = FindObjectOfType<GuardianCombatUnitEntity>();
             var guadianBossCombatUnitMarkup = guadianBossEntity.hookedMarkup as CombatUnitMarkup;
             if (guadianBossCombatUnitMarkup.information["mode"] == "Offensive") {
-                var guadianModeValuePosition = new CanvasPosition(guadianBossEntity.switchModeValueAcnhor, Vector2.zero);
+                var guadianModeValuePosition = ValueRenderer.GetCanvasPositionByRenderClass(gameStateMarkup.guadianModeValue);
                 valueRenderer.Render(gameStateMarkup.guadianModeValue, guadianModeValuePosition);
             }
         }
