@@ -181,7 +181,7 @@ class DataWriter:
         win_rate_list_total = []
 
         for i in range(0, len(wdl), 1000):
-            if i + 1000 > len(wdl):
+            if i + 1000 < len(wdl):
                 wdl_sliced = wdl[i:i + 1000]
             else:
                 wdl_sliced = wdl[i:len(wdl)]
