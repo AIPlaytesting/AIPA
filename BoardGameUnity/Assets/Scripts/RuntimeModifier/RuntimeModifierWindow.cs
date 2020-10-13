@@ -5,14 +5,26 @@ using GameBrowser;
 
 public class RuntimeModifierWindow : MonoBehaviour
 {
+    public static RuntimeModifierWindow Instance = null;
+
     [SerializeField]
-    private PlayerStateModifyPage playerStateModifyPage;
+    private CombatUnitModifyPage playerStateModifyPage;
     [SerializeField]
     private EnemyStateModifyPage enemyStateModifyPage;
     [SerializeField]
     private CardsOnHandModifyPage cardsOnHandModifyPage;
 
     private GameStateMarkup modifyTarget = null;
+
+    private void Awake() {
+        if (Instance == null) {
+            Instance = this;
+        }
+        else {
+            Debug.LogError("duplication singleton");
+            GameObject.DestroyImmediate(gameObject);
+        }
+    }
 
     public void LoadFrom(GameStateMarkup gameStateMarkup) {
         modifyTarget = gameStateMarkup.MakeCopy();
