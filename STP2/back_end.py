@@ -9,6 +9,7 @@ from game_event import GameEvent
 from enemy_intent import EnemyIntent
 from collections import namedtuple
 from game_recorder.game_recorder import GameRecorder
+from rlbot import RLBot
 
 def back_end_main_loop(player_socket):
     while True:
@@ -37,9 +38,11 @@ def run_game(player_socket):
     game_manager = GameManager(game_db.game_app_data)
     game_manager.init_game()
     game_recorder.start_record_one_battle()
+    rlbot = RLBot(game_manager)
+
     # play
     while(not game_manager.is_game_end()):
-       play_one_round(game_manager,player_socket)
+       play_one_round(game_manager,player_socket,rlbot)
 
     # process result
     if game_manager.is_player_win():
@@ -52,7 +55,7 @@ def run_game(player_socket):
     # save recorded data
     game_recorder.save_record_data()
  
-def play_one_round(game_manager,player_socket):
+def play_one_round(game_manager,player_socket,rlbot):
     # player turn
     game_manager.start_player_turn()
     send_gamestage_change_message(player_socket,protocol.GAMESTAGE_PLAYER_TURN)
@@ -62,6 +65,8 @@ def play_one_round(game_manager,player_socket):
     # send resonce back
     print('send response, start turn')
     gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)    
+    protocol.MarkupFactory.enrich_game_state_markup_with_RLinfo(gamestate_markup,rlbot)
+
     send_game_sequence_response(player_socket, gamestate_markup,[],gamestate_markup)
     # play card till choose to end
     while(not game_manager.is_player_finish_turn()):
@@ -70,9 +75,9 @@ def play_one_round(game_manager,player_socket):
         # record end game state markup
         playerturn_start_gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
 
+        # TODO: remove unnessary log
         cards_on_hand = game_manager.get_current_cards_on_hand()
         playable_cards = game_manager.get_current_playable_cards()
-        # print log of cards
         game_manager.print_cards_info_on_hand()
         
         # get input    
@@ -103,6 +108,8 @@ def play_one_round(game_manager,player_socket):
         game_recorder.record_game_events(game_events_of_input)
         # record end game state markup
         playerturn_end_gamestate_markup = protocol.MarkupFactory.create_game_state_markup(game_manager.game_state)
+        protocol.MarkupFactory.enrich_game_state_markup_with_RLinfo(playerturn_end_gamestate_markup,rlbot)
+    
         # send response every time play card
         print('send response, card play')
         send_game_sequence_response(
@@ -154,6 +161,7 @@ def send_game_sequence_response(player_socket,start_gamestate_markup,game_events
         game_sequence_markup_file = protocol.MarkupFactory.create_game_sequence_markup_file(
             start_gamestate_markup,game_events,end_gamestate_markup)
         game_sequence_markup_json = json.dumps(game_sequence_markup_file)
+
         # send message
         response_message = protocol.ResponseMessage(protocol.MESSAGE_TYPE_GAME_SEQUENCE,game_sequence_markup_json)
         player_socket.send(response_message.to_json().encode())
