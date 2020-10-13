@@ -53,22 +53,21 @@ namespace GameBrowser.Rendering {
             characterRenderer.RenderEnemy(gameStateMarkup.enemies[0],gameStateMarkup.enemyIntents[0]);
 
             valueRenderer.Clear();
-            var energyPosition = ValueRenderer.GetCanvasPositionByRenderClass(gameStateMarkup.energy);
-            valueRenderer.Render(gameStateMarkup.energy, energyPosition);
+            valueRenderer.Render(gameStateMarkup.energy);
 
             // TODO: ugly implementation
             // Render GuadianBossValue
             var guadianBossEntity = FindObjectOfType<GuardianCombatUnitEntity>();
             var guadianBossCombatUnitMarkup = guadianBossEntity.hookedMarkup as CombatUnitMarkup;
             if (guadianBossCombatUnitMarkup.information["mode"] == "Offensive") {
-                var guadianModeValuePosition = ValueRenderer.GetCanvasPositionByRenderClass(gameStateMarkup.guadianModeValue);
-                valueRenderer.Render(gameStateMarkup.guadianModeValue, guadianModeValuePosition);
+                valueRenderer.Render(gameStateMarkup.guadianModeValue);
             }
 
             // render reenforcement learning rewards value
-            foreach (var rlValue in gameStateMarkup.rlRewardValues) {
-                var position = ValueRenderer.GetCanvasPositionByRenderClass(rlValue);
-                valueRenderer.Render(rlValue, position);
+            if (gameStateMarkup.rlRewardValues!= null) {
+                foreach (var rlValue in gameStateMarkup.rlRewardValues) {
+                    valueRenderer.Render(rlValue);
+                }
             }
         }
 

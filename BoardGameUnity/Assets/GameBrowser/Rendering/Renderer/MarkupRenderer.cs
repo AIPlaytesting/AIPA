@@ -20,6 +20,6 @@ namespace GameBrowser.Rendering {
         /// </summary>
         /// <param name="speed"></param>
         // TODO: postion should decided inside renderer
-        public abstract void Render(Markup markup, CanvasPosition position);
+        public abstract void Render(Markup markup);
     }
 }

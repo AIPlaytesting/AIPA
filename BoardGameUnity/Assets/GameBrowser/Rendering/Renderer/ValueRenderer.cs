@@ -10,14 +10,14 @@ namespace GameBrowser.Rendering {
             }
         }
 
-        public override void Render(Markup markup,CanvasPosition position) {
+        public override void Render(Markup markup) {
             var valueMarkup = markup as ValueMarkup;
             var prefab = GetPrefabByRenderClass(valueMarkup);
+            var position = GetCanvasPositionByRenderClass(valueMarkup);
             ValueEntity.Create(markup as ValueMarkup, position.anchor,prefab);
         }
 
-        // TODO: postion should decided inside renderer, so this should be privte after change that
-        public static CanvasPosition GetCanvasPositionByRenderClass(ValueMarkup valueMarkup) {
+        private static CanvasPosition GetCanvasPositionByRenderClass(ValueMarkup valueMarkup) {
             var renderClass = valueMarkup.renderClass;
             if (renderClass == ValueMarkup.RENDER_CLASS_ENERGY) {
                 return new CanvasPosition(GameBrowser.Instance.mainUICanvas.FindCustomAnchor("energy"), Vector3.zero);
