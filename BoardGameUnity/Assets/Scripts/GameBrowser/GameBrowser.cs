@@ -11,6 +11,7 @@ namespace GameBrowser {
             public UserInputManager userInputManager;
             public RenderManager renderManager;
             public SceneReference sceneReference;
+            public DBAccessor dbAccessor;
         }
 
         public BrowserCanvas mainSceneCanvas { get { return dependencies.sceneReference.mainSceneCanvas; } }
@@ -25,6 +26,7 @@ namespace GameBrowser {
         public UserInputManager userInputManager { get { return dependencies.userInputManager; } }
         public FrontEndConnection frontEndConnection { get { return dependencies.frontEndConnection; } }
         public RenderManager renderManager { get { return dependencies.renderManager; } }
+        public DBAccessor dbAccessor { get { return dependencies.dbAccessor; } }
 
         private void Awake() {
             if (Instance == null) {
