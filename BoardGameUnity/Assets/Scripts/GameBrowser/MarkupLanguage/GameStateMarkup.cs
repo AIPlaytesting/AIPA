@@ -15,5 +15,11 @@ namespace GameBrowser {
         //TODO: temporary implementation
         public ValueMarkup guadianModeValue;
         public ValueMarkup[] rlRewardValues;
+
+        public GameStateMarkup MakeCopy() {
+            var serialized = FullSerializerWrapper.Serialize(typeof(GameStateMarkup), this);
+            var deserialized = (GameStateMarkup)FullSerializerWrapper.Deserialize(typeof(GameStateMarkup), serialized);
+            return deserialized;
+        }
     }
 }
