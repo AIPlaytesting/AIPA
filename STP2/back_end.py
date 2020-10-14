@@ -4,9 +4,9 @@ import backend.protocol as protocol
 import json
 import time
 import db.game_database
-from game_manager import GameManager
-from game_event import GameEvent
-from enemy_intent import EnemyIntent
+from gameplay.game_manager import GameManager
+from gameplay.game_event import GameEvent
+from gameplay.enemy_intent import EnemyIntent
 from collections import namedtuple
 from game_recorder.game_recorder import GameRecorder
 from rlbot import RLBot
