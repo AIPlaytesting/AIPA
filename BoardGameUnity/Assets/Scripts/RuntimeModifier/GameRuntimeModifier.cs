@@ -32,10 +32,14 @@ public class GameRuntimeModifier : MonoBehaviour
     }
 
     public void LoadModifierWindow() {
-        var dbAccessor = GameBrowser.GameBrowser.Instance.dbAccessor;
-        GameBrowser.DBAccessor.OnQueryResultBack cardnamesQueryCallback= OnCardnamesQueryResult;
-        // when qurery down, the callback will continue to execute next step of loading 
-        dbAccessor.GetRegisteredCardnames(cardnamesQueryCallback);
+        // load window
+        var currentGameState = DOM.Instance.latestGameStateMarkup;
+        modifierWindow.LoadFrom(currentGameState);
+
+        //var dbAccessor = GameBrowser.GameBrowser.Instance.dbAccessor;
+        //GameBrowser.DBAccessor.OnQueryResultBack cardnamesQueryCallback= OnCardnamesQueryResult;
+        //// when qurery down, the callback will continue to execute next step of loading 
+        //dbAccessor.GetRegisteredCardnames(cardnamesQueryCallback);
     }
 
     public void ApplyModification(GameStateMarkup latestGamestateMarkup) { 

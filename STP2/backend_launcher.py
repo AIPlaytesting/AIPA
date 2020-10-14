@@ -15,9 +15,3 @@ game_db = GameDatabase(db_root)
 # create game manager
 game_manager = GameManager(game_db.game_app_data)
 
-# start loops
-gameplayloop = GameplayLoop(connection,game_manager)
-gameplayloop.run()
-
-dbqueryloop = DBQueryLoop(connection,game_manager)
-dbqueryloop.run()

@@ -1286,6 +1286,7 @@ MonoBehaviour:
     userInputManager: {fileID: 551366983}
     renderManager: {fileID: 738051398}
     sceneReference: {fileID: 1079073827}
+    dbAccessor: {fileID: 0}
 --- !u!4 &180393608
 Transform:
   m_ObjectHideFlags: 0
@@ -3575,6 +3576,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modifierWindow: {fileID: 1685908205}
+  registeredCardnames: []
+  registeredBuffnames: []
 --- !u!1 &413832894
 GameObject:
   m_ObjectHideFlags: 0
