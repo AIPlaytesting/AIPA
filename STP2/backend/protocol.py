@@ -1,11 +1,12 @@
 import json
 
-from game_manager import GameState
-from combat_unit import CombatUnit
+from gameplay.game_manager import GameState
+from gameplay.combat_unit import CombatUnit
+from gameplay.game_event import GameEvent
+from gameplay.CardPlayManager import CardPlayManager
+
 from db.game_app_data import Card
 from db.game_database import calculate_resouces_dir
-from CardPlayManager import CardPlayManager
-from game_event import GameEvent
 
 # The naming style is C#, becuase the name of class need to be the same as 
 # front end in Unity 

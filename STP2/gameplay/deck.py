@@ -1,4 +1,4 @@
-import Pile
+from .pile import Pile
 import json
 from db.game_app_data import GameAppData
 
@@ -14,8 +14,8 @@ class Deck:
     def __init__(self,deck_config):
         super().__init__()
         self.internal_id_counter = 0
-        self.__draw_pile = Pile.Pile()# CardInstance[]  
-        self.__discard_pile = Pile.Pile()# CardInstance[]  
+        self.__draw_pile = Pile()# CardInstance[]  
+        self.__discard_pile = Pile()# CardInstance[]  
         self.__cards_on_hand = [] # CardInstance[]  
         self.reset_deck(deck_config)
 

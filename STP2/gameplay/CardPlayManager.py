@@ -1,7 +1,6 @@
-import CardBase
-import game_manager
-import EffectCalculator
-from game_event import GameEvent
+from . import game_manager
+from . import EffectCalculator
+from .game_event import GameEvent
 
 class CardPlayManager:
     # this class creates and manages instances of the cards

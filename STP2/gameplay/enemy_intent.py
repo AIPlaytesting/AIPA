@@ -1,6 +1,5 @@
-import buff_type 
-import game_manager 
-import combat_unit 
+from . import game_manager 
+from . import combat_unit 
 import json
 
 class EnemyIntent:

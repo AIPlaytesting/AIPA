@@ -1,7 +1,5 @@
-from enemy_intent import EnemyIntent
+from .enemy_intent import EnemyIntent
 import random
-import buff_type
-
 
 class EnemyAI:
     def __init__(self, boss):

@@ -1,5 +1,5 @@
-from game_manager import GameManager
-from enemy_intent import EnemyIntent
+from gameplay.game_manager import GameManager
+from gameplay.enemy_intent import EnemyIntent
 import db.game_database
 
 def run_game(is_AI_mode):

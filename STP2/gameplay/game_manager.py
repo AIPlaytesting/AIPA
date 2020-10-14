@@ -1,11 +1,11 @@
-from combat_unit import CombatUnit
-from enemy_intent import EnemyIntent
-from enemy_AI import EnemyAI
-from game_event import GameEvent
-from deck import Deck
+from .combat_unit import CombatUnit
+from .enemy_intent import EnemyIntent
+from .enemy_AI import EnemyAI
+from .game_event import GameEvent
+from .deck import Deck
 from db.game_app_data import GameAppData
-import CardPlayManager
-import EffectCalculator
+from . import CardPlayManager
+from . import EffectCalculator
 
 PLAYER_ENERGY = 3
 class GameState:

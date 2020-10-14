@@ -1,5 +1,3 @@
-from buff_type import BuffType
-
 class CombatUnit:
     def __init__(self,name, game_unique_id, init_hp, all_buffnames):
         self.game_unique_id = game_unique_id

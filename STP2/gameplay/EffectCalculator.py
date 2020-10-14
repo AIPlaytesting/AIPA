@@ -1,6 +1,5 @@
-import game_manager
-import buff_type
-from game_event import GameEvent
+from . import game_manager
+from .game_event import GameEvent
 
 class EffectCalculator:
 
