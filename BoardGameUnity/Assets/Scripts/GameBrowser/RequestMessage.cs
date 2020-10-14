@@ -6,7 +6,7 @@ namespace GameBrowser {
     [System.Serializable]
     public class RequestMessage {
         public string method = "None";
-        public UserInput userInput = null;
+        public PlayerStep playerStep = null;
         public string dbQuery = "";
     }
 }

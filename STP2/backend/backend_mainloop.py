@@ -16,7 +16,7 @@ class BackendMainloop:
             if request.method == 'ResetGame':
                 self.__on_recv_reset_game()
             elif request.method == 'PlayerStep':
-                self.__on_recv_player_step(request.user_input)
+                self.__on_recv_player_step(request.player_step)
     
     def __on_recv_reset_game(self):
         self.__gameplay_kernal.reset_game()
@@ -26,10 +26,15 @@ class BackendMainloop:
         self.__connection.send_response(response)
 
     def __on_recv_player_step(self,player_step:PlayerStep):
-        gamestate_markup_before = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_stage())
-        game_events =  self.__gameplay_kernal.execute_player_step(player_step)      
-        gamestate_markup_after = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_stage())   
-    
+        is_valid,error_message = self.__gameplay_kernal.validate_player_step(player_step)
+        if is_valid:
+            gamestate_markup_before = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_stage())
+            game_events =  self.__gameplay_kernal.execute_player_step(player_step)      
+            gamestate_markup_after = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_stage())   
+        else:
+            response = ResponseMessage.create_error_message_response(error_message)
+            self.__connection.send_response(response)
+            
     # return gamestate markup of current gamestate
     def __snapshot_gamestate_as_markup(self)->dict:
         return MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())

@@ -6,9 +6,9 @@ using UnityEngine;
 namespace GameBrowser {
     public class EndTurnInputTrigger : UserInputTrigger {
         public override void TriggerUserInput() {
-            var userInput = new UserInput();
-            userInput.type = UserInput.Type.EndTurn;
-            GameBrowser.Instance.userInputManager.RegisterUserInput(userInput);
+            var playerStep = new PlayerStep();
+            playerStep.type = PlayerStep.STEP_TYPE_END_TURN;
+            GameBrowser.Instance.userInputManager.RegisterPlayerStep(playerStep);
         }
     }
 }

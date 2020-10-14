@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace GameBrowser {
     public class UserInputManager : MonoBehaviour {
-        public void RegisterUserInput(UserInput userInput) {
+        public void RegisterPlayerStep(PlayerStep playerStep) {
             var request = new RequestMessage();
             request.method = "PlayerStep";
-            request.userInput = userInput;
+            request.playerStep = playerStep;
             GameBrowser.Instance.frontEndConnection.SendRequest(request);
         }
 

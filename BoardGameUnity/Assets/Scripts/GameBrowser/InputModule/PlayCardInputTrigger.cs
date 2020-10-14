@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameBrowser {
-    public class PlayCardInputTrigger:UserInputTrigger  {
+    public class PlayCardInputTrigger : UserInputTrigger {
         public string cardName = "";
         public string cardGUID = "";
 
         public override void TriggerUserInput() {
-            var userInput = new UserInput();
-            userInput.type = UserInput.Type.PlayCard;
-            userInput.cardName = cardName;
-            userInput.cardGUID = cardGUID;
-            GameBrowser.Instance.userInputManager.RegisterUserInput(userInput);
+            var playerStep = new PlayerStep();
+            playerStep.type = PlayerStep.STEP_TYPE_PLAYCARD;
+            playerStep.cardName = cardName;
+            playerStep.cardGUID = cardGUID;
+            GameBrowser.Instance.userInputManager.RegisterPlayerStep(playerStep);
         }
     }
 }

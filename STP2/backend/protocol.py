@@ -72,7 +72,7 @@ class ResponseMessage:
 
 class PlayerStep:
     def __init__(self,type,card_name,card_guid):
-        self.type = type # type can be 'PlayCard'/'EndTurn'/'ResetGame'
+        self.type = type # type can be 'PlayCard' or 'EndTurn'
         self.cardName = card_name
         self.cardGUID = card_guid
 

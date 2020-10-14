@@ -20,8 +20,16 @@ class GameplayKernel:
     def get_game_state(self)->GameState:
         return self.__game_manager.game_state
 
+    # if a step can be applied in current situation
+    def validate_player_step(self,player_step:PlayerStep)->(bool,str):
+        return False,"no implementation"
+        
     # return GameEvents[]
     def execute_player_step(self,player_step:PlayerStep):
+        if player_step.type == "PlarCard":
+            pass
+        elif player_step.type == "EndTurn":
+            pass
         # apply input 
 
         # return game event
