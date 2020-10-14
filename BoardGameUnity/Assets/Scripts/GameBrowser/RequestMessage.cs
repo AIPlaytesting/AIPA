@@ -5,18 +5,19 @@ using UnityEngine;
 namespace GameBrowser {
     [System.Serializable]
     public class RequestMessage {
-        public enum Type { 
-            None,
-            UserInput,
-            DBQuery
-        }
 
-        public Type requestType = Type.None;
+        public string method = "None";
         public UserInput userInput = null;
+        public string dbQuery = "";
 
         public RequestMessage(UserInput userInput) {
-            this.requestType = Type.UserInput;
+            this.method = "UserInput";
             this.userInput = userInput;
+        }
+
+        public RequestMessage(string dbQuery) {
+            this.method = "DBQuery";
+            this.dbQuery = dbQuery;
         }
     }
 }

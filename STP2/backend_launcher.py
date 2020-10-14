@@ -1,8 +1,10 @@
-from backend.dbqueryloop import DBQueryLoop
-from backend.gameplayloop import GameplayLoop
+from backend.gameplay_kernel import GameplayKernel
+from backend.db_accessor import DBAccessor
 from backend.connection import Connection
+from backend.backend_mainloop import BackendMainloop
+
 from db.game_database import GameDatabase, calculate_root_dir
-from game_manager import GameManager
+from gameplay.game_manager import GameManager
 
 # connect to frontend
 connection = Connection()
@@ -12,6 +14,13 @@ connection.connect()
 db_root = calculate_root_dir()
 game_db = GameDatabase(db_root)
 
-# create game manager
+# create game_manager
 game_manager = GameManager(game_db.game_app_data)
 
+# create compontents for BackendMainLoop
+db_accessor = DBAccessor()
+gameplay_kernel = GameplayKernel()
+
+# create backendmainloop and run 
+backend_mainloop = BackendMainloop(connection,gameplay_kernel,db_accessor)
+backend_mainloop.run()

@@ -25,6 +25,14 @@ GAMESTAGE_ENEMY_TURN = 'EnemyTurn'
 GAMESTAGE_WIN = 'Win'
 GAMESTAGE_LOST = 'Lost'
 
+# each method has its own field,
+# for example, method 'UserInput' has its inforamtion stored in field 'self.user_input'
+class RequestMessage:
+    def __init__(self,method,user_input,db_query):
+        self.method = method # method can be: 'UserInput'/'DBQuery'/'None'
+        self.user_input = user_input # UserInput
+        self.db_query = db_query
+
 class ResponseMessage:
     def __init__(self,content_type,content):
         self.content_type = content_type
