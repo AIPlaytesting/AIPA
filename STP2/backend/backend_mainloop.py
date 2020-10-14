@@ -28,13 +28,23 @@ class BackendMainloop:
     def __on_recv_player_step(self,player_step:PlayerStep):
         is_valid,error_message = self.__gameplay_kernal.validate_player_step(player_step)
         if is_valid:
-            gamestate_markup_before = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_stage())
+            # execute step and send sequence back
+            gamestate_markup_before = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())
             game_events =  self.__gameplay_kernal.execute_player_step(player_step)      
-            gamestate_markup_after = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_stage())   
+            gamestate_markup_after = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())   
+            # encode game sequence
+            gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(
+                gamestate_markup_before,
+                game_events,
+                gamestate_markup_after)
+            # send response
+            response = ResponseMessage.create_game_sequence_response(gamesequence_markup)
+            self.__connection.send_response(response)
         else:
+            # send error message back
             response = ResponseMessage.create_error_message_response(error_message)
             self.__connection.send_response(response)
-            
+
     # return gamestate markup of current gamestate
     def __snapshot_gamestate_as_markup(self)->dict:
         return MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())
