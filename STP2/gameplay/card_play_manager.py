@@ -1,5 +1,5 @@
 from . import game_manager
-from . import EffectCalculator
+from . import effect_calculator
 from .game_event import GameEvent
 
 class CardPlayManager:

@@ -1,11 +1,12 @@
+from db.game_app_data import GameAppData
+
 from .combat_unit import CombatUnit
 from .enemy_intent import EnemyIntent
 from .enemy_AI import EnemyAI
 from .game_event import GameEvent
 from .deck import Deck
-from db.game_app_data import GameAppData
-from . import CardPlayManager
-from . import EffectCalculator
+from .card_play_manager import CardPlayManager
+from .effect_calculator import EffectCalculator
 
 PLAYER_ENERGY = 3
 class GameState:
@@ -24,8 +25,8 @@ class GameState:
 class GameManager:
     def __init__(self,game_app_data:GameAppData):
         self.game_app_data = game_app_data
-        self.effect_calculator = EffectCalculator.EffectCalculator(self)
-        self.card_play_manager = CardPlayManager.CardPlayManager(self, self.effect_calculator)
+        self.effect_calculator = EffectCalculator(self)
+        self.card_play_manager = CardPlayManager(self, self.effect_calculator)
         self.game_state = GameState(game_app_data,self.card_play_manager.cards_dict.keys())
         self.__end_player_turn_flag = False
 
