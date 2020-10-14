@@ -7,20 +7,9 @@ from .game_event import GameEvent
 from .deck import Deck
 from .card_play_manager import CardPlayManager
 from .effect_calculator import EffectCalculator
+from .game_state import GameState
 
 PLAYER_ENERGY = 3
-class GameState:
-    def __init__(self,game_app_data:GameAppData,all_card_names):
-        rules = game_app_data.rules
-        all_buffnames = game_app_data.registered_buffnames
-        self.player = CombatUnit('Player', "player",rules['player_hp'], all_buffnames) 
-        self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], all_buffnames) 
-        # TODO: EnemyAI is not pure data, it is an object with methods.which against the concept of game state
-        self.boss_AI = EnemyAI(self.boss)
-        self.player_energy = PLAYER_ENERGY
-        self.boss_intent = EnemyIntent()
-        self.cards_dict = game_app_data.cards_dict.copy()# cardname:str , card:game_app_data.Card
-        self.deck = Deck(game_app_data.deck_config)
 
 class GameManager:
     def __init__(self,game_app_data:GameAppData):
