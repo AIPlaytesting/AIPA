@@ -9065,7 +9065,7 @@ MonoBehaviour:
     launchOrder:
     - applicationPath: python3
       appUseRelativePath: 0
-      argumentPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\back_end.py
+      argumentPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\backend_launcher.py
       argvUseRelativePath: 0
       enabled: 1
     - applicationPath: python3
@@ -9089,7 +9089,7 @@ MonoBehaviour:
       argvUseRelativePath: 1
       enabled: 1
     showWindow: 1
-    startManually: 0
+    startManually: 1
 --- !u!4 &1185227819
 Transform:
   m_ObjectHideFlags: 0

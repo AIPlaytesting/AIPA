@@ -3,19 +3,19 @@ import json
 from .protocol import RequestMessage, UserInput
 class Connection:
     def __init__(self):
-        pass
+        self.__sock = None
 
     def connect(self):
         # Create a TCP/IP socket
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Connect the socket to the port where the server is listening
         server_address = ('127.0.0.1', 9999)
         print ('connecting to: ',server_address)
-        sock.connect(server_address)
+        self.__sock.connect(server_address)
         print ('connected to: ',server_address)
 
     def wait_one_request(self)->RequestMessage:
-        data = socket.recv(1024) 
+        data = self.__sock.recv(1024) 
         message_json_data = data.decode()
         print('recv raw json: ',message_json_data)
         request_dict = json.loads(message_json_data) 
