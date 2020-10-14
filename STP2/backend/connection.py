@@ -1,6 +1,6 @@
 import socket
 import json
-from .protocol import RequestMessage, UserInput
+from .protocol import RequestMessage, ResponseMessage,PlayerStep
 class Connection:
     def __init__(self):
         self.__sock = None
@@ -19,21 +19,8 @@ class Connection:
         message_json_data = data.decode()
         print('recv raw json: ',message_json_data)
         request_dict = json.loads(message_json_data) 
+        request_message = RequestMessage.create_request_message_from(request_dict)
+        return request_message
 
-        method = request_dict['method']
-        if method  == 'UserInput':
-            # parse userinput
-            user_input_dict = request_dict['userInput']
-            user_input = UserInput(
-                user_input_dict['type'],
-                user_input_dict['cardName'],
-                user_input_dict['cardGUID'])
-            return RequestMessage(method,user_input,"")
-        elif method == 'DBQuery':
-            return RequestMessage(method,None,request_dict['dbQuery'])
-        else:
-            print("undefined method: ",method)
-            return None
-
-    def send_response(self,response):
-        pass
+    def send_response(self,response:ResponseMessage):
+        self.__sock.send(response.to_json().encode())

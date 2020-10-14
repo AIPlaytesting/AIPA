@@ -28,33 +28,61 @@ GAMESTAGE_LOST = 'Lost'
 # each method has its own field,
 # for example, method 'UserInput' has its inforamtion stored in field 'self.user_input'
 class RequestMessage:
-    def __init__(self,method,user_input,db_query):
-        self.method = method # method can be: 'UserInput'/'DBQuery'/'None'
-        self.user_input = user_input # UserInput
+    def __init__(self,method,player_step,db_query):
+        self.method = method # method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'None'
+        self.player_step = player_step # PlayerStep
         self.db_query = db_query
 
+    @classmethod
+    def create_request_message_from(cls,request_dict:dict):
+        method = request_dict['method']
+        if method  == 'PlayerStep':
+            player_step_dict = request_dict['playerStep']
+            player_step = PlayerStep(
+                player_step_dict['type'],
+                player_step_dict['cardName'],
+                player_step_dict['cardGUID'])
+            return RequestMessage(method,player_step,"")
+        elif method == 'DBQuery':
+            return RequestMessage(method,None,request_dict['dbQuery'])
+        elif method == 'ResetGame':
+            return RequestMessage(method,None,"")
+        else:
+            print("undefined method: ",method)
+            return None
 class ResponseMessage:
     def __init__(self,content_type,content):
-        self.content_type = content_type
+        self.content_type = content_type # content type is const start with MESSAGE_TYPE_xxxx
         self.content = content
     
+    @classmethod
+    def create_game_sequence_response(cls,gamesequence_markup:dict):
+        content_type = MESSAGE_TYPE_GAME_SEQUENCE
+        game_sequence_markup_json = json.dumps(gamesequence_markup)
+        response = ResponseMessage(content_type,game_sequence_markup_json)
+        return response
+
+    @classmethod
+    def create_error_message_response(cls,error_message:str):
+        return ResponseMessage(MESSAGE_TYPE_ERROR,error_message)
+
     def to_json(self):
         json_obj = {'contentType':self.content_type,'content':self.content}
         return json.dumps(json_obj)
 
-class UserInput:
+class PlayerStep:
     def __init__(self,type,card_name,card_guid):
-        self.type = type
+        self.type = type # type can be 'PlayCard'/'EndTurn'/'ResetGame'
         self.cardName = card_name
         self.cardGUID = card_guid
 
 class MarkupFactory:
     @classmethod
-    def create_game_sequence_markup_file(cls,beginingState,gameEvents, endingState):
+    def create_game_sequence_markup_file(cls,begining_state_markup:dict,gameEvents, ending_state_markup:dict):
         markup = {}
-        markup['beginingState'] = beginingState
+        markup['beginingState'] = begining_state_markup
         markup['gameEvents'] = [cls.create_game_event_markup(e) for e in gameEvents]
-        markup['endingState'] = endingState
+        markup['endingState'] = ending_state_markup
         return markup
 
     @classmethod

@@ -8,7 +8,7 @@ namespace GameBrowser {
             var userInput = new UserInput() { 
              type = UserInput.Type.StartGame
             };
-            GameBrowser.Instance.userInputManager.RegisterUserInput(userInput);
+            GameBrowser.Instance.userInputManager.RegisterResetGameAction();
         }
     }
 }

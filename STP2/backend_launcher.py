@@ -19,7 +19,7 @@ game_manager = GameManager(game_db.game_app_data)
 
 # create compontents for BackendMainLoop
 db_accessor = DBAccessor()
-gameplay_kernel = GameplayKernel()
+gameplay_kernel = GameplayKernel(game_manager)
 
 # create backendmainloop and run 
 backend_mainloop = BackendMainloop(connection,gameplay_kernel,db_accessor)
