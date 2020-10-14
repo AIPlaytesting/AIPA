@@ -1,6 +1,6 @@
 import os
 from .record_data import SingleBattleData,FragmentRecord
-from protocol import MarkupFactory
+from backend.protocol import MarkupFactory
 
 class GameRecorder:
     def __init__(self):

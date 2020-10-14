@@ -1,6 +1,6 @@
 import socket
 import sys
-import protocol
+import backend.protocol as protocol
 import json
 import time
 import db.game_database
