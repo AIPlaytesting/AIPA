@@ -119,6 +119,7 @@ class MarkupFactory:
             return card_markups
 
         markup ={}
+        markup['gameStage'] = game_state.game_stage
         markup['player'] = cls.create_combat_unit_markup(game_state.player)
         boss_markup = cls.create_combat_unit_markup(game_state.boss)
         cls.add_boss_AI_inforamtion(boss_markup,game_state)

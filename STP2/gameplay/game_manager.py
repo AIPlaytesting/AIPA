@@ -36,9 +36,12 @@ class GameManager:
 
     def is_player_finish_turn(self):
         return self.__end_player_turn_flag
-
+    
+    # game flow func
     def start_player_turn(self):
         print("start player turn ===========================")
+        if not self.is_game_end():
+            self.game_state.game_stage = 'PlayerTurn'
         # refresh block
         self.game_state.player.block = 0
         # refresh flag
@@ -55,12 +58,16 @@ class GameManager:
         self.game_state.player.print_status_info("Player")
         if self.game_state.boss_AI.mode == "Offensive":
             print("Boss will switch mode in", self.game_state.boss_AI.transformTriggerPoint - self.game_state.boss_AI.accumulator, "damages")
-
+   
+    # game flow func
     def end_player_turn(self):
         self.__end_player_turn_flag = True
-        
+   
+    # game flow func   
     def start_enemy_turn(self):
         print("start enemy turn *****************************")
+        if not self.is_game_end():
+            self.game_state.game_stage = 'EnemyTurn'
         # refresh block
         self.game_state.boss.block = 0
         # call back for AI
@@ -71,6 +78,24 @@ class GameManager:
         self.game_state.boss.refresh_buff_on_new_turn()
         # log status
         self.game_state.boss.print_status_info("BOSS")
+
+    # game flow func
+    # return: game_event.GameEvent[]
+    def execute_enemy_intent(self):
+        game_events = []
+        game_events.append(GameEvent.create_enemy_intent_event(self.game_state.boss.game_unique_id))
+        intent_execte_events = self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
+        game_events.extend(intent_execte_events)
+        if is_game_end():
+            self.game_state.game_stage = 'Win' if self.is_player_win() else 'Lost'
+        return game_events
+   
+    # game flow func
+    def execute_play_card(self, cardname):
+        game_events = self.card_play_manager.PlayCard(cardname)
+        if is_game_end():
+            self.game_state.game_stage = 'Win' if self.is_player_win() else 'Lost'
+        return game_events
 
     # return the list of card names
     def get_current_playable_cards(self):
@@ -89,14 +114,7 @@ class GameManager:
     def get_current_cards_on_hand(self):
         return self.game_state.deck.get_card_names_on_hand()
 
-    # return: game_event.GameEvent[]
-    def execute_enemy_intent(self):
-        game_events = []
-        game_events.append(GameEvent.create_enemy_intent_event(self.game_state.boss.game_unique_id))
-        intent_execte_events = self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
-        game_events.extend(intent_execte_events)
-        return game_events
-
+    
     def print_cards_info_on_hand(self):
         cards_on_hand = self.get_current_cards_on_hand()
         playable_cards = self.get_current_playable_cards()

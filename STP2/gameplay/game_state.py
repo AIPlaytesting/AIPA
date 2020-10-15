@@ -9,6 +9,7 @@ class GameState:
     def __init__(self,game_app_data:GameAppData,all_card_names):
         rules = game_app_data.rules
         all_buffnames = game_app_data.registered_buffnames
+        self.game_stage = "PlayerTurn"# can be 'PlayerTurn'/'EnemyTurn'/'Win'/'Lost'
         self.player = CombatUnit('Player', "player",rules['player_hp'], all_buffnames) 
         self.boss = CombatUnit('The Guardian',"boss", rules['boss_hp'], all_buffnames) 
         # TODO: EnemyAI is not pure data, it is an object with methods.which against the concept of game state

@@ -5,6 +5,7 @@ using UnityEngine;
 namespace GameBrowser {
     [System.Serializable]
     public class GameStateMarkup{
+        public string gameStage;
         public CombatUnitMarkup player;
         public CombatUnitMarkup[] enemies;
         public EnemyIntentMarkup[] enemyIntents;
