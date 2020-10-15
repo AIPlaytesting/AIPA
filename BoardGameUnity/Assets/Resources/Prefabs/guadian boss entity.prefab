@@ -334,9 +334,9 @@ MonoBehaviour:
   statusBarRoot: {fileID: 8339978444387562936}
   switchModeValueAcnhor: {fileID: 7403226525941620550}
   bossImage: {fileID: 6890036108640917740}
-  offensiveModeSprite: {fileID: 21300008, guid: 5cf1b4629c7cb104e98d369448084abd,
+  offensiveModeSprite: {fileID: 21300000, guid: e66840ebde8e8984cb0047e4e2761f6d,
     type: 3}
-  defensiveModeSprite: {fileID: 21300014, guid: 5cf1b4629c7cb104e98d369448084abd,
+  defensiveModeSprite: {fileID: 21300000, guid: a5f2d72e303ab324ca6ad097aacb3cbb,
     type: 3}
 --- !u!1 &1757476703167225350
 GameObject:
@@ -761,7 +761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: -27}
+  m_AnchoredPosition: {x: -20, y: -15}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2530703974095918224
@@ -790,7 +790,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300008, guid: 5cf1b4629c7cb104e98d369448084abd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e66840ebde8e8984cb0047e4e2761f6d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

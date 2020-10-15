@@ -1,9 +1,12 @@
 import socket
 import json
 from .protocol import RequestMessage, ResponseMessage,PlayerStep
+
+PDU_DIVIDOR = '$'
 class Connection:
     def __init__(self):
         self.__sock = None
+        self.__pdus = []
 
     def connect(self):
         # Create a TCP/IP socket
@@ -15,9 +18,19 @@ class Connection:
         print ('connected to: ',server_address)
 
     def wait_one_request(self)->RequestMessage:
-        data = self.__sock.recv(16384) 
-        message_json_data = data.decode()
-        print('recv raw json: ',message_json_data)
+        if len(self.__pdus) == 0:
+            data = self.__sock.recv(16384) 
+            stream_str = data.decode()
+            # print("[raw stream] ",stream_str)
+            for i,pdu in enumerate(stream_str.split(PDU_DIVIDOR)):
+                if len(pdu) >= 2:
+                    print("[splited pdu]",i,'-',pdu)
+                    self.__pdus.append(pdu)
+
+        pdu = self.__pdus[0]
+        self.__pdus.pop(0)
+
+        message_json_data =  pdu
         request_dict = json.loads(message_json_data) 
         request_message = RequestMessage.create_request_message_from(request_dict)
         return request_message

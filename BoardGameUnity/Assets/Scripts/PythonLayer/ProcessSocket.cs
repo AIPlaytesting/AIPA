@@ -9,11 +9,9 @@ using UnityEngine;
 using System.IO;
 
 namespace AIPlaytesing.Python {
-    // receive connection from client connect point 
-    // TBD: what if client lost connection?
     public class ProcessSocket:MonoBehaviour {
         const int RECV_BUFFER_SIZE = 16384;
-
+        const char PDU_DIVIDOR = '$';
         public delegate void OnReceiveConnection();
 
         public OnReceiveConnection onReceiveConnection;
@@ -96,7 +94,7 @@ namespace AIPlaytesing.Python {
         private void SendMessagesInQueue() {
             if (peerSocket!=null) {
                 foreach (var m in msgSendQueue) {
-                    peerSocket.Send(Encoding.ASCII.GetBytes(m.body));
+                    peerSocket.Send(Encoding.ASCII.GetBytes(PDU_DIVIDOR + m.body));
                 }
                 msgSendQueue.Clear();
             }
