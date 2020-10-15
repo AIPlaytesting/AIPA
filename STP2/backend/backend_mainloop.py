@@ -24,7 +24,11 @@ class BackendMainloop:
 
     def __on_recv_reverse_gamestate(self,gamestate_markup):
         self.__gameplay_kernal.reverse_gamestate(gamestate_markup)     
-
+        gamestate_markup = self.__snapshot_gamestate_as_markup()
+        gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(gamestate_markup,[],gamestate_markup)
+        response = ResponseMessage.create_game_sequence_response(gamesequence_markup)
+        self.__connection.send_response(response)
+        
     def __on_recv_dbquery(self,dbquery:DBQuery):
         query_result = self.__db_accessor.process_dbquery(dbquery)
         response = ResponseMessage.cretate_dbquery_result_response(dbquery.query_id,query_result)

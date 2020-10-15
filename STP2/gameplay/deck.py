@@ -33,6 +33,12 @@ class Deck:
         print("deck: ", [str(card_instance) for card_instance in cards_in_deck])
         self.__draw_pile.addCards(cards_in_deck)
 
+    def reset_cards_on_hand(self,cardname_list:[]):
+        self.__cards_on_hand.clear()
+        for cardname in cardname_list:
+            guid = self.__assign_game_uniqe_id(cardname)
+            self.__cards_on_hand.append(CardInstance(cardname,guid))
+
     def get_card_names_on_hand(self):
         return [card_instance.card_name for card_instance in self.__cards_on_hand]
 
