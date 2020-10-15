@@ -20,14 +20,7 @@ class BackendMainloop:
     
     def __on_recv_reset_game(self):
         # reset game 
-        gamestate_markup_before = self.__snapshot_gamestate_as_markup()
-        game_events_during_reset = self.__gameplay_kernal.reset_game()
-        gamestate_markup_after = self.__snapshot_gamestate_as_markup()
-        # encode game sequence
-        gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(
-            gamestate_markup_before,
-            game_events_during_reset,
-            gamestate_markup_after)
+        gamesequence_markup = self.__execute_change_gamestate_func(self.__gameplay_kernal.reset_game)
         # send response
         response = ResponseMessage.create_game_sequence_response(gamesequence_markup)
         self.__connection.send_response(response)
@@ -42,31 +35,32 @@ class BackendMainloop:
             return
 
         # execute step and send sequence back
-        gamestate_markup_before = self.__snapshot_gamestate_as_markup()
-        game_events =  self.__gameplay_kernal.execute_player_step(player_step)      
-        gamestate_markup_after = self.__snapshot_gamestate_as_markup()
-        # encode game sequence of this step
-        gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(
-            gamestate_markup_before,
-            game_events,
-            gamestate_markup_after)
+        gamesequence_markup = self.__execute_change_gamestate_func(lambda: self.__gameplay_kernal.execute_player_step(player_step))
         # send response for this playerStep
         response = ResponseMessage.create_game_sequence_response(gamesequence_markup)
         self.__connection.send_response(response)
 
         # if it became enemy turn, then execute enemy turn
         if self.__gameplay_kernal.get_game_state().game_stage == 'EnemyTurn':
-            gamestate_markup_before = self.__snapshot_gamestate_as_markup()
-            game_events =  self.__gameplay_kernal.execute_enemy_turn()    
-            gamestate_markup_after = self.__snapshot_gamestate_as_markup()
-            # encode game sequence of this step
-            gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(
-                gamestate_markup_before,
-                game_events,
-                gamestate_markup_after)
+            gamesequence_markup = self.__execute_change_gamestate_func(self.__gameplay_kernal.execute_enemy_turn)
             # send response for this playerStep
             response = ResponseMessage.create_game_sequence_response(gamesequence_markup)
             self.__connection.send_response(response)     
+
+
+    # execute functions that change game state create game sequence
+    # change_gamestate_func: this func MUST return GameEvent[]
+    # return gamesequence_markup(dict)
+    def __execute_change_gamestate_func(self,change_gamestate_func)->dict:
+        gamestate_markup_before = self.__snapshot_gamestate_as_markup()
+        game_events =  change_gamestate_func()      
+        gamestate_markup_after = self.__snapshot_gamestate_as_markup()
+        # encode game sequence of this step
+        gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(
+            gamestate_markup_before,
+            game_events,
+            gamestate_markup_after)
+        return gamesequence_markup
 
     # return gamestate markup of current gamestate
     def __snapshot_gamestate_as_markup(self)->dict:
