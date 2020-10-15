@@ -63,6 +63,9 @@ namespace GameBrowser.Rendering {
                 valueRenderer.Render(gameStateMarkup.guadianModeValue);
             }
 
+            // render anything about game stage
+            RenderGameStageRelated(gameStateMarkup.gameStage);
+
             // render reenforcement learning rewards value
             if (gameStateMarkup.rlRewardValues!= null) {
                 foreach (var rlValue in gameStateMarkup.rlRewardValues) {
@@ -74,6 +77,33 @@ namespace GameBrowser.Rendering {
         public void RenderGameEvents(GameEventMarkup[] gameEventMarkups) {
             foreach (var gameEventMarkup in gameEventMarkups) {
                 animationRenderer.EnqueueGameEventAnimaton(gameEventMarkup);
+            }
+        }
+
+        private void RenderGameStageRelated(string stage) {
+            var sceneReference = GameBrowser.Instance.sceneReference;
+            if (stage == GameStateMarkup.GAMESTAGE_WIN || stage == GameStateMarkup.GAMESTAGE_LOST) {
+                // win or lost
+                Clear();
+
+                var battleResultBoard = FindObjectOfType<BattleResultBoard>();
+                battleResultBoard.ShowResult(stage == GameStateMarkup.GAMESTAGE_WIN);
+
+                sceneReference.endTurnBtn.SetActive(false);
+                sceneReference.skipBossTurnBtn.SetActive(false);
+            }
+            else if (stage == GameStateMarkup.GAMESTAGE_PlAYER_TURN) {
+                sceneReference.endTurnBtn.SetActive(true);
+                sceneReference.skipBossTurnBtn.SetActive(false);
+                MessageBox.PopupMessage(stage);
+            }
+            else if (stage == GameStateMarkup.GAMESTAGE_PlAYER_TURN) {
+                sceneReference.endTurnBtn.SetActive(false);
+                sceneReference.skipBossTurnBtn.SetActive(true);
+                MessageBox.PopupMessage(stage);
+            }
+            else {
+                Debug.LogError("undefined game stage: " + stage);
             }
         }
     }

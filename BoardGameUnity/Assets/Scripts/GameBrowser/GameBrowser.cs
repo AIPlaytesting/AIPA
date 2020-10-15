@@ -14,15 +14,14 @@ namespace GameBrowser {
             public DBAccessor dbAccessor;
         }
 
-        public BrowserCanvas mainSceneCanvas { get { return dependencies.sceneReference.mainSceneCanvas; } }
-        public BrowserCanvas mainUICanvas { get { return dependencies.sceneReference.mainUICanvas; } }
-
-
         [SerializeField]
         private Dependencies dependencies = new Dependencies();
 
         public static GameBrowser Instance { get; private set; } = null;
 
+        public BrowserCanvas mainSceneCanvas { get { return dependencies.sceneReference.mainSceneCanvas; } }
+        public BrowserCanvas mainUICanvas { get { return dependencies.sceneReference.mainUICanvas; } }   
+        public SceneReference sceneReference { get { return dependencies.sceneReference; } }
         public UserInputManager userInputManager { get { return dependencies.userInputManager; } }
         public FrontEndConnection frontEndConnection { get { return dependencies.frontEndConnection; } }
         public RenderManager renderManager { get { return dependencies.renderManager; } }

@@ -5,6 +5,11 @@ using UnityEngine;
 namespace GameBrowser {
     [System.Serializable]
     public class GameStateMarkup{
+        public const string GAMESTAGE_PlAYER_TURN = "PlayerTurn";
+        public const string GAMESTAGE_ENEMY_TURN = "EnemyTurn";
+        public const string GAMESTAGE_WIN = "Win";
+        public const string GAMESTAGE_LOST= "Lost";
+
         public string gameStage;
         public CombatUnitMarkup player;
         public CombatUnitMarkup[] enemies;
