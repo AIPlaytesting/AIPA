@@ -19,7 +19,12 @@ class BackendMainloop:
                 self.__on_recv_player_step(request.player_step)
             elif request.method == 'DBQuery':
                 self.__on_recv_dbquery(request.db_query)
-    
+            elif request.method == 'ReverseGamestate':
+                self.__on_recv_reverse_gamestate(request.gamestate_markup)
+
+    def __on_recv_reverse_gamestate(self,gamestate_markup):
+        self.__gameplay_kernal.reverse_gamestate(gamestate_markup)     
+
     def __on_recv_dbquery(self,dbquery:DBQuery):
         query_result = self.__db_accessor.process_dbquery(dbquery)
         response = ResponseMessage.cretate_dbquery_result_response(dbquery.query_id,query_result)

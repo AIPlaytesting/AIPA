@@ -48,4 +48,17 @@ public class CardModifyEntry : MonoBehaviour
         nameText.text = cardMarkup.name;
         spriteWWW = new WWW(cardMarkup.imgAbsPath);
     }
+
+    public void OnDeleteEntry() {
+        var hookedGameStateMarkup = RuntimeModifierWindow.Instance.modifyTarget;
+        var newCardsOnHand = new List<CardMarkup>();
+        foreach (var cardMarkup in hookedGameStateMarkup.cardsOnHand) {
+            if (cardMarkup != modifyTarget) {
+                newCardsOnHand.Add(cardMarkup);
+            }
+        }
+        hookedGameStateMarkup.cardsOnHand = newCardsOnHand.ToArray();
+        RuntimeModifierWindow.Instance.InformModificitonHappened();
+        DestroyImmediate(gameObject);
+    }
 }

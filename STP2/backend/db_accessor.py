@@ -7,6 +7,11 @@ class DBAccessor:
         self.db = db
 
     def process_dbquery(self,dbquery:DBQuery)->str:
-        cardnames =[cardname for cardname in self.db.game_app_data.cards_dict.keys()] 
-        result = {"cardnames":cardnames}
+        result = {}
+        if dbquery.query_sentence == 'registeredCardnames':
+            cardnames =[cardname for cardname in self.db.game_app_data.cards_dict.keys()] 
+            result = {"cardnames":cardnames}
+        elif dbquery.query_sentence == 'registeredBuffnames':
+            buffnames =[buffname for buffname in self.db.game_app_data.registered_buffnames] 
+            result = {"buffnames":buffnames}
         return json.dumps(result)

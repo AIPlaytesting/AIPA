@@ -15,7 +15,7 @@ class Connection:
         print ('connected to: ',server_address)
 
     def wait_one_request(self)->RequestMessage:
-        data = self.__sock.recv(1024) 
+        data = self.__sock.recv(16384) 
         message_json_data = data.decode()
         print('recv raw json: ',message_json_data)
         request_dict = json.loads(message_json_data) 

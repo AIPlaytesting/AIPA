@@ -14,7 +14,7 @@ public class RuntimeModifierWindow : MonoBehaviour
     [SerializeField]
     private CardsOnHandModifyPage cardsOnHandModifyPage;
 
-    private GameStateMarkup modifyTarget = null;
+    public GameStateMarkup modifyTarget = null;
 
     private void Awake() {
         if (Instance == null) {

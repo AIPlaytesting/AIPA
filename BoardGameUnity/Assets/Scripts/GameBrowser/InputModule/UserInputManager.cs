@@ -23,5 +23,14 @@ namespace GameBrowser {
             request.dbQuery = dbQuery;
             GameBrowser.Instance.frontEndConnection.SendRequest(request);
         }
+
+        // let backend reverse the information on given gamestatemarkup ,
+        // and modify the gamestate based on it
+        public void RegiserGameStateReverseModify(GameStateMarkup gameStateMarkup) {
+            var request = new RequestMessage();
+            request.method = "ReverseGamestate";
+            request.gameStateMarkup = gameStateMarkup;
+            GameBrowser.Instance.frontEndConnection.SendRequest(request);
+        }
     }
 }

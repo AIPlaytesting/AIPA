@@ -2,6 +2,7 @@ from gameplay.game_manager import GameManager
 from gameplay.game_event import GameEvent
 from gameplay.game_state import GameState
 from .protocol import PlayerStep
+from .gamestate_reverse import reverse_markup_to_gamestate
 
 # GameplayKernel is a highier level verision of GameManager
 # while GameManager give you more contronal and deteils,
@@ -18,6 +19,9 @@ class GameplayKernel:
 
     def is_game_ended(self)->bool:
         return self.__game_manager.is_game_end()
+
+    def reverse_gamestate(self, gamestate_markup:dict):
+        reverse_markup_to_gamestate(gamestate_markup,self.__game_manager.game_state)
 
     def get_game_state(self)->GameState:
         return self.__game_manager.game_state
