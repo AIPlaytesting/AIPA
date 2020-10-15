@@ -86,17 +86,17 @@ namespace GameBrowser.Rendering {
                 // win or lost
                 Clear();
 
-                var battleResultBoard = FindObjectOfType<BattleResultBoard>();
-                battleResultBoard.ShowResult(stage == GameStateMarkup.GAMESTAGE_WIN);
-
+                FindObjectOfType<BattleResultBoard>().ShowResult(stage == GameStateMarkup.GAMESTAGE_WIN);
                 sceneReference.endTurnBtn.SetActive(false);
                 sceneReference.skipBossTurnBtn.SetActive(false);
             }
             else if (stage == GameStateMarkup.GAMESTAGE_PlAYER_TURN) {
+                FindObjectOfType<BattleResultBoard>().HideResult();
                 sceneReference.endTurnBtn.SetActive(true);
                 sceneReference.skipBossTurnBtn.SetActive(false);
             }
             else if (stage == GameStateMarkup.GAMESTAGE_ENEMY_TURN) {
+                FindObjectOfType<BattleResultBoard>().HideResult();
                 sceneReference.endTurnBtn.SetActive(false);
                 sceneReference.skipBossTurnBtn.SetActive(true);
             }

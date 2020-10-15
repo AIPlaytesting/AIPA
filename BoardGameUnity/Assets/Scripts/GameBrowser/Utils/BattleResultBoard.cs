@@ -12,4 +12,8 @@ public class BattleResultBoard : MonoBehaviour
         text.text = isWin ? "win" : "lost";
         displayRoot.SetActive(true);
     }
+
+    public void HideResult() {
+        displayRoot.SetActive(false);
+    }
 }
