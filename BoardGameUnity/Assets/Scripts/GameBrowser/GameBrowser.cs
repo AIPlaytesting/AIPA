@@ -86,42 +86,10 @@ namespace GameBrowser {
                 Debug.Log("[GameBrowser]-process error message");
                 WarningBox.Warn(responseMessage.content);
             }
-            else if (responseMessage.contentType == ResponseMessage.ContentType.GameStageChange) {
-                Debug.Log("[GameBrowser]-process game state change");
-                var newGameStage = (ResponseMessage.GameStage)System.Enum.Parse(typeof(ResponseMessage.GameStage), responseMessage.content);
-                ProcessGameStateChange(newGameStage);
-            }
             else {
                 Debug.LogError("unknown type of message: "
                     + responseMessage.contentType.ToString()
                     + " " + responseMessage.content);
-            }
-        }
-
-        private void ProcessGameStateChange(ResponseMessage.GameStage newState) {
-            if (newState == ResponseMessage.GameStage.Win || newState == ResponseMessage.GameStage.Lost) {
-                // win or lost
-                var battleResultBoard = FindObjectOfType<BattleResultBoard>();
-                battleResultBoard.ShowResult(newState == ResponseMessage.GameStage.Win);
-
-                dependencies.sceneReference.endTurnBtn.SetActive(false);
-                dependencies.sceneReference.skipBossTurnBtn.SetActive(false);
-
-                renderManager.Clear();
-            }
-            else if(newState == ResponseMessage.GameStage.PlayerTurn) {
-                dependencies.sceneReference.endTurnBtn.SetActive(true);
-                dependencies.sceneReference.skipBossTurnBtn.SetActive(false);
-                MessageBox.PopupMessage(newState.ToString());
-            }
-            else if (newState == ResponseMessage.GameStage.EnemyTurn) {
-                dependencies.sceneReference.endTurnBtn.SetActive(false);
-                dependencies.sceneReference.skipBossTurnBtn.SetActive(true);
-                MessageBox.PopupMessage(newState.ToString());
-            }
-            else{
-                // other stage
-                MessageBox.PopupMessage(newState.ToString());
             }
         }
     }
