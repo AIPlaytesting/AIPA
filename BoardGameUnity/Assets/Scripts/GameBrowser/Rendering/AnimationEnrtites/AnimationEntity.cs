@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameBrowser.Rendering {
+    /// <summary>
+    /// when overried Play(), must call onAnimationComplete() when aniamiton complete!
+    /// </summary>
     public abstract class AnimationEntity : MonoBehaviour {
         public delegate void OnComplete(AnimationEntity animationEntity);
         

@@ -95,12 +95,10 @@ namespace GameBrowser.Rendering {
             else if (stage == GameStateMarkup.GAMESTAGE_PlAYER_TURN) {
                 sceneReference.endTurnBtn.SetActive(true);
                 sceneReference.skipBossTurnBtn.SetActive(false);
-                MessageBox.PopupMessage(stage);
             }
-            else if (stage == GameStateMarkup.GAMESTAGE_PlAYER_TURN) {
+            else if (stage == GameStateMarkup.GAMESTAGE_ENEMY_TURN) {
                 sceneReference.endTurnBtn.SetActive(false);
                 sceneReference.skipBossTurnBtn.SetActive(true);
-                MessageBox.PopupMessage(stage);
             }
             else {
                 Debug.LogError("undefined game stage: " + stage);

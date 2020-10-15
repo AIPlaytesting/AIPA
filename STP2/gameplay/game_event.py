@@ -13,12 +13,12 @@ EVENTCHANNLE_NEW_TURN = 1
 EVENTCHANNLE_CARD = 2
 EVENTCHANNLE_COMBAT_UNIT = 3
 
-# card event type nume
+# card event type enum
 CARD_EVENT_NONE = 0
 CARD_EVENT_PLAYED = 1
 CARD_EVENT_DRAW = 2
 
-# character event type nume
+# character event type enum
 COMBAT_UNIT_EVENT_NONE = 0
 COMBAT_UNIT_EVENT_GETHURT = 1
 COMBAT_UNIT_EVENT_BLOCKCHANGE = 2
@@ -32,6 +32,15 @@ class GameEvent:
         self.combat_unit_event_type = combat_unit_event_type
         self.information = information
     
+    @classmethod
+    def create_new_turn_event(cls,is_player_turn:bool):
+        turn_name = 'PlayerTurn' if is_player_turn else 'Enemy Turn'
+        return GameEvent(
+            EVENTCHANNLE_NEW_TURN,
+            CARD_EVENT_NONE, 
+            COMBAT_UNIT_EVENT_NONE,
+            {TURN_NAME_KEY: turn_name})
+            
     @classmethod
     def create_play_card_event(cls,card_game_unique_id:str):
         event_channel = EVENTCHANNLE_CARD

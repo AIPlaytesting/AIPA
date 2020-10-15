@@ -12,6 +12,9 @@ namespace GameBrowser.Rendering {
             else if (gameEventMarkup.eventChannel == GameEventMarkup.EventChannel.CombatUnit) {
                 return CreateCombatUnitChannelAnimationEntity(gameEventMarkup);
             }
+            else if (gameEventMarkup.eventChannel == GameEventMarkup.EventChannel.NewTurn) {
+                return CreateNewTurnChannelAnimationEntity(gameEventMarkup);
+            }
             return null;
         }
 
@@ -69,6 +72,13 @@ namespace GameBrowser.Rendering {
                 return enemyIntentAnimation;
             }
             return null;
+        }
+
+        private static AnimationEntity CreateNewTurnChannelAnimationEntity(GameEventMarkup newTurnEventMarkup) {
+            var GO = new GameObject("NewTrunEntity");
+            var newTurnAnimation = GO.AddComponent<NewTurnAnimationEntity>();
+            newTurnAnimation.turnName = newTurnEventMarkup.information[GameEventMarkup.TURN_NAME_KEY];
+            return newTurnAnimation;
         }
     }
 }

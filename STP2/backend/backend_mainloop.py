@@ -19,9 +19,16 @@ class BackendMainloop:
                 self.__on_recv_player_step(request.player_step)
     
     def __on_recv_reset_game(self):
-        self.__gameplay_kernal.reset_game()
-        gamestate_markup =self.__snapshot_gamestate_as_markup()
-        gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(gamestate_markup,[],gamestate_markup)
+        # reset game 
+        gamestate_markup_before = self.__snapshot_gamestate_as_markup()
+        game_events_during_reset = self.__gameplay_kernal.reset_game()
+        gamestate_markup_after = self.__snapshot_gamestate_as_markup()
+        # encode game sequence
+        gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(
+            gamestate_markup_before,
+            game_events_during_reset,
+            gamestate_markup_after)
+        # send response
         response = ResponseMessage.create_game_sequence_response(gamesequence_markup)
         self.__connection.send_response(response)
 
@@ -29,9 +36,9 @@ class BackendMainloop:
         is_valid,error_message = self.__gameplay_kernal.validate_player_step(player_step)
         if is_valid:
             # execute step and send sequence back
-            gamestate_markup_before = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())
+            gamestate_markup_before = self.__snapshot_gamestate_as_markup()
             game_events =  self.__gameplay_kernal.execute_player_step(player_step)      
-            gamestate_markup_after = MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())   
+            gamestate_markup_after = self.__snapshot_gamestate_as_markup()
             # encode game sequence
             gamesequence_markup = MarkupFactory.create_game_sequence_markup_file(
                 gamestate_markup_before,

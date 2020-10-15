@@ -11,6 +11,15 @@ from .game_state import GameState
 
 PLAYER_ENERGY = 3
 
+# fucntions marked as "game flow func"
+# it will change the game state, and always return GameEvent or GameEvent[]
+
+# gameflow MUST follow is: 
+# ->start_player_turn()
+# ->execute_play_card()->execute_play_card()->execute_play_card()....
+# ->start_enemy_turn()
+# ->execute_enemy_intent()
+
 class GameManager:
     def __init__(self,game_app_data:GameAppData):
         self.game_app_data = game_app_data
@@ -38,7 +47,8 @@ class GameManager:
         return self.__end_player_turn_flag
     
     # game flow func
-    def start_player_turn(self):
+    # return start player turn GameEvent
+    def start_player_turn(self)->GameEvent:
         print("start player turn ===========================")
         if not self.is_game_end():
             self.game_state.game_stage = 'PlayerTurn'
@@ -58,13 +68,16 @@ class GameManager:
         self.game_state.player.print_status_info("Player")
         if self.game_state.boss_AI.mode == "Offensive":
             print("Boss will switch mode in", self.game_state.boss_AI.transformTriggerPoint - self.game_state.boss_AI.accumulator, "damages")
-   
+        return GameEvent.create_new_turn_event(True)
+
     # game flow func
+    # (TODO: depricated, we don't need to maintain this flag since we have GameState.game_stage)
     def end_player_turn(self):
         self.__end_player_turn_flag = True
    
     # game flow func   
-    def start_enemy_turn(self):
+    # return start enemy turn GameEvent
+    def start_enemy_turn(self)->GameEvent:
         print("start enemy turn *****************************")
         if not self.is_game_end():
             self.game_state.game_stage = 'EnemyTurn'
@@ -78,6 +91,7 @@ class GameManager:
         self.game_state.boss.refresh_buff_on_new_turn()
         # log status
         self.game_state.boss.print_status_info("BOSS")
+        return GameEvent.create_new_turn_event(True)
 
     # game flow func
     # return: game_event.GameEvent[]
@@ -91,9 +105,10 @@ class GameManager:
         return game_events
    
     # game flow func
+    # return: game_event.GameEvent[]
     def execute_play_card(self, cardname):
         game_events = self.card_play_manager.PlayCard(cardname)
-        if is_game_end():
+        if self.is_game_end():
             self.game_state.game_stage = 'Win' if self.is_player_win() else 'Lost'
         return game_events
 
