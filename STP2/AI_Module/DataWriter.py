@@ -181,7 +181,7 @@ class DataWriter:
         win_rate_list_total = []
 
         for i in range(0, len(wdl), 1000):
-            if i + 1000 < len(wdl):
+            if i + 1000 > len(wdl):
                 wdl_sliced = wdl[i:i + 1000]
             else:
                 wdl_sliced = wdl[i:len(wdl)]
@@ -209,6 +209,7 @@ class DataWriter:
             training_data_worksheet.write(itr + 1, 12, str(itr * 1000) + ' - ' + str((itr+ 1) * 1000), self.bold_center)
             training_data_worksheet.write(itr + 1, 13, win_rate_p, percentage_format)
             training_data_worksheet.write(itr + 1, 14, win_rate_t, percentage_format)
+            itr += 1
 
         training_data_worksheet.write(0, 16, 'Total WIN RATE :', self.bold_center)
         training_data_worksheet.write(1, 16, 'Pure WIN RATE :', self.bold_center)

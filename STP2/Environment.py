@@ -18,6 +18,11 @@ class Environment:
         self.win_count = 0
         self.win_int = 0
 
+        #reward values
+        self.win_reward = 3
+        self.unplayable_card_pun = -1
+        self.loss_pun = -0.75
+
     def Reset(self):
         self.game_manager.init_game()
         self.game_manager.start_player_turn()
@@ -127,16 +132,16 @@ class Environment:
         pac_state = (old_player_info, new_player_info, old_boss_info, new_boss_info)
 
         if (isTerminal and isPlayerWin) : 
-            reward += 2
+            reward += self.win_reward
             self.win_count += 1
             self.win_int = 1
         elif (isTerminal and not isPlayerWin) : 
             if unplayableCardSelected:
                 #higher negative reward for choosing wrong card
-                reward -= 1
+                reward += self.unplayable_card_pun
                 self.win_int = -2
             else:
-                reward -= 0.75
+                reward += self.loss_pun
                 self.win_int = -1
 
         return new_state, int(action_neuron_number), reward, isTerminal, pac_state, isTurnEnd

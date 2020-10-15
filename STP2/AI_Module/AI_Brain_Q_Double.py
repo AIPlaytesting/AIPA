@@ -2,6 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 from . import ReplayBuffer
 import numpy as np
+from datetime import datetime
 
 
 class Q_Model:
@@ -29,16 +30,18 @@ class Q_Model:
 class AI_Brain:
     
     def __init__(self, gamma,
-        state_space_dim, action_space_dim, hidden_layer_dims,
+        state_space, action_space, hidden_layer_dims,
         epsilon, epsilon_dec, epsilon_min, 
-        mem_size, batch_size, gamma_max = 0.99):
+        mem_size, batch_size, unplayable_pun, gamma_max = 0.99):
 
-        self.state_space_dim = state_space_dim
+        self.state_space_dim = len(state_space)
         self.hidden_layer_dims = hidden_layer_dims
-        self.action_space_dim = action_space_dim
+        self.action_space_dim = len(action_space)
+        self.state_space = state_space
+        self.action_space = action_space
+        self.unplayable_pun = unplayable_pun
 
         self.replay_buffer = ReplayBuffer.ReplayBuffer(self.state_space_dim, mem_size)
-        self.action_space = [i for i in range(self.action_space_dim)]
         self.gamma = gamma
         self.gamma_max = gamma_max 
         self.epsilon = epsilon
@@ -50,6 +53,11 @@ class AI_Brain:
         self.q_model_current = self.InitializeNewQModel()
         self.q_model_trained = None
         self.q_model_switch_count = 0
+
+        #save model name
+        now = datetime.now()
+        dt_string = now.strftime("%d-%b-%y %H-%M")
+        self.filename = "Saved Models/%s saved-model" % dt_string
 
 
     def InitializeNewQModel(self):
@@ -88,7 +96,7 @@ class AI_Brain:
 
     def Learn(self):
 
-        if self.replay_buffer.mem_ctr < self.batch_size :
+        if self.replay_buffer.mem_ctr < max(self.batch_size, 5000):
             return
 
         sample_indexes = np.arange(self.batch_size)
@@ -107,6 +115,10 @@ class AI_Brain:
         
         batch_index = np.arange(self.batch_size, dtype=int)
         actions = actions.astype(int)
+
+        for i in range(len(batch_index)):
+            q_state_predicts[i][self.CreateActionMask(states[i])] = -2
+
         q_target = np.copy(q_state_predicts)
 
         #creating a target that can be used for training
@@ -124,8 +136,6 @@ class AI_Brain:
 
         #training model 0
         self.q_model_current.model.train_on_batch(states, q_target)
-        #self.q_model.fit(states, q_target)
-        
 
         #epsilon update
         if(self.epsilon <= 0):
@@ -154,15 +164,33 @@ class AI_Brain:
         self.q_model_trained = self.q_model_current
         self.q_model_current = self.InitializeNewQModel()
         self.q_model_switch_count += 1
-    
+
 
     def StoreTransition(self, state, new_state, action, reward, isTerminal):
         self.replay_buffer.StoreTransition(state, new_state, action, reward, isTerminal)
 
 
-    def SaveModel(self, filepath):
-        self.q_model_current.save(filepath)
+    def SaveModel(self):
+        if self.q_model_trained == None:
+            self.q_model_current.model.save(self.filename)
+        else:
+            self.q_model_trained.model.save(self.filename)
 
     def LoadModel(self, filepath):
         self.q_model_current = self.q_model_current.load_model(filepath)
+
+
+    def CreateActionMask(self, state):
+        #first we need to get the state values pertaining to the in and and playable cards_state
+        action_mask = np.zeros(len(self.action_space), dtype=bool)
+        for key in self.action_space:
+            action_card = self.action_space[key]
+            action_index = key
+            card_index_in_state = self.state_space['in_hand_playable_card-' + action_card]
+            not_card_in_hand = False if state[card_index_in_state] > 0 else True
+            action_mask[action_index] = not_card_in_hand
+        
+        return action_mask
+            
+
     
