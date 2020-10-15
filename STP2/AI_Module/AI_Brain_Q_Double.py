@@ -57,7 +57,7 @@ class AI_Brain:
         #save model name
         now = datetime.now()
         dt_string = now.strftime("%d-%b-%y %H-%M")
-        self.filename = "Saved Models/%s saved-model" % dt_string
+        self.filename = "Saved Models\\%s saved-model" % dt_string
 
 
     def InitializeNewQModel(self):
