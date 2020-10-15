@@ -13,6 +13,7 @@ namespace GameBrowser.Rendering {
                     intentEntity.transform.DOScale(initScale, punchTime).onComplete = () => {
                         intentEntity.transform.DOScale(1.2f * initScale, punchTime).onComplete = ()=>{
                             transform.localScale = initScale;
+                            onAnimationComplete(this);
                         };
                     };
                 };
