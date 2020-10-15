@@ -28,25 +28,14 @@ public class CardModifyEntry : MonoBehaviour
         }
 
         // update dropdown options 
-        var options = new List<TMP_Dropdown.OptionData>();
-        options.Add(new TMP_Dropdown.OptionData("None"));
-        foreach (var cardname in GameRuntimeModifier.Instance.registeredCardnames) {
-            options.Add(new TMP_Dropdown.OptionData(cardname));
-        }
-        dropdown.options = options;
-
-        for(int i = 0; i < dropdown.options.Count; i++){
-            if (dropdown.options[i].text == modifyTarget.name) {
-                dropdown.value = i;
-                break;
-            }
-        }
+       UpdateDropdownOptions();
     }
 
     public void HookModifyTarget(CardMarkup cardMarkup) {
         modifyTarget = cardMarkup;
         nameText.text = cardMarkup.name;
         spriteWWW = new WWW(cardMarkup.imgAbsPath);
+        UpdateDropdownOptions();
         dropdown.onValueChanged.AddListener(delegate { OnModifyHappened(); });
     }
 
@@ -63,9 +52,27 @@ public class CardModifyEntry : MonoBehaviour
         DestroyImmediate(gameObject);
     }
 
+    private void UpdateDropdownOptions() {
+        var options = new List<TMP_Dropdown.OptionData>();
+        options.Add(new TMP_Dropdown.OptionData("None"));
+        foreach (var cardname in GameRuntimeModifier.Instance.registeredCardnames) {
+            options.Add(new TMP_Dropdown.OptionData(cardname));
+        }
+        dropdown.options = options;
+
+        for (int i = 0; i < dropdown.options.Count; i++) {
+            if (dropdown.options[i].text == modifyTarget.name) {
+                dropdown.value = i;
+                break;
+            }
+        }
+    }
+
     private void OnModifyHappened() {
-        modifyTarget.name = dropdown.options[dropdown.value].text;
-        nameText.text = modifyTarget.name;
-        //RuntimeModifierWindow.Instance.InformModificitonHappened();
+        if (modifyTarget.name != dropdown.options[dropdown.value].text) {
+            modifyTarget.name = dropdown.options[dropdown.value].text;
+            nameText.text = modifyTarget.name;
+            RuntimeModifierWindow.Instance.InformModificitonHappened();
+        }
     }
 }

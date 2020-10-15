@@ -13091,6 +13091,33 @@ MonoBehaviour:
   playerStateModifyPage: {fileID: 1065972889}
   enemyStateModifyPage: {fileID: 306132144}
   cardsOnHandModifyPage: {fileID: 1235278875507916}
+  modifyTarget:
+    gameStage: 
+    player:
+      gameUniqueID: 
+      name: name
+      currentHP: 100
+      maxHP: 100
+      block: 0
+      buffs: []
+    enemies: []
+    enemyIntents: []
+    cardsOnHand: []
+    drawPile: []
+    discardPile: []
+    energy:
+      gameUniqueID: 
+      name: value
+      curValue: 0
+      maxValue: 3
+      renderClass: 
+    guadianModeValue:
+      gameUniqueID: 
+      name: value
+      curValue: 0
+      maxValue: 3
+      renderClass: 
+    rlRewardValues: []
 --- !u!1 &1698705184
 GameObject:
   m_ObjectHideFlags: 0
