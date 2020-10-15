@@ -18,11 +18,24 @@ INPUT_TYPE_START_GAME = 3
 MESSAGE_TYPE_NONE = 0 # content is invalid message
 MESSAGE_TYPE_GAME_SEQUENCE = 1 # contetnt is the json string of GameSequenceMarkup
 MESSAGE_TYPE_ERROR = 2 # content is the string of error message
+MESSAGE_TYPE_DBQUERY = 3 # content is the string of error message
+
+class DBQuery:
+    def __init__(self,query_id:int,query_santence:str):
+        self.query_id = query_id 
+        self.query_sentence = query_santence
+
+class PlayerStep:
+    def __init__(self,type,card_name,card_guid):
+        self.type = type # type can be 'PlayCard' or 'EndTurn'
+        self.cardName = card_name
+        self.cardGUID = card_guid
+
 
 # each method has its own field,
 # for example, method 'UserInput' has its inforamtion stored in field 'self.user_input'
 class RequestMessage:
-    def __init__(self,method,player_step,db_query):
+    def __init__(self,method,player_step:PlayerStep,db_query:DBQuery):
         self.method = method # method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'None'
         self.player_step = player_step # PlayerStep
         self.db_query = db_query
@@ -38,17 +51,28 @@ class RequestMessage:
                 player_step_dict['cardGUID'])
             return RequestMessage(method,player_step,"")
         elif method == 'DBQuery':
-            return RequestMessage(method,None,request_dict['dbQuery'])
+            dbquery_dict = request_dict['dbQuery']
+            dbquery = DBQuery(dbquery_dict['queryID'],dbquery_dict['querySentence'])
+            return RequestMessage(method,None,dbquery)
         elif method == 'ResetGame':
             return RequestMessage(method,None,"")
         else:
             print("undefined method: ",method)
             return None
+
 class ResponseMessage:
     def __init__(self,content_type,content):
         self.content_type = content_type # content type is const start with MESSAGE_TYPE_xxxx
         self.content = content
     
+    @classmethod
+    def cretate_dbquery_result_response(cls,query_id:int,query_reuslt:str):
+        content_type = MESSAGE_TYPE_DBQUERY
+        content_dict = {"queryID":query_id,"queryResult":query_reuslt}
+        content_json = json.dumps(content_dict)
+        response = ResponseMessage(content_type,content_json)
+        return response
+
     @classmethod
     def create_game_sequence_response(cls,gamesequence_markup:dict):
         content_type = MESSAGE_TYPE_GAME_SEQUENCE
@@ -63,12 +87,6 @@ class ResponseMessage:
     def to_json(self):
         json_obj = {'contentType':self.content_type,'content':self.content}
         return json.dumps(json_obj)
-
-class PlayerStep:
-    def __init__(self,type,card_name,card_guid):
-        self.type = type # type can be 'PlayCard' or 'EndTurn'
-        self.cardName = card_name
-        self.cardGUID = card_guid
 
 class MarkupFactory:
     @classmethod

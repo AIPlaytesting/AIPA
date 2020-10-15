@@ -8,6 +8,7 @@ namespace GameBrowser {
             None, // invalid message
             GameSequenceMarkup, // content is the json string of GameSequenceMarkup
             Error, // content is the string of error message
+            DBQuery// content is the json string of DBQueryResponse
         }
 
         public ContentType contentType = ContentType.None;

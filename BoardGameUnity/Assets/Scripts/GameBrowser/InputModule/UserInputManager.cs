@@ -16,5 +16,12 @@ namespace GameBrowser {
             request.method = "ResetGame";
             GameBrowser.Instance.frontEndConnection.SendRequest(request);
         }
+
+        public void RegisterDBQuery(DBQuery dbQuery) {
+            var request = new RequestMessage();
+            request.method = "DBQuery";
+            request.dbQuery = dbQuery;
+            GameBrowser.Instance.frontEndConnection.SendRequest(request);
+        }
     }
 }

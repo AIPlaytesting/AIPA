@@ -501,6 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardImg: {fileID: 3246797794186981315}
   nameText: {fileID: 534641900483199231}
+  dropdown: {fileID: 3246797793582234732}
 --- !u!1 &3245858656562906336
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +872,8 @@ MonoBehaviour:
     - m_Text: Option B
       m_Image: {fileID: 0}
     - m_Text: Option C
+      m_Image: {fileID: 0}
+    - m_Text: 5555
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

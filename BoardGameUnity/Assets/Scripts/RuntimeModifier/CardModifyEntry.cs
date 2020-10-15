@@ -9,9 +9,11 @@ public class CardModifyEntry : MonoBehaviour
 {
     public Image cardImg;
     public TextMeshProUGUI nameText;
+    public TMP_Dropdown dropdown;
 
     private Sprite cardSprite = null;
     private WWW spriteWWW;
+    private CardMarkup modifyTarget;
 
     private void Update() {
         if (spriteWWW != null && spriteWWW.isDone && cardSprite == null) {
@@ -24,9 +26,25 @@ public class CardModifyEntry : MonoBehaviour
             }
             cardImg.sprite = cardSprite;
         }
+
+        // update dropdown options 
+        var options = new List<TMP_Dropdown.OptionData>();
+        options.Add(new TMP_Dropdown.OptionData("None"));
+        foreach (var cardname in GameRuntimeModifier.Instance.registeredCardnames) {
+            options.Add(new TMP_Dropdown.OptionData(cardname));
+        }
+        dropdown.options = options;
+
+        for(int i = 0; i < dropdown.options.Count; i++){
+            if (dropdown.options[i].text == modifyTarget.name) {
+                dropdown.value = i;
+                break;
+            }
+        }
     }
 
     public void HookModifyTarget(CardMarkup cardMarkup) {
+        modifyTarget = cardMarkup;
         nameText.text = cardMarkup.name;
         spriteWWW = new WWW(cardMarkup.imgAbsPath);
     }

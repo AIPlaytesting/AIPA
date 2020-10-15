@@ -7,6 +7,6 @@ namespace GameBrowser {
     public class RequestMessage {
         public string method = "None";
         public PlayerStep playerStep = null;
-        public string dbQuery = "";
+        public DBQuery dbQuery = null;
     }
 }

@@ -1,7 +1,7 @@
 from .connection import Connection
 from .gameplay_kernel import GameplayKernel
 from .db_accessor import DBAccessor
-from .protocol import RequestMessage,ResponseMessage, PlayerStep, MarkupFactory
+from .protocol import RequestMessage,ResponseMessage, PlayerStep,DBQuery, MarkupFactory
 
 class BackendMainloop:
     def __init__(self,connection:Connection,gameplay_kernal:GameplayKernel,db_accessor:DBAccessor):
@@ -17,7 +17,14 @@ class BackendMainloop:
                 self.__on_recv_reset_game()
             elif request.method == 'PlayerStep':
                 self.__on_recv_player_step(request.player_step)
+            elif request.method == 'DBQuery':
+                self.__on_recv_dbquery(request.db_query)
     
+    def __on_recv_dbquery(self,dbquery:DBQuery):
+        query_result = self.__db_accessor.process_dbquery(dbquery)
+        response = ResponseMessage.cretate_dbquery_result_response(dbquery.query_id,query_result)
+        self.__connection.send_response(response)
+
     def __on_recv_reset_game(self):
         # reset game 
         gamesequence_markup = self.__execute_change_gamestate_func(self.__gameplay_kernal.reset_game)

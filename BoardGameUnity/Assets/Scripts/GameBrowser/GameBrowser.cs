@@ -86,6 +86,10 @@ namespace GameBrowser {
                 Debug.Log("[GameBrowser]-process error message");
                 WarningBox.Warn(responseMessage.content);
             }
+            else if (responseMessage.contentType == ResponseMessage.ContentType.DBQuery) {
+                Debug.Log("[GameBrowser]-process DB Query");
+                dbAccessor.ProcessDBQueryResponse(responseMessage);
+            }
             else {
                 Debug.LogError("unknown type of message: "
                     + responseMessage.contentType.ToString()
