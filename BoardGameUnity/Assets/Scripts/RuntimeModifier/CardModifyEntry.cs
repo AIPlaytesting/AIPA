@@ -47,6 +47,7 @@ public class CardModifyEntry : MonoBehaviour
         modifyTarget = cardMarkup;
         nameText.text = cardMarkup.name;
         spriteWWW = new WWW(cardMarkup.imgAbsPath);
+        dropdown.onValueChanged.AddListener(delegate { OnModifyHappened(); });
     }
 
     public void OnDeleteEntry() {
@@ -60,5 +61,11 @@ public class CardModifyEntry : MonoBehaviour
         hookedGameStateMarkup.cardsOnHand = newCardsOnHand.ToArray();
         RuntimeModifierWindow.Instance.InformModificitonHappened();
         DestroyImmediate(gameObject);
+    }
+
+    private void OnModifyHappened() {
+        modifyTarget.name = dropdown.options[dropdown.value].text;
+        nameText.text = modifyTarget.name;
+        //RuntimeModifierWindow.Instance.InformModificitonHappened();
     }
 }

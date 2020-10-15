@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using GameBrowser;
+using System;
 
 public class CombatUnitModifyPage : MonoBehaviour {
     [SerializeField]
@@ -15,10 +16,14 @@ public class CombatUnitModifyPage : MonoBehaviour {
     private TMP_InputField blockAttribute;
 
     private List<BuffModifyEntry> currentBuffEntries = new List<BuffModifyEntry>();
+    private CombatUnitMarkup modifyTarget = null;
 
     public virtual void HookModifyTarget(CombatUnitMarkup combatUnitMarkup) {
+        modifyTarget = combatUnitMarkup;
         hpAttribute.text = combatUnitMarkup.currentHP.ToString();
+        hpAttribute.onValueChanged.AddListener(delegate { OnModifyTargetChanged(); });
         blockAttribute.text = combatUnitMarkup.block.ToString();
+        blockAttribute.onValueChanged.AddListener(delegate { OnModifyTargetChanged(); });
         UpdateBuffInfo(combatUnitMarkup.buffs);
     }
 
@@ -37,5 +42,11 @@ public class CombatUnitModifyPage : MonoBehaviour {
             buffEntry.HookModifyTarget(buffmarkup);
             currentBuffEntries.Add(buffEntry);
         }
+    }
+
+    private void OnModifyTargetChanged() {
+        modifyTarget.currentHP = Int32.Parse(hpAttribute.text);
+        modifyTarget.block = Int32.Parse(blockAttribute.text);
+        RuntimeModifierWindow.Instance.InformModificitonHappened();
     }
 }

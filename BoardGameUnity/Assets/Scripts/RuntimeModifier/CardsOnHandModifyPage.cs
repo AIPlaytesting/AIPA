@@ -15,7 +15,9 @@ public class CardsOnHandModifyPage : MonoBehaviour
 
     public void HookModifyTarget(CardMarkup[] cardsOnHand) {
         foreach (var cardEntry in currentCardEntries) {
-            GameObject.DestroyImmediate(cardEntry.gameObject);
+            if (cardEntry != null) {
+                GameObject.DestroyImmediate(cardEntry.gameObject);
+            }
         }
         currentCardEntries.Clear();
 
