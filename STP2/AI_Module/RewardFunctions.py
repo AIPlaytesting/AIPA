@@ -171,7 +171,7 @@ class RewardFunctions:
     def RewardFromFlex(self, turn_index, step_index, isPlus):
         reward_flex = 0
 
-        strength_multiplier = 1.5 if isPlus else 1
+        strength_multiplier = 0.75 if isPlus else 0.5
 
         step_end_index = len(self.state_list_turns[turn_index])
         cumulative_reward = 0

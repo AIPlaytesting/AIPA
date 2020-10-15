@@ -3,7 +3,7 @@ import AI_Module.TrainingDataCollector
 
 class GameBuffer:
     
-    def __init__(self, state_space, action_space):
+    def __init__(self, state_space, action_space, unplayable_pun):
         
         self.state_space = state_space #key : string name, value : index
         self.action_space = action_space #key : index, value : name
@@ -25,6 +25,8 @@ class GameBuffer:
         self.terminal_list_turns = []
 
         self.q_model_switch_count = 0
+        self.unplayable_pun = unplayable_pun
+
 
 
     def ResetCurrentLists(self):
@@ -70,29 +72,28 @@ class GameBuffer:
 
 
     def TransferToReplayBuffer(self, ai_agent, win_int):
-
         store_count = 5 if win_int == 1 else 1
 
         for turn_index in range(len(self.reward_list_turns)):
             for step_index in range(len(self.reward_list_turns[turn_index])):
                 self.reward_list_turns[turn_index][step_index] += self.add_reward_list_turns[turn_index][step_index]
 
-            for state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list in \
-                zip(self.state_list_turns, self.new_state_list_turns, self.action_list_turns, self.reward_list_turns, self.add_reward_list_turns, self.terminal_list_turns):
+        for state_list, new_state_list, action_list, reward_list, terminal_list in \
+            zip(self.state_list_turns, self.new_state_list_turns, self.action_list_turns, self.reward_list_turns, self.terminal_list_turns):
 
-                self.data_collector.CollectDataFromTurn(state_list, new_state_list, action_list, reward_list)
+            self.data_collector.CollectDataFromTurn(state_list, new_state_list, action_list, reward_list)
 
-                for state, new_state, action, reward, add_reward, terminal in zip(state_list, new_state_list, action_list, reward_list, add_reward_list, terminal_list):
+            for state, new_state, action, reward, terminal in zip(state_list, new_state_list, action_list, reward_list, terminal_list):
 
-                    for x in range(store_count):
-                        ai_agent.StoreTransition(state, new_state, action, reward, terminal)
-                    
-                    ai_agent.Learn()
+                for x in range(store_count):
+                    ai_agent.StoreTransition(state, new_state, action, reward, terminal)
 
-                    if self.CheckForQModelSwitch(ai_agent):
-                        self.data_collector.RecordQModelSwitch()
-            
-            self.data_collector.AddCurrentTurnDataToGameLists()
+                ai_agent.Learn()
+
+                if self.CheckForQModelSwitch(ai_agent):
+                    self.data_collector.RecordQModelSwitch()
+        
+        self.data_collector.AddCurrentTurnDataToGameLists()
 
 
 
@@ -151,7 +152,7 @@ class GameBuffer:
             for step_index in range(len(self.state_list_turns[turn_index]) - 1, -1, -1):
             
                 if (turn_index == len(self.state_list_turns) - 1) and (step_index == len(self.state_list_turns[turn_index]) - 1):
-                    if self.reward_list_turns[turn_index][step_index] != -1:
+                    if self.reward_list_turns[turn_index][step_index] != self.unplayable_pun:
                         end_reward_discounted = self.reward_list_turns[turn_index][step_index]
                 else:
                     end_reward_discounted *= 0.9

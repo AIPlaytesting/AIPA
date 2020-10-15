@@ -16,11 +16,11 @@ import winsound
 #initialize the environment
 env = Environment.Environment()
 
-game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, env.ai_transformer.action_space)
+game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, env.ai_transformer.action_space, env.unplayable_card_pun)
 game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
 
 #Replace string with file description is needed
-data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'day test')
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'fix wrong card-overnight')
 
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
@@ -46,8 +46,8 @@ start_time = time.time()
 #               hidden_layer_dims=[256, 256, 256, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 10000, batch_size = 128)
 
 #Double Q-Learning
-ai_agent = AI_Module.AI_Brain_Q_Double.AI_Brain(gamma=0, state_space_dim=state_space_len, action_space_dim=action_space_len,
-                hidden_layer_dims=[256, 256, 256, 1024], epsilon=0.8, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 15000, batch_size = 128)
+ai_agent = AI_Module.AI_Brain_Q_Double.AI_Brain(gamma=0, state_space = env.ai_transformer.state_space, action_space = env.ai_transformer.action_space,
+                hidden_layer_dims=[128, 128, 64, 1024], epsilon=1.0, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 15000, batch_size = 128, unplayable_pun = env.unplayable_card_pun)
 
 
 total_episode_rewards = []
@@ -109,6 +109,7 @@ for i in range(number_of_games):
 
     if (i != 0 and (i + 1) % 250 == 0):
         data_writer.WriteFile()
+        ai_agent.SaveModel()
 
 
 # x = [i for i in range(number_of_games)]
