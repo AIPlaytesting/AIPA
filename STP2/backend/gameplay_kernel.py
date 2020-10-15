@@ -9,7 +9,7 @@ from .protocol import PlayerStep
 class GameplayKernel:
     def __init__(self,game_manager:GameManager):
         self.__game_manager = game_manager
-        
+
     # return GameEvent[]
     def reset_game(self)->[]:
         self.__game_manager.init_game()
@@ -54,12 +54,16 @@ class GameplayKernel:
             # record events after played card
             game_events_during_step.extend(events_after_played_card)
         elif player_step.type == "EndTurn":
-            new_turn_event = self.__game_manager.start_enemy_turn()
-            game_events_during_step.append(new_turn_event)
+            if self.__game_manager.game_state.game_stage == 'PlayerTurn':
+                new_turn_event = self.__game_manager.start_enemy_turn() 
+                game_events_during_step.append(new_turn_event)
+            else:
+                new_turn_event = self.__game_manager.start_player_turn() 
+                game_events_during_step.append(new_turn_event)
 
         # return game event
         return game_events_during_step
 
     # return GameEvents[]
-    def execute_enemy_step(self):
-        pass
+    def execute_enemy_turn(self)->[]:
+        return self.__game_manager.execute_enemy_intent()

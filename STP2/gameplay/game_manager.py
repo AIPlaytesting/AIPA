@@ -100,7 +100,7 @@ class GameManager:
         game_events.append(GameEvent.create_enemy_intent_event(self.game_state.boss.game_unique_id))
         intent_execte_events = self.game_state.boss_intent.apply_to(self.game_state,self.effect_calculator)
         game_events.extend(intent_execte_events)
-        if is_game_end():
+        if self.is_game_end():
             self.game_state.game_stage = 'Win' if self.is_player_win() else 'Lost'
         return game_events
    
