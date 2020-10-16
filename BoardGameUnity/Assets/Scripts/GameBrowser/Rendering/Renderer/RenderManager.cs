@@ -75,7 +75,7 @@ namespace GameBrowser.Rendering {
                 }
 
                 foreach (var rlValue in gameStateMarkup.rlRewardValues) {
-                    RenderRLValue(rlValue,rlValue.curValue >= bestValue);
+                    RenderRLValue(rlValue,gameStateMarkup.energy.curValue, rlValue.curValue >= bestValue);
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace GameBrowser.Rendering {
             }
         }
 
-        private void RenderRLValue(ValueMarkup valueMarkup,bool isBestValue) {
+        private void RenderRLValue(ValueMarkup valueMarkup,float curEnergyVal,bool isBestValue) {
             bool isOnHand = false;
             foreach (var selectableEntity in GameObject.FindObjectsOfType<SelectableCardEntity>()) {
                 var cardMarkup = selectableEntity.hookedMarkup as CardMarkup;
@@ -95,8 +95,16 @@ namespace GameBrowser.Rendering {
                     var GO = Instantiate(ResourceTable.Instance.rlrewardValueEntity);
                     var rlValueEntity = GO.GetComponent<RewardValueEntity>();
                     rlValueEntity.HookTo(valueMarkup);
+
+                    // best value check
                     if (isBestValue) {
                         rlValueEntity.MarkAsBestMove();
+                    }
+
+                    // playable check
+                    bool isPlayble = curEnergyVal >= (float)cardMarkup.energyCost;
+                    if (!isPlayble) {
+                        rlValueEntity.MarkAsUnPlayable();
                     }
                     selectableEntity.rewardValueAnchor.AttachGameObjectToAnchor(GO);
                 }

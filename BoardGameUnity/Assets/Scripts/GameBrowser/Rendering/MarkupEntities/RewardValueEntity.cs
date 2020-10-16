@@ -26,6 +26,14 @@ namespace GameBrowser.Rendering {
 
         public void MarkAsUnPlayable() {
             tooltipText = "AI: unplayable ";
+
+            if (valueText) {
+                valueText.color = Color.red;
+            }
+
+            if (valueTextUGUI) {
+                valueTextUGUI.color = Color.red;
+            }
         }
 
         public void MarkAsBestMove() {
