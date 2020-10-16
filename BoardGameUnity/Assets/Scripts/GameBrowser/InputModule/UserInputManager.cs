@@ -4,7 +4,13 @@ using UnityEngine;
 
 namespace GameBrowser {
     public class UserInputManager : MonoBehaviour {
+        public bool playerStepInputForbid = false;
+
         public void RegisterPlayerStep(PlayerStep playerStep) {
+            if (playerStepInputForbid) {
+                Debug.LogWarning("player step is forbidden!");
+                return;
+            }
             var request = new RequestMessage();
             request.method = "PlayerStep";
             request.playerStep = playerStep;

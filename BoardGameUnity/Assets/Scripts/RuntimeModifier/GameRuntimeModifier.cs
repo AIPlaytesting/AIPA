@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameBrowser;
+using GameBrowser.Rendering;
 
 public class GameRuntimeModifier : MonoBehaviour
 {
@@ -40,6 +41,16 @@ public class GameRuntimeModifier : MonoBehaviour
 
         dbAccessor.GetRegisteredCardnames((string result) => { OnCardnamesQueryResult(result); });
         dbAccessor.GetRegisteredBuffnames((string result)=> { OnBuffnamesQueryResult(result); });
+
+        modifierWindow.gameObject.SetActive(true);
+
+        SetPlayerStepInputControl(false);
+    }
+
+    public void CloseModiferWindow() {
+        modifierWindow.gameObject.SetActive(false);
+
+        SetPlayerStepInputControl(true);
     }
 
     public void ApplyModification(GameStateMarkup latestGamestateMarkup) {
@@ -58,5 +69,13 @@ public class GameRuntimeModifier : MonoBehaviour
         // save query result
         var queryResult = (BuffnamesQueryResult)FullSerializerWrapper.Deserialize(typeof(BuffnamesQueryResult), result);
         registeredBuffnames = queryResult.buffnames;
+    }
+
+    private void SetPlayerStepInputControl(bool allowed) {
+        foreach (var selectableCard in FindObjectsOfType<SelectableCardEntity>()) {
+            selectableCard.isInteractable = allowed;
+            selectableCard.hoverEnabled = allowed;
+        }
+        GameBrowser.GameBrowser.Instance.userInputManager.playerStepInputForbid = !allowed;
     }
 }

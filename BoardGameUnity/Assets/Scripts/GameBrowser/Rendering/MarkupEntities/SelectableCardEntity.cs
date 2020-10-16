@@ -13,7 +13,7 @@ namespace GameBrowser.Rendering {
         public PlayCardInputTrigger playCardInputTrigger;
         public SpriteRenderer cardImgRenderer;
         public CanvasAnchor rewardValueAnchor;
-        private bool isInteractable = true;
+        public bool isInteractable = true;
         private bool isDraged = false;
         private Vector3 initPosition;
 
