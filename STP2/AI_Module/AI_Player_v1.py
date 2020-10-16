@@ -1,13 +1,12 @@
-
 import tensorflow as tf
 from tensorflow import keras
 import AI_Module.AI_Transformer
-import game_manager
+import gameplay.game_manager
 import numpy as np
 
 class AI_Player:
 
-    def __init__(self, game_manager: game_manager.GameManager = None):
+    def __init__(self, game_manager: gameplay.game_manager.GameManager = None):
         self.LoadModel('14-Oct-20 21-22 saved-model')
         self.ai_transformer = AI_Module.AI_Transformer.AI_Transformer()
         self.state_space = self.ai_transformer.state_space
@@ -31,7 +30,6 @@ class AI_Player:
     #Use the state information to predict an action
     def GetActionVector(self):
         ai_state = self.ai_transformer.GetAIStateSpace(self.game_manager.game_state, self.game_manager.get_current_playable_cards())
-        print(ai_state)
         action_vec = self.q_model.__call__(np.array([ai_state], dtype = np.float))
 
         return action_vec

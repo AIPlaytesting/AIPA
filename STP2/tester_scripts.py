@@ -1,17 +1,10 @@
 import AI_Module.AI_Transformer
 import AI_Module.AI_Player_v1
-import game_manager
-from game_manager import GameManager
-from enemy_intent import EnemyIntent
+from gameplay.game_manager import GameManager
+from gameplay.enemy_intent import EnemyIntent
 import db.game_database
 
-
-# ai_t = AI_Module.AI_Transformer.AI_Transformer()
-
-# ai_t.PrintStateActionDef()
-
-
-# load game data based 
+# load game database
 db_root = db.game_database.calculate_root_dir()
 game_db = db.game_database.GameDatabase(db_root)
 game_db.print_data_to_terminal()
@@ -31,8 +24,3 @@ for action in actions:
     print(actions[action])
     print(vec[0][action])
 
-print(np.argmax(vec[0]))
-
-print("reward------------------------")
-for reward in vec[0]:
-    print(reward)

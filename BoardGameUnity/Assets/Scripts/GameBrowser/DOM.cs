@@ -20,6 +20,10 @@ namespace GameBrowser {
 
         public MarkupEntity GetMarkupEntityByID(string gameUniqueID) {
             foreach (var markupEntity in GameObject.FindObjectsOfType<MarkupEntity>()) {
+                if (markupEntity.hookedMarkup == null) {
+                    Debug.LogError(markupEntity.gameObject.name +" dont have hooked markup!");
+                    continue;
+                }
                 if (markupEntity.hookedMarkup.gameUniqueID == gameUniqueID) {
                     return markupEntity;
                 }

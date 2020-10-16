@@ -2,12 +2,13 @@ from .connection import Connection
 from .gameplay_kernel import GameplayKernel
 from .db_accessor import DBAccessor
 from .protocol import RequestMessage,ResponseMessage, PlayerStep,DBQuery, MarkupFactory
-
+from rlbot import RLBot
 class BackendMainloop:
-    def __init__(self,connection:Connection,gameplay_kernal:GameplayKernel,db_accessor:DBAccessor):
+    def __init__(self,connection:Connection,gameplay_kernal:GameplayKernel,db_accessor:DBAccessor,rlbot:RLBot):
         self.__connection  = connection
         self.__gameplay_kernal = gameplay_kernal
         self.__db_accessor = db_accessor
+        self.__rlbot = rlbot
 
     def run(self):
         print("back end running....")
@@ -80,4 +81,6 @@ class BackendMainloop:
 
     # return gamestate markup of current gamestate
     def __snapshot_gamestate_as_markup(self)->dict:
-        return MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())
+        gamestate_markup =  MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())
+        MarkupFactory.enrich_game_state_markup_with_RLinfo(gamestate_markup,self.__rlbot)
+        return gamestate_markup

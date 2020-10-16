@@ -12,7 +12,7 @@ namespace GameBrowser.Rendering {
         public TextMeshPro descripiton;
         public PlayCardInputTrigger playCardInputTrigger;
         public SpriteRenderer cardImgRenderer;
-
+        public CanvasAnchor rewardValueAnchor;
         private bool isInteractable = true;
         private bool isDraged = false;
         private Vector3 initPosition;

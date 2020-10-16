@@ -69,7 +69,7 @@ namespace GameBrowser.Rendering {
             // render reenforcement learning rewards value
             if (gameStateMarkup.rlRewardValues!= null) {
                 foreach (var rlValue in gameStateMarkup.rlRewardValues) {
-                    valueRenderer.Render(rlValue);
+                    RenderRLValue(rlValue);
                 }
             }
         }
@@ -80,7 +80,25 @@ namespace GameBrowser.Rendering {
             }
         }
 
-        private void RenderGameStageRelated(string stage) {
+        private void RenderRLValue(ValueMarkup valueMarkup) {
+            bool isOnHand = false;
+            foreach (var selectableEntity in GameObject.FindObjectsOfType<SelectableCardEntity>()) {
+                var cardMarkup = selectableEntity.hookedMarkup as CardMarkup;
+                if (cardMarkup.name == valueMarkup.name) {
+                    isOnHand = true;
+                    var GO = Instantiate(ResourceTable.Instance.rlrewardValueEntity);
+                    var rlValueEntity = GO.GetComponent<RewardValueEntity>();
+                    rlValueEntity.HookTo(valueMarkup);
+                    selectableEntity.rewardValueAnchor.AttachGameObjectToAnchor(GO);
+                }
+            }
+
+            if (!isOnHand) { 
+                // card is not playable
+            }
+        }
+
+            private void RenderGameStageRelated(string stage) {
             var sceneReference = GameBrowser.Instance.sceneReference;
             if (stage == GameStateMarkup.GAMESTAGE_WIN || stage == GameStateMarkup.GAMESTAGE_LOST) {
                 // win or lost

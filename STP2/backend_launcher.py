@@ -3,6 +3,8 @@ from backend.db_accessor import DBAccessor
 from backend.connection import Connection
 from backend.backend_mainloop import BackendMainloop
 
+from rlbot import RLBot
+
 from db.game_database import GameDatabase, calculate_root_dir
 from gameplay.game_manager import GameManager
 
@@ -21,6 +23,9 @@ game_manager = GameManager(game_db.game_app_data)
 db_accessor = DBAccessor(game_db)
 gameplay_kernel = GameplayKernel(game_manager)
 
+# creat and load RLBot
+rlbot = RLBot(game_manager)
+
 # create backendmainloop and run 
-backend_mainloop = BackendMainloop(connection,gameplay_kernel,db_accessor)
+backend_mainloop = BackendMainloop(connection,gameplay_kernel,db_accessor,rlbot)
 backend_mainloop.run()

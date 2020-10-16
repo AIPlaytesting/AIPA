@@ -1,4 +1,4 @@
-import game_manager
+import gameplay.game_manager
 import json
 import db.game_database
 
