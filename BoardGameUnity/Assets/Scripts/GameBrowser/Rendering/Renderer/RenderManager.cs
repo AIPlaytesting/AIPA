@@ -1,6 +1,7 @@
 ﻿using GameBrowser;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -68,8 +69,13 @@ namespace GameBrowser.Rendering {
 
             // render reenforcement learning rewards value
             if (gameStateMarkup.rlRewardValues!= null) {
+                var bestValue = -10f;
                 foreach (var rlValue in gameStateMarkup.rlRewardValues) {
-                    RenderRLValue(rlValue);
+                    bestValue = Mathf.Max(bestValue, rlValue.curValue);
+                }
+
+                foreach (var rlValue in gameStateMarkup.rlRewardValues) {
+                    RenderRLValue(rlValue,rlValue.curValue >= bestValue);
                 }
             }
         }
@@ -80,7 +86,7 @@ namespace GameBrowser.Rendering {
             }
         }
 
-        private void RenderRLValue(ValueMarkup valueMarkup) {
+        private void RenderRLValue(ValueMarkup valueMarkup,bool isBestValue) {
             bool isOnHand = false;
             foreach (var selectableEntity in GameObject.FindObjectsOfType<SelectableCardEntity>()) {
                 var cardMarkup = selectableEntity.hookedMarkup as CardMarkup;
@@ -89,6 +95,9 @@ namespace GameBrowser.Rendering {
                     var GO = Instantiate(ResourceTable.Instance.rlrewardValueEntity);
                     var rlValueEntity = GO.GetComponent<RewardValueEntity>();
                     rlValueEntity.HookTo(valueMarkup);
+                    if (isBestValue) {
+                        rlValueEntity.MarkAsBestMove();
+                    }
                     selectableEntity.rewardValueAnchor.AttachGameObjectToAnchor(GO);
                 }
             }
@@ -103,6 +112,7 @@ namespace GameBrowser.Rendering {
                             var GO = Instantiate(ResourceTable.Instance.rlrewardValueEntityUGUI);
                             var rlValueEntity = GO.GetComponent<RewardValueEntity>();
                             rlValueEntity.HookTo(valueMarkup);
+                            rlValueEntity.MarkAsUnPlayable();
                             viewCardEntity.rewardValueAnchor.AttachGameObjectToAnchor(GO);
                         }
                     }

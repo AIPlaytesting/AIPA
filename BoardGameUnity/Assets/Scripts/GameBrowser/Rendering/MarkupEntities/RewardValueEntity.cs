@@ -4,9 +4,11 @@ using TMPro;
 using UnityEngine;
 
 namespace GameBrowser.Rendering {
-    public class RewardValueEntity : MarkupEntity {
+    public class RewardValueEntity :HoverableEntity {
         public TextMeshPro valueText;
         public TextMeshProUGUI valueTextUGUI;
+        public GameObject bestMoveIndicator;
+
         public override void HookTo(Markup markup) {
             base.HookTo(markup);
             var valueMarkup = markup as ValueMarkup;
@@ -17,6 +19,19 @@ namespace GameBrowser.Rendering {
 
             if (valueTextUGUI) {
                 valueTextUGUI.text = valueStr;
+            }
+
+            tooltipText = "AI: rate is " + valueStr;
+        }
+
+        public void MarkAsUnPlayable() {
+            tooltipText = "AI: unplayable ";
+        }
+
+        public void MarkAsBestMove() {
+            tooltipText = "AI: best move! ";
+            if (bestMoveIndicator) {
+                bestMoveIndicator.SetActive(true);
             }
         }
     }
