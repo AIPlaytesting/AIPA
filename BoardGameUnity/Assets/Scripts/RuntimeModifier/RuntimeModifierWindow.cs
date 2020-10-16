@@ -16,6 +16,8 @@ public class RuntimeModifierWindow : MonoBehaviour
 
     public GameStateMarkup modifyTarget = null;
 
+    private Vector3 normalWindowSize;
+
     private void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -24,6 +26,8 @@ public class RuntimeModifierWindow : MonoBehaviour
             Debug.LogError("duplication singleton");
             GameObject.DestroyImmediate(gameObject);
         }
+
+        normalWindowSize = transform.localScale;
     }
 
     public void LoadFrom(GameStateMarkup gameStateMarkup) {
@@ -39,5 +43,14 @@ public class RuntimeModifierWindow : MonoBehaviour
 
     public void InformModificitonHappened() {
         GameRuntimeModifier.Instance.ApplyModification(modifyTarget);
+    }
+
+    public void ToLargerViewSize() {
+        normalWindowSize = transform.localScale;
+        transform.localScale = normalWindowSize * 1.5f;
+    }
+
+    public void ToNormalViewSize() {
+        transform.localScale = normalWindowSize;
     }
 }
