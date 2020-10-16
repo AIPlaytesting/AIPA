@@ -28,7 +28,10 @@ public class RuntimeModifierWindow : MonoBehaviour
 
     public void LoadFrom(GameStateMarkup gameStateMarkup) {
         modifyTarget = gameStateMarkup.MakeCopy();
+        Refresh();
+    }
 
+    public void Refresh() {
         playerStateModifyPage.HookModifyTarget(modifyTarget.player);
         enemyStateModifyPage.HookModifyTarget(modifyTarget.enemies[0]);
         cardsOnHandModifyPage.HookModifyTarget(modifyTarget.cardsOnHand);

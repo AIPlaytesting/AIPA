@@ -39,5 +39,6 @@ public class BuffAddModifyEntry :DropdownSelectEntry
         combatUnityModified.buffs = newBuffs.ToArray();
 
         RuntimeModifierWindow.Instance.InformModificitonHappened();
+        RuntimeModifierWindow.Instance.Refresh();
     }
 }

@@ -26,5 +26,6 @@ public class CardAddModifyEntry : DropdownSelectEntry
         newCardsOnHand.AddRange(RuntimeModifierWindow.Instance.modifyTarget.cardsOnHand);
         RuntimeModifierWindow.Instance.modifyTarget.cardsOnHand = newCardsOnHand.ToArray();
         RuntimeModifierWindow.Instance.InformModificitonHappened();
+        RuntimeModifierWindow.Instance.Refresh();
     }
 }
