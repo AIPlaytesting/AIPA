@@ -39,7 +39,7 @@ public class CombatUnitModifyPage : MonoBehaviour {
             GO.transform.localScale = Vector3.one;
             GO.name = "buff entry: " + buffmarkup.buffName;
             var buffEntry = GO.GetComponent<BuffModifyEntry>();
-            buffEntry.HookModifyTarget(buffmarkup);
+            buffEntry.HookModifyTarget(modifyTarget,buffmarkup);
             currentBuffEntries.Add(buffEntry);
         }
     }
