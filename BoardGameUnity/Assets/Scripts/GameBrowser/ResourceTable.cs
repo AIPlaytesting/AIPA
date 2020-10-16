@@ -10,13 +10,13 @@ namespace GameBrowser {
         public GameObject energyValueEntity;
         public GameObject bossSwitchModeValueEntity;
         public GameObject rlrewardValueEntity;
+        public GameObject rlrewardValueEntityUGUI;
         public GameObject drawPileWindowPrefab;
         public GameObject discardPileWindowPrefab;
         public GameObject playerEntityPrefab;
         public GameObject bossEntityPrefab;
         public GameObject enemyIntentEntityPrefab;
         public GameObject buffEntityPrefab;
-
         private void Awake() {
             if (Instance == null) {
                 Instance = this;

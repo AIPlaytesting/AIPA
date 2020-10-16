@@ -93,8 +93,20 @@ namespace GameBrowser.Rendering {
                 }
             }
 
-            if (!isOnHand) { 
+            if (!isOnHand) {
+                Debug.Log("rl value  not on hand: " + valueMarkup.name);
                 // card is not playable
+                foreach (var cardPileWindow in FindObjectsOfType<CardPileWindow>()) {
+                    foreach (var viewCardEntity in cardPileWindow.cardsInPile) {
+                        var cardMarkup = viewCardEntity.hookedMarkup as CardMarkup;
+                        if (cardMarkup.name == valueMarkup.name) {
+                            var GO = Instantiate(ResourceTable.Instance.rlrewardValueEntityUGUI);
+                            var rlValueEntity = GO.GetComponent<RewardValueEntity>();
+                            rlValueEntity.HookTo(valueMarkup);
+                            viewCardEntity.rewardValueAnchor.AttachGameObjectToAnchor(GO);
+                        }
+                    }
+                }
             }
         }
 

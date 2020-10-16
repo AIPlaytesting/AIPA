@@ -8,6 +8,7 @@ namespace GameBrowser.Rendering {
     public class CardPileWindow : MonoBehaviour {
         public float horiziontalGridSpace = 100;
         public int cardsPerHorizontalGroup = 4;
+        public List<ViewerCardEntity> cardsInPile = new List<ViewerCardEntity>();
 
         [SerializeField]
         private GameObject viewerCardPrefab;
@@ -17,7 +18,7 @@ namespace GameBrowser.Rendering {
         private GameObject windowViewRoot;
         [SerializeField]
         private GameObject gridRoot;
-        
+
         public void Init(CardMarkup[] cards,CanvasAnchor anchor) {
             // set to the right anchor
             transform.SetParent(anchor.transform);
@@ -43,6 +44,8 @@ namespace GameBrowser.Rendering {
                     var cardGO = Instantiate(viewerCardPrefab);
                     cardGO.transform.SetParent(horizonatalGroup.transform);
                     var viewerCardEntity = cardGO.GetComponent<ViewerCardEntity>();
+                    Debug.Log("add view card: " + card.name);
+                    cardsInPile.Add(viewerCardEntity);
                     viewerCardEntity.HookTo(card);
                 }
             }

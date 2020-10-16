@@ -11,6 +11,7 @@ namespace GameBrowser.Rendering {
         public TextMeshProUGUI costText;
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI descriptionText;
+        public CanvasAnchor rewardValueAnchor;
 
         private Sprite cardSprite = null;
         private WWW spriteWWW;
