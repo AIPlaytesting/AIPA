@@ -37,6 +37,8 @@ public class BuffAddModifyEntry :DropdownSelectEntry
         newBuffs.Add(buffToAdd);
         newBuffs.AddRange(combatUnityModified.buffs);
         combatUnityModified.buffs = newBuffs.ToArray();
+        // change the instance
+        buffToAdd = new BuffMarkup();
 
         RuntimeModifierWindow.Instance.InformModificitonHappened();
         RuntimeModifierWindow.Instance.Refresh();

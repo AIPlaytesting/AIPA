@@ -23,6 +23,7 @@ public class CardAddModifyEntry : DropdownSelectEntry
     public void OnClickAddButton() {
         var newCardsOnHand = new List<CardMarkup>();
         newCardsOnHand.Add(cardToAdd);
+        cardToAdd = new CardMarkup();
         newCardsOnHand.AddRange(RuntimeModifierWindow.Instance.modifyTarget.cardsOnHand);
         RuntimeModifierWindow.Instance.modifyTarget.cardsOnHand = newCardsOnHand.ToArray();
         RuntimeModifierWindow.Instance.InformModificitonHappened();
