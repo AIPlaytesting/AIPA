@@ -14,7 +14,7 @@ public abstract class DropdownSelectEntry : MonoBehaviour
     
     protected string currentValue { get; private set; }
 
-    private void Awake() {
+    protected virtual void Awake() {
         dropdown.onValueChanged.AddListener(delegate {OnDrapdownChanged(); });
     }
 
@@ -54,7 +54,7 @@ public abstract class DropdownSelectEntry : MonoBehaviour
     private void OnDrapdownChanged() {
         string dropdownValue = dropdown.options[dropdown.value].text;
         if (dropdownValue != currentValue) {
-            currentValue = dropdownValue;
+            SetCurrentValue(dropdownValue);
             OnDropdownValueChanged(currentValue);
         }
     }
