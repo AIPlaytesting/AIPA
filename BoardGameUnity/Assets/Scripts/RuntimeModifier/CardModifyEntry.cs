@@ -5,17 +5,15 @@ using UnityEngine.UI;
 using GameBrowser;
 using TMPro;
 
-public class CardModifyEntry : MonoBehaviour
+public class CardModifyEntry : DropdownSelectEntry
 {
     public Image cardImg;
-    public TextMeshProUGUI nameText;
-    public TMP_Dropdown dropdown;
-
     private Sprite cardSprite = null;
     private WWW spriteWWW;
     private CardMarkup modifyTarget;
-
-    private void Update() {
+    
+    protected void Update() {
+        base.Update();
         if (spriteWWW != null && spriteWWW.isDone && cardSprite == null) {
             var srcTex = spriteWWW.texture;
             if (srcTex) {
@@ -26,17 +24,12 @@ public class CardModifyEntry : MonoBehaviour
             }
             cardImg.sprite = cardSprite;
         }
-
-        // update dropdown options 
-       UpdateDropdownOptions();
     }
 
     public void HookModifyTarget(CardMarkup cardMarkup) {
         modifyTarget = cardMarkup;
-        nameText.text = cardMarkup.name;
         spriteWWW = new WWW(cardMarkup.imgAbsPath);
-        UpdateDropdownOptions();
-        dropdown.onValueChanged.AddListener(delegate { OnModifyHappened(); });
+        SetCurrentValue(cardMarkup.name);
     }
 
     public void OnDeleteEntry() {
@@ -52,27 +45,13 @@ public class CardModifyEntry : MonoBehaviour
         DestroyImmediate(gameObject);
     }
 
-    private void UpdateDropdownOptions() {
-        var options = new List<TMP_Dropdown.OptionData>();
-        options.Add(new TMP_Dropdown.OptionData("None"));
-        foreach (var cardname in GameRuntimeModifier.Instance.registeredCardnames) {
-            options.Add(new TMP_Dropdown.OptionData(cardname));
-        }
-        dropdown.options = options;
-
-        for (int i = 0; i < dropdown.options.Count; i++) {
-            if (dropdown.options[i].text == modifyTarget.name) {
-                dropdown.value = i;
-                break;
-            }
-        }
+    protected override void OnDropdownValueChanged(string newValue) {
+        modifyTarget.name = currentValue;
+        RuntimeModifierWindow.Instance.InformModificitonHappened();
     }
 
-    private void OnModifyHappened() {
-        if (modifyTarget.name != dropdown.options[dropdown.value].text) {
-            modifyTarget.name = dropdown.options[dropdown.value].text;
-            nameText.text = modifyTarget.name;
-            RuntimeModifierWindow.Instance.InformModificitonHappened();
-        }
+
+    protected override string[] GetDropdownOptions() {
+        return GameRuntimeModifier.Instance.registeredCardnames;
     }
 }
