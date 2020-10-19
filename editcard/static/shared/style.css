@@ -28,6 +28,26 @@
     float: right;
   }
 
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049; /* Green */
+  }
+
+  .start-button {
+    background-color: #d65600;
+    color:white;
+  }
+
   input[type=submit]:hover {
     background-color: #45a049;
   }
@@ -59,6 +79,12 @@
     margin-top: 6px;
   }
 
+  .col-100 {
+    float: left;
+    width: 100%;
+    margin-top: 6px;
+  }
+
   /* Clear floats after the columns */
   .row:after {
     content: "";
@@ -75,4 +101,8 @@
       width: 100%;
       margin-top: 0;
     }
+  }
+
+  .inline-display {
+    display: inline;
   }
