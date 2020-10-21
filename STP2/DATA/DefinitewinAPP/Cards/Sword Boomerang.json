@@ -3,7 +3,7 @@
     "type" : "Attack",
     "energy_cost" : 1,
     "damage_target" : "enemy",
-    "description":"Deal 3 damage to a random enemy 4 times.",
+    "description":"Deal 3 damage to a random enemy 3 times.",
     "img_relative_path":"swordboomerang.png",
 
     "damage_block_info" : {
