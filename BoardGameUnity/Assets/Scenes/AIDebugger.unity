@@ -1106,7 +1106,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
   m_TargetContent: {fileID: 306132142}
   m_ImageTarget: {fileID: 631719498}
   m_ImageTransition: 1
@@ -17966,7 +17966,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
   m_TargetContent: {fileID: 1235278875507915}
   m_ImageTarget: {fileID: 114275603367637799}
   m_ImageTransition: 1
