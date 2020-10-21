@@ -3,6 +3,8 @@
     "type" : "Attack",
     "energy_cost" : 0,
     "damage_target" : "enemy",
+    "description":"Deal damage equal to your Block.",
+    "img_relative_path":"bodyslam.png",
 
     "damage_block_info" : {
         "damage" : 0,

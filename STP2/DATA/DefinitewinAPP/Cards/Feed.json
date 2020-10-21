@@ -4,6 +4,7 @@
     "energy_cost" : 1,
     "damage_target" : "enemy",
     "description":"Deal 10 damage. If Fatal, raise your Max HP by 3. Exhaust.",
+    "img_relative_path":"feed.png",
 
     "damage_block_info" : {
         "damage" : 10,

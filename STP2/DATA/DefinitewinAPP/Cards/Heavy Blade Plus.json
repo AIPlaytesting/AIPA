@@ -3,6 +3,8 @@
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
+    "description":"Deal 14 damage. Strength affects Heavy Blade 5 times.",
+    "img_relative_path":"heavyblade.png",
 
     "damage_block_info" : {
         "damage" : 14,

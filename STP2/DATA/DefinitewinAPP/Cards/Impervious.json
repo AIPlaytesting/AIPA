@@ -4,6 +4,7 @@
     "energy_cost" : 2,
     "damage_target" : "enemy",
     "description":"Gain 30 Block. Exhuast",
+    "img_relative_path":"impervious.png",
 
     "damage_block_info" : {
         "damage" : 0,

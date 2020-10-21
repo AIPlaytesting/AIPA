@@ -3,6 +3,8 @@
     "type" : "Skill",
     "energy_cost" : 2,
     "damage_target" : "enemy",
+    "description":"Apply 5 Weak and Vulnerable to ALL enemies. Exhaust.",
+    "img_relative_path":"shockwave.png",
 
     "damage_block_info" : {
         "damage" : 0,

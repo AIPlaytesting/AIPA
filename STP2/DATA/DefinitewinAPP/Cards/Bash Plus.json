@@ -3,6 +3,8 @@
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
+    "description":"Deal 10 damage. Apply 3 Vulnerable.",
+    "img_relative_path":"bash.png",
 
     "damage_block_info" : {
         "damage" : 10,

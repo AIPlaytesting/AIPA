@@ -3,6 +3,8 @@
     "type" : "Attack",
     "energy_cost" : 0,
     "damage_target" : "enemy",
+    "description":"Deal 8 damage. Add a copy of this card into your discard pile.",
+    "img_relative_path":"anger.png",
 
     "damage_block_info" : {
         "damage" : 8,
