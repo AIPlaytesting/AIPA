@@ -91,7 +91,7 @@ class GameManager:
         self.game_state.boss.refresh_buff_on_new_turn()
         # log status
         self.game_state.boss.print_status_info("BOSS")
-        return GameEvent.create_new_turn_event(True)
+        return GameEvent.create_new_turn_event(False)
 
     # game flow func
     # return: game_event.GameEvent[]

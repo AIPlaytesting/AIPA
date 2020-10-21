@@ -25,6 +25,9 @@ class GameplayKernel:
 
     def get_game_state(self)->GameState:
         return self.__game_manager.game_state
+    
+    def get_game_manager(self)->GameManager:
+        return self.__game_manager
 
     # if a step can be applied in current situation
     def validate_player_step(self,player_step:PlayerStep)->(bool,str):

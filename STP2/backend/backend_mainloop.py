@@ -2,13 +2,13 @@ from .connection import Connection
 from .gameplay_kernel import GameplayKernel
 from .db_accessor import DBAccessor
 from .protocol import RequestMessage,ResponseMessage, PlayerStep,DBQuery, MarkupFactory
-from rlbot import RLBot
+
 class BackendMainloop:
-    def __init__(self,connection:Connection,gameplay_kernal:GameplayKernel,db_accessor:DBAccessor,rlbot:RLBot):
+    def __init__(self,connection:Connection,gameplay_kernal:GameplayKernel,db_accessor:DBAccessor):
         self.__connection  = connection
         self.__gameplay_kernal = gameplay_kernal
         self.__db_accessor = db_accessor
-        self.__rlbot = rlbot
+        self.__rlbot = None
 
     def run(self):
         print("back end running....")
@@ -36,6 +36,10 @@ class BackendMainloop:
         self.__connection.send_response(response)
 
     def __on_recv_reset_game(self):
+        # create RL Bot
+        if self.__rlbot == None:
+            from rlbot import RLBot
+            self.__rlbot = RLBot(self.__gameplay_kernal.get_game_manager())
         # reset game 
         gamesequence_markup = self.__execute_change_gamestate_func(self.__gameplay_kernal.reset_game)
         # send response
