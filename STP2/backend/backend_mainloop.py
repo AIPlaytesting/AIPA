@@ -38,9 +38,13 @@ class BackendMainloop:
     def __on_recv_reset_game(self,enable_rlbot:bool):
         # create RL Bot
         if enable_rlbot and self.__rlbot == None:
-            from rlbot import RLBot
-            self.__rlbot = RLBot(self.__gameplay_kernal.get_game_manager())
- 
+            try:
+                from rlbot import RLBot
+                self.__rlbot = RLBot(self.__gameplay_kernal.get_game_manager())
+            except Exception as e:
+                error_response = ResponseMessage.create_error_message_response("Failed to load AI: \n"+str(e))
+                self.__connection.send_response(error_response)
+                self.__rlbot = None
         # reset game 
         gamesequence_markup = self.__execute_change_gamestate_func(self.__gameplay_kernal.reset_game)
         # send response
