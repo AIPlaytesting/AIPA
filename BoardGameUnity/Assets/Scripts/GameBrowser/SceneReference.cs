@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GameBrowser {
     public class SceneReference : MonoBehaviour {
+        public GameObject loadingSign;
         public GameObject startGameBtn;
         public GameObject endTurnBtn;
         public GameObject skipBossTurnBtn;

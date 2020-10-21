@@ -38,6 +38,9 @@ namespace GameBrowser.Rendering {
         /// </summary>
         /// <param name="gameStateMarkup"></param>
         public void RenderGameState(GameStateMarkup gameStateMarkup) {
+            // disable loading sign, because render gamestate means succeeded to load
+            GameBrowser.Instance.sceneReference.loadingSign.SetActive(false);
+
             // clear all running animtion first
             animationRenderer.Clear();
 
