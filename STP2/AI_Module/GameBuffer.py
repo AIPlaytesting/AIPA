@@ -3,8 +3,9 @@ import AI_Module.TrainingDataCollector
 
 class GameBuffer:
     
-    def __init__(self, state_space, action_space, unplayable_pun):
-        
+    def __init__(self, state_space, action_space, unplayable_pun, isCustomCardRewards):
+
+        self.isCustomCardRewards = isCustomCardRewards
         self.state_space = state_space #key : string name, value : index
         self.action_space = action_space #key : index, value : name
         self.reward_functions = AI_Module.RewardFunctions.RewardFunctions(self.state_space, self.action_space)
@@ -98,56 +99,58 @@ class GameBuffer:
 
 
     def RewardCalculations(self):
-        end_reward_discounted = 0
 
         self.reward_functions.AssignGameLists(self.state_list_turns, self.new_state_list_turns, self.action_list_turns, \
             self.reward_list_turns, self.add_reward_list_turns, self.terminal_list_turns)
 
-        for turn_index in range(len(self.state_list_turns) - 1, -1, -1):
-            for step_index in range(len(self.state_list_turns[turn_index]) - 1, -1, -1):
-                self.reward_functions.AddRewardFromDamageBlock(turn_index, step_index)
+        if self.isCustomCardRewards:
+            for turn_index in range(len(self.state_list_turns) - 1, -1, -1):
+                for step_index in range(len(self.state_list_turns[turn_index]) - 1, -1, -1):
+                    self.reward_functions.AddRewardFromDamageBlock(turn_index, step_index)
 
-                action_neuron_number = self.action_list_turns[turn_index][step_index]
-                action_card = self.action_space[action_neuron_number]
+                    action_neuron_number = self.action_list_turns[turn_index][step_index]
+                    action_card = self.action_space[action_neuron_number]
 
-                reward_clothesline = 0
-                reward_disarm = 0
-                reward_flex = 0
-                reward_doubletap = 0
-                reward_bash = 0
-                reward_thunderclap = 0
-                reward_uppercut = 0
+                    reward_clothesline = 0
+                    reward_disarm = 0
+                    reward_flex = 0
+                    reward_doubletap = 0
+                    reward_bash = 0
+                    reward_thunderclap = 0
+                    reward_uppercut = 0
 
-                if action_card == "Clothesline":
-                    reward_clothesline = self.reward_functions.RewardFromClothesline(turn_index, step_index, isPlus = False)
-                elif action_card == "Clothesline Plus": 
-                    reward_clothesline = self.reward_functions.RewardFromClothesline(turn_index, step_index, isPlus = True)
-                elif action_card == "Disarm":
-                    reward_disarm = self.reward_functions.RewardFromDisarm(turn_index, step_index, isPlus = False)
-                elif action_card == "Disarm Plus": 
-                    reward_disarm = self.reward_functions.RewardFromDisarm(turn_index, step_index, isPlus = True)
-                elif action_card == "Flex":
-                    reward_flex = self.reward_functions.RewardFromFlex(turn_index, step_index, isPlus = False)
-                elif action_card == "Flex Plus":
-                    reward_flex = self.reward_functions.RewardFromFlex(turn_index, step_index, isPlus = True)
-                elif action_card == "Double Tap":
-                    reward_doubletap = self.reward_functions.RewardFromDoubleTap(turn_index, step_index)
-                elif action_card == "Bash":
-                    reward_bash = self.reward_functions.RewardFromBash(turn_index, step_index, isPlus = False)
-                elif action_card == "Bash Plus":
-                    reward_bash = self.reward_functions.RewardFromBash(turn_index, step_index, isPlus = True)
-                elif (action_card == "Thunderclap") or (action_card == "Thunderclap Plus"):
-                    reward_thunderclap = self.reward_functions.RewardFromThunderclap(turn_index, step_index)
-                elif action_card == "Uppercut":
-                    reward_uppercut = self.reward_functions.RewardFromUppercut(turn_index, step_index, isPlus = False)
-                elif action_card == "Uppercut Plus":
-                    reward_uppercut = self.reward_functions.RewardFromUppercut(turn_index, step_index, isPlus = True)
+                    if action_card == "Clothesline":
+                        reward_clothesline = self.reward_functions.RewardFromClothesline(turn_index, step_index, isPlus = False)
+                    elif action_card == "Clothesline Plus": 
+                        reward_clothesline = self.reward_functions.RewardFromClothesline(turn_index, step_index, isPlus = True)
+                    elif action_card == "Disarm":
+                        reward_disarm = self.reward_functions.RewardFromDisarm(turn_index, step_index, isPlus = False)
+                    elif action_card == "Disarm Plus": 
+                        reward_disarm = self.reward_functions.RewardFromDisarm(turn_index, step_index, isPlus = True)
+                    elif action_card == "Flex":
+                        reward_flex = self.reward_functions.RewardFromFlex(turn_index, step_index, isPlus = False)
+                    elif action_card == "Flex Plus":
+                        reward_flex = self.reward_functions.RewardFromFlex(turn_index, step_index, isPlus = True)
+                    elif action_card == "Double Tap":
+                        reward_doubletap = self.reward_functions.RewardFromDoubleTap(turn_index, step_index)
+                    elif action_card == "Bash":
+                        reward_bash = self.reward_functions.RewardFromBash(turn_index, step_index, isPlus = False)
+                    elif action_card == "Bash Plus":
+                        reward_bash = self.reward_functions.RewardFromBash(turn_index, step_index, isPlus = True)
+                    elif (action_card == "Thunderclap") or (action_card == "Thunderclap Plus"):
+                        reward_thunderclap = self.reward_functions.RewardFromThunderclap(turn_index, step_index)
+                    elif action_card == "Uppercut":
+                        reward_uppercut = self.reward_functions.RewardFromUppercut(turn_index, step_index, isPlus = False)
+                    elif action_card == "Uppercut Plus":
+                        reward_uppercut = self.reward_functions.RewardFromUppercut(turn_index, step_index, isPlus = True)
 
-                special_reward_sum = reward_clothesline + reward_disarm + reward_flex + reward_doubletap + \
-                                        + reward_bash + reward_thunderclap + reward_uppercut
+                    special_reward_sum = reward_clothesline + reward_disarm + reward_flex + reward_doubletap + \
+                                            + reward_bash + reward_thunderclap + reward_uppercut
 
-                self.add_reward_list_turns[turn_index][step_index] += special_reward_sum
+                    self.add_reward_list_turns[turn_index][step_index] += special_reward_sum
 
+        end_reward_discounted = 0
+        
         for turn_index in range(len(self.state_list_turns) - 1, -1, -1):
             for step_index in range(len(self.state_list_turns[turn_index]) - 1, -1, -1):
             

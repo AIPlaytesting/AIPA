@@ -16,11 +16,11 @@ import winsound
 #initialize the environment
 env = Environment.Environment()
 
-game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, env.ai_transformer.action_space, env.unplayable_card_pun)
+game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, env.ai_transformer.action_space, env.unplayable_card_pun,isCustomCardRewards = False)
 game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
 
 #Replace string with file description is needed
-data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'fix wrong card-overnight')
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'no custom rewards-overnight')
 
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim

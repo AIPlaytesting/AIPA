@@ -148,7 +148,7 @@ class AI_Brain:
         #update q_model training count
         self.q_model_current.training_counter += 1
 
-        if self.q_model_current.training_counter >= 500000:
+        if self.q_model_current.training_counter >= 300000:
             self.SwitchQModels()
 
 
