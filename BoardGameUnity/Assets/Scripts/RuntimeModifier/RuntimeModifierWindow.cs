@@ -15,6 +15,7 @@ public class RuntimeModifierWindow : MonoBehaviour
     private CardsOnHandModifyPage cardsOnHandModifyPage;
 
     public GameStateMarkup modifyTarget = null;
+    public GameObject displayRoot;
 
     private Vector3 normalWindowSize;
 

@@ -42,13 +42,13 @@ public class GameRuntimeModifier : MonoBehaviour
         dbAccessor.GetRegisteredCardnames((string result) => { OnCardnamesQueryResult(result); });
         dbAccessor.GetRegisteredBuffnames((string result)=> { OnBuffnamesQueryResult(result); });
 
-        modifierWindow.gameObject.SetActive(true);
+        modifierWindow.displayRoot.SetActive(true);
 
         SetPlayerStepInputControl(false);
     }
 
     public void CloseModiferWindow() {
-        modifierWindow.gameObject.SetActive(false);
+        modifierWindow.displayRoot.SetActive(false);
 
         SetPlayerStepInputControl(true);
     }
