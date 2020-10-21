@@ -1,0 +1,103 @@
+{
+    "name" : "Impervious",
+    "type" : "Skill",
+    "energy_cost" : 2,
+    "damage_target" : "enemy",
+    "description":"Gain 30 Block. Exhuast",
+
+    "damage_block_info" : {
+        "damage" : 0,
+        "damage_instances" : 0,
+        "block" : 30
+    },
+
+    "card_life_cycle_info" : {
+        "copies_in_discard_pile_when_played" : 0,
+        "draw_card" : 0
+    },
+
+    "buffs_info":{
+        "Weakened" : {
+            "value" : 0,
+            "target" : "enemy" 
+        },
+        "Vulnerable" : {
+            "value" : 0,
+            "target" : "enemy" 
+        },
+        "Strength" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Artifact" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Thorns" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Barricade" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Metallicise" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Plated Armor" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Intangible" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Regen" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Frail" : {
+            "value" : 0,
+            "target" : "enemy" 
+        },
+        "Dexterity" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Entangled" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Flex" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Blur" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "DrawReduction" : {
+            "value" : 0,
+            "target" : "enemy" 
+        },
+        "Minion" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Poison" : {
+            "value" : 0,
+            "target" : "self" 
+        },
+        "Shackled" : {
+            "value" : 0,
+            "target" : "self" 
+        }
+    },
+
+    "special_modifiers_info" : {
+        "unique_damage" : "none",
+        "strength_multiplier" : 1,
+        "next_attack_count" : 1
+    }
+}
