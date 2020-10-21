@@ -17,9 +17,10 @@ namespace GameBrowser {
             GameBrowser.Instance.frontEndConnection.SendRequest(request);
         }
 
-        public void RegisterResetGameAction() {
+        public void RegisterResetGameAction(bool enableRLBot) {
             var request = new RequestMessage();
             request.method = "ResetGame";
+            request.enableRLBot = enableRLBot;
             GameBrowser.Instance.frontEndConnection.SendRequest(request);
         }
 

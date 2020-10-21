@@ -35,8 +35,9 @@ class PlayerStep:
 # each method has its own field,
 # for example, method 'UserInput' has its inforamtion stored in field 'self.user_input'
 class RequestMessage:
-    def __init__(self,method,player_step:PlayerStep,db_query:DBQuery,gamestate_markup:dict):
+    def __init__(self,method,enable_rlbot:bool,player_step:PlayerStep,db_query:DBQuery,gamestate_markup:dict):
         self.method = method # method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'ReverseGamestate'/None'
+        self.enable_rlbot = enable_rlbot
         self.player_step = player_step # PlayerStep
         self.db_query = db_query
         self.gamestate_markup = gamestate_markup
@@ -50,15 +51,15 @@ class RequestMessage:
                 player_step_dict['type'],
                 player_step_dict['cardName'],
                 player_step_dict['cardGUID'])
-            return RequestMessage(method,player_step,None,None)
+            return RequestMessage(method,False,player_step,None,None)
         elif method == 'DBQuery':
             dbquery_dict = request_dict['dbQuery']
             dbquery = DBQuery(dbquery_dict['queryID'],dbquery_dict['querySentence'])
-            return RequestMessage(method,None,dbquery,None)
+            return RequestMessage(method,False,None,dbquery,None)
         elif method == 'ResetGame':
-            return RequestMessage(method,None,None,None)
+            return RequestMessage(method,request_dict['enableRLBot'],None,None,None)
         elif method == 'ReverseGamestate':
-            return RequestMessage(method,None,None,request_dict['gameStateMarkup'])
+            return RequestMessage(method,False,None,None,request_dict['gameStateMarkup'])
         else:
             print("undefined method: ",method)
             return None

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameBrowser {
+    // method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'ReverseGamestate'/None'
     [System.Serializable]
     public class RequestMessage {
         public string method = "None";
-        public PlayerStep playerStep = null;
-        public DBQuery dbQuery = null;
-        public GameStateMarkup gameStateMarkup = null;
+        public bool enableRLBot = false; // for method: 'ResetGame'
+        public PlayerStep playerStep = null; // for method: 'PlayerStep'
+        public DBQuery dbQuery = null; // for method: 'DBQuery'
+        public GameStateMarkup gameStateMarkup = null; // for method: 'ReverseGamestate'
     }
 }

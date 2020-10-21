@@ -15,7 +15,7 @@ class BackendMainloop:
         while True:
             request = self.__connection.wait_one_request()
             if request.method == 'ResetGame':
-                self.__on_recv_reset_game()
+                self.__on_recv_reset_game(request.enable_rlbot)
             elif request.method == 'PlayerStep':
                 self.__on_recv_player_step(request.player_step)
             elif request.method == 'DBQuery':
@@ -35,11 +35,12 @@ class BackendMainloop:
         response = ResponseMessage.cretate_dbquery_result_response(dbquery.query_id,query_result)
         self.__connection.send_response(response)
 
-    def __on_recv_reset_game(self):
+    def __on_recv_reset_game(self,enable_rlbot:bool):
         # create RL Bot
-        if self.__rlbot == None:
+        if enable_rlbot and self.__rlbot == None:
             from rlbot import RLBot
             self.__rlbot = RLBot(self.__gameplay_kernal.get_game_manager())
+ 
         # reset game 
         gamesequence_markup = self.__execute_change_gamestate_func(self.__gameplay_kernal.reset_game)
         # send response
@@ -86,5 +87,7 @@ class BackendMainloop:
     # return gamestate markup of current gamestate
     def __snapshot_gamestate_as_markup(self)->dict:
         gamestate_markup =  MarkupFactory.create_game_state_markup(self.__gameplay_kernal.get_game_state())
-        MarkupFactory.enrich_game_state_markup_with_RLinfo(gamestate_markup,self.__rlbot)
+        # TODO: should only add AI info if it is enabled
+        if self.__rlbot != None:
+            MarkupFactory.enrich_game_state_markup_with_RLinfo(gamestate_markup,self.__rlbot)
         return gamestate_markup
