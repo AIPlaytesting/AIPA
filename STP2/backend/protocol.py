@@ -36,7 +36,7 @@ class PlayerStep:
 # for example, method 'UserInput' has its inforamtion stored in field 'self.user_input'
 class RequestMessage:
     def __init__(self,method,enable_rlbot:bool,player_step:PlayerStep,db_query:DBQuery,gamestate_markup:dict):
-        self.method = method # method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'ReverseGamestate'/None'
+        self.method = method # method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'ReverseGamestate'/'Terminate'/'None'
         self.enable_rlbot = enable_rlbot
         self.player_step = player_step # PlayerStep
         self.db_query = db_query
@@ -60,8 +60,10 @@ class RequestMessage:
             return RequestMessage(method,request_dict['enableRLBot'],None,None,None)
         elif method == 'ReverseGamestate':
             return RequestMessage(method,False,None,None,request_dict['gameStateMarkup'])
+        elif method == 'Terminate':
+            return RequestMessage(method,False,None,None,None)
         else:
-            print("undefined method: ",method)
+            print("[ERROR]-protocol undefined method: ",method)
             return None
 
 class ResponseMessage:

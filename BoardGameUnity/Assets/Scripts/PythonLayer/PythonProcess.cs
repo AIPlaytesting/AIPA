@@ -70,9 +70,9 @@ namespace AIPlaytesing.Python {
             }
         }
 
-        public void Send(string messageStr) {
+        public void Send(string messageStr,bool urgent = false) {
             try {
-                processSocket.SendMessage(new Message(messageStr));
+                processSocket.SendMessage(new Message(messageStr),urgent);
             }
             catch(Exception e) {
                 UnityEngine.Debug.LogError(e.Message);

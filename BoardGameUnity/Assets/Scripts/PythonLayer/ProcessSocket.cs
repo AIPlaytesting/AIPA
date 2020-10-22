@@ -40,8 +40,13 @@ namespace AIPlaytesing.Python {
         }
 
         #region public method
-        public void SendMessage(Message message) {
-            msgSendQueue.Add(message);
+        public void SendMessage(Message message, bool urgent = false) {
+            if (urgent) {
+                peerSocket.Send(Encoding.ASCII.GetBytes(PDU_DIVIDOR + message.body));
+            }
+            else {
+                msgSendQueue.Add(message);
+            }
         }
 
         public Message[] Read() {

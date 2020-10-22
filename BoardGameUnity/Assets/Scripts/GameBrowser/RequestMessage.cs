@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameBrowser {
-    // method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'ReverseGamestate'/None'
+    // method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'ReverseGamestate'/"Terminate"/None'
     [System.Serializable]
     public class RequestMessage {
         public string method = "None";

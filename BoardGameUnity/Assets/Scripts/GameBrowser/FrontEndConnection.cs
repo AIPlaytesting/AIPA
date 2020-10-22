@@ -15,14 +15,25 @@ namespace GameBrowser {
         public OnReceiveResponse onReceiveResponse;
         public OnConnect onConnect;
 
+        private void OnApplicationQuit() {
+            var request = new RequestMessage();
+            request.method = "Terminate";
+            SendRequest(request,true);
+        }
+
         public void Init() {
             pythonProcess.Run();
             pythonProcess.onMessageResponse += ProcessResponse;
             pythonProcess.onLaunchSucceed += ()=> { onConnect(); };
         }
 
-        public void SendRequest(RequestMessage requestMessage) {
-            pythonProcess.Send(JsonUtility.ToJson(requestMessage));
+        /// <summary>
+        /// urgent message will be sent immediately
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <param name="urgent"></param>
+        public void SendRequest(RequestMessage requestMessage, bool urgent = false) {
+            pythonProcess.Send(JsonUtility.ToJson(requestMessage),urgent);
         }
 
         private void ProcessResponse(string response) {
