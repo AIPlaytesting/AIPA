@@ -110,7 +110,6 @@ class GameManager:
     # return: game_event.GameEvent[]
     def execute_play_card(self, cardname):
         game_events = self.event_manager.execute_card(self.game_state,cardname)
-        #game_events = self.card_play_manager.PlayCard(cardname)
         if self.is_game_end():
             self.game_state.game_stage = 'Win' if self.is_player_win() else 'Lost'
         return game_events
@@ -120,8 +119,8 @@ class GameManager:
         playable_cards = []
 
         for card_name in self.game_state.deck.get_card_names_on_hand():
-            if card_name in self.card_play_manager.cards_dict:
-                card = self.card_play_manager.cards_dict[card_name]
+            if card_name in self.game_app_data.cards_dict:
+                card = self.game_app_data.cards_dict[card_name]
                 if card.energy_cost <= self.game_state.player_energy:
                     playable_cards.append(card_name)
             else:

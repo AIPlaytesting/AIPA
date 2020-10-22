@@ -43,7 +43,7 @@ def play_one_round(is_AI_mode,game_manager:GameManager):
             else:
                 card_to_play = player_input
                 print("player play card: ", card_to_play)
-                game_manager.card_play_manager.PlayCard(card_to_play)               
+                game_manager.execute_play_card(card_to_play)   
 
         if is_AI_mode:
             pass

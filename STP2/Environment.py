@@ -1,6 +1,6 @@
 
 import AI_Module.AI_Transformer
-import game_manager
+from gameplay.game_manager import GameManager
 import numpy as np
 import db.game_database
 
@@ -13,7 +13,7 @@ class Environment:
 
         db_root = db.game_database.calculate_root_dir()
         game_db = db.game_database.GameDatabase(db_root)
-        self.game_manager = game_manager.GameManager(game_db.game_app_data)
+        self.game_manager = GameManager(game_db.game_app_data)
         self.action_cards_played = {}
         self.win_count = 0
         self.win_int = 0
@@ -91,7 +91,12 @@ class Environment:
             action_card = self.ai_transformer.GetGameAction(action_neuron_number)
 
             if self.IsCardPlayable(action_neuron_number):
-                self.game_manager.card_play_manager.PlayCard(action_card)
+                # NOTICE: game_manager doesn't expose card_play_manager anymore, use execute_play_card() instead
+                # PREVIOUS:
+                # self.game_manager.card_play_manager.PlayCard(action_card)
+                # CURRENT:
+                self.game_manager.execute_play_card(action_card)
+
                 print("Player took action : " + action_card)
             else:
                 #negative reward for trying to play a card that is not playable
