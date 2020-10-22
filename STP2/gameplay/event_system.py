@@ -57,9 +57,18 @@ class EventManager:
         return game_events
 
     # return GameEvent[]
-    def execute_enemy_intent(self,game_state:GameState,intent:EnemyIntent)->[]:
-        pass
-  
+    def execute_enemy_intent(self,game_state:GameState)->[]:
+        intent = game_state.boss_intent
+        if intent.is_attack :
+            return self.__on_attack(game_state,game_state.boss,game_state.player,intent.attack_value)
+        elif intent.is_block:
+            return self.__on_change_block_value(intent.block_value,game_state.boss) 
+        elif intent.is_debuff:
+            return self.__on_apply_buff_to(intent.debuff_type,intent.debuff_value,game_state.player) 
+        elif intent.is_enbuff:
+            return self.__on_apply_buff_to(intent.enbuff_type,intent.enbuff_value,game_state.boss) 
+        return  []
+
     # return GameEvent[]
     def __execute_card_buffs(self,game_state:GameState,card:Card)->[]:
         game_events = []
@@ -180,6 +189,8 @@ class EventManager:
 
     def __on_change_energy(self,game_state:GameState, incremental_val:int):
         game_state.player_energy += incremental_val
-
+        
+    # TODO: return real game event
     def __on_apply_buff_to(self,buffname:str,incremental_val:int,target:CombatUnit):
         target.buff_dict[buffname] += incremental_val
+        return []

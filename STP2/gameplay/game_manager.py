@@ -5,7 +5,6 @@ from .enemy_intent import EnemyIntent
 from .enemy_AI import EnemyAI
 from .game_event import GameEvent
 from .deck import Deck
-from .card_play_manager import CardPlayManager
 from .game_state import GameState
 from .event_system import EventManager
 
@@ -23,9 +22,8 @@ PLAYER_ENERGY = 3
 class GameManager:
     def __init__(self,game_app_data:GameAppData):
         self.game_app_data = game_app_data
-        self.card_play_manager = CardPlayManager(self)
         self.event_manager = EventManager(self.game_app_data)
-        self.game_state = GameState(game_app_data,self.card_play_manager.cards_dict.keys())
+        self.game_state = GameState(game_app_data)
         # TODO:deprecate
         self.__end_player_turn_flag = False
 
@@ -33,7 +31,7 @@ class GameManager:
         self.isLoggingEnabled = True
 
     def init_game(self):
-        self.game_state = GameState(self.game_app_data,self.card_play_manager.cards_dict.keys())
+        self.game_state = GameState(self.game_app_data)
 
     def is_game_end(self):
         player_hp, boss_hp = self.game_state.player.current_hp,self.game_state.boss.current_hp
@@ -98,9 +96,12 @@ class GameManager:
     # return: game_event.GameEvent[]
     def execute_enemy_intent(self):
         game_events = []
+        # create-intent event
         game_events.append(GameEvent.create_enemy_intent_event(self.game_state.boss.game_unique_id))
-        intent_execte_events = self.game_state.boss_intent.apply_to(self.game_state,self.card_play_manager.card_effects_manager)
+        # execut intent and get events
+        intent_execte_events = self.event_manager.execute_enemy_intent(self.game_state)
         game_events.extend(intent_execte_events)
+        # check if game is ended
         if self.is_game_end():
             self.game_state.game_stage = 'Win' if self.is_player_win() else 'Lost'
         return game_events

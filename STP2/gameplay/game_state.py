@@ -6,7 +6,7 @@ from .enemy_intent import EnemyIntent
 
 PLAYER_ENERGY = 3
 class GameState:
-    def __init__(self,game_app_data:GameAppData,all_card_names):
+    def __init__(self,game_app_data:GameAppData):
         rules = game_app_data.rules
         all_buffnames = game_app_data.registered_buffnames
         self.game_stage = "PlayerTurn"# can be 'PlayerTurn'/'EnemyTurn'/'Win'/'Lost'
