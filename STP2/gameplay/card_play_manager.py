@@ -1,13 +1,12 @@
-from . import game_manager
-from . import effect_calculator
+from .effect_calculator import EffectCalculator
 from .game_event import GameEvent
 
 class CardPlayManager:
     # this class creates and manages instances of the cards
 
-    def __init__(self, game_manager, effect_calculator):
+    def __init__(self, game_manager):
         self.game_manager = game_manager
-        self.card_effects_manager = effect_calculator
+        self.card_effects_manager = EffectCalculator(game_manager)
         self.CreateCardInstances(game_manager.game_app_data)
         self.next_attack_count = 1
 
