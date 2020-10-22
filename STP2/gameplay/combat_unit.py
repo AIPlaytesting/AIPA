@@ -5,7 +5,7 @@ class CombatUnit:
         self.max_hP = init_hp
         self.current_hp = init_hp
         self.block = 0
-        # the value in buff dict is the value(int) of buff
+        # key:buffname, value: the value(int) of buff
         self.buff_dict = {}
         for buffname in all_buffnames:
             self.buff_dict[buffname] = 0
