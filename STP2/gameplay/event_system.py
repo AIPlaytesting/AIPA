@@ -89,10 +89,10 @@ class EventManager:
             if card.special_mod['unique_damage'] == 'none':
                 damage_value = card.damage_block['damage']
             elif card.special_mod['unique_damage'] == 'block':
-                damage_value = self.game_manager.game_state.player.block
+                damage_value = game_state.player.block
             
             # apply attack
-            damage_events = self.__on_attack(game_state.boss_AI, game_state.player,game_state.boss,damage_value)
+            damage_events = self.__on_attack(game_state, game_state.player,game_state.boss,damage_value)
             game_events.extend(damage_events)
 
             # damage_events = self.card_effects_manager.DealDamage(self.game_manager.game_state.player, self.game_manager.game_state.boss,
@@ -112,31 +112,31 @@ class EventManager:
     # difference between "on_attack" and "on_take_damage" is:
     #       "on_attack" will apply all buff effects such as throns, weaken,etc.
     #       "on_take_damage" just basiclly take the final damage result, only consider block
-    # TODO：remove BOSSAI from paras
+    # TODO：remove game state from paras
     # TODO: heavy blade,strength_multiplier
     # return GameEvent[]
-    def __on_attack(self,boss_AI,attack_source:CombatUnit, attack_target:CombatUnit, attack_value:int):
+    def __on_attack(self,game_state:GameState,attack_source:CombatUnit, attack_target:CombatUnit, attack_value:int):
         game_events = []
-       
+
         # condider buffs 
-        attack_value =+ attack_source.buff_dict['Strength'] 
+        attack_value += attack_source.buff_dict['Strength'] 
         if attack_source.buff_dict['Weakened'] > 0 :
             attack_value *= 0.75
         if attack_target.buff_dict['Vulnerable'] > 0 :
             attack_value *= 1.5
         if attack_target.buff_dict['Thorns'] > 0 :
-           thron_damage_events = self.__on_take_damage(boss_AI,attack_source,attack_target.buff_dict['Thorns'])
+           thron_damage_events = self.__on_take_damage(game_state,attack_target,attack_source,attack_target.buff_dict['Thorns'])
            game_events.extend(thron_damage_events)
         attack_value = int(attack_value)
 
         # apply real damage
-        damage_events = self.__on_take_damage(boss_AI,attack_source,attack_target,attack_value)
+        damage_events = self.__on_take_damage(game_state,attack_source,attack_target,attack_value)
         game_events.extend(damage_events)
         return game_events
     
     # return GameEvent[]
-    # TODO: remove BOSS AI in parameter list
-    def __on_take_damage(self,boss_AI,damage_source:CombatUnit, damage_target:CombatUnit, damage_value:int):
+    # TODO: remove game_state in parameter list
+    def __on_take_damage(self,game_state:GameState,damage_source:CombatUnit, damage_target:CombatUnit, damage_value:int):
         game_events = []
         # consider block
         blocked_value = 0
@@ -159,6 +159,7 @@ class EventManager:
         # TODO remove this part into other place!
         # print remaining number to trigger mode shift
         # if boss is in offensive mode, charge accumulator and turn to defensive if over 30
+        boss_AI = game_state.boss_AI
         if damage_target.game_unique_id == 'boss' and boss_AI.mode == 'Offensive':
             boss_AI.accumulator += damage_value
 
@@ -168,7 +169,7 @@ class EventManager:
                 boss_AI.boss.block += 20
                 boss_AI.curStateIndex = 0
                 # refresh current intent on game state
-                self.game_manager.game_state.boss_intent = boss_AI.make_intent()
+                game_state.boss_intent = boss_AI.make_intent()
                 print('Transform to Defensive mode')
             else:
                 print("Boss will switch mode in", boss_AI.transformTriggerPoint - boss_AI.accumulator, "damages")
