@@ -3,6 +3,8 @@
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
+    "description":"Deal 12 damage. Apply 2 Weak.",
+    "img_relative_path":"clothesline.png",
 
     "damage_block_info" : {
         "damage" : 12,

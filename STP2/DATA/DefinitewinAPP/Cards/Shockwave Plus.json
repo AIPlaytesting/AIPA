@@ -1,14 +1,14 @@
 {
-    "name" : "Disarm",
+    "name" : "Shockwave Plus",
     "type" : "Skill",
-    "energy_cost" : 1,
+    "energy_cost" : 2,
     "damage_target" : "enemy",
-    "description":"Enemy loses 2 Strength. Exhaust.",
-    "img_relative_path":"disarm.png",
+    "description":"Apply 5 Weak and Vulnerable to ALL enemies. Exhaust.",
+    "img_relative_path":"shockwave.png",
 
     "damage_block_info" : {
         "damage" : 0,
-        "damage_instances" : 0,
+        "damage_instances" : 1,
         "block" : 0
     },
 
@@ -19,16 +19,16 @@
 
     "buffs_info":{
         "Weakened" : {
-            "value" : 0,
+            "value" : 5,
             "target" : "enemy" 
         },
         "Vulnerable" : {
-            "value" : 0,
+            "value" : 5,
             "target" : "enemy" 
         },
         "Strength" : {
-            "value" : -2,
-            "target" : "enemy" 
+            "value" : 0,
+            "target" : "self" 
         },
         "Artifact" : {
             "value" : 0,

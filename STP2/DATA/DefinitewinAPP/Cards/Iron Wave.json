@@ -3,6 +3,8 @@
     "type" : "Attack",
     "energy_cost" : 1,
     "damage_target" : "enemy",
+    "description":"Gain 5 Block. Deal 5 damage.",
+    "img_relative_path":"ironwave.png",
 
     "damage_block_info" : {
         "damage" : 5,

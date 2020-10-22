@@ -3,7 +3,7 @@
     "energy_cost" : 1,
     "type" : "Attack",
     "damage_target" : "enemy",
-    "description":"dealdamage and draw 1 Card",
+    "description":"deal 10 damage and draw 2 Card",
     "img_relative_path":"pommelstrike.png",
 
     "damage_block_info" : {

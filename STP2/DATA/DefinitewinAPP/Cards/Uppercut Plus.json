@@ -3,6 +3,9 @@
     "type" : "Attack",
     "energy_cost" : 2,
     "damage_target" : "enemy",
+    "description":"Deal 13 damage. Apply 2 Weak. Apply 2 Vulnerable.",
+    "img_relative_path":"uppercut.png",
+
 
     "damage_block_info" : {
         "damage" : 13,

@@ -1,14 +1,15 @@
 {
-    "name" : "Disarm",
-    "type" : "Skill",
+    "name" : "Feed Plus",
+    "type" : "Attack",
     "energy_cost" : 1,
     "damage_target" : "enemy",
-    "description":"Enemy loses 2 Strength. Exhaust.",
-    "img_relative_path":"disarm.png",
+    "description":"Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+    "img_relative_path":"feed.png",
+
 
     "damage_block_info" : {
-        "damage" : 0,
-        "damage_instances" : 0,
+        "damage" : 12,
+        "damage_instances" : 1,
         "block" : 0
     },
 
@@ -27,8 +28,8 @@
             "target" : "enemy" 
         },
         "Strength" : {
-            "value" : -2,
-            "target" : "enemy" 
+            "value" : 0,
+            "target" : "self" 
         },
         "Artifact" : {
             "value" : 0,
