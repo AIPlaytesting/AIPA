@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel='stylesheet' href='style.css'>
+</head>
+
+<body>
+  <a name="top"></a>
+  <h2 class='center'>Generate Your Own Card!!!</h2>
+  <p class='center'>Fill out the form and click save.</p>
+  <p class='right'><a href='index.html'>Home</a></p>
+  <label for="cardsSelect">Choose a card:</label>
+  <select name="cardsSelect" id="cardsSelect" onchange="readCard()"></select>
+
+  <div class="container">
+    <form id='saveForm'>
+      <div class="row">
+        <div class="col-25">
+          <label for="name">Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="name" name="name" value="name">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="type">Type</label>
+        </div>
+        <div class="col-75">
+          <select id="type" name="type">
+            <option value="Attack">Attack</option>
+            <option value="Skill">Skill</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="energy_cost">Energy cost</label>
+        </div>
+        <div class="col-75">
+          <input type='number' id="energy_cost" name="energy_cost" value="0">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="damage_target">damage_target</label>
+        </div>
+        <div class="col-75">
+          <select id="damage_target" name="damage_target">
+            <option value="enemy">enemy</option>
+            <option value="self">self</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="description">description</label>
+        </div>
+        <div class="col-75">
+          <input type='text' id="description" name="description" value="description">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="img_relative_path">img_relative_path</label>
+        </div>
+        <div class="col-75">
+          <input type='text' id="img_relative_path" name="img_relative_path" value="img_relative_path">
+        </div>
+      </div>
+
+      <h3>damage block info:</h3>
+      <div class="row">
+        <div class="col-25">
+          <label for="damage">damage</label>
+        </div>
+        <div class="col-75">
+          <input type='number' id='damage' name='damage' value="0">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="damage_instances">damage_instances</label>
+        </div>
+        <div class="col-75">
+          <input type='number' id='damage_instances' name='damage_instances' value="0">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="block">block</label>
+        </div>
+        <div class="col-75">
+          <input type='number' id='block' name='block' value="0">
+        </div>
+      </div>
+
+      <h3>card_life_cycle_info:</h3>
+      <div class="row">
+        <div class="col-25">
+          <label for="copies_in_discard_pile_when_played">copies_in_discard_pile_when_played</label>
+        </div>
+        <div class="col-75">
+          <input type='number' id='copies_in_discard_pile_when_played' name='copies_in_discard_pile_when_played' value="0">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="draw_card">draw_card</label>
+        </div>
+        <div class="col-75">
+          <input type='number' id='draw_card' name='draw_card' value="0">
+        </div>
+      </div>
+
+      <h3>buffs_info:</h3>
+      <!-- <div class='row'> -->
+        <table id='buff-table'>
+        </table>
+      <!-- </div> -->
+      
+      <h3>special_modifiers_info:</h3>
+      <div class="row">
+        <div class="col-25">
+          <label for="unique_damage">unique_damage</label>
+        </div>
+        <div class="col-75">
+          <input type='text' id='unique_damage' name='unique_damage' value="none">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="strength_multiplier">strength_multiplier</label>
+        </div>
+        <div class="col-75">
+          <input type='text' id='strength_multiplier' name='strength_multiplier' value="1">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="next_attack_count">next_attack_count</label>
+        </div>
+        <div class="col-75">
+          <input type='number' id='next_attack_count' name='next_attack_count' value="1">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <button type="submit">Save</button>
+      </div>
+    </form>
+    <p class='right'><a href='index.html'>Home</a></p>
+    <p class='right'><a href="#top">Back to top of page</a></p> 
+  </div>
+  
+  <script>
+    const electron = require('electron');
+    const fs = require('fs');
+
+    let filePath = '../DATA/DefinitewinAPP/Cards/'
+
+    // append all cards in select options
+    const select = document.getElementById('cardsSelect');
+    // console.log(select);
+    fs.readdir(filePath, (err, files) => {
+      if (err) throw err;
+      files.forEach(file => {
+        file = file.slice(0, -5);
+        // console.log('file name = ' + file);
+        const option = document.createElement('option');
+        option.value = file;
+        option.innerHTML = file;
+        select.appendChild(option);
+      });
+    });
+    const form = document.getElementById('saveForm');
+    form.addEventListener('submit', submitForm);
+    console.log(document.getElementById('name').value);
+
+    // submit to save into local json file
+    function submitForm(e) {
+      e.preventDefault();
+      let data = {
+        "name": document.getElementById('name').value,
+        "type": document.getElementById('type').value,
+        "energy_cost" : document.getElementById('energy_cost').value,
+        "damage_target" : document.getElementById('damage_target').value,
+        "description": document.getElementById('description').value,
+        "img_relative_path":document.getElementById('img_relative_path').value,
+
+        "damage_block_info" : {
+            "damage" : document.getElementById('damage').value,
+            "damage_instances" : document.getElementById('damage_instances').value,
+            "block" : document.getElementById('block').value
+        },
+
+        "card_life_cycle_info" : {
+            "copies_in_discard_pile_when_played" : document.getElementById('copies_in_discard_pile_when_played').value,
+            "draw_card" : document.getElementById('draw_card').value
+        },
+        "buffs_info" : {},
+        "special_modifiers_info" : {
+            "unique_damage" : document.getElementById('unique_damage').value,
+            "strength_multiplier" : document.getElementById('strength_multiplier').value,
+            "next_attack_count" : document.getElementById('next_attack_count').value
+        }
+      };
+      //set up buff into
+      let registered_buffnames = [
+        "Weakened",
+        "Vulnerable",
+        "Strength",
+        "Artifact", 
+        "Thorns",
+        "Barricade",
+        "Metallicise",
+        "Plated Armor",
+        "Intangible",
+        "Regen",
+        "Frail",
+        "Dexterity",
+        "Entangled",
+        "Flex",
+        "Blur",
+        "DrawReduction",
+        "Minion",
+        "Poison",
+        "Shackled",
+        // "DoubleTapActive"
+      ];
+      registered_buffnames.forEach(buff_name => {
+        data['buffs_info'][buff_name] = {
+          value : document.getElementById(`${buff_name}_value`).value,
+          target : document.getElementById(`${buff_name}_target`).value
+        }
+      });
+
+      
+      data = JSON.stringify(data, null, 2);
+      const fileName = document.getElementById('name').value
+      fs.writeFile(`${filePath}${fileName}.json`, data, (err) => {
+        if (err) throw err;
+        console.log('Data written to file');
+        });
+    }
+
+    // get card data from DATA
+    function readCard() {
+      let cardName = document.getElementById('cardsSelect').value;
+      console.log(cardName);
+      cardPath = `${filePath}${cardName}.json`
+      console.log(cardPath);
+      fs.readFile(cardPath, (err, data) => {
+        if (err) throw err;
+        let card = JSON.parse(data);
+        read(card);
+        });
+    }
+
+    // set card by card json
+    function read(card) {
+      // console.log(card);
+      document.getElementById('name').value = card.name;
+      document.getElementById('type').value = card.type;
+      document.getElementById('energy_cost').value = card.energy_cost;
+      document.getElementById('damage_target').value = card.damage_target;
+      document.getElementById('description').value = card.description;
+      document.getElementById('img_relative_path').value = card.img_relative_path;
+      document.getElementById('damage').value = card.damage_block_info.damage;
+      document.getElementById('damage_instances').value = card.damage_block_info.damage_instances;
+      document.getElementById('block').value = card.damage_block_info.block;
+      document.getElementById('copies_in_discard_pile_when_played').value = card.card_life_cycle_info.copies_in_discard_pile_when_played;
+      document.getElementById('draw_card').value = card.card_life_cycle_info.draw_card;
+      document.getElementById('unique_damage').value = card.special_modifiers_info.unique_damage;
+      document.getElementById('strength_multiplier').value = card.special_modifiers_info.strength_multiplier;
+      document.getElementById('next_attack_count').value = card.special_modifiers_info.next_attack_count;
+      // set buff
+      
+      console.log(form);
+      // console.log(typeof(card.buffs_info));
+      // console.log(card.buffs_info);
+      const table = document.getElementById('buff-table');
+      
+      let tr = document.createElement('tr');
+      heads = ['Buff Name', 'Value', 'Target']
+      heads.forEach(head => {
+        let th = document.createElement('th');
+        th.innerHTML = head;
+        tr.appendChild(th);
+      });
+      table.appendChild(tr);
+
+      for (const [buff_name, value_target_pair] of Object.entries(card.buffs_info)) {
+        
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        let label = document.createElement('label');
+        let labelText = document.createTextNode(buff_name);
+        label.appendChild(labelText);
+        td.appendChild(label);
+        tr.appendChild(td);
+        
+        td = document.createElement('td');
+        let input = document.createElement('input');
+        input.setAttribute('id', `${buff_name}_value`);
+        input.setAttribute('type', 'number');
+        // console.log(buff_name);
+        // console.log(value_target_pair.value);
+        // console.log(value_target_pair.target);
+        input.setAttribute('name', `${buff_name}_value`);
+        input.setAttribute('value', `${value_target_pair.value}`);
+        td.appendChild(input);
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        let buff_target_select = document.createElement('select');
+        buff_target_select.id = `${buff_name}_target`;
+        buff_target_select.setAttribute('name', `${buff_name}_target`);
+        options = ['self', 'enemy']
+        options.forEach(option => {
+          let opt = document.createElement('option');
+          opt.value = option;
+          opt.innerHTML = option;
+          if (option == value_target_pair.target) {
+            opt.selected = 'selected';
+          }
+          buff_target_select.appendChild(opt);
+        });
+
+        td.appendChild(buff_target_select)
+        tr.appendChild(td);
+
+        table.appendChild(tr);
+      }
+    }
+
+
+
+
+    
+  </script>
+</body>
+
+</html>
