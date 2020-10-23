@@ -1,7 +1,6 @@
 from db.game_app_data import GameAppData
 
 from gameplay_extension.extension_manager import ExtensionManager
-from gameplay_extension.extension_context import ExtensionContext
 
 from .combat_unit import CombatUnit
 from .enemy_intent import EnemyIntent
@@ -25,10 +24,9 @@ PLAYER_ENERGY = 3
 class GameManager:
     def __init__(self,game_app_data:GameAppData):
         self.game_app_data = game_app_data
-        self.event_manager = EventManager(self.game_app_data)
+        self.extension_manager = ExtensionManager()
+        self.event_manager = EventManager(self.game_app_data,self.extension_manager)
         self.game_state = GameState(game_app_data)
-        ctx = ExtensionContext(self.game_state,self.event_manager)
-        self.extension_manager = ExtensionManager(ctx)
         # TODO:deprecate
         self.__end_player_turn_flag = False
         #set to false when training AI

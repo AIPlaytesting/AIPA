@@ -3,11 +3,14 @@ from . enemy_intent import EnemyIntent
 from . combat_unit import CombatUnit
 from . game_event import GameEvent
 from db.game_app_data import Card,GameAppData
+from gameplay_extension.extension_manager import ExtensionManager
+from gameplay_extension.extension_context import BuffExtensionCtx
 
 class EventManager:
-    def __init__(self,game_app_data:GameAppData):
+    def __init__(self,game_app_data:GameAppData,extension_manager:ExtensionManager):
         # self.cards_dict: cardname:str,Card:game_app_data.Card
         self.cards_dict = game_app_data.cards_dict.copy()
+        self.extension_manager = extension_manager
         # TODO: remove this flag variabl, use buff to indicate!
         self.next_attack_count = 1
 
@@ -69,6 +72,18 @@ class EventManager:
             return self.__on_apply_buff_to(intent.enbuff_type,intent.enbuff_value,game_state.boss) 
         return  []
 
+    # return [BuffExtension,BuffExtensionCtx][]
+    def __iterate_buff_extension(self,game_state:GameState, buffhost:CombatUnit):
+        result = [] 
+        for buffname in buffhost.buff_dict: 
+            buff_value =  buffhost.buff_dict[buffname]
+            if buff_value != 0:
+                extension = self.extension_manager.get_buff_extension(buffname)
+                if extension != None:
+                    ctx = BuffExtensionCtx(game_state,buffname,buff_value,buffhost)
+                    result.append([extension,ctx])
+        return result
+
     # return GameEvent[]
     def __execute_card_buffs(self,game_state:GameState,card:Card)->[]:
         game_events = []
@@ -127,15 +142,16 @@ class EventManager:
     def __on_attack(self,game_state:GameState,attack_source:CombatUnit, attack_target:CombatUnit, attack_value:int):
         game_events = []
 
-        # condider buffs 
-        attack_value += attack_source.buff_dict['Strength'] 
-        if attack_source.buff_dict['Weakened'] > 0 :
-            attack_value *= 0.75
-        if attack_target.buff_dict['Vulnerable'] > 0 :
-            attack_value *= 1.5
+        # TODO: buff extension doesn't support game event, so leave 'Thorn' here
         if attack_target.buff_dict['Thorns'] > 0 :
            thron_damage_events = self.__on_take_damage(game_state,attack_target,attack_source,attack_target.buff_dict['Thorns'])
            game_events.extend(thron_damage_events)
+        # consider buff extensions 
+        for buff_extension,ctx in self.__iterate_buff_extension(game_state,attack_source):
+            attack_value = buff_extension.before_launch_attack(ctx,attack_target,attack_value)
+        for buff_extension,ctx in self.__iterate_buff_extension(game_state,attack_target):
+            attack_value = buff_extension.before_receive_attack(ctx,attack_source,attack_value)
+
         attack_value = int(attack_value)
 
         # apply real damage
