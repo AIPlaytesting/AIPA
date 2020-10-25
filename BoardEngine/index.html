@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link rel='stylesheet' href='index.css'>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 	<!--  Bootstrap4 -->
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
@@ -14,27 +15,40 @@
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>	
 </head>
 <body>
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary" onclick="location.href='https://google.com';">Website</button>
-        <button type="button" class="btn btn-primary">Document</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='https://google.com';">Github</button>
-    </div>
-    <h1 class = "display-1 col-12 text-center">Welcome</h1>
-    <div class = "text-center">
-        <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-              Required Environment
+    <div id = "root" class="bg">
+        <div class="btn-group">
+            <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/');">
+                <img class = "nav-icon" src="static/icon-website.png">
+                <p class = "nav-text">website</p>
             </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Python3</a>
-              <a class="dropdown-item" href="#">Tensorflow</a>
+            <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/index.php/technical-report-draft/');">
+                <img class = "nav-icon" src="static/icon-document.png">
+                <p class = "nav-text">Document</p>
+            </button>
+            <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://github.com/AIPlaytesting');">
+                <img class = "nav-icon" src="static/github-icon.png">
+                <p class = "nav-text">Github</p>
+            </button>
+        </div>
+        <h1 id = "title" class = "display-1 col-12 text-center">
+            Welcome
+        </h1>
+        <div class = "text-center">
+            <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="color:antiquewhite">
+                  Required Environment
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Python3</a>
+                  <a class="dropdown-item" href="#">Tensorflow</a>
+                </div>
             </div>
         </div>
+        <div class="text-center">
+            <button id  = "start-btn" class = "btn btn-primary rounded" onclick="location.href='library.html'">
+                <h3>GO</h3>
+            </button>
+        </div>    
     </div>
-    <div class="text-center">
-        <button class="btn btn-primary" onclick="location.href='library.html'">GO</button>
-    </div>
-
-    
 </body>
 </html>
