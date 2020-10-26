@@ -19,7 +19,7 @@ class Environment:
         self.win_int = 0
 
         #reward values
-        self.win_reward = 3
+        self.win_reward = 1
         self.unplayable_card_pun = -1
         self.loss_pun = -0.75
 

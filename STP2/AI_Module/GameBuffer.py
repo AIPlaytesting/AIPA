@@ -149,8 +149,9 @@ class GameBuffer:
 
                     self.add_reward_list_turns[turn_index][step_index] += special_reward_sum
 
-        end_reward_discounted = 0
-        
+        #start reward from total damage done
+        end_reward_discounted = 0 if self.isCustomCardRewards else self.reward_functions.TotalRewardOfBossDamage()
+
         for turn_index in range(len(self.state_list_turns) - 1, -1, -1):
             for step_index in range(len(self.state_list_turns[turn_index]) - 1, -1, -1):
             
