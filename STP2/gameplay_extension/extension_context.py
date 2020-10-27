@@ -11,3 +11,8 @@ class BuffExtensionCtx(ExtensionContext):
         self.buffname = buffname
         self.buffvalue = buffvalue
         self.buffhost = buffhost
+
+
+class KeywordExtensionCtx(ExtensionContext):
+    def __init__(self,game_state:GameState):
+        ExtensionContext.__init__(self,game_state)

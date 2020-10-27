@@ -2,7 +2,7 @@ from gameplay.combat_unit import CombatUnit
 from .extension_context import BuffExtensionCtx
 
 class BuffExtension:
-    def after_turn_start(self,ctx:BuffExtensionCtx):
+    def before_turn_start(self,ctx:BuffExtensionCtx):
         pass
 
     # attack_source attack buff_host
