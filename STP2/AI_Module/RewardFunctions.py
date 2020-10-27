@@ -120,6 +120,15 @@ class RewardFunctions:
             self.add_reward_list_turns[turn_index][block_index] += reward_blocked * (blocking_cards[card_name] / total_block_gained) / len(block_indices)
 
 
+    def TotalRewardOfBossDamage(self):
+        start_state = self.state_list_turns[0][0]
+        last_state_turn_list = self.state_list_turns[len(self.state_list_turns) - 1]
+        last_state = last_state_turn_list[len(last_state_turn_list) - 1]
+
+        boss_hp_loss = start_state[self.boss_hp_index] - last_state[self.boss_hp_index]
+        boss_hp_loss = boss_hp_loss / start_state[self.boss_hp_index] #normalizing hp loss
+
+        return boss_hp_loss 
 
     def RewardFromClothesline(self, turn_index, step_index, isPlus):
         reward_clothesline = 0

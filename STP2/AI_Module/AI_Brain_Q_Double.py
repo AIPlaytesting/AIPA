@@ -17,6 +17,7 @@ class Q_Model:
             keras.layers.Dense(hl1_dim, activation='relu'),
             keras.layers.Dense(hl2_dim, activation='relu'),
             keras.layers.Dense(hl3_dim, activation='relu'),
+            keras.layers.Dense(hl4_dim, activation='relu'),
             #Dont want any activation for the output layer since it is the Q-value
             keras.layers.Dense(action_space_dim, activation=None)
         ])

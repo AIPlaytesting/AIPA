@@ -20,7 +20,7 @@ game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, en
 game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
 
 #Replace string with file description is needed
-data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'no custom rewards-overnight')
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'reward for total damage - memsize increase')
 
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
@@ -47,7 +47,7 @@ start_time = time.time()
 
 #Double Q-Learning
 ai_agent = AI_Module.AI_Brain_Q_Double.AI_Brain(gamma=0, state_space = env.ai_transformer.state_space, action_space = env.ai_transformer.action_space,
-                hidden_layer_dims=[128, 128, 64, 1024], epsilon=1.0, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 15000, batch_size = 128, unplayable_pun = env.unplayable_card_pun)
+                hidden_layer_dims=[128, 256, 128, 64], epsilon=1.0, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 500000, batch_size = 512, unplayable_pun = env.unplayable_card_pun)
 
 
 total_episode_rewards = []
