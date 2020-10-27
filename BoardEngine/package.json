@@ -1,7 +1,6 @@
 {
   "name": "BoardEngine",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -12,5 +11,11 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^10.1.5"
-  }
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  },
+  "description": ""
 }
