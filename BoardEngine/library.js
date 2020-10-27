@@ -1,6 +1,10 @@
 const dbmanager = require('./dbmanager.js');
 
 function libraryOnLoad(){
+    dbmanager.loadDB(onFinishDBLoad)
+}
+
+function onFinishDBLoad(){
     let gameEntryList = $("#game-entry-list")
     let installedGames = dbmanager.getInstalledGameApps()
     for(gameName of installedGames){
@@ -29,4 +33,6 @@ function createNewGameBtn(){
 
 function updateGameMainPage(gameName){
     $('#game-title').text(gameName)
+    let gameData = dbmanager.loadGameData(gameName)
+    console.log(gameData)
 }
