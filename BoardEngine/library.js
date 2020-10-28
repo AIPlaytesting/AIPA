@@ -49,7 +49,10 @@ function onClickCreateNewGame(){
 
 function onClickRemoveGame(){
     let currentGameName = $('#game-title').text()
-    dbmanager.removeGame(currentGameName,refreshLibraryPage)
+    popupConfirmDialog("Calm down",
+    "are you sure to delete: "+currentGameName,
+    function(){dbmanager.removeGame(currentGameName,refreshLibraryPage)}
+    )
 }
 
 function createLibraryEntry(gameName){
@@ -119,3 +122,9 @@ function popupWarning(message){
     $('#warning-modal-body').text(message)
 }
 
+function popupConfirmDialog(title, message,onConfirmCallback){
+    $('#confirm-modal').modal()
+    $('#confirm-modal-title').text(title)
+    $('#confirm-modal-body').text(message)
+    $('#confirm-model-confirm-btn').click(function(){onConfirmCallback()})
+}
