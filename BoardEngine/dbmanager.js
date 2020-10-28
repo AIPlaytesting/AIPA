@@ -55,10 +55,12 @@ function removeGame(gameName,onFinishCallback){
     }
 
     let gameDir = dbRoot + '/' + gameName
+    console.log("going to remove dir at: "+gameDir)
     rimraf.sync(gameDir)
 
     manifest.installed_app.splice(manifest.installed_app.indexOf(gameName),1)
     saveManifest()
+
     onFinishCallback()
 }
 
@@ -67,6 +69,7 @@ function saveManifest(){
 }
 
 // return: gameData
+// TODO: refactor, use API to load JSON file
 function loadGameData(gameName){
     let gameRoot = dbRoot +'\\'+gameName;
     let gameData = {};
@@ -102,10 +105,41 @@ function loadGameData(gameName){
     return gameData
 }
 
+// current veilable attr: 
+// currentDeck
+// ..
+function updateGameData(gameName,attr,value,onFinishCallback){
+    if(attr == "currentDeck"){
+        let gameDataRoot = getGameAppRoot(gameName)
+        let ruleObjPath = gameDataRoot+'/rules.json'
+        let rulesObj = loadObjectFromJSONFile(ruleObjPath)
+        rulesObj.deck = value
+        saveObjectToFileAsJSON(rulesObj,ruleObjPath)
+    }
+    else{
+        throw "undefined attribute name  to update: "+attr
+    }
+
+    onFinishCallback()
+}
+
 function getInstalledGameApps(){
     return installedGames;
 }
 
+function loadObjectFromJSONFile(jsonFilePath){
+    let initData = fs.readFileSync(jsonFilePath);
+    return JSON.parse(initData);
+}
+
+function saveObjectToFileAsJSON(sourceObj,path){
+    fs.writeFileSync(path, JSON.stringify(sourceObj, null, 4))
+}
+
+function getGameAppRoot(gameName){
+    return dbRoot + '/'+gameName
+}
+
 module.exports = {
-    getInstalledGameApps,getResourceRoot,loadDB,loadGameData,createNewGame,removeGame
+    getInstalledGameApps,getResourceRoot,loadDB,loadGameData,updateGameData,createNewGame,removeGame
 }

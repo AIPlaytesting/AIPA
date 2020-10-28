@@ -1,4 +1,5 @@
 const dbmanager = require('./dbmanager.js');
+var currentGameData = {}
 
 function refreshLibraryPage(){
     console.log("refresh!")
@@ -29,6 +30,7 @@ function onFinishDBLoad(){
         gameTemplateList.append(templateOptionBtn)
     }
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
+
     updateGameMainPage(installedGames[0])
 }
 
@@ -48,11 +50,18 @@ function onClickCreateNewGame(){
 }
 
 function onClickRemoveGame(){
-    let currentGameName = $('#game-title').text()
+    let currentGameName = getCurrentGameName()
     popupConfirmDialog("Calm down",
     "are you sure to delete: "+currentGameName,
     function(){dbmanager.removeGame(currentGameName,refreshLibraryPage)}
     )
+}
+
+function onSwitchCurrentDeck(deckName){
+    console.log("switch to: "+deckName)
+    if(deckName != currentGameData.rules.deck){
+        dbmanager.updateGameData(getCurrentGameName(),"currentDeck",deckName,refreshLibraryPage)
+    }
 }
 
 function createLibraryEntry(gameName){
@@ -74,10 +83,10 @@ function createNewGameBtn(){
 }
 
 function updateGameMainPage(gameName){
-    let gameData = dbmanager.loadGameData(gameName)
+    currentGameData = dbmanager.loadGameData(gameName)
+    let gameData = currentGameData
     console.log(gameData)
     $('#game-title').text(gameName)
-    $('#current-deck').text(gameData.rules.deck)
     $('#deck-count').text(Object.keys(gameData.decks).length)
     $('#card-count').text(Object.keys(gameData.cards).length)
     $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
@@ -115,6 +124,25 @@ function updateGameMainPage(gameName){
     }
     // add the last row 
     deckImgView.append(currentImgRow)
+
+    updateDeckDropdown()
+}
+
+function updateDeckDropdown(){
+    $('#current-deck-dropdown-btn').text(currentGameData.rules.deck)
+    let deckList = $('#current-deck-dropdown-list')
+    deckList.text("")
+    for(let deckName in currentGameData.decks){
+        let deckSwitchBtn = $(document.createElement('button'))
+        deckSwitchBtn.text(deckName)
+        deckSwitchBtn.click(function(){onSwitchCurrentDeck(deckName)})
+        deckSwitchBtn.attr('class','dropdown-item')
+        deckList.append(deckSwitchBtn)
+    }
+}
+
+function getCurrentGameName(){
+    return $('#game-title').text()
 }
 
 function popupWarning(message){
