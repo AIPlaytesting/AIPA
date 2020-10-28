@@ -49,7 +49,7 @@ function createNewGame(templateGame,newGameName,onFinishCallback){
     });
 }
 
-function removeGame(gameName){
+function removeGame(gameName,onFinishCallback){
     if(!installedGames.includes(gameName)){
         throw "no such registered game: " + gameName
     }
@@ -59,6 +59,7 @@ function removeGame(gameName){
 
     manifest.installed_app.splice(manifest.installed_app.indexOf(gameName),1)
     saveManifest()
+    onFinishCallback()
 }
 
 function saveManifest(){

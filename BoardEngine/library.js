@@ -1,6 +1,7 @@
 const dbmanager = require('./dbmanager.js');
 
 function refreshLibraryPage(){
+    console.log("refresh!")
     dbmanager.loadDB(onFinishDBLoad)
 }
 
@@ -48,7 +49,7 @@ function onClickCreateNewGame(){
 
 function onClickRemoveGame(){
     let currentGameName = $('#game-title').text()
-    dbmanager.removeGame(currentGameName)
+    dbmanager.removeGame(currentGameName,refreshLibraryPage)
 }
 
 function createLibraryEntry(gameName){
