@@ -20,15 +20,18 @@ function createLibraryEntry(gameName){
     let entryBtn =$(document.createElement('button'))
     entryBtn.text(gameName)
     entryBtn.attr('class',"btn btn-light")
-    entryBtn.click(function(){updateGameMainPage(gameName)})
+    entryBtn.click(function(){
+        updateGameMainPage(gameName);})
     return entryBtn
 }
 
 function createNewGameBtn(){
-    let entryBtn =$(document.createElement('button'))
-    entryBtn.text("+New Game")
-    entryBtn.attr('class',"btn btn-dark")
-    return entryBtn
+    let entryBtn =$(document.createElement('button'));
+    entryBtn.text("+New Game");
+    entryBtn.attr('class',"btn btn-dark");
+    entryBtn.attr('data-toggle','modal');
+    entryBtn.attr('data-target','#create-game-modal')
+    return entryBtn;
 }
 
 function updateGameMainPage(gameName){

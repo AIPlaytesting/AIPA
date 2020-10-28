@@ -53,13 +53,45 @@
                         <span id = 'buff-count'></span>
                     </div>
                 </div>
-                <div id = "deck-img-view">
-
-                </div>
-                <div id = "deck view " class="border border-primary">
+                <div id = "deck-img-view" class="border border-primary">
 
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id = "create-game-modal" class="modal fade">
+        <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+            <h4 class="modal-title">create new game</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <div class="modal-body">
+                <div id = "new-game-name">
+                    Name:
+                    <input type="text">
+                </div>
+                <div id = "new-game-template" class="dropdown">
+                    <span>Select a template:</span>
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" >
+                    game1
+                    </button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" >game1</a>
+                    <a class="dropdown-item" >game2</a>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" >Create</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+    
+        </div>
         </div>
     </div>
 </body>
