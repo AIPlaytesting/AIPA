@@ -5,6 +5,7 @@ const fs = require('fs');
 
 var dbRoot = '../STP2/DATA';
 var installedGames = [];
+var resourceRoot = "";
 
 function loadDB(onFinishLoad){
     let manifestPath = dbRoot +'\\manifest.json';
@@ -12,8 +13,13 @@ function loadDB(onFinishLoad){
         if (err) throw err;
         let manifest = JSON.parse(data);
         installedGames = manifest.installed_app;
+        resourceRoot = dbRoot + '\\' + manifest.resource_directory
         onFinishLoad()
     });     
+}
+
+function getResourceRoot(){
+    return resourceRoot
 }
 
 // return: gameData
@@ -24,22 +30,22 @@ function loadGameData(gameName){
     initData = fs.readFileSync(gameRoot+'\\init.json','utf8');
     gameData.init = JSON.parse(initData);
 
-    // load all decks
+    // load gameData.decks
     gameData.decks = {}
     let deckFileRoot = gameRoot +'\\'+gameData.init.decks_directory;
     // all decks are stored in ../DeckFileRoot/(deckname).json 
     for(deckFile of fs.readdirSync(deckFileRoot,"utf8")){
         deckData = fs.readFileSync(deckFileRoot+'\\'+deckFile,'utf8');
-        gameData.decks[deckFile] = JSON.parse(deckData)
+        gameData.decks[deckFile.split('.')[0]] = JSON.parse(deckData)
     }
 
-    // load all cards
+    // load gameData.cards
     gameData.cards = {}
     let cardFileRoot = gameRoot +'\\'+gameData.init.cards_directory;
     // all cards are stored in ../cardFileRoot/(cardname).json 
     for(cardFile of fs.readdirSync(cardFileRoot,"utf8")){
         cardData = fs.readFileSync(cardFileRoot+'\\'+cardFile,'utf8');
-        gameData.cards[cardFile] = JSON.parse(cardData)
+        gameData.cards[cardFile.split('.')[0]] = JSON.parse(cardData)
     }
 
     // load gameData.buffInfo
@@ -57,5 +63,5 @@ function getInstalledGameApps(){
 }
 
 module.exports = {
-    getInstalledGameApps,loadDB,loadGameData
+    getInstalledGameApps,getResourceRoot,loadDB,loadGameData
 }
