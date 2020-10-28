@@ -46,6 +46,11 @@ function onClickCreateNewGame(){
     }
 }
 
+function onClickRemoveGame(){
+    let currentGameName = $('#game-title').text()
+    dbmanager.removeGame(currentGameName)
+}
+
 function createLibraryEntry(gameName){
     let entryBtn =$(document.createElement('button'))
     entryBtn.text(gameName)
@@ -112,3 +117,4 @@ function popupWarning(message){
     $('#warning-modal').modal()
     $('#warning-modal-body').text(message)
 }
+

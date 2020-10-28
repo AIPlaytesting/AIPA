@@ -3,6 +3,7 @@
 
 const fs = require('fs');
 const ncp = require('ncp').ncp;
+const rimraf = require("rimraf");
 
 var dbRoot = '../STP2/DATA';
 var manifest = {}
@@ -42,10 +43,26 @@ function createNewGame(templateGame,newGameName,onFinishCallback){
           throw err
         }
         manifest.installed_app.push(newGameName)
-        fs.writeFileSync(dbRoot +'/manifest.json', JSON.stringify(manifest, null, 4))
+        saveManifest()
         onFinishCallback()
         console.log('done!');
     });
+}
+
+function removeGame(gameName){
+    if(!installedGames.includes(gameName)){
+        throw "no such registered game: " + gameName
+    }
+
+    let gameDir = dbRoot + '/' + gameName
+    rimraf.sync(gameDir)
+
+    manifest.installed_app.splice(manifest.installed_app.indexOf(gameName),1)
+    saveManifest()
+}
+
+function saveManifest(){
+    fs.writeFileSync(dbRoot +'/manifest.json', JSON.stringify(manifest, null, 4))
 }
 
 // return: gameData
@@ -89,5 +106,5 @@ function getInstalledGameApps(){
 }
 
 module.exports = {
-    getInstalledGameApps,getResourceRoot,loadDB,loadGameData,createNewGame
+    getInstalledGameApps,getResourceRoot,loadDB,loadGameData,createNewGame,removeGame
 }
