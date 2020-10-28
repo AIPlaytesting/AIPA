@@ -25,7 +25,7 @@ function getResourceRoot(){
     return resourceRoot
 }
 
-function createNewGame(templateGame,newGameName){
+function createNewGame(templateGame,newGameName,onFinishCallback){
     if(!installedGames.includes(templateGame)){
         throw "no template named: " + templateGame
     }
@@ -43,6 +43,7 @@ function createNewGame(templateGame,newGameName){
         }
         manifest.installed_app.push(newGameName)
         fs.writeFileSync(dbRoot +'/manifest.json', JSON.stringify(manifest, null, 4))
+        onFinishCallback()
         console.log('done!');
     });
 }

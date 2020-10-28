@@ -1,6 +1,6 @@
 const dbmanager = require('./dbmanager.js');
 
-function libraryOnLoad(){
+function refreshLibraryPage(){
     dbmanager.loadDB(onFinishDBLoad)
 }
 
@@ -40,7 +40,7 @@ function onClickCreateNewGame(){
     }
 
     try {
-        dbmanager.createNewGame(templateName, newGameName)
+        dbmanager.createNewGame(templateName, newGameName,refreshLibraryPage)
     } catch (error) {
         popupWarning(error)
     }

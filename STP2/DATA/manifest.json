@@ -5,8 +5,6 @@
     "installed_app": [
         "DefaultApp",
         "DefinitewinApp",
-        "TestApp",
-        "hi",
-        "yoyo"
+        "TestApp"
     ]
 }
