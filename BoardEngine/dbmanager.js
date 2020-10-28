@@ -5,14 +5,15 @@ const fs = require('fs');
 const ncp = require('ncp').ncp;
 
 var dbRoot = '../STP2/DATA';
+var manifest = {}
 var installedGames = [];
 var resourceRoot = "";
 
 function loadDB(onFinishLoad){
-    let manifestPath = dbRoot +'\\manifest.json';
+    let manifestPath = dbRoot +'/manifest.json';
     fs.readFile(manifestPath, 'utf8', function(err, data){ 
         if (err) throw err;
-        let manifest = JSON.parse(data);
+        manifest = JSON.parse(data);
         installedGames = manifest.installed_app;
         resourceRoot = dbRoot + '\\' + manifest.resource_directory
         onFinishLoad()
@@ -26,16 +27,22 @@ function getResourceRoot(){
 
 function createNewGame(templateGame,newGameName){
     if(!installedGames.includes(templateGame)){
-        throw "no template named: "+templateGame
+        throw "no template named: " + templateGame
+    }
+
+    if(installedGames.includes(newGameName)){
+        throw "game named: "+newGameName+" already exists!"
     }
 
     let templateGameDir = dbRoot + '/' + templateGame
     let newGameDir = dbRoot + '/' + newGameName
-    console.log("template: "+templateGameDir+" new: "+destGameDir)
+    console.log("template: "+templateGameDir+" new: "+newGameDir)
     ncp(templateGameDir, newGameDir, function (err) {
         if (err) {
           throw err
         }
+        manifest.installed_app.push(newGameName)
+        fs.writeFileSync(dbRoot +'/manifest.json', JSON.stringify(manifest, null, 4))
         console.log('done!');
     });
 }
