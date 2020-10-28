@@ -2,6 +2,7 @@
 // because the database is originnally wrote in Python
 
 const fs = require('fs');
+const ncp = require('ncp').ncp;
 
 var dbRoot = '../STP2/DATA';
 var installedGames = [];
@@ -18,8 +19,13 @@ function loadDB(onFinishLoad){
     });     
 }
 
+
 function getResourceRoot(){
     return resourceRoot
+}
+
+function createNewGame(templateGame,newGameName){
+    console.log("template:"+templateGame+" new "+newGameName)
 }
 
 // return: gameData
@@ -63,5 +69,5 @@ function getInstalledGameApps(){
 }
 
 module.exports = {
-    getInstalledGameApps,getResourceRoot,loadDB,loadGameData
+    getInstalledGameApps,getResourceRoot,loadDB,loadGameData,createNewGame
 }

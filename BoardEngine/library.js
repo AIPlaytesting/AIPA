@@ -5,15 +5,37 @@ function libraryOnLoad(){
 }
 
 function onFinishDBLoad(){
-    let gameEntryList = $("#game-entry-list")
     let installedGames = dbmanager.getInstalledGameApps()
+    // fill game lib list
+    let gameEntryList = $("#game-entry-list")
+    gameEntryList.text("")
     for(gameName of installedGames){
         gameEntryList.append(createLibraryEntry(gameName))
     }
-
+    // set game create button
     gameEntryList.append(createNewGameBtn())
-
+    let gameTemplateList = $("#game-template-list");
+    gameTemplateList.text("");
+    $('#game-template-dropdown').text("please select a template")
+    for(gameName of installedGames){
+        // create game template option button
+        let templateOptionBtn =$(document.createElement('button'))
+        templateOptionBtn.attr('class','dropdown-item')
+        templateOptionBtn.text(gameName)
+        templateOptionBtn.click(function(){
+            $('#game-template-dropdown').text($(this).text())
+        })
+        gameTemplateList.append(templateOptionBtn)
+    }
+    $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
     updateGameMainPage(installedGames[0])
+}
+
+function onClickCreateNewGame(){
+    let templateName = $('#game-template-dropdown').text()
+    let newGameName  = $('#new-game-name-input').val()
+    popupWarning("hi")
+    dbmanager.createNewGame(templateName, newGameName)
 }
 
 function createLibraryEntry(gameName){
@@ -26,10 +48,10 @@ function createLibraryEntry(gameName){
 }
 
 function createNewGameBtn(){
-    let entryBtn =$(document.createElement('button'));
-    entryBtn.text("+New Game");
-    entryBtn.attr('class',"btn btn-dark");
-    entryBtn.attr('data-toggle','modal');
+    let entryBtn =$(document.createElement('button'))
+    entryBtn.text("+New Game")
+    entryBtn.attr('class',"btn btn-dark")
+    entryBtn.attr('data-toggle','modal')
     entryBtn.attr('data-target','#create-game-modal')
     return entryBtn;
 }
@@ -76,4 +98,9 @@ function updateGameMainPage(gameName){
     }
     // add the last row 
     deckImgView.append(currentImgRow)
+}
+
+function popupWarning(message){
+    $('#warning-modal').modal()
+    $('#warning-modal-body').text(message)
 }

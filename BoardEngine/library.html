@@ -60,6 +60,21 @@
         </div>
     </div>
 
+    <div id ="warning-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Warning</h4></div>
+        
+                <div id ="warning-modal-body" class="modal-body alert alert-danger">
+                </div>
+        
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
+                </div>    
+            </div>
+            </div>
+    </div>
     <div id = "create-game-modal" class="modal fade">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -72,22 +87,17 @@
             <div class="modal-body">
                 <div id = "new-game-name">
                     Name:
-                    <input type="text">
+                    <input id = "new-game-name-input" type="text">
                 </div>
                 <div id = "new-game-template" class="dropdown">
                     <span>Select a template:</span>
-                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" >
-                    game1
-                    </button>
-                    <div class="dropdown-menu">
-                    <a class="dropdown-item" >game1</a>
-                    <a class="dropdown-item" >game2</a>
-                    </div>
+                    <button id ="game-template-dropdown" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                    <div id ="game-template-list" class="dropdown-menu"></div>
                 </div>
             </div>
     
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary" >Create</button>
+            <button id = "create-new-game-btn" type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
     
