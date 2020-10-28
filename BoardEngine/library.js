@@ -34,8 +34,16 @@ function onFinishDBLoad(){
 function onClickCreateNewGame(){
     let templateName = $('#game-template-dropdown').text()
     let newGameName  = $('#new-game-name-input').val()
-    popupWarning("hi")
-    dbmanager.createNewGame(templateName, newGameName)
+    if(newGameName  == ""){
+        popupWarning("game name cannot be empty!")
+        return
+    }
+
+    try {
+        dbmanager.createNewGame(templateName, newGameName)
+    } catch (error) {
+        popupWarning(error)
+    }
 }
 
 function createLibraryEntry(gameName){

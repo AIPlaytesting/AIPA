@@ -25,7 +25,19 @@ function getResourceRoot(){
 }
 
 function createNewGame(templateGame,newGameName){
-    console.log("template:"+templateGame+" new "+newGameName)
+    if(!installedGames.includes(templateGame)){
+        throw "no template named: "+templateGame
+    }
+
+    let templateGameDir = dbRoot + '/' + templateGame
+    let newGameDir = dbRoot + '/' + newGameName
+    console.log("template: "+templateGameDir+" new: "+destGameDir)
+    ncp(templateGameDir, newGameDir, function (err) {
+        if (err) {
+          throw err
+        }
+        console.log('done!');
+    });
 }
 
 // return: gameData
