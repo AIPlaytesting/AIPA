@@ -60,7 +60,14 @@ function onClickRemoveGame(){
     console.log("game to delete: "+currentGameName)
     popupConfirmDialog("Calm down",
     "are you sure to delete: "+currentGameName,
-    function(){dbmanager.removeGame(currentGameName,refreshLibraryPage)}
+    function(){
+        try{
+            dbmanager.removeGame(currentGameName,refreshLibraryPage)
+        }
+        catch(error){
+            popupWarning(error)
+        }
+    }
     )
 }
 
