@@ -71,19 +71,17 @@ function saveManifest(){
 // return: gameData
 // TODO: refactor, use API to load JSON file
 function loadGameData(gameName){
-    let gameRoot = dbRoot +'\\'+gameName;
+    let gameRoot = getGameAppRoot(gameName);
     let gameData = {};
     // load init.json
-    initData = fs.readFileSync(gameRoot+'\\init.json','utf8');
-    gameData.init = JSON.parse(initData);
+    gameData.init = loadObjectFromJSONFile(gameRoot+'\\init.json') 
 
     // load gameData.decks
     gameData.decks = {}
     let deckFileRoot = gameRoot +'\\'+gameData.init.decks_directory;
     // all decks are stored in ../DeckFileRoot/(deckname).json 
     for(deckFile of fs.readdirSync(deckFileRoot,"utf8")){
-        deckData = fs.readFileSync(deckFileRoot+'\\'+deckFile,'utf8');
-        gameData.decks[deckFile.split('.')[0]] = JSON.parse(deckData)
+        gameData.decks[deckFile.split('.')[0]] = loadObjectFromJSONFile(deckFileRoot+'\\'+deckFile) 
     }
 
     // load gameData.cards
@@ -91,17 +89,14 @@ function loadGameData(gameName){
     let cardFileRoot = gameRoot +'\\'+gameData.init.cards_directory;
     // all cards are stored in ../cardFileRoot/(cardname).json 
     for(cardFile of fs.readdirSync(cardFileRoot,"utf8")){
-        cardData = fs.readFileSync(cardFileRoot+'\\'+cardFile,'utf8');
-        gameData.cards[cardFile.split('.')[0]] = JSON.parse(cardData)
+        gameData.cards[cardFile.split('.')[0]] = loadObjectFromJSONFile(cardFileRoot+'\\'+cardFile) 
     }
 
     // load gameData.buffInfo
-    let buffFilePath = gameRoot +'\\' + gameData.init.buffs_file;
-    gameData.buffInfo =JSON.parse(fs.readFileSync(buffFilePath))
+    gameData.buffInfo = loadObjectFromJSONFile(gameRoot +'\\' + gameData.init.buffs_file) 
 
     // load gameData.rules
-    let ruleFilePath = gameRoot +'\\' + gameData.init.rules_file
-    gameData.rules = JSON.parse(fs.readFileSync(ruleFilePath))
+    gameData.rules = loadObjectFromJSONFile(gameRoot +'\\' + gameData.init.rules_file) 
     return gameData
 }
 

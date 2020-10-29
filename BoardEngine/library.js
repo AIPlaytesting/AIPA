@@ -92,7 +92,7 @@ function updateGameMainPage(){
     let gameName = dbmanager.getCurrentGameName()
     currentGameData = dbmanager.loadGameData(gameName)
     let gameData = currentGameData
-    console.log(gameData)
+    //console.log(gameData)
     $('#game-title').text(gameName)
     $('#deck-count').text(Object.keys(gameData.decks).length)
     $('#card-count').text(Object.keys(gameData.cards).length)
