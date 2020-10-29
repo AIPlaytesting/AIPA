@@ -31,7 +31,7 @@ function onFinishDBLoad(){
     }
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
-    updateGameMainPage(installedGames[0])
+    updateGameMainPage()
 }
 
 function onClickCreateNewGame(){
@@ -49,8 +49,13 @@ function onClickCreateNewGame(){
     }
 }
 
+function onClickLibraryGameEntry(gameName){
+    dbmanager.setCurrentGame(gameName)
+    updateGameMainPage()
+}
+
 function onClickRemoveGame(){
-    let currentGameName = getCurrentGameName()
+    let currentGameName = dbmanager.getCurrentGameName()
     popupConfirmDialog("Calm down",
     "are you sure to delete: "+currentGameName,
     function(){dbmanager.removeGame(currentGameName,refreshLibraryPage)}
@@ -60,7 +65,7 @@ function onClickRemoveGame(){
 function onSwitchCurrentDeck(deckName){
     console.log("switch to: "+deckName)
     if(deckName != currentGameData.rules.deck){
-        dbmanager.updateGameData(getCurrentGameName(),"currentDeck",deckName,refreshLibraryPage)
+        dbmanager.updateGameData(dbmanager.getCurrentGameName(),"currentDeck",deckName,refreshLibraryPage)
     }
 }
 
@@ -69,7 +74,7 @@ function createLibraryEntry(gameName){
     entryBtn.text(gameName)
     entryBtn.attr('class',"btn btn-light")
     entryBtn.click(function(){
-        updateGameMainPage(gameName);})
+        onClickLibraryGameEntry(gameName)})
     return entryBtn
 }
 
@@ -82,7 +87,9 @@ function createNewGameBtn(){
     return entryBtn;
 }
 
-function updateGameMainPage(gameName){
+// update main page based on current game in manifest
+function updateGameMainPage(){
+    let gameName = dbmanager.getCurrentGameName()
     currentGameData = dbmanager.loadGameData(gameName)
     let gameData = currentGameData
     console.log(gameData)
@@ -139,10 +146,6 @@ function updateDeckDropdown(){
         deckSwitchBtn.attr('class','dropdown-item')
         deckList.append(deckSwitchBtn)
     }
-}
-
-function getCurrentGameName(){
-    return $('#game-title').text()
 }
 
 function popupWarning(message){

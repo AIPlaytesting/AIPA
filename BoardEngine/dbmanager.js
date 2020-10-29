@@ -123,6 +123,18 @@ function updateGameData(gameName,attr,value,onFinishCallback){
     onFinishCallback()
 }
 
+function getCurrentGameName(){
+    return manifest.game_app
+}
+
+function setCurrentGame(gameName){
+    if(!installedGames.includes(gameName)){
+        throw "no game named: " + templateGame
+    }
+    manifest.game_app = gameName
+    saveManifest()
+}
+
 function getInstalledGameApps(){
     return installedGames;
 }
@@ -141,5 +153,13 @@ function getGameAppRoot(gameName){
 }
 
 module.exports = {
-    getInstalledGameApps,getResourceRoot,loadDB,loadGameData,updateGameData,createNewGame,removeGame
+    getInstalledGameApps,
+    getResourceRoot,
+    loadDB,
+    loadGameData,
+    updateGameData,
+    getCurrentGameName,
+    setCurrentGame,
+    createNewGame,
+    removeGame
 }
