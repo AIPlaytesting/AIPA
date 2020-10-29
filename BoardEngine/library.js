@@ -6,6 +6,19 @@ function refreshLibraryPage(){
     dbmanager.loadDB(onFinishDBLoad)
 }
 
+var child = require('child_process').execFile;
+function onClickPlay(){
+    let executablePath = "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardGameUnity\\builds\\AIPA.exe";
+    child(executablePath, function(err, data) {
+        if(err){
+           console.error(err);
+           return;
+        }
+     
+        console.log(data.toString());
+    });  
+}
+
 function onFinishDBLoad(){
     let installedGames = dbmanager.getInstalledGameApps()
     // fill game lib list
