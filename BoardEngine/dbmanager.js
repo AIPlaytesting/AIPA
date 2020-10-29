@@ -53,12 +53,16 @@ function removeGame(gameName,onFinishCallback){
     if(!installedGames.includes(gameName)){
         throw "no such registered game: " + gameName
     }
+    if(installedGames.length <= 1){
+        throw "error: cannot delete game when there is only on game!"
+    }
 
     let gameDir = dbRoot + '/' + gameName
     console.log("going to remove dir at: "+gameDir)
     rimraf.sync(gameDir)
 
     manifest.installed_app.splice(manifest.installed_app.indexOf(gameName),1)
+    manifest.game_app = manifest.installed_app[0]
     saveManifest()
 
     onFinishCallback()
