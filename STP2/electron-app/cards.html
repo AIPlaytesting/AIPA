@@ -59,7 +59,8 @@
           <label for="description">description</label>
         </div>
         <div class="col-75">
-          <input type='text' id="description" name="description" value="description" onchange='indicator(this)'>
+          <textarea type='text' id="description" name="description" value="description" onchange='indicator(this)' rows="4">
+          </textarea>
         </div>
       </div>
       <div class="row">
@@ -135,7 +136,7 @@
           <label for="strength_multiplier">strength_multiplier</label>
         </div>
         <div class="col-75">
-          <input type='text' id='strength_multiplier' name='strength_multiplier' value="1" onchange='indicator(this)'>
+          <input type='number' id='strength_multiplier' name='strength_multiplier' value="1" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -147,6 +148,7 @@
         </div>
       </div>
       <br>
+      <p id="message" hidden></p>
       <div class="row">
         <button type="submit">Save</button>
       </div>
@@ -365,6 +367,7 @@
       console.log(obj);
       console.log(obj.id);
       console.log(obj.value);
+
       // get card values from local json file
       let cardName = document.getElementById('cardsSelect').value;
       // console.log(cardName);
@@ -394,8 +397,24 @@
             defaultVal = card['buffs_info'][buff_name][buff_value];
           }
         }
+        // if type is number, if value is text or is negative or is bigger than 100, 
+        // alert and clear value
+        let message = document.getElementById("message");
+        if (obj.type == 'number') {
+          try {
+            if (obj.value == '') throw 'is Empty';
+            if(isNaN(obj.value)) throw "not a number";
+            if(obj.value > 100)   throw "too high";
+            if(obj.value < 0)  throw "too low";
+          }
+          catch (err) {
+            message.innerHTML = "Input " + err;
+            obj.value = defaultVal;
+          }
+          // console.log(typeof(obj.value));
+        }
         if ( defaultVal != obj.value) {
-          document.getElementById(obj.id).style.backgroundColor = 'pink';
+          document.getElementById(obj.id).style.backgroundColor = 'powderblue';
         }
         else {
           document.getElementById(obj.id).style.backgroundColor = 'white';
