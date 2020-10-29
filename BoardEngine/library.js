@@ -29,6 +29,7 @@ function onFinishDBLoad(){
         })
         gameTemplateList.append(templateOptionBtn)
     }
+    $('#create-new-game-btn').off()
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
     updateGameMainPage()
@@ -56,6 +57,7 @@ function onClickLibraryGameEntry(gameName){
 
 function onClickRemoveGame(){
     let currentGameName = dbmanager.getCurrentGameName()
+    console.log("game to delete: "+currentGameName)
     popupConfirmDialog("Calm down",
     "are you sure to delete: "+currentGameName,
     function(){dbmanager.removeGame(currentGameName,refreshLibraryPage)}
@@ -157,5 +159,8 @@ function popupConfirmDialog(title, message,onConfirmCallback){
     $('#confirm-modal').modal()
     $('#confirm-modal-title').text(title)
     $('#confirm-modal-body').text(message)
-    $('#confirm-model-confirm-btn').click(function(){onConfirmCallback()})
+    $('#confirm-model-confirm-btn').off()
+    $('#confirm-model-confirm-btn').click(function(){
+        console.log("call back!")
+        onConfirmCallback()})
 }
