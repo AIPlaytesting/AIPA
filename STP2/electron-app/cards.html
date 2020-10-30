@@ -8,7 +8,7 @@
 
 <body>
   <a name="top"></a>
-  <h2 class='center'>Generate Your Own Card!!!</h2>
+  <h2 class='center'>Create/Edit Card!</h2>
   <p class='center'>Fill out the form and click save.</p>
   <p class='right'><a href='index.html'>Home</a></p>
   <label for="cardsSelect">Choose a card:</label>
@@ -59,7 +59,8 @@
           <label for="description">description</label>
         </div>
         <div class="col-75">
-          <textarea type='text' id="description" name="description" value="description" onchange='indicator(this)' rows="4">
+          <textarea type='text' id="description" name="description" value="description" onchange='indicator(this)'
+            rows="4">
           </textarea>
         </div>
       </div>
@@ -68,7 +69,8 @@
           <label for="img_relative_path">img_relative_path</label>
         </div>
         <div class="col-75">
-          <input type='text' id="img_relative_path" name="img_relative_path" value="img_relative_path" onchange='indicator(this)'>
+          <input type='text' id="img_relative_path" name="img_relative_path" value="img_relative_path"
+            onchange='indicator(this)'>
         </div>
       </div>
 
@@ -104,7 +106,8 @@
           <label for="copies_in_discard_pile_when_played">copies_in_discard_pile_when_played</label>
         </div>
         <div class="col-75">
-          <input type='number' id='copies_in_discard_pile_when_played' name='copies_in_discard_pile_when_played' value="0" onchange='indicator(this)'>
+          <input type='number' id='copies_in_discard_pile_when_played' name='copies_in_discard_pile_when_played'
+            value="0" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -118,10 +121,10 @@
 
       <h3>buffs_info:</h3>
       <!-- <div class='row'> -->
-        <table id='buff-table'>
-        </table>
+      <table id='buff-table'>
+      </table>
       <!-- </div> -->
-      
+
       <h3>special_modifiers_info:</h3>
       <div class="row">
         <div class="col-25">
@@ -154,9 +157,9 @@
       </div>
     </form>
     <p class='right'><a href='index.html'>Home</a></p>
-    <p class='right'><a href="#top">Back to top of page</a></p> 
+    <p class='right'><a href="#top">Back to top of page</a></p>
   </div>
-  
+
   <script>
     const electron = require('electron');
     const fs = require('fs');
@@ -174,6 +177,7 @@
         option.innerHTML = file;
         select.appendChild(option);
       });
+      readCard();
     });
 
     // add eventListenser to write data into json file
@@ -186,26 +190,26 @@
       let data = {
         "name": document.getElementById('name').value,
         "type": document.getElementById('type').value,
-        "energy_cost" : document.getElementById('energy_cost').value,
-        "damage_target" : document.getElementById('damage_target').value,
+        "energy_cost": document.getElementById('energy_cost').value,
+        "damage_target": document.getElementById('damage_target').value,
         "description": document.getElementById('description').value,
-        "img_relative_path":document.getElementById('img_relative_path').value,
+        "img_relative_path": document.getElementById('img_relative_path').value,
 
-        "damage_block_info" : {
-            "damage" : document.getElementById('damage').value,
-            "damage_instances" : document.getElementById('damage_instances').value,
-            "block" : document.getElementById('block').value
+        "damage_block_info": {
+          "damage": document.getElementById('damage').value,
+          "damage_instances": document.getElementById('damage_instances').value,
+          "block": document.getElementById('block').value
         },
 
-        "card_life_cycle_info" : {
-            "copies_in_discard_pile_when_played" : document.getElementById('copies_in_discard_pile_when_played').value,
-            "draw_card" : document.getElementById('draw_card').value
+        "card_life_cycle_info": {
+          "copies_in_discard_pile_when_played": document.getElementById('copies_in_discard_pile_when_played').value,
+          "draw_card": document.getElementById('draw_card').value
         },
-        "buffs_info" : {},
-        "special_modifiers_info" : {
-            "unique_damage" : document.getElementById('unique_damage').value,
-            "strength_multiplier" : document.getElementById('strength_multiplier').value,
-            "next_attack_count" : document.getElementById('next_attack_count').value
+        "buffs_info": {},
+        "special_modifiers_info": {
+          "unique_damage": document.getElementById('unique_damage').value,
+          "strength_multiplier": document.getElementById('strength_multiplier').value,
+          "next_attack_count": document.getElementById('next_attack_count').value
         }
       };
       //set up buff info
@@ -221,8 +225,8 @@
         let buff_name = trs[i].firstChild.firstChild.innerHTML;
         console.log('buff_name = ' + buff_name);
         data['buffs_info'][buff_name] = {
-          value : document.getElementById(`${buff_name}_value`).value,
-          target : document.getElementById(`${buff_name}_target`).value
+          value: document.getElementById(`buff_${buff_name}_value`).value,
+          target: document.getElementById(`buff_${buff_name}_target`).value
         }
       }
 
@@ -230,7 +234,7 @@
         "Weakened",
         "Vulnerable",
         "Strength",
-        "Artifact", 
+        "Artifact",
         "Thorns",
         "Barricade",
         "Metallicise",
@@ -250,39 +254,42 @@
       ];
       registered_buffnames.forEach(buff_name => {
         data['buffs_info'][buff_name] = {
-          value : document.getElementById(`${buff_name}_value`).value,
-          target : document.getElementById(`${buff_name}_target`).value
+          value: document.getElementById(`buff_${buff_name}_value`).value,
+          target: document.getElementById(`buff_${buff_name}_target`).value
         }
       });
 
-      
+
       data = JSON.stringify(data, null, 2);
       const fileName = document.getElementById('name').value
       fs.writeFile(`${filePath}${fileName}.json`, data, (err) => {
         if (err) throw err;
         console.log('Data written to file');
-        });
+      });
     }
 
     // get card data from DATA
     function readCard() {
       let cardName = document.getElementById('cardsSelect').value;
       console.log(cardName);
+      if (cardName == '') {
+        cardName = document.getElementById('cardsSelect').firstChild.value;
+      }
       cardPath = `${filePath}${cardName}.json`
       console.log(cardPath);
       fs.readFile(cardPath, (err, data) => {
         if (err) throw err;
         let card = JSON.parse(data);
         read(card);
-        });
+      });
     }
 
     // set card by card json
     function read(card) {
       console.log(card);
       let items = ['name', 'type', 'energy_cost', 'damage_target', 'description', 'img_relative_path',
-                    'damage', 'damage_instances', 'block', 'copies_in_discard_pile_when_played', 
-                    'draw_card', 'unique_damage', 'strength_multiplier', 'next_attack_count']
+        'damage', 'damage_instances', 'block', 'copies_in_discard_pile_when_played',
+        'draw_card', 'unique_damage', 'strength_multiplier', 'next_attack_count']
       for (i in items) {
         console.log(items[i]);
         indicator(document.getElementById(items[i]));
@@ -302,7 +309,7 @@
       document.getElementById('strength_multiplier').value = card.special_modifiers_info.strength_multiplier;
       document.getElementById('next_attack_count').value = card.special_modifiers_info.next_attack_count;
       // set buff: create htmlDOM tree under table node, then assign value from local json file
-      
+
       console.log(form);
       // console.log(typeof(card.buffs_info));
       // console.log(card.buffs_info);
@@ -320,7 +327,7 @@
       table.appendChild(tr);
 
       for (const [buff_name, value_target_pair] of Object.entries(card.buffs_info)) {
-        
+
         let tr = document.createElement('tr');
         let td = document.createElement('td');
         let label = document.createElement('label');
@@ -328,7 +335,7 @@
         label.appendChild(labelText);
         td.appendChild(label);
         tr.appendChild(td);
-        
+
         td = document.createElement('td');
         let input = document.createElement('input');
         input.id = `buff_${buff_name}_value`;
@@ -403,9 +410,9 @@
         if (obj.type == 'number') {
           try {
             if (obj.value == '') throw 'is Empty';
-            if(isNaN(obj.value)) throw "not a number";
-            if(obj.value > 100)   throw "too high";
-            if(obj.value < 0)  throw "too low";
+            if (isNaN(obj.value)) throw "not a number";
+            if (obj.value > 100) throw "too high";
+            if (obj.value < 0) throw "too low";
           }
           catch (err) {
             message.innerHTML = "Input " + err;
@@ -413,7 +420,7 @@
           }
           // console.log(typeof(obj.value));
         }
-        if ( defaultVal != obj.value) {
+        if (defaultVal != obj.value) {
           document.getElementById(obj.id).style.backgroundColor = 'powderblue';
         }
         else {
@@ -423,10 +430,6 @@
 
     }
 
-
-
-
-    
   </script>
 </body>
 
