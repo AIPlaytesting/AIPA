@@ -21,7 +21,7 @@
           <label for="name">Name</label>
         </div>
         <div class="col-75">
-          <input type="text" id="name" name="name" value="name">
+          <input type="text" id="name" name="name" value="name" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -29,7 +29,7 @@
           <label for="type">Type</label>
         </div>
         <div class="col-75">
-          <select id="type" name="type">
+          <select id="type" name="type" onchange='indicator(this)'>
             <option value="Attack">Attack</option>
             <option value="Skill">Skill</option>
           </select>
@@ -40,7 +40,7 @@
           <label for="energy_cost">Energy cost</label>
         </div>
         <div class="col-75">
-          <input type='number' id="energy_cost" name="energy_cost" value="0">
+          <input type='number' id="energy_cost" name="energy_cost" value="0" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -48,7 +48,7 @@
           <label for="damage_target">damage_target</label>
         </div>
         <div class="col-75">
-          <select id="damage_target" name="damage_target">
+          <select id="damage_target" name="damage_target" onchange='indicator(this)'>
             <option value="enemy">enemy</option>
             <option value="self">self</option>
           </select>
@@ -59,7 +59,8 @@
           <label for="description">description</label>
         </div>
         <div class="col-75">
-          <input type='text' id="description" name="description" value="description">
+          <textarea type='text' id="description" name="description" value="description" onchange='indicator(this)' rows="4">
+          </textarea>
         </div>
       </div>
       <div class="row">
@@ -67,7 +68,7 @@
           <label for="img_relative_path">img_relative_path</label>
         </div>
         <div class="col-75">
-          <input type='text' id="img_relative_path" name="img_relative_path" value="img_relative_path">
+          <input type='text' id="img_relative_path" name="img_relative_path" value="img_relative_path" onchange='indicator(this)'>
         </div>
       </div>
 
@@ -77,7 +78,7 @@
           <label for="damage">damage</label>
         </div>
         <div class="col-75">
-          <input type='number' id='damage' name='damage' value="0">
+          <input type='number' id='damage' name='damage' value="0" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -85,7 +86,7 @@
           <label for="damage_instances">damage_instances</label>
         </div>
         <div class="col-75">
-          <input type='number' id='damage_instances' name='damage_instances' value="0">
+          <input type='number' id='damage_instances' name='damage_instances' value="0" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -93,7 +94,7 @@
           <label for="block">block</label>
         </div>
         <div class="col-75">
-          <input type='number' id='block' name='block' value="0">
+          <input type='number' id='block' name='block' value="0" onchange='indicator(this)'>
         </div>
       </div>
 
@@ -103,7 +104,7 @@
           <label for="copies_in_discard_pile_when_played">copies_in_discard_pile_when_played</label>
         </div>
         <div class="col-75">
-          <input type='number' id='copies_in_discard_pile_when_played' name='copies_in_discard_pile_when_played' value="0">
+          <input type='number' id='copies_in_discard_pile_when_played' name='copies_in_discard_pile_when_played' value="0" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -111,7 +112,7 @@
           <label for="draw_card">draw_card</label>
         </div>
         <div class="col-75">
-          <input type='number' id='draw_card' name='draw_card' value="0">
+          <input type='number' id='draw_card' name='draw_card' value="0" onchange='indicator(this)'>
         </div>
       </div>
 
@@ -127,7 +128,7 @@
           <label for="unique_damage">unique_damage</label>
         </div>
         <div class="col-75">
-          <input type='text' id='unique_damage' name='unique_damage' value="none">
+          <input type='text' id='unique_damage' name='unique_damage' value="none" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -135,7 +136,7 @@
           <label for="strength_multiplier">strength_multiplier</label>
         </div>
         <div class="col-75">
-          <input type='text' id='strength_multiplier' name='strength_multiplier' value="1">
+          <input type='number' id='strength_multiplier' name='strength_multiplier' value="1" onchange='indicator(this)'>
         </div>
       </div>
       <div class="row">
@@ -143,10 +144,11 @@
           <label for="next_attack_count">next_attack_count</label>
         </div>
         <div class="col-75">
-          <input type='number' id='next_attack_count' name='next_attack_count' value="1">
+          <input type='number' id='next_attack_count' name='next_attack_count' value="1" onchange='indicator(this)'>
         </div>
       </div>
       <br>
+      <p id="message" hidden></p>
       <div class="row">
         <button type="submit">Save</button>
       </div>
@@ -163,21 +165,20 @@
 
     // append all cards in select options
     const select = document.getElementById('cardsSelect');
-    // console.log(select);
     fs.readdir(filePath, (err, files) => {
       if (err) throw err;
       files.forEach(file => {
         file = file.slice(0, -5);
-        // console.log('file name = ' + file);
         const option = document.createElement('option');
         option.value = file;
         option.innerHTML = file;
         select.appendChild(option);
       });
     });
+
+    // add eventListenser to write data into json file
     const form = document.getElementById('saveForm');
     form.addEventListener('submit', submitForm);
-    console.log(document.getElementById('name').value);
 
     // submit to save into local json file
     function submitForm(e) {
@@ -207,7 +208,24 @@
             "next_attack_count" : document.getElementById('next_attack_count').value
         }
       };
-      //set up buff into
+      //set up buff info
+      // loop through the table tr, get first, second, and third tr element child's value,
+      // form a obj to update data objs.
+      let table = document.getElementById('buff-table');
+      let trs = table.children;
+      console.log(trs);
+      for (let i = 0; i < trs.length; i++) {
+        if (i == 0) {
+          continue;
+        }
+        let buff_name = trs[i].firstChild.firstChild.innerHTML;
+        console.log('buff_name = ' + buff_name);
+        data['buffs_info'][buff_name] = {
+          value : document.getElementById(`${buff_name}_value`).value,
+          target : document.getElementById(`${buff_name}_target`).value
+        }
+      }
+
       let registered_buffnames = [
         "Weakened",
         "Vulnerable",
@@ -261,7 +279,14 @@
 
     // set card by card json
     function read(card) {
-      // console.log(card);
+      console.log(card);
+      let items = ['name', 'type', 'energy_cost', 'damage_target', 'description', 'img_relative_path',
+                    'damage', 'damage_instances', 'block', 'copies_in_discard_pile_when_played', 
+                    'draw_card', 'unique_damage', 'strength_multiplier', 'next_attack_count']
+      for (i in items) {
+        console.log(items[i]);
+        indicator(document.getElementById(items[i]));
+      }
       document.getElementById('name').value = card.name;
       document.getElementById('type').value = card.type;
       document.getElementById('energy_cost').value = card.energy_cost;
@@ -276,13 +301,15 @@
       document.getElementById('unique_damage').value = card.special_modifiers_info.unique_damage;
       document.getElementById('strength_multiplier').value = card.special_modifiers_info.strength_multiplier;
       document.getElementById('next_attack_count').value = card.special_modifiers_info.next_attack_count;
-      // set buff
+      // set buff: create htmlDOM tree under table node, then assign value from local json file
       
       console.log(form);
       // console.log(typeof(card.buffs_info));
       // console.log(card.buffs_info);
       const table = document.getElementById('buff-table');
-      
+      while (table.firstChild) {
+        table.removeChild(table.lastChild);
+      }
       let tr = document.createElement('tr');
       heads = ['Buff Name', 'Value', 'Target']
       heads.forEach(head => {
@@ -304,20 +331,19 @@
         
         td = document.createElement('td');
         let input = document.createElement('input');
-        input.setAttribute('id', `${buff_name}_value`);
-        input.setAttribute('type', 'number');
-        // console.log(buff_name);
-        // console.log(value_target_pair.value);
-        // console.log(value_target_pair.target);
-        input.setAttribute('name', `${buff_name}_value`);
-        input.setAttribute('value', `${value_target_pair.value}`);
+        input.id = `buff_${buff_name}_value`;
+        input.type = 'number';
+        input.name = `buff_${buff_name}_value`;
+        input.value = `${value_target_pair.value}`;
+        input.setAttribute('onchange', 'indicator(this)');
         td.appendChild(input);
         tr.appendChild(td);
 
         td = document.createElement('td');
         let buff_target_select = document.createElement('select');
-        buff_target_select.id = `${buff_name}_target`;
-        buff_target_select.setAttribute('name', `${buff_name}_target`);
+        buff_target_select.id = `buff_${buff_name}_target`;
+        buff_target_select.name = `buff_${buff_name}_target`;
+        buff_target_select.setAttribute('onchange', 'indicator(this)');
         options = ['self', 'enemy']
         options.forEach(option => {
           let opt = document.createElement('option');
@@ -334,6 +360,67 @@
 
         table.appendChild(tr);
       }
+    }
+
+    // if target value is not equal to original value, change background color
+    function indicator(obj) {
+      console.log(obj);
+      console.log(obj.id);
+      console.log(obj.value);
+
+      // get card values from local json file
+      let cardName = document.getElementById('cardsSelect').value;
+      // console.log(cardName);
+      cardPath = `${filePath}${cardName}.json`
+      // console.log(cardPath);
+      fs.readFile(cardPath, (err, data) => {
+        if (err) throw err;
+        let card = JSON.parse(data);
+        console.log(card);
+        let defaultVal = card[obj.id];
+        console.log(defaultVal);
+        // get default value from deeper in json file
+        if (defaultVal === undefined) {
+          console.log(card['damage_block_info']);
+          let infos = ['damage_block_info', 'card_life_cycle_info', 'special_modifiers_info']
+          for (let i = 0; i < infos.length; i++) {
+            if (obj.id in card[infos[i]]) {
+              defaultVal = card[infos[i]][obj.id];
+              break;
+            }
+          }
+          // get buff default value based on obj.id
+          if (obj.id.length >= 4 && obj.id.substring(0, 4) == 'buff') {
+            let buff_infos = obj.id.split('_');
+            let buff_name = buff_infos[1];
+            let buff_value = buff_infos[2];
+            defaultVal = card['buffs_info'][buff_name][buff_value];
+          }
+        }
+        // if type is number, if value is text or is negative or is bigger than 100, 
+        // alert and clear value
+        let message = document.getElementById("message");
+        if (obj.type == 'number') {
+          try {
+            if (obj.value == '') throw 'is Empty';
+            if(isNaN(obj.value)) throw "not a number";
+            if(obj.value > 100)   throw "too high";
+            if(obj.value < 0)  throw "too low";
+          }
+          catch (err) {
+            message.innerHTML = "Input " + err;
+            obj.value = defaultVal;
+          }
+          // console.log(typeof(obj.value));
+        }
+        if ( defaultVal != obj.value) {
+          document.getElementById(obj.id).style.backgroundColor = 'powderblue';
+        }
+        else {
+          document.getElementById(obj.id).style.backgroundColor = 'white';
+        }
+      });
+
     }
 
 
