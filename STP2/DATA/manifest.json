@@ -4,7 +4,7 @@
     "resource_directory": "Resources",
     "installed_app": [
         "DefaultApp",
-        "DefinitewinApp",
+        "DefinitewinAPP",
         "TestApp"
     ]
 }
