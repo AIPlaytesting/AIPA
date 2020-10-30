@@ -7,7 +7,7 @@ from db.game_database import GameDatabase, calculate_root_dir
 from gameplay.game_manager import GameManager
 
 # connect to frontend
-connection = Connection()
+connection = Connection(9999)
 connection.connect()
 
 # load database

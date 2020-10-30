@@ -64,7 +64,7 @@ class RequestMessage:
             return RequestMessage(method,False,None,None,None)
         else:
             print("[ERROR]-protocol undefined method: ",method)
-            return None
+            return RequestMessage(method,False,None,None,None)
 
 class ResponseMessage:
     def __init__(self,content_type,content):

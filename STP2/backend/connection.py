@@ -4,15 +4,16 @@ from .protocol import RequestMessage, ResponseMessage,PlayerStep
 
 PDU_DIVIDOR = '$'
 class Connection:
-    def __init__(self):
+    def __init__(self,port):
         self.__sock = None
         self.__pdus = []
+        self.__port = port
 
     def connect(self):
         # Create a TCP/IP socket
         self.__sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Connect the socket to the port where the server is listening
-        server_address = ('127.0.0.1', 9999)
+        server_address = ('127.0.0.1', self.__port)
         print ('connecting to: ',server_address)
         self.__sock.connect(server_address)
         print ('connected to: ',server_address)
