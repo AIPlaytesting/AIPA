@@ -1,23 +1,25 @@
 const PythonProcess = require('./pythonProcess.js')
 
-function onTestStart(){
-    console.log('hi')
-    let pyProcess = new PythonProcess(10000, 
-	    function () { pyProcess.sendMessage({'method':66}) },
+function onTestEnv(){
+    console.log('env')
+    let pyProcess = new PythonProcess(10,
+	    function () { console.log('success!') },
         function(data){console.log('receive: '+data)})
-    startPy()
 }
 
-function startPy(){
-    let child = require('child_process').execFile;
-    console.log('start py!')
-    let executablePath = "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\runpy.bat";
-    child(executablePath, function(err, data) {
-        if(err){
-           console.error(err);
-           return;
-        }
-     
-        console.log(data.toString());
-    });  
+function onTestTrain(){
+    console.log('train')
+    let pyProcess = new PythonProcess(11,
+	    function () { console.log('success!') },
+        function(data){console.log('receive: '+data)})
 }
+
+
+
+function onTestSimulate(){
+    console.log('simulate')
+    let pyProcess = new PythonProcess(12,
+	    function () { console.log('success!') },
+        function(data){console.log('receive: '+data)})
+}
+

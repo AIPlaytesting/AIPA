@@ -63,7 +63,7 @@ class RequestMessage:
         elif method == 'Terminate':
             return RequestMessage(method,False,None,None,None)
         else:
-            print("[ERROR]-protocol undefined method: ",method)
+            print("[WARNING]-protocol undefined method: ",method)
             return RequestMessage(method,False,None,None,None)
 
 class ResponseMessage:
