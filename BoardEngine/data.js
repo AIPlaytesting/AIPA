@@ -1,3 +1,18 @@
+const PythonProcess = require('./pythonProcess.js')
+function simulate(){
+    let pyProcess = new PythonProcess(12,
+	    function () { console.log('success!') },
+        onReceiveTrainMesssage)
+}
+
+function onReceiveTrainMesssage(data){
+    simulateInfo = JSON.parse(data).content
+    let curprogress =   simulateInfo.curprogress
+    let maxprogress =  simulateInfo.maxprogress
+    $('#simulate-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    $('#simulate-progress').text(curprogress+'/'+maxprogress)
+}
+
 function showHeatMap(){
     // clear 
     $("#my_dataviz").text("")

@@ -2,13 +2,14 @@
 from backend.connection import Connection
 from backend.protocol import ResponseMessage
 
+ELECTRON_LISTEN_PORT = 10000
 # electron method code 
 ELECTRON_DETECT_ENV = 10
 ELECTRON_TRAIN = 11
 ELECTRON_SIMULATE = 12
 
 # connect to frontend
-connection = Connection(10000)
+connection = Connection(ELECTRON_LISTEN_PORT)
 connection.connect()
 
 def detect_env_mainloop():
@@ -29,10 +30,23 @@ def detect_env_mainloop():
     print("detect env mainloop done: ",ver)
 
 def train_mainloop():
-    connection.send_response(ResponseMessage("electron","train"))
+    import time
+    for i in range(100):
+        time.sleep(0.200)
+        train_info ={}
+        train_info['curprogress'] = i
+        train_info['maxprogress'] = 100
+        train_info['curwinrate'] = (i/100)
+        connection.send_response(ResponseMessage("electron",train_info))
 
 def simulate_mainloop():
-    connection.send_response(ResponseMessage("electron","simulate"))
+    import time
+    for i in range(100):
+        time.sleep(0.20)
+        simulate_progress ={}
+        simulate_progress['curprogress'] = i
+        simulate_progress['maxprogress'] = 100
+        connection.send_response(ResponseMessage("electron",simulate_progress))
 
 
 # wait method
