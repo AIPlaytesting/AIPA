@@ -16,7 +16,7 @@ def detect_env_mainloop():
         version = {}
         import sys
         pyver = sys.version_info
-        version['python'] = str(pyver.major) +'.'+str(pyver.minor)+'.'+str(pyver.micro)
+        version['py'] = str(pyver.major) +'.'+str(pyver.minor)+'.'+str(pyver.micro)
         try:
             import tensorflow
             version['tf'] = tensorflow.__version__

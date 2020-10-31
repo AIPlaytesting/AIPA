@@ -10,8 +10,10 @@
         <script>let $ = require('jquery');</script>
         <script>require('popper.js');</script>
         <script>require('bootstrap');</script>
+        <script src="index.js"></script>
 </head>
 <body>
+    <script>onStart()</script>
     <div id = "root" class="bg">
         <div class="btn-group">
             <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/');">
@@ -30,16 +32,13 @@
         <h1 id = "title" class = "display-1 col-12 text-center">
             Welcome
         </h1>
-        <div class = "text-center">
-            <div class="dropdown">
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="color:antiquewhite">
-                  Required Environment
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Python3</a>
-                  <a class="dropdown-item" href="#">Tensorflow</a>
-                </div>
+        <div id ="env-detect-div" class = "text-center" style="height:85px">
+            <div id = "env-loading">
+                <span class="spinner-border text-light" role="status"></span>
+                <span style = "color: white">Detecting Environment ...</span>
             </div>
+            <p id = "py-env-version" style = "color: white"></p>
+            <p id = "tf-env-version" style = "color: white"></span> </p>
         </div>
         <div class="text-center">
             <button id  = "start-btn" class = "btn btn-primary rounded" onclick="location.href='library.html'">
