@@ -1,57 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <link rel='stylesheet' href='../css/style.css'>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src='index.js'></script>
+
 </head>
 
-<body>
-    <h1>Home</h1>
-    <div class="container">
-        <div class="row">
-            <h2>Card/Deck Settings</h2>
+<body onload="onLoadDesign()">
+  <div class='container'>
+    <div class="row">
+      <div class='col-9'>
+        <h2>Cards</h2>
+        <div id='cards' class='row'>
+          <div class='col-3'>
+            <a href='cards.html?cardFolderPath="../STP2/DATA/DefinitewinAPP/Cards/"&cardName=""'><button
+                class='btn btn-primary'>Add New</button></a>
+          </div>
         </div>
-        <div class="row">
-            <div class="col-25">
-                <a href='cards.html'><button>Create/Edit cards</button></a>
-            </div>
-            <div class="col-25">
-                <a href='decks.html'><button>Deck building</button></a>
-            </div>
+      </div>
+
+      <div class='col-3'>
+        <h2>Decks</h2>
+        <div id='decks' class='row'>
+          <div class='row'>
+            <form>
+              <div class='form-group'>
+                <label for="decksSelect" class='col-sm-12 col-form-label'>Your Deck:</label>
+                <div class='col-sm-12'>
+                  <select name="decksSelect" id="decksSelect" class='custom-select' onchange="readDeck()"></select>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class='row'>
+            <form id='deckForm'>
+              <div class='form-group row pl-4'>
+                <button type='submit' class='btn btn-primary'>Save Deck</button>
+              </div>
+              <!-- <div class='form-group row pl-4'>
+                <label for='addCardToDeck' class='col-sm-12 col-form-label'>Add Card to Deck</label>
+                <div class='col-sm-6'>
+                  <input type='text' id='buff_new_name' name='buff_new_name' class='form-control' placeholder="card name">
+                </div>
+                <div class='col-sm-6'>
+                  <input type='number' id='buff_new_value' name='buff_new_value' class='form-control' placeholder="amount">
+                </div>
+              </div> -->
+            </form>
+          </div>
         </div>
-        <div class="row">
-            <h2>AI Training Settings</h2>
-        </div>
-        <div class="row">
-            <div class="col-25">
-                <a href='cardsUI/'><button>Parameters</button></a>
-            </div>
-            <div class="col-25">
-                <a href='cardsUI/'><button>State/Action</button></a>
-            </div>
-        </div>
-        <div class="row">
-            <h2>Train</h2>
-        </div>
-        <div class="row">
-            <div class="col-100">
-                <button>Train</button> progress bar...
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-25">
-                <button>Visit replay</button>
-            </div>
-        
-            <div class="col-25">
-                <button>Statistics</button>
-            </div>
-        </div>
-            <!-- <div class="col-75">
-                <button class="start-button">Start Game</button>
-            </div> -->
+      </div>
     </div>
+
+  </div>
 
 </body>
 
