@@ -22,6 +22,7 @@
   "dependencies": {
     "bootstrap": "^4.5.3",
     "d3": "^6.2.0",
+    "electron-root-path": "^1.0.16",
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.5.1",
     "ncp": "^2.0.0",

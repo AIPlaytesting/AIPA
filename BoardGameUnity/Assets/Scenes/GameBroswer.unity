@@ -9377,21 +9377,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config:
     launchOrder:
-    - applicationPath: python3
+    - applicationPath: python
       appUseRelativePath: 0
       argumentPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\backend_launcher.py
       argvUseRelativePath: 0
-      enabled: 1
-    - applicationPath: python3
-      appUseRelativePath: 0
-      argumentPath: PythonGameplay\back_end.py
-      argvUseRelativePath: 1
-      enabled: 1
+      enabled: 0
     - applicationPath: python
       appUseRelativePath: 0
       argumentPath: PythonGameplay\back_end.py
       argvUseRelativePath: 1
-      enabled: 1
+      enabled: 0
+    - applicationPath: python
+      appUseRelativePath: 0
+      argumentPath: PythonGameplay\back_end.py
+      argvUseRelativePath: 1
+      enabled: 0
     - applicationPath: backend.bat
       appUseRelativePath: 1
       argumentPath: 
@@ -9403,7 +9403,7 @@ MonoBehaviour:
       argvUseRelativePath: 1
       enabled: 1
     showWindow: 1
-    startManually: 1
+    startManually: 0
 --- !u!4 &1185227819
 Transform:
   m_ObjectHideFlags: 0

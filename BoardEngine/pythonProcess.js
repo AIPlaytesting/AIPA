@@ -1,5 +1,6 @@
 const net = require('net')
 const SERVER_PORT = 10000
+const rootPath = require('electron-root-path').rootPath
 
 // methodCode: 
 // env = 10
@@ -37,7 +38,7 @@ function createMessage(methodCode,content){
 
 function launchProcessByBat(){
     let child = require('child_process').execFile;
-    let executablePath = "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\runpy.bat";
+    let executablePath = rootPath+'\\executables\\runpy.bat'
 	console.log('start bat at: '+executablePath)
 	child(executablePath, function(err, data) {
         if(err){

@@ -1,0 +1,6 @@
+{
+    "cards_directory":"Cards",
+    "decks_directory":"Decks",
+    "rules_file":"rules.json",
+    "buffs_file":"buffs.json"
+}

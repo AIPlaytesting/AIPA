@@ -4,8 +4,9 @@
 const fs = require('fs');
 const ncp = require('ncp').ncp;
 const rimraf = require("rimraf");
+const rootPath = require('electron-root-path').rootPath
+const dbRoot = rootPath+'/executables/pyproj/DATA';
 
-var dbRoot = '../STP2/DATA';
 var manifest = {}
 var installedGames = [];
 var resourceRoot = "";

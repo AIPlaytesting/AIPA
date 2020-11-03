@@ -1,4 +1,6 @@
-const dbmanager = require('./dbmanager.js');
+const dbmanager = require('./dbmanager.js')
+const rootPath = require('electron-root-path').rootPath
+
 var currentGameData = {}
 
 function refreshLibraryPage(){
