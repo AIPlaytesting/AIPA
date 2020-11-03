@@ -2,5 +2,5 @@ setlocal
 cd /d %~dp0
 cd ../
 cd ../
-cd pyproj
-py backend_launcher.py
+cd pyexe
+python.exe ../pyproj/backend_launcher.py
