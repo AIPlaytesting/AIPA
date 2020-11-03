@@ -55,13 +55,55 @@ function onLoadCards() {
       a.href = `cards.html?cardFolderPath="${cardFolderPath}"&cardName="${card_name}"`;
       row2.appendChild(a);
 
+      // Add to deck
+      const btn = document.createElement('button');
+      btn.className = 'ml-1 btn btn-danger';
+      btn.innerHTML = '+ Deck';
+      btn.onclick = addToDeck;
+      row2.appendChild(btn);
+
       div.appendChild(row2);
+
 
       cards.appendChild(div);
     });
   });
 }
 
+function addToDeck() {
+  console.log('add to deck');
+  // get card name
+  const cardName = this.parentNode.parentNode.firstChild.firstChild.innerHTML;
+  console.log(this.parentNode.parentNode.firstChild.firstChild.innerHTML);
+  // add to deck
+  // if card exist in deck, add amount by 1
+  // else if card not exist in deck, create new element with card name and amount 1
+  const form = document.getElementById('deckForm');
+  console.log(form.children.length-1);
+  // length - 1 for deducting save button
+  const n = form.children.length
+  let cardIsExist = false;
+  for (let i = 0; i < n; i++) {
+    if (cardIsExist) {
+      break;
+    }
+    if (i == n - 1) {
+      break;
+    }
+    console.log(form.children[i].firstChild.innerHTML);
+    if (form.children[i].firstChild.innerHTML == cardName) {
+      form.children[i].lastChild.firstChild.value = parseInt(form.children[i].lastChild.firstChild.value) + 1;
+      cardIsExist = true;
+    }
+  }
+  if (!cardIsExist) {
+    const div = createDeckCard(cardName, 1);
+    div.lastChild.firstChild.style.backgroundColor = 'powderblue';
+    form.prepend(div);
+  }
+  // run saveButton function
+
+}
 
 function onLoadDecks() {
   const select = document.getElementById('decksSelect');
@@ -91,7 +133,7 @@ function readDeck() {
   if (deckName == '') {
     deckName = document.getElementById('decksSelect').firstChild.value;
   }
-  deckJsonPath = `${deckFolderPath}${deckName}.json`
+  deckJsonPath = `${deckFolderPath}${deckName}.json`;
   // console.log(deckJsonPath);
   fs.readFile(deckJsonPath, (err, data) => {
     if (err) throw err;
@@ -122,40 +164,69 @@ function read(deck) {
   // 2. card name
   let entries = Object.entries(deck);
   entries = entries.sort(compare);
-  // entries.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
-  // console.log(entries);
-  // console.log(entries[0]);
-  // console.log(entries[0][1]);
-  // console.log(entries[1]);
-  // console.log(entries[1][1]);
-  // console.log(entries[2]);
-  // console.log(entries[2][1]);
   
   for (const [card_name, amount] of entries) {
-
-    let div = document.createElement('div');
-    div.className = 'form-group row pl-3';
-
-    let label = document.createElement('label');
-    label.className = 'col-sm-8 col-form-label';
-    let labelText = document.createTextNode(card_name);
-    label.appendChild(labelText);
-    div.appendChild(label);
-
-    let divInput = document.createElement('div');
-    divInput.className = 'col-sm-4';
-    let input = document.createElement('input');
-    input.id = `buff_${card_name}_value`;
-    input.type = 'number';
-    input.name = `buff_${card_name}_value`;
-    input.value = `${amount}`;
-    input.className = 'form-control';
-    divInput.appendChild(input);
-    div.appendChild(divInput);
-
+    if (amount == 0) {
+      continue;
+    }
+    let div = createDeckCard(card_name, amount);
     form.prepend(div);
+  }
+}
 
-    // input.setAttribute('onchange', 'indicator(this)');
+function createDeckCard(card_name, amount) {
+  let div = document.createElement('div');
+  div.className = 'form-group row pl-3';
+
+  let label = document.createElement('label');
+  label.className = 'col-sm-8 col-form-label';
+  let labelText = document.createTextNode(card_name);
+  label.appendChild(labelText);
+  div.appendChild(label);
+
+  let divInput = document.createElement('div');
+  divInput.className = 'col-sm-4';
+  let input = document.createElement('input');
+  input.id = `buff_${card_name}_value`;
+  input.type = 'number';
+  input.name = `buff_${card_name}_value`;
+  input.value = `${amount}`;
+  input.className = 'form-control';
+  input.setAttribute('onchange', 'indicator(this)');
+  divInput.appendChild(input);
+  div.appendChild(divInput);
+  return div;
+}
+
+function indicator(obj) {
+  console.log(obj);
+  console.log(obj.id.split('_')[1]);
+  console.log(obj.value);
+  // get original json deck card data
+  let deckName = document.getElementById('decksSelect').value;
+  let deckJsonPath = `${deckFolderPath}${deckName}.json`;
+  let data = fs.readFileSync(deckJsonPath);
+  data = JSON.parse(data);
+  console.log(data);
+  // compare
+  let entries = Object.entries(data);
+  let isChanged = false;
+  for (const [card_name, amount] of entries) {
+    // console.log(card_name);
+    // console.log(obj.id.split('_')[1]);
+    // console.log(amount);
+    // console.log(obj.value);
+    if (card_name == obj.id.split('_')[1]) {
+      if (amount != obj.value) {
+        isChanged = true;
+      }
+    }
+  }
+  console.log(isChanged);
+  if (isChanged) {
+    document.getElementById(obj.id).style.backgroundColor = 'powderblue';
+  } else {
+    document.getElementById(obj.id).style.backgroundColor = 'white';
   }
 }
 
