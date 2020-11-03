@@ -8,9 +8,11 @@ function refreshLibraryPage(){
     dbmanager.loadDB(onFinishDBLoad)
 }
 
-var child = require('child_process').execFile;
+
 function onClickPlay(){
-    let executablePath = "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardGameUnity\\builds\\AIPA.exe";
+    let child = require('child_process').execFile;
+    let executablePath = rootPath + '/executables/unitybuild/AIPA.exe';
+    console.log('launch unity at: '+executablePath)
     child(executablePath, function(err, data) {
         if(err){
            console.error(err);
