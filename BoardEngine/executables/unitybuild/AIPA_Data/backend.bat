@@ -3,4 +3,4 @@ cd /d %~dp0
 cd ../
 cd ../
 cd pyproj
-python backend_launcher.py
+py backend_launcher.py

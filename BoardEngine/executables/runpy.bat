@@ -1,4 +1,5 @@
 setlocal
 cd /d %~dp0
+SET PATH = ./pyexe
 cd pyproj
-python electron_backend.py
+py electron_backend.py
