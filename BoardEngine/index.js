@@ -7,9 +7,15 @@ function onStart(){
 }
 
 function detectEnv(){
-    let pyProcess = new PythonProcess(10,
-	    function () { console.log('success!') },
-        onReceiveEnvMesssage)
+    try{
+        let pyProcess = new PythonProcess(10,
+            function () { console.log('success!') },
+            onReceiveEnvMesssage,
+            function(){onEnvDetectResult("none","none")})
+    }
+    catch(e){
+        console.log('py not installed!')
+    }
 }
 
 function onClickInstallPython(){
@@ -52,12 +58,17 @@ function modifyTensorflow(isInstall){
 }
 
 function onReceiveEnvMesssage(data){
-    let tfversion  = '2.3.1'
-    let pyMainVersion = '2'
-    let pass = true
     env = JSON.parse(data).content
-    $('#py-env-version').text("Python: "+env.py)
-    if(env.py[0]!= pyMainVersion){
+    onEnvDetectResult(env.py,env.tf)
+}
+
+function onEnvDetectResult(pyVersion,tfVersion){
+    let tfRequiredVersion  = '2.3.1'
+    let pyRequiredMainVersion = '3'
+    let pass = true
+
+    $('#py-env-version').text("Python: "+pyVersion)
+    if(pyVersion[0]!= pyRequiredMainVersion){
         pass = false
         let installBtn = $(document.createElement('button'))
         .text("install")
@@ -65,37 +76,41 @@ function onReceiveEnvMesssage(data){
         $('#py-env-version').attr('style','color:red').append(installBtn)
     }
 
+    // if python is not required, no need to check/install tf
+    if(pass){
+        $('#tf-env-version').text("Tensorflow: "+ tfVersion)
+        if(tfVersion != tfRequiredVersion){
+            pass = false
+            let installBtn = $(document.createElement('button'))
+            .text("install")
+            .click(function(){
+                modifyTensorflow(true)
+                $(this).remove()
+                let spining = $(document.createElement('span'))
+                .attr('class','spinner-border text-light')
+                .attr('role','status')
+                .attr('id','tf-install-spining')
+                $('#tf-env-version').append(spining)
+            })
+            $('#tf-env-version').attr('style','color:red').append(installBtn)
+        }
+        else{
+            let uninstallBtn = $(document.createElement('button'))
+            .text("uninstall")
+            .click(function(){
+                modifyTensorflow(false)
+                $(this).remove()
+                let spining = $(document.createElement('span'))
+                .attr('class','spinner-border text-light')
+                .attr('role','status')
+                .attr('id','tf-install-spining')
+                $('#tf-env-version').append(spining)
+            })
+            $('#tf-env-version').append(uninstallBtn)
+        }
+    }
 
-    $('#tf-env-version').text("Tensorflow: "+env.tf)
-    if(env.tf != tfversion){
-        pass = false
-        let installBtn = $(document.createElement('button'))
-        .text("install")
-        .click(function(){
-            modifyTensorflow(true)
-            $(this).remove()
-            let spining = $(document.createElement('span'))
-            .attr('class','spinner-border text-light')
-            .attr('role','status')
-            .attr('id','tf-install-spining')
-            $('#tf-env-version').append(spining)
-        })
-        $('#tf-env-version').attr('style','color:red').append(installBtn)
-    }
-    else{
-        let uninstallBtn = $(document.createElement('button'))
-        .text("uninstall")
-        .click(function(){
-            modifyTensorflow(false)
-            $(this).remove()
-            let spining = $(document.createElement('span'))
-            .attr('class','spinner-border text-light')
-            .attr('role','status')
-            .attr('id','tf-install-spining')
-            $('#tf-env-version').append(spining)
-        })
-        $('#tf-env-version').append(uninstallBtn)
-    }
+   
 
     if(pass){
         $('#env-loading').text("Environment Pass")

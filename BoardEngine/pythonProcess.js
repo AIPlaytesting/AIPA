@@ -7,10 +7,16 @@ const rootPath = require('electron-root-path').rootPath
 // train = 11
 // simulate = 12
 class PythonProcess {
-	constructor(methodCode, onSuccessListenter, onReceiveDataListener) {
+	constructor(methodCode, onSuccessListenter, onReceiveDataListener, onFailListenter = null) {
 		this.socket = undefined
 		let curPythonProcess = this
-		launchProcessByBat()
+		try{
+			launchProcessByBat(onFailListenter)
+		}
+		catch(e){
+			console.log('CATCH!')
+			throw e
+		}
 		net.createServer(function (socket) {
 			curPythonProcess.socket = socket
 			curPythonProcess.socket.on('data',onReceiveDataListener)
@@ -36,18 +42,18 @@ function createMessage(methodCode,content){
 	return messageObj
 }
 
-function launchProcessByBat(){
+function launchProcessByBat(onFailListenter){
     let child = require('child_process').execFile;
     let executablePath = rootPath+'\\executables\\runpy.bat'
 	console.log('start bat at: '+executablePath)
 	child(executablePath, function(err, data) {
-        if(err){
-           console.error(err);
-           return;
-        }
-     
-        console.log(data.toString());
-    });  
+		if(err){
+			console.error(err);
+			if(onFailListenter!=null){
+				onFailListenter()
+			}
+		}
+	}) 
 }
 
 module.exports = PythonProcess
