@@ -2,5 +2,8 @@ setlocal
 cd /d %~dp0
 cd ../
 cd ../
+SET PATH = ./pyexe
 cd pyproj
-python backend_launcher.py
+py backend_launcher.py
+
+pause
