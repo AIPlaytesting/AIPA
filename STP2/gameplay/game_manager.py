@@ -1,7 +1,5 @@
 from db.game_app_data import GameAppData
-
 from gameplay_extension.extension_manager import ExtensionManager
-
 from .combat_unit import CombatUnit
 from .enemy_intent import EnemyIntent
 from .enemy_AI import EnemyAI
@@ -9,6 +7,7 @@ from .game_event import GameEvent
 from .deck import Deck
 from .game_state import GameState
 from .event_system import EventManager
+from game_recorder.recorder import GameRecorder
 
 PLAYER_ENERGY = 3
 
@@ -31,9 +30,14 @@ class GameManager:
         self.__end_player_turn_flag = False
         #set to false when training AI
         self.isLoggingEnabled = True
+        self.__recorder = GameRecorder()
+        self.is_recorded = False
 
-    def init_game(self):
+    def init_game(self,is_recorded = False):
         self.game_state = GameState(self.game_app_data)
+        self.is_recorded = is_recorded
+        if is_recorded:
+            self.__recorder.start_record_one_battle()
 
     def is_game_end(self):
         player_hp, boss_hp = self.game_state.player.current_hp,self.game_state.boss.current_hp
@@ -48,7 +52,24 @@ class GameManager:
         return self.__end_player_turn_flag
     
     # game flow func
+    # (TODO: depricated, we don't need to maintain this flag since we have GameState.game_stage)
+    def end_player_turn(self):
+        self.__end_player_turn_flag = True
+
+    def recorder_segment(func):
+        def wrapper(self,*args, **kwargs):
+            if self.is_recorded:
+                self.__recorder.record_game_state(self.game_state)
+                game_events = func(self,*args, **kwargs)     
+                self.__recorder.record_game_events(game_events)
+                return game_events
+            else:
+                return func(self,*args, **kwargs)  
+        return wrapper
+
+    # game flow func
     # return start player turn GameEvent
+    @recorder_segment
     def start_player_turn(self)->GameEvent:
         print("start player turn ===========================")
         if not self.is_game_end():
@@ -71,13 +92,9 @@ class GameManager:
             print("Boss will switch mode in", self.game_state.boss_AI.transformTriggerPoint - self.game_state.boss_AI.accumulator, "damages")
         return GameEvent.create_new_turn_event(True)
 
-    # game flow func
-    # (TODO: depricated, we don't need to maintain this flag since we have GameState.game_stage)
-    def end_player_turn(self):
-        self.__end_player_turn_flag = True
-   
     # game flow func   
     # return start enemy turn GameEvent
+    @recorder_segment
     def start_enemy_turn(self)->GameEvent:
         print("start enemy turn *****************************")
         if not self.is_game_end():
@@ -92,10 +109,12 @@ class GameManager:
         self.game_state.boss.refresh_buff_on_new_turn()
         # log status
         self.game_state.boss.print_status_info("BOSS")
-        return GameEvent.create_new_turn_event(False)
+
+        return  GameEvent.create_new_turn_event(False)
 
     # game flow func
     # return: game_event.GameEvent[]
+    @recorder_segment
     def execute_enemy_intent(self):
         game_events = []
         # create-intent event
@@ -110,6 +129,7 @@ class GameManager:
    
     # game flow func
     # return: game_event.GameEvent[]
+    @recorder_segment
     def execute_play_card(self, cardname):
         game_events = self.event_manager.execute_card(self.game_state,cardname)
         if self.is_game_end():
