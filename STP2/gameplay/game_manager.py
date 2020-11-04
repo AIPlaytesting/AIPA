@@ -66,6 +66,9 @@ class GameManager:
             else:
                 return func(self,*args, **kwargs)  
         return wrapper
+        
+    def save_record(self):
+        self.__recorder.save_record_data()
 
     # game flow func
     # return start player turn GameEvent
@@ -90,7 +93,7 @@ class GameManager:
         self.game_state.player.print_status_info("Player")
         if self.game_state.boss_AI.mode == "Offensive":
             print("Boss will switch mode in", self.game_state.boss_AI.transformTriggerPoint - self.game_state.boss_AI.accumulator, "damages")
-        return GameEvent.create_new_turn_event(True)
+        return [GameEvent.create_new_turn_event(True)]
 
     # game flow func   
     # return start enemy turn GameEvent
@@ -110,7 +113,7 @@ class GameManager:
         # log status
         self.game_state.boss.print_status_info("BOSS")
 
-        return  GameEvent.create_new_turn_event(False)
+        return  [GameEvent.create_new_turn_event(False)]
 
     # game flow func
     # return: game_event.GameEvent[]

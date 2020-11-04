@@ -1,0 +1,1117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7046063715895941969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4996699843409268699}
+  - component: {fileID: 7046063715895941968}
+  - component: {fileID: 5047143339387005862}
+  m_Layer: 0
+  m_Name: RecordPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4996699843409268699
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046063715895941969}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 615.5, y: 347.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7046063715895941968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046063715895941969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9315d245eba874c48a80019cbd3831b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordFile: {fileID: 4900000, guid: b31af9649b1db3443a8984da1096e214, type: 3}
+  recordData:
+    fragments:
+    - startState:
+        gameStage: PlayerTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs: []
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 240
+          maxHP: 240
+          block: 0
+          buffs: []
+        enemyIntents:
+        - gameUniqueID: 
+          name: unnamed_intent
+          is_attack: 0
+          attack_value: 0
+          is_block: 0
+          block_value: 0
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand: []
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        - gameUniqueID: Disarm15
+          name: Disarm
+          description: Enemy loses 2 Strength. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\disarm.png
+        discardPile: []
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 3
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 0
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents:
+      - gameUniqueID: 
+        eventChannel: 1
+        cardEvent: 0
+        combatUnitEvent: 0
+    - startState:
+        gameStage: PlayerTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs: []
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 240
+          maxHP: 240
+          block: 0
+          buffs: []
+        enemyIntents:
+        - gameUniqueID: 
+          name: Charging Up
+          is_attack: 0
+          attack_value: 0
+          is_block: 1
+          block_value: 9
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand:
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Disarm15
+          name: Disarm
+          description: Enemy loses 2 Strength. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\disarm.png
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        discardPile: []
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 3
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 0
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents: []
+    - startState:
+        gameStage: PlayerTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs:
+          - gameUniqueID: 
+            buffName: DoubleTapActive
+            buffValue: 1
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 240
+          maxHP: 240
+          block: 0
+          buffs: []
+        enemyIntents:
+        - gameUniqueID: 
+          name: Charging Up
+          is_attack: 0
+          attack_value: 0
+          is_block: 1
+          block_value: 9
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand:
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Disarm15
+          name: Disarm
+          description: Enemy loses 2 Strength. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\disarm.png
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        discardPile:
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 2
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 0
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents: []
+    - startState:
+        gameStage: PlayerTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs:
+          - gameUniqueID: 
+            buffName: DoubleTapActive
+            buffValue: 1
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 240
+          maxHP: 240
+          block: 0
+          buffs:
+          - gameUniqueID: 
+            buffName: Strength
+            buffValue: -2
+        enemyIntents:
+        - gameUniqueID: 
+          name: Charging Up
+          is_attack: 0
+          attack_value: 0
+          is_block: 1
+          block_value: 9
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand:
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        discardPile:
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 1
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 0
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents:
+      - gameUniqueID: 
+        eventChannel: 3
+        cardEvent: 0
+        combatUnitEvent: 1
+      - gameUniqueID: 
+        eventChannel: 3
+        cardEvent: 0
+        combatUnitEvent: 1
+    - startState:
+        gameStage: PlayerTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs: []
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 218
+          maxHP: 240
+          block: 0
+          buffs:
+          - gameUniqueID: 
+            buffName: Strength
+            buffValue: -2
+        enemyIntents:
+        - gameUniqueID: 
+          name: Charging Up
+          is_attack: 0
+          attack_value: 0
+          is_block: 1
+          block_value: 9
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand:
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        discardPile:
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 0
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 22
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents:
+      - gameUniqueID: 
+        eventChannel: 1
+        cardEvent: 0
+        combatUnitEvent: 0
+    - startState:
+        gameStage: EnemyTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs: []
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 218
+          maxHP: 240
+          block: 0
+          buffs:
+          - gameUniqueID: 
+            buffName: Strength
+            buffValue: -2
+        enemyIntents:
+        - gameUniqueID: 
+          name: Charging Up
+          is_attack: 0
+          attack_value: 0
+          is_block: 1
+          block_value: 9
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand: []
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        discardPile:
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 0
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 22
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents:
+      - gameUniqueID: 
+        eventChannel: 3
+        cardEvent: 0
+        combatUnitEvent: 4
+      - gameUniqueID: 
+        eventChannel: 3
+        cardEvent: 0
+        combatUnitEvent: 2
+    - startState:
+        gameStage: EnemyTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs: []
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 218
+          maxHP: 240
+          block: 9
+          buffs:
+          - gameUniqueID: 
+            buffName: Strength
+            buffValue: -2
+        enemyIntents:
+        - gameUniqueID: 
+          name: Charging Up
+          is_attack: 0
+          attack_value: 0
+          is_block: 1
+          block_value: 9
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand: []
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        discardPile:
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 0
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 22
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents:
+      - gameUniqueID: 
+        eventChannel: 1
+        cardEvent: 0
+        combatUnitEvent: 0
+    - startState:
+        gameStage: PlayerTurn
+        player:
+          gameUniqueID: player
+          name: Player
+          currentHP: 80
+          maxHP: 80
+          block: 0
+          buffs: []
+        enemies:
+        - gameUniqueID: boss
+          name: The Guardian
+          currentHP: 218
+          maxHP: 240
+          block: 9
+          buffs:
+          - gameUniqueID: 
+            buffName: Strength
+            buffValue: -2
+        enemyIntents:
+        - gameUniqueID: 
+          name: Fierce Bash
+          is_attack: 1
+          attack_value: 32
+          is_block: 0
+          block_value: 0
+          is_debuff: 0
+          debuff_type: 
+          debuff_value: 1
+          is_enbuff: 0
+          enbuff_type: 
+          enbuff_value: 1
+        cardsOnHand:
+        - gameUniqueID: Shockwave1
+          name: Shockwave
+          description: Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\shockwave.png
+        - gameUniqueID: Heavy Blade Plus12
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        - gameUniqueID: Uppercut2
+          name: Uppercut
+          description: Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\uppercut.png
+        - gameUniqueID: Impervious14
+          name: Impervious
+          description: Gain 30 Block. Exhuast
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\impervious.png
+        - gameUniqueID: Sword Boomerang Plus3
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        drawPile:
+        - gameUniqueID: Bash0
+          name: Bash
+          description: Deal 8 damage. Apply 2 Vulnerable.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\bash.png
+        - gameUniqueID: Cleave Plus5
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave8
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Feed Plus9
+          name: Feed Plus
+          description: Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\feed.png
+        - gameUniqueID: Clothesline Plus10
+          name: Clothesline Plus
+          description: Deal 14 damage. Apply 3 Weak.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\clothesline.png
+        - gameUniqueID: Heavy Blade Plus13
+          name: Heavy Blade Plus
+          description: Deal 14 damage. Strength affects Heavy Blade 5 times.
+          energyCost: 2
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\heavyblade.png
+        discardPile:
+        - gameUniqueID: Double Tap11
+          name: Double Tap
+          description: This turn, your next Attack is played twice.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\doubletap.png
+        - gameUniqueID: Cleave Plus6
+          name: Cleave Plus
+          description: Deal 11 damage to ALL enemies.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\cleave.png
+        - gameUniqueID: Iron Wave7
+          name: Iron Wave
+          description: Gain 5 Block. Deal 5 damage.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\ironwave.png
+        - gameUniqueID: Sword Boomerang Plus4
+          name: Sword Boomerang Plus
+          description: Deal 3 damage to a random enemy 4 times.
+          energyCost: 1
+          imgAbsPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\DATA\Resources\swordboomerang.png
+        energy:
+          gameUniqueID: 
+          name: energy
+          curValue: 3
+          maxValue: 3
+          renderClass: energy
+        guadianModeValue:
+          gameUniqueID: 
+          name: guadianModeValue
+          curValue: 22
+          maxValue: 30
+          renderClass: guadian
+        rlRewardValues: []
+      gameEvents:
+      - gameUniqueID: 
+        eventChannel: 3
+        cardEvent: 0
+        combatUnitEvent: 2
+      - gameUniqueID: 
+        eventChannel: 3
+        cardEvent: 0
+        combatUnitEvent: 1
+  currentFragmentIndex: 0
+  fragNumberIndicator: {fileID: 0}
+--- !u!223 &5047143339387005862
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046063715895941969}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0

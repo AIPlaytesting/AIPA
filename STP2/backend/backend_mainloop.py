@@ -23,6 +23,7 @@ class BackendMainloop:
             elif request.method == 'ReverseGamestate':
                 self.__on_recv_reverse_gamestate(request.gamestate_markup)
             elif request.method == 'Terminate':
+                self.__gameplay_kernal.save_record()
                 print("[Backend Mainloop] recv terminate action...")
                 break
         print("[Backend Mainloop] backend mainloop terminated!")
