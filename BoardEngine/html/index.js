@@ -44,20 +44,32 @@ function onLoadCards() {
       const label = document.createElement('label');
       label.innerHTML = card_name;
       row1.appendChild(label);
+
+
       div.appendChild(row1);
 
       // Edit Button
       const row2 = document.createElement('div');
       row2.className = 'row justify-content-center';
       const a = document.createElement('a');
-      a.className = 'ml-1 btn btn-info';
+      a.className = 'ml-1 mb-1 btn btn-info';
       a.innerHTML = 'Edit';
       a.href = `cards.html?cardFolderPath="${cardFolderPath}"&cardName="${card_name}"`;
       row2.appendChild(a);
 
+      // Delete card
+      const icon = document.createElement('i');
+      icon.className = 'material-icons';
+      icon.innerHTML = 'delete';
+      let btn = document.createElement('button');
+      btn.className = 'ml-1 mb-1 btn btn-danger btn-sm';
+      btn.onclick = deleteCard;
+      btn.appendChild(icon);
+      row2.appendChild(btn);
+
       // Add to deck
-      const btn = document.createElement('button');
-      btn.className = 'ml-1 btn btn-danger';
+      btn = document.createElement('button');
+      btn.className = 'ml-1 mb-1 btn btn-success';
       btn.innerHTML = '+ Deck';
       btn.onclick = addToDeck;
       row2.appendChild(btn);
@@ -69,7 +81,18 @@ function onLoadCards() {
     });
   });
 }
-
+function deleteCard() {
+  console.log('delete card');
+  const cardName = this.parentNode.parentNode.firstChild.firstChild.innerHTML;
+  let cardFile = cardFolderPath + cardName + '.json';
+  console.log(cardFile);
+  try {
+    fs.unlinkSync(cardFile)
+    //file removed
+  } catch(err) {
+    console.error(err)
+  }
+}
 function addToDeck() {
   console.log('add to deck');
   // get card name
@@ -93,6 +116,7 @@ function addToDeck() {
     console.log(form.children[i].firstChild.innerHTML);
     if (form.children[i].firstChild.innerHTML == cardName) {
       form.children[i].lastChild.firstChild.value = parseInt(form.children[i].lastChild.firstChild.value) + 1;
+      form.children[i].lastChild.firstChild.style.backgroundColor = 'powderblue';
       cardIsExist = true;
     }
   }
