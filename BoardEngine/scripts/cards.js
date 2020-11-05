@@ -155,7 +155,7 @@ function submitForm(e) {
     if (err) throw err;
     console.log('Data written to file');
     alert('Data written to file');
-    // location.reload();
+    location.reload();
   });
 }
 
