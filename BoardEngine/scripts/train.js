@@ -1,4 +1,4 @@
-const PythonProcess = require('./pythonProcess.js')
+const PythonProcess = require('../Scripts/pythonProcess.js')
 function train(){
     let pyProcess = new PythonProcess(11,
 	    function () { console.log('success!') },

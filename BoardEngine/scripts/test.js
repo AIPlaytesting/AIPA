@@ -1,4 +1,4 @@
-const PythonProcess = require('./pythonProcess.js')
+const PythonProcess = require('../scripts/pythonProcess.js')
 
 function onTestEnv(){
     console.log('env')
