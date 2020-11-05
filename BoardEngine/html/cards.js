@@ -1,6 +1,8 @@
 var fs = require('fs');
 var cardFolderPath = '';
 var cardName = '';
+var filePath = '../STP2/DATA/DefinitewinAPP/';
+var imgPath = '../STP2/DATA/Resources/';
 
 function onLoadCards() {
   // get parameters from html url query string, including cardFolderPath
@@ -23,15 +25,15 @@ function onLoadCards() {
       const option = document.createElement('option');
       option.value = file;
       option.innerHTML = file;
-      console.log(file);
+      // console.log(file);
       if (file == cardName) {
-        console.log(cardName);
+        // console.log(cardName);
         option.selected = 'selected';
         isNewCard = false;
       }
       select.appendChild(option);
     });
-    console.log(isNewCard);
+    // console.log(isNewCard);
     if (!isNewCard) {
       readCard();
     } else {
@@ -56,7 +58,7 @@ function submitForm(e) {
     "energy_cost": document.getElementById('energy_cost').value,
     "damage_target": document.getElementById('damage_target').value,
     "description": document.getElementById('description').value,
-    "img_relative_path": document.getElementById('img_relative_path').value,
+    // "img_relative_path": document.getElementById('img_relative_path').value,
 
     "damage_block_info": {
       "damage": document.getElementById('damage').value,
@@ -75,6 +77,32 @@ function submitForm(e) {
       "next_attack_count": document.getElementById('next_attack_count').value
     }
   };
+
+
+  // image upload
+  console.log(document.getElementById("image-file").files[0]);
+  let name = document.getElementById('name').value;
+  // remove 'Plus' from name if any for reference to the original png.
+  let imgName = name.replace(/\s/g, '').replace('Plus', '').toLowerCase();
+  // name = name.replace(' Plus', '');
+  let uploadImgPath = document.getElementById("image-file").files[0].path;
+  let saveImgPath = imgPath + imgName + '.png';
+  console.log(saveImgPath);
+  if (uploadImgPath != '') {
+    fs.copyFile(uploadImgPath, saveImgPath, (err) => {
+      if (err) throw err;
+      console.log('File was copied to destination');
+    });
+  }
+  // // image reload
+  // let imgInput = document.getElementById("image-file");
+  // var fReader = new FileReader();
+  // fReader.readAsDataURL(imgInput.files[0]);
+  // fReader.onloadend = function(event){
+  //     var img = document.getElementById("card-img");
+  //     img.src = event.target.result;
+  // }
+
   //set up buff info
   // loop through the table tr, get first, second, and third tr element child's value,
   // form a obj to update data objs.
@@ -92,35 +120,17 @@ function submitForm(e) {
       target: document.getElementById(`buff_${buff_name}_target`).value
     }
   }
-
-  let registered_buffnames = [
-    "Weakened",
-    "Vulnerable",
-    "Strength",
-    "Artifact",
-    "Thorns",
-    "Barricade",
-    "Metallicise",
-    "Plated Armor",
-    "Intangible",
-    "Regen",
-    "Frail",
-    "Dexterity",
-    "Entangled",
-    "Flex",
-    "Blur",
-    "DrawReduction",
-    "Minion",
-    "Poison",
-    "Shackled",
-    // "DoubleTapActive"
-  ];
-  registered_buffnames.forEach(buff_name => {
-    data['buffs_info'][buff_name] = {
-      value: document.getElementById(`buff_${buff_name}_value`).value,
-      target: document.getElementById(`buff_${buff_name}_target`).value
-    }
-  });
+  // buff_data = fs.readFileSync(filePath + 'buffs.json');
+  // buff_data = JSON.parse(buff_data);
+  // console.log(buff_data['registered_buffnames']);
+  // let registered_buffnames = buff_data['registered_buffnames'];
+  
+  // registered_buffnames.forEach(buff_name => {
+  //   data['buffs_info'][buff_name] = {
+  //     value: document.getElementById(`buff_${buff_name}_value`).value,
+  //     target: document.getElementById(`buff_${buff_name}_target`).value
+  //   }
+  // });
 
 
   data = JSON.stringify(data, null, 2);
@@ -153,11 +163,11 @@ function readCard() {
 // set card by card json
 function read(card) {
   console.log(card);
-  let items = ['name', 'type', 'energy_cost', 'damage_target', 'description', 'img_relative_path',
+  let items = ['name', 'type', 'energy_cost', 'damage_target', 'description',
     'damage', 'damage_instances', 'block', 'copies_in_discard_pile_when_played',
     'draw_card', 'unique_damage', 'strength_multiplier', 'next_attack_count']
   for (i in items) {
-    console.log(items[i]);
+    // console.log(items[i]);
     indicator(document.getElementById(items[i]));
   }
   document.getElementById('name').value = card.name;
@@ -165,7 +175,7 @@ function read(card) {
   document.getElementById('energy_cost').value = card.energy_cost;
   document.getElementById('damage_target').value = card.damage_target;
   document.getElementById('description').value = card.description;
-  document.getElementById('img_relative_path').value = card.img_relative_path;
+  // document.getElementById('img_relative_path').value = card.img_relative_path;
   document.getElementById('damage').value = card.damage_block_info.damage;
   document.getElementById('damage_instances').value = card.damage_block_info.damage_instances;
   document.getElementById('block').value = card.damage_block_info.block;
@@ -174,6 +184,14 @@ function read(card) {
   document.getElementById('unique_damage').value = card.special_modifiers_info.unique_damage;
   document.getElementById('strength_multiplier').value = card.special_modifiers_info.strength_multiplier;
   document.getElementById('next_attack_count').value = card.special_modifiers_info.next_attack_count;
+
+  // show image by setting the path to 
+  let imgTag = document.getElementById('card-img');
+  let imgName = card['name'].replace(/\s/g, '').replace('Plus', '').toLowerCase();
+  let dest = '../' + imgPath + imgName + '.png';
+  console.log(dest);
+  imgTag.src = dest;
+
   // set buff: create htmlDOM tree under table node, then assign value from local json file
 
   // console.log(typeof(card.buffs_info));
@@ -192,7 +210,9 @@ function read(card) {
   table.appendChild(tr);
 
   for (const [buff_name, value_target_pair] of Object.entries(card.buffs_info)) {
-
+    if (value_target_pair['value'] == '0') {
+      continue;
+    }
     let tr = document.createElement('tr');
     let td = document.createElement('td');
     let label = document.createElement('label');
@@ -236,9 +256,9 @@ function read(card) {
 
 // if target value is not equal to original value, change background color
 function indicator(obj) {
-  console.log(obj);
-  console.log(obj.id);
-  console.log(obj.value);
+  // console.log(obj);
+  // console.log(obj.id);
+  // console.log(obj.value);
 
   // get card values from local json file
   let cardName = document.getElementById('cardsSelect').value;
@@ -248,12 +268,12 @@ function indicator(obj) {
   fs.readFile(cardPath, (err, data) => {
     if (err) throw err;
     let card = JSON.parse(data);
-    console.log(card);
+    // console.log(card);
     let defaultVal = card[obj.id];
-    console.log(defaultVal);
+    // console.log(defaultVal);
     // get default value from deeper in json file
     if (defaultVal === undefined) {
-      console.log(card['damage_block_info']);
+      // console.log(card['damage_block_info']);
       let infos = ['damage_block_info', 'card_life_cycle_info', 'special_modifiers_info']
       for (let i = 0; i < infos.length; i++) {
         if (obj.id in card[infos[i]]) {

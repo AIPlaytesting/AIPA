@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="utf-8">
+  <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
   <link rel='stylesheet' href='../css/style.css'>
   <script src='cards.js'></script>
 </head>
@@ -60,18 +62,28 @@
           <label for="description">description</label>
         </div>
         <div class="col-75">
-          <textarea type='text' id="description" name="description" onchange='indicator(this)'
-            rows="4">
+          <textarea type='text' id="description" name="description" onchange='indicator(this)' rows="4">
           </textarea>
         </div>
       </div>
-      <div class="row">
-        <div class="col-25">
+      <!-- <div class="row">
+        <div class='col-25'>
           <label for="img_relative_path">img_relative_path</label>
         </div>
-        <div class="col-75">
+        <div class='col-75'>
           <input type='text' id="img_relative_path" name="img_relative_path" value="img_relative_path"
             onchange='indicator(this)'>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-25">
+          <label for="card-img">image</label>
+        </div>
+        <div class="col-25">
+          <img id="card-img" src="" width='200'/>
+        </div>
+        <div class="col-25">
+          <input id="image-file" type="file" />
         </div>
       </div>
 

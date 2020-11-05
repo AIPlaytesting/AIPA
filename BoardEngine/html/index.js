@@ -26,7 +26,10 @@ function onLoadCards() {
       fs.readFile(cardFolderPath + file, (err, data) => {
         if (err) throw err;
         let card = JSON.parse(data);
-        const imgPath = appPath + card['img_relative_path'];
+        console.log(card);
+        let imgName = card['name'].replace(/\s/g, '').replace('Plus', '').toLowerCase();
+        const imgPath = appPath + imgName + '.png';
+        // console.log(imgPath);
         const energyCost = card['energy_cost'];
         const description = card['description'];
         // console.log(imgPath);
@@ -38,6 +41,7 @@ function onLoadCards() {
         // row.className = 'row justify-content-center';
         const img = document.createElement('img');
         img.src = imgPath;
+        img.width = '160';
         imgDiv.appendChild(img);
 
         const topLeft = document.createElement('div');
@@ -167,7 +171,6 @@ function onLoadDecks() {
   });
 }
 
-// 
 function readDeck() {
   let deckName = document.getElementById('decksSelect').value;
   // console.log(deckName);
@@ -204,8 +207,8 @@ function read(deck) {
   // 1. amount
   // 2. card name
   let entries = Object.entries(deck);
-  entries = entries.sort(compare);
-  
+  entries = entries.sort(compare); 
+
   for (const [card_name, amount] of entries) {
     if (amount == 0) {
       continue;
