@@ -74,7 +74,6 @@ function saveManifest(){
 }
 
 // return: gameData
-// TODO: refactor, use API to load JSON file
 function loadGameData(gameName){
     let gameRoot = getGameAppRoot(gameName);
     let gameData = {};
@@ -161,5 +160,6 @@ module.exports = {
     getCurrentGameName,
     setCurrentGame,
     createNewGame,
-    removeGame
+    removeGame,
+    getGameAppRoot,
 }

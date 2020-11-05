@@ -1,19 +1,42 @@
 var fs = require('fs');
+const dbmanager = require('../dbmanager');
 // const { disconnect } = require('process');
+// input needed: 
+
+
 var filePath = '../STP2/DATA/DefinitewinAPP/';
 var appPath = '../../STP2/DATA/Resources/';
 var deckFolderPath = '../STP2/DATA/DefinitewinAPP/Decks/';
 var cardFolderPath = '../STP2/DATA/DefinitewinAPP/Cards/';
-// var cardFolderPath = '';
 
 // load cards and decks information to design page.
 function onLoadDesign() {
-  // read cards
+  dbmanager.loadDB(onFinishDBLoad);
+}
+
+function onFinishDBLoad() {
+  let curGameName = dbmanager.getCurrentGameName();
+  console.log(curGameName);
+  let curGameroot = dbmanager.getGameAppRoot(curGameName);
+  console.log(curGameroot);
+
+  let curResourcesRoot = dbmanager.getResourceRoot();
+  console.log(curResourcesRoot);
+
+  filePath = curGameroot + '/';
+  appPath = curResourcesRoot + '/'
+  deckFolderPath = curGameroot + '/Decks/';
+  cardFolderPath = curGameroot + '/Cards/';
+  // TODO: image path to img_relative_path
+
+  // console.log(dbmanager.loadGameData());
+  // display card information on load
   onLoadCards();
-  // read deck
+  // display deck information on load
   onLoadDecks();
 }
 
+// display card information on load
 function onLoadCards() {
   const cards = document.getElementById('cards');
   fs.readdir(cardFolderPath, (err, files) => {
@@ -26,7 +49,7 @@ function onLoadCards() {
       fs.readFile(cardFolderPath + file, (err, data) => {
         if (err) throw err;
         let card = JSON.parse(data);
-        console.log(card);
+        // console.log(card);
         let imgName = card['name'].replace(/\s/g, '').replace('Plus', '').toLowerCase();
         const imgPath = appPath + imgName + '.png';
         // console.log(imgPath);
