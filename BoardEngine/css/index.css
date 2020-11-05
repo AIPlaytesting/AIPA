@@ -14,9 +14,13 @@
 
 .bottom-center {
     position: absolute;
-    top: 110px;
+    top: 130px;
     left: 20px;
     right: 20px;
     background-color: rgb(161, 54, 54);
     font-size: large;
   } 
+
+.font-xxlarge {
+  font-size: xx-large;
+}
