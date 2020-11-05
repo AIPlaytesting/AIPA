@@ -37,8 +37,9 @@ function onLoadCards() {
     if (!isNewCard) {
       readCard();
     } else {
-      // remove select bar
+      // remove select bar and label
       document.getElementById('cardsSelect').remove();
+      document.getElementById('cardsSelectLabel').remove();
       // add buff 
       createBuffTable();
     }
