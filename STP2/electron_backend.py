@@ -1,6 +1,5 @@
-
-from backend.connection import Connection
 from backend.protocol import ResponseMessage
+from backend.connection import Connection
 
 ELECTRON_LISTEN_PORT = 10000
 # electron method code 

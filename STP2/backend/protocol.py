@@ -1,6 +1,5 @@
 import json
 
-from gameplay.game_manager import GameState
 from gameplay.combat_unit import CombatUnit
 from gameplay.game_event import GameEvent
 
@@ -128,7 +127,7 @@ class MarkupFactory:
             game_state_markup['rlRewardValues'].append(rewardvalue_markup)
 
     @classmethod
-    def create_game_state_markup(cls,game_state:GameState):
+    def create_game_state_markup(cls,game_state):
         def create_cards_markup_by_card_instances(card_instances):
             card_markups = []
             for card_instance in card_instances:
@@ -173,7 +172,7 @@ class MarkupFactory:
         return markup
     
     @classmethod
-    def add_boss_AI_inforamtion(cls,combat_unit_markup,game_state:GameState):
+    def add_boss_AI_inforamtion(cls,combat_unit_markup,game_state):
         combat_unit_markup['information']['mode'] = game_state.boss_AI.mode
 
     @classmethod
