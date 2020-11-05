@@ -17,9 +17,9 @@ class GameplayKernel:
         self.__is_recorded = is_recorded
         return self.__game_manager.start_player_turn()
 
-    def save_record(self):
+    def save_record(self,save_as_player):
         if self.__is_recorded:
-            self.__game_manager.save_record()
+            self.__game_manager.save_record(save_as_player)
         else:
             print("won't save the record data, because is_recorded == False")
 

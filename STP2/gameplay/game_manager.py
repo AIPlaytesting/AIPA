@@ -30,7 +30,7 @@ class GameManager:
         self.__end_player_turn_flag = False
         #set to false when training AI
         self.isLoggingEnabled = True
-        self.__recorder = GameRecorder()
+        self.__recorder = GameRecorder(game_app_data.root_dir)
         self.is_recorded = False
 
     def init_game(self,is_recorded = False):
@@ -66,9 +66,9 @@ class GameManager:
             else:
                 return func(self,*args, **kwargs)  
         return wrapper
-        
-    def save_record(self):
-        self.__recorder.save_record_data()
+
+    def save_record(self,save_as_player):
+        self.__recorder.save_record_data(save_as_player)
 
     # game flow func
     # return start player turn GameEvent

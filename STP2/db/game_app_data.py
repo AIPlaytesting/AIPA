@@ -4,6 +4,7 @@ from .const_setting import *
 
 class GameAppData:
     def __init__(self,root_dir:str):
+        self.root_dir = root_dir
         # get init info
         init_info = load_json_from_file(root_dir + '\\' + INIT_FILENAME)
 

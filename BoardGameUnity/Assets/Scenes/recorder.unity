@@ -2360,7 +2360,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1128844636}
         m_MethodName: PlayPrevious
         m_Mode: 1
         m_Arguments:
@@ -3401,7 +3401,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1128844636}
         m_MethodName: PlayNext
         m_Mode: 1
         m_Arguments:
@@ -6100,12 +6100,12 @@ RectTransform:
   - {fileID: 345534138}
   - {fileID: 1476845508}
   - {fileID: 999644753}
-  m_Father: {fileID: 1128844635}
-  m_RootOrder: 0
+  m_Father: {fileID: 1461019799}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -10, y: -270.5}
+  m_AnchoredPosition: {x: -10, y: 211}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761482071
@@ -9651,6 +9651,76 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996699843409268699, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047143339387005862, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7046063715895941968, guid: bf0ebb9d382ab2a43a384510e39bfb69,
         type: 3}
       propertyPath: fragNumberIndicator
@@ -9716,7 +9786,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5047143339387005862, guid: bf0ebb9d382ab2a43a384510e39bfb69, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bf0ebb9d382ab2a43a384510e39bfb69, type: 3}
 --- !u!1 &1128844634 stripped
 GameObject:
@@ -9724,12 +9795,39 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1128844633}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1128844635 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7046063715895941975, guid: bf0ebb9d382ab2a43a384510e39bfb69,
+--- !u!223 &1128844635
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128844634}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &1128844636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7046063715895941968, guid: bf0ebb9d382ab2a43a384510e39bfb69,
     type: 3}
   m_PrefabInstance: {fileID: 1128844633}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128844634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9315d245eba874c48a80019cbd3831b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1135088901
 GameObject:
   m_ObjectHideFlags: 0
@@ -11928,6 +12026,7 @@ RectTransform:
   - {fileID: 948865832}
   - {fileID: 1685908204}
   - {fileID: 1719468461}
+  - {fileID: 761482070}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12284,8 +12383,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1128844634}
-        m_MethodName: 
+      - m_Target: {fileID: 1128844636}
+        m_MethodName: LoadRecord
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
