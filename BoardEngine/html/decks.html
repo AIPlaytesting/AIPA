@@ -1,148 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <link rel='stylesheet' href='../css/style.css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../css/decks.css">
+  <script src='decks.js'></script>
+
 </head>
 
-<body>
-  <a name="top"></a>
-  <h2 class='center'>Create/Edit Deck!</h2>
-  <p class='center'>Fill out the form and click save.</p>
-  <p class='right'><a href='index.html'>Home</a></p>
-  <label for="decksSelect">Choose a deck:</label>
-  <select name="decksSelect" id="decksSelect" onchange="readDeck()"></select>
-
-  <div class="container">
-    <form id='saveForm'>
-      <table id='deck-table'>
-      </table>
-      <br>
-      <p id="message" hidden></p>
-      <div class="row">
-        <button type="submit">Save</button>
+<body onload="onLoadDesign()">
+  <div class='container'>
+    <div class="row">
+      <div class='col-9'>
+        <h2>Cards</h2>
+        <div id='cards' class='row justify-content-center'>
+          <div class='col-3 d-flex justify-content-center align-items-center'>
+            <a class='' href='cards.html?cardFolderPath="../STP2/DATA/DefinitewinAPP/Cards/"&cardName=""'><button
+                class='btn btn-primary'><div>Add New Card</div><span class="material-icons font-xxlarge">
+                  add_circle_outline
+                  </span></button></a>
+          </div>
+        </div>
       </div>
-    </form>
-    <p class='right'><a href='index.html'>Home</a></p>
-    <p class='right'><a href="#top">Back to top of page</a></p>
+
+      <div class='col-3'>
+        <h2>Decks</h2>
+        <div id='decks' class='row'>
+          <div class='row'>
+            <form>
+              <div class='form-group'>
+                <label for="decksSelect" class='col-sm-12 col-form-label'>Your Deck:</label>
+                <div class='col-sm-12'>
+                  <select name="decksSelect" id="decksSelect" class='custom-select' onchange="readDeck()"></select>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class='row'>
+            <form id='deckForm'>
+              <div class='form-group row pl-4'>
+                <button type='submit' class='btn btn-primary'>Save Deck</button>
+              </div>
+              <!-- <div class='form-group row pl-4'>
+                <label for='addCardToDeck' class='col-sm-12 col-form-label'>Add Card to Deck</label>
+                <div class='col-sm-6'>
+                  <input type='text' id='buff_new_name' name='buff_new_name' class='form-control' placeholder="card name">
+                </div>
+                <div class='col-sm-6'>
+                  <input type='number' id='buff_new_value' name='buff_new_value' class='form-control' placeholder="amount">
+                </div>
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
-  <script>
-    // initialization: fill select bar options from local directory
-    const electron = require('electron');
-    const fs = require('fs');
 
-    let filePath = '../STP2/DATA/DefinitewinAPP/Decks/'
-    const select = document.getElementById('decksSelect');
-    fs.readdir(filePath, (err, files) => {
-      if (err) throw err;
-      files.forEach(file => {
-        file = file.slice(0, -5);
-        const option = document.createElement('option');
-        option.value = file;
-        option.innerHTML = file;
-        select.appendChild(option);
-      });
-      readDeck();
-    });
-
-    // add eventListenser to write data into json file
-    const form = document.getElementById('saveForm');
-    form.addEventListener('submit', submitForm);
-    // submit to save into local json file
-    function submitForm(e) {
-      e.preventDefault();
-      let data = {};
-      //set up buff info
-      // loop through the table tr, get first, second, and third tr element child's value,
-      // form a obj to update data objs.
-      let table = document.getElementById('deck-table');
-      let trs = table.children;
-      console.log(trs);
-      for (let i = 0; i < trs.length; i++) {
-        if (i == 0) {
-          continue;
-        }
-        let card_name = trs[i].firstChild.firstChild.innerHTML;
-        console.log(trs[i].children[1]);
-        let amount = trs[i].children[1].value;
-        console.log('card_name = ' + card_name);
-        console.log(amount);
-        data[card_name] = amount;
-      }
-
-      data = JSON.stringify(data, null, 2);
-      const fileName = document.getElementById('decksSelect').value;
-      fs.writeFile(`${filePath}${fileName}.json`, data, (err) => {
-        if (err) throw err;
-        console.log('Data written to file');
-      });
-    }
-
-      
-    // read
-    function readDeck() {
-      let deckName = document.getElementById('decksSelect').value;
-      console.log(deckName);
-      if (deckName == '') {
-        deckName = document.getElementById('decksSelect').firstChild.value;
-      }
-      deckPath = `${filePath}${deckName}.json`
-      console.log(deckPath);
-      fs.readFile(deckPath, (err, data) => {
-        if (err) throw err;
-        let deck = JSON.parse(data);
-        read(deck);
-      });
-    }
-    function read(deck) {
-      console.log(deck);
-      // console.log(form);
-      // set deck: create htmlDOM tree under table node, then assign value from local json file
-      const table = document.getElementById('deck-table');
-      // remove all children in table
-      while (table.firstChild) {
-        table.removeChild(table.lastChild);
-      }
-
-      let tr = document.createElement('tr');
-      heads = ['Card Name', 'Amount',]
-      heads.forEach(head => {
-        let th = document.createElement('th');
-        th.innerHTML = head;
-        tr.appendChild(th);
-      });
-      table.appendChild(tr);
-
-      for (const [card_name, amount] of Object.entries(deck)) {
-
-        let tr = document.createElement('tr');
-        let td = document.createElement('td');
-        let label = document.createElement('label');
-        let labelText = document.createTextNode(card_name);
-        label.appendChild(labelText);
-        td.appendChild(label);
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        let input = document.createElement('input');
-        input.id = `buff_${card_name}_value`;
-        input.type = 'number';
-        input.name = `buff_${card_name}_value`;
-        input.value = `${amount}`;
-        // input.setAttribute('onchange', 'indicator(this)');
-        td.appendChild(input);
-        tr.appendChild(td);
-
-        table.appendChild(tr);
-      }
-    }
-
-  
-  
-    // save (including create and update)
-  </script>
 </body>
 
 </html>

@@ -4,6 +4,8 @@ var cardName = '';
 var filePath = '../STP2/DATA/DefinitewinAPP/';
 var imgPath = '../STP2/DATA/Resources/';
 
+// TODO: path
+
 function onLoadCards() {
   // get parameters from html url query string, including cardFolderPath
   var parameters = location.search.substring(1).split("&");
