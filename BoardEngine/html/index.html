@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
-    <link rel='stylesheet' href='index.css'>
+    <link rel='stylesheet' href='../css/index.css'>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 	    <!--  Bootstrap4 -->
         <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
         <script>let $ = require('jquery');</script>
         <script>require('popper.js');</script>
         <script>require('bootstrap');</script>
-        <script src="index.js"></script>
+        <script src="../scripts/index.js"></script>
 </head>
 <body>
     <script>onStart()</script>
     <div id = "root" class="bg">
         <div class="btn-group">
             <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/');">
-                <img class = "nav-icon" src="static/icon-website.png">
+                <img class = "nav-icon" src="../static/icon-website.png">
                 <p class = "nav-text">website</p>
             </button>
             <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/index.php/technical-report-draft/');">
-                <img class = "nav-icon" src="static/icon-document.png">
+                <img class = "nav-icon" src="../static/icon-document.png">
                 <p class = "nav-text">Document</p>
             </button>
             <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://github.com/AIPlaytesting');">
-                <img class = "nav-icon" src="static/github-icon.png">
+                <img class = "nav-icon" src="../static/github-icon.png">
                 <p class = "nav-text">Github</p>
             </button>
         </div>

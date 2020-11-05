@@ -1,4 +1,4 @@
-const dbmanager = require('./dbmanager.js')
+const dbmanager = require('../scripts/dbmanager')
 const rootPath = require('electron-root-path').rootPath
 
 var currentGameData = {}
@@ -142,7 +142,7 @@ function updateGameMainPage(){
         currentImgRowCount += 1
 
         let cardCopies = currentDeckinfo[cardName]
-        let cardImgFullPath = "static/defaultcard.png"
+        let cardImgFullPath = "../static/defaultcard.png"
         if( "img_relative_path" in gameData.cards[cardName]){
             let cardImgRelativePath = gameData.cards[cardName].img_relative_path
             cardImgFullPath = dbmanager.getResourceRoot()+'\\'+cardImgRelativePath

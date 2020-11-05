@@ -4,7 +4,7 @@ body, html {
 
 .bg {
     /* The image used */
-    background-image: url("static/mainbg.png");
+    background-image: url("../static/mainbg.png");
   
     /* Half height */
     height: 100%;
@@ -25,7 +25,7 @@ body, html {
     margin-top:40px;
     width: 100px;
     height: 50px;
-    background-image: url("static/start-btn.png");
+    background-image: url("../static/start-btn.png");
 }
 
 

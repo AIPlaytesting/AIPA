@@ -1,5 +1,5 @@
 var fs = require('fs');
-const dbmanager = require('../dbmanager');
+const dbmanager = require('../scripts/dbmanager');
 // const { disconnect } = require('process');
 // input needed: 
 
