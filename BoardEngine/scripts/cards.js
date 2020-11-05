@@ -1,22 +1,37 @@
 var fs = require('fs');
+const dbmanager = require('../scripts/dbmanager');
+
 var cardFolderPath = '';
 var cardName = '';
 var filePath = '../STP2/DATA/DefinitewinAPP/';
-var imgPath = '../STP2/DATA/Resources/';
+var appPath = '../STP2/DATA/Resources/';
 
 // TODO: path
 
 function onLoadCards() {
+  dbmanager.loadDB(onFinishDBLoad);
+}
+
+function onFinishDBLoad() {
+  let curGameName = dbmanager.getCurrentGameName();
+  console.log(curGameName);
+  let curGameroot = dbmanager.getGameAppRoot(curGameName);
+  console.log(curGameroot);
+
+  let curResourcesRoot = dbmanager.getResourceRoot();
+  console.log(curResourcesRoot);
+
+  filePath = curGameroot + '/';
+  appPath = curResourcesRoot + '/'
+  // deckFolderPath = curGameroot + '/Decks/';
+  cardFolderPath = curGameroot + '/Cards/';
+  // TODO: image path to img_relative_path
+
   // get parameters from html url query string, including cardFolderPath
   var parameters = location.search.substring(1).split("&");
   var temp = parameters[0].split('=');
-  cardFolderPath = unescape(temp[1]).substring(1, unescape(temp[1]).length - 1);
-  temp = parameters[1].split('=');
   cardName = unescape(temp[1]).substring(1, unescape(temp[1]).length - 1);
-  // console.log(parameters);
-  // console.log(temp);
-  console.log(cardFolderPath);
-  console.log(cardName);
+  
   // append all cards in select options
   const select = document.getElementById('cardsSelect');
   fs.readdir(cardFolderPath, (err, files) => {
@@ -51,7 +66,6 @@ function onLoadCards() {
   const form = document.getElementById('saveForm');
   form.addEventListener('submit', submitForm);
 }
-
 // submit to save into local json file
 function submitForm(e) {
   e.preventDefault();
@@ -61,7 +75,7 @@ function submitForm(e) {
     "energy_cost": document.getElementById('energy_cost').value,
     "damage_target": document.getElementById('damage_target').value,
     "description": document.getElementById('description').value,
-    // "img_relative_path": document.getElementById('img_relative_path').value,
+    "img_relative_path": document.getElementById('img_relative_path').value,
 
     "damage_block_info": {
       "damage": document.getElementById('damage').value,
@@ -84,12 +98,11 @@ function submitForm(e) {
 
   // image upload
   console.log(document.getElementById("image-file").files[0]);
-  let name = document.getElementById('name').value;
   // remove 'Plus' from name if any for reference to the original png.
-  let imgName = name.replace(/\s/g, '').replace('Plus', '').toLowerCase();
+  let imgName = data['img_relative_path'];
   // name = name.replace(' Plus', '');
   let uploadImgPath = document.getElementById("image-file").files[0].path;
-  let saveImgPath = imgPath + imgName + '.png';
+  let saveImgPath = appPath + imgName;
   console.log(saveImgPath);
   if (uploadImgPath != '') {
     fs.copyFile(uploadImgPath, saveImgPath, (err) => {
@@ -142,7 +155,7 @@ function submitForm(e) {
     if (err) throw err;
     console.log('Data written to file');
     alert('Data written to file');
-    location.reload();
+    // location.reload();
   });
 }
 
@@ -166,7 +179,7 @@ function readCard() {
 // set card by card json
 function read(card) {
   console.log(card);
-  let items = ['name', 'type', 'energy_cost', 'damage_target', 'description',
+  let items = ['name', 'type', 'energy_cost', 'damage_target', 'description', 'img_relative_path',
     'damage', 'damage_instances', 'block', 'copies_in_discard_pile_when_played',
     'draw_card', 'unique_damage', 'strength_multiplier', 'next_attack_count']
   for (i in items) {
@@ -178,7 +191,7 @@ function read(card) {
   document.getElementById('energy_cost').value = card.energy_cost;
   document.getElementById('damage_target').value = card.damage_target;
   document.getElementById('description').value = card.description;
-  // document.getElementById('img_relative_path').value = card.img_relative_path;
+  document.getElementById('img_relative_path').value = card.img_relative_path;
   document.getElementById('damage').value = card.damage_block_info.damage;
   document.getElementById('damage_instances').value = card.damage_block_info.damage_instances;
   document.getElementById('block').value = card.damage_block_info.block;
@@ -190,8 +203,8 @@ function read(card) {
 
   // show image by setting the path to 
   let imgTag = document.getElementById('card-img');
-  let imgName = card['name'].replace(/\s/g, '').replace('Plus', '').toLowerCase();
-  let dest = '../' + imgPath + imgName + '.png';
+  let imgName = card['img_relative_path'];
+  let dest = appPath + imgName;
   console.log(dest);
   imgTag.src = dest;
 

@@ -53,8 +53,8 @@ function onLoadCards() {
         let imgName = card['name'].replace(/\s/g, '').replace('Plus', '').toLowerCase();
         const imgPath = appPath + imgName + '.png';
         // console.log(imgPath);
-        const energyCost = card['energy_cost'];
-        const description = card['description'];
+        const energyCost = (card['energy_cost'] == undefined) ? 'energy_cost' : card['energy_cost'];
+        const description = (card['description'] == undefined) ? 'No Description presented' : card['description'];
         // console.log(imgPath);
         // get image source from json file, then read image
 
@@ -97,7 +97,7 @@ function onLoadCards() {
       const a = document.createElement('a');
       a.className = 'ml-1 mb-1 btn btn-info';
       a.innerHTML = 'Edit';
-      a.href = `cards.html?cardFolderPath="${cardFolderPath}"&cardName="${card_name}"`;
+      a.href = `cards.html?cardName="${card_name}"`;
       row2.appendChild(a);
 
       // Delete card
