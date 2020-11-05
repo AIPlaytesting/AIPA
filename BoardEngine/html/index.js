@@ -27,14 +27,30 @@ function onLoadCards() {
         if (err) throw err;
         let card = JSON.parse(data);
         const imgPath = appPath + card['img_relative_path'];
+        const energyCost = card['energy_cost'];
+        const description = card['description'];
         // console.log(imgPath);
         // get image source from json file, then read image
-        const row = document.createElement('div');
-        row.className = 'row justify-content-center';
+
+        const imgDiv = document.createElement('div');
+        imgDiv.className = 'row imgDiv';
+        // const row = document.createElement('div');
+        // row.className = 'row justify-content-center';
         const img = document.createElement('img');
         img.src = imgPath;
-        row.appendChild(img);
-        div.appendChild(row);
+        imgDiv.appendChild(img);
+
+        const topLeft = document.createElement('div');
+        topLeft.className = 'top-left';
+        topLeft.innerHTML = energyCost;
+        imgDiv.appendChild(topLeft);
+
+        const bottomCenter = document.createElement('div');
+        bottomCenter.className = 'bottom-center';
+        bottomCenter.innerHTML = description;
+        imgDiv.appendChild(bottomCenter);
+        
+        div.appendChild(imgDiv);
       });
 
       // Card name
@@ -88,6 +104,7 @@ function deleteCard() {
   console.log(cardFile);
   try {
     fs.unlinkSync(cardFile)
+    location.reload();
     //file removed
   } catch(err) {
     console.error(err)

@@ -1,0 +1,22 @@
+.imgDiv {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.top-left {
+    position: absolute;
+    top: 2px;
+    left: 11px;
+    background-color: orange;
+    font-size: large;
+  }
+
+.bottom-center {
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    right: 20px;
+    background-color: brown;
+    font-size: large;
+  } 
