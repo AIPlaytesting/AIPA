@@ -12,7 +12,7 @@
 <script>require('popper.js');</script>
 <script>require('bootstrap');</script>
 <!-- my script -->
-<script src = "../scripts/data.js"></script>
+<script src = "../scripts/aiPlaytesting.js"></script>
 
 <!--style for hover-->
 <style>
@@ -22,12 +22,34 @@
     }
 </style>
 
-<button class="btn btn-primary" onclick="simulate()">Simulate</button>
-<button class="btn btn-primary" onclick="showHeatMap()">Show Heat</button>
-<button class="btn btn-primary" onclick="showPieChart()">Show Pie</button>
-<button class="btn btn-primary" onclick="showZoomHis()">Show Zoom His</button>
 
-<div id = "simulate-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">423/1000</div>
-   
-<!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
+
+<body>
+  <div id = "playtest-root" class="text-center">
+    <button class="btn btn-primary" onclick="onClickPlaytest()">Playtest</button>
+    <div class="col dropdown">
+      <button id ="AI-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" >Select a AI to playtest</button>
+      <div id ="AI-dropdown-list" class="dropdown-menu">
+        <button class = 'dropdown-item'>AI-ver1</button>
+        <button class = 'dropdown-item'>AI-ver2</button>
+      </div>
+    </div>
+    <div id = "simulate-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">423/1000</div>    
+  </div>
+  <div id = 'data-status' class = 'text-center'>Playtest to Get Data</div>
+  <div id = "data-display-root" class="row d-none">
+      <div id = "data-tab" class = "col-2">
+          <h2>Data Tab</h2>
+          <div id = "game-entry-list" class="btn-group-vertical">
+            <button class="btn btn-primary" onclick="showHeatMap()">Show Heat</button>
+            <button class="btn btn-primary" onclick="showPieChart()">Show Pie</button>
+            <button class="btn btn-primary" onclick="showZoomHis()">Show Zoom His</button>            
+          </div>
+      </div>  
+
+      <div id = "data-page" class = "col-10 border border-light">
+        <!-- Create a div where the graph will take place -->
+        <div id="my_dataviz"></div>
+      </div>
+  </div>
+</body>

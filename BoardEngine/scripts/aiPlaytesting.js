@@ -1,8 +1,9 @@
 const PythonProcess = require('../scripts/pythonProcess.js')
-function simulate(){
+function onClickPlaytest(){
     let pyProcess = new PythonProcess(12,
 	    function () { console.log('success!') },
         onReceiveTrainMesssage)
+    $('#data-status').text('Is playtesting...')
 }
 
 function onReceiveTrainMesssage(data){
@@ -11,6 +12,14 @@ function onReceiveTrainMesssage(data){
     let maxprogress =  simulateInfo.maxprogress
     $('#simulate-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
     $('#simulate-progress').text(curprogress+'/'+maxprogress)
+    if(simulateInfo.curprogress >= simulateInfo.maxprogress){
+        onFinishPlaytest()
+    }
+}
+
+function onFinishPlaytest(){
+    $('#data-status').attr('class','d-none')
+    $('#data-display-root').removeClass('d-none')
 }
 
 function showHeatMap(){
