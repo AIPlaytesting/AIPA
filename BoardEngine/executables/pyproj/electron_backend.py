@@ -1,6 +1,5 @@
-
-from backend.connection import Connection
 from backend.protocol import ResponseMessage
+from backend.connection import Connection
 
 ELECTRON_LISTEN_PORT = 10000
 # electron method code 
@@ -42,9 +41,9 @@ def train_mainloop():
 def simulate_mainloop():
     import time
     for i in range(100):
-        time.sleep(0.20)
+        time.sleep(0.05)
         simulate_progress ={}
-        simulate_progress['curprogress'] = i
+        simulate_progress['curprogress'] = i+1
         simulate_progress['maxprogress'] = 100
         connection.send_response(ResponseMessage("electron",simulate_progress))
 

@@ -10,12 +10,18 @@ from .gamestate_reverse import reverse_markup_to_gamestate
 class GameplayKernel:
     def __init__(self,game_manager:GameManager):
         self.__game_manager = game_manager
-
+        self.__is_recorded = False
     # return GameEvent[]
-    def reset_game(self)->[]:
-        self.__game_manager.init_game()
-        new_turn_event = self.__game_manager.start_player_turn()
-        return [new_turn_event]
+    def reset_game(self,is_recorded = True)->[]:
+        self.__game_manager.init_game(is_recorded)
+        self.__is_recorded = is_recorded
+        return self.__game_manager.start_player_turn()
+
+    def save_record(self,save_as_player):
+        if self.__is_recorded:
+            self.__game_manager.save_record(save_as_player)
+        else:
+            print("won't save the record data, because is_recorded == False")
 
     def is_game_ended(self)->bool:
         return self.__game_manager.is_game_end()
@@ -62,11 +68,11 @@ class GameplayKernel:
             game_events_during_step.extend(events_after_played_card)
         elif player_step.type == "EndTurn":
             if self.__game_manager.game_state.game_stage == 'PlayerTurn':
-                new_turn_event = self.__game_manager.start_enemy_turn() 
-                game_events_during_step.append(new_turn_event)
+                new_turn_events = self.__game_manager.start_enemy_turn() 
+                game_events_during_step.extend(new_turn_events)
             else:
-                new_turn_event = self.__game_manager.start_player_turn() 
-                game_events_during_step.append(new_turn_event)
+                new_turn_events = self.__game_manager.start_player_turn() 
+                game_events_during_step.extend(new_turn_events)
 
         # return game event
         return game_events_during_step
