@@ -151,10 +151,19 @@ function getGameAppRoot(gameName){
     return dbRoot + '/'+gameName
 }
 
+function getGameRecordDataRoot(gameName,isPlayerRecord){
+    let gameAppRoot = getGameAppRoot(gameName)
+    if(isPlayerRecord){
+        return gameAppRoot+'\\Record\\Player'
+    }
+    else{
+        return gameAppRoot+'\\Record\\AI'
+    }
+}
+
 module.exports = {
-    getInstalledGameApps,
-    getResourceRoot,
     loadDB,
+    getInstalledGameApps,
     loadGameData,
     updateGameData,
     getCurrentGameName,
@@ -162,4 +171,6 @@ module.exports = {
     createNewGame,
     removeGame,
     getGameAppRoot,
+    getResourceRoot,
+    getGameRecordDataRoot
 }

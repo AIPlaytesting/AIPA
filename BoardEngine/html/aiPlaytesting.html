@@ -37,19 +37,19 @@
     <div id = "simulate-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">423/1000</div>    
   </div>
   <div id = 'data-status' class = 'text-center'>Playtest to Get Data</div>
-  <div id = "data-display-root" class="row d-none">
+  <div id = "data-display-root" class="row">
       <div id = "data-tab" class = "col-2">
-          <h2>Data Tab</h2>
-          <div id = "game-entry-list" class="btn-group-vertical">
-            <button class="btn btn-primary" onclick="showHeatMap()">Show Heat</button>
-            <button class="btn btn-primary" onclick="showPieChart()">Show Pie</button>
-            <button class="btn btn-primary" onclick="showZoomHis()">Show Zoom His</button>            
+          <div class="btn-group-vertical">
+            <button class="btn btn-primary" onclick="drawStatisticPage()">Statistic</button>
+            <button class="btn btn-primary" onclick="drawAnomaliesPage()">Anomalies</button>
+            <button class="btn btn-primary" onclick="showZoomHis()">Compare</button>            
           </div>
       </div>  
+      <div id = "data-tab-second" class = "col-2 btn-group-vertical"></div>  
 
-      <div id = "data-page" class = "col-10 border border-light">
-        <!-- Create a div where the graph will take place -->
-        <div id="my_dataviz"></div>
+      <div id = "data-page" class = "col-8 border border-light">
       </div>
+      <!-- Create a div where the graph will take place -->
+      <div id="my_dataviz"></div>
   </div>
 </body>
