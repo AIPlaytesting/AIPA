@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <!--  Bootstrap4 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script>let $ = require('jquery');</script>
+    <script>require('popper.js');</script>
+    <script>require('bootstrap');</script>
+    <script src="../scripts/library.js"></script>
+</head>
+<body>
+    <script>
+        window.onload = refreshLibraryPage
+    </script>
+    <div id = "root" class="row">
+        <div id = "game-library" class = "col-2">
+            <h2>Library</h2>
+            <div id = "game-entry-list" class="btn-group-vertical"></div>
+        </div>  
+
+        <div id = "game-main-page" class = "col-10 border border-light">
+            <div id = "game-basic-section">
+                <h1 id = 'game-title'>Game</h1>
+                <hr>
+                <div class="row">
+                    <button type="button" class="btn btn-success" onclick="location.href='appIndex.html'">Use this App</button>
+                    <button id = "remove-game-btn" class="btn btn-danger" onclick="onClickRemoveGame()"> Remove</button>
+                </div>
+            </div>
+            <div id ="discription-section">
+                <hr>
+                <h4>Decription</h4>
+                <p>This is a game for example</p>
+            </div>
+            <div id ="quick-view-section">
+                <hr>
+                <h4>Quick View</h4>
+                <div id ="game-profile" class="row">
+                    <div class="col dropdown">
+                        <span>Current Deck:</span>
+                        <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                        <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+                    </div>
+                    <div class="col">
+                        <span>Deck:</span>
+                        <span id = 'deck-count'></span>
+                        <span>Cards:</span>
+                        <span id = 'card-count'></span>
+                        <span>Buffs:</span>
+                        <span id = 'buff-count'></span>
+                    </div>
+                </div>
+                <div id = "deck-img-view" class="border border-primary">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id ="warning-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Warning</h4></div>
+        
+                <div id ="warning-modal-body" class="modal-body alert alert-danger">
+                </div>
+        
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
+                </div>    
+            </div>
+            </div>
+    </div>
+
+
+    <div id ="confirm-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="confirm-modal-title">Warning</h4>
+                </div>
+        
+                <div id ="confirm-modal-body" class="modal-body alert alert-danger">
+                </div>
+        
+                <div class="modal-footer">
+                <button id = "confirm-model-confirm-btn" type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>    
+            </div>
+            </div>
+    </div>
+
+    <div id = "create-game-modal" class="modal fade">
+        <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+            <h4 class="modal-title">create new game</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <div class="modal-body">
+                <div id = "new-game-name">
+                    Name:
+                    <input id = "new-game-name-input" type="text">
+                </div>
+                <div id = "new-game-template" class="dropdown">
+                    <span>Select a template:</span>
+                    <button id ="game-template-dropdown" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                    <div id ="game-template-list" class="dropdown-menu"></div>
+                </div>
+            </div>
+    
+            <div class="modal-footer">
+            <button id = "create-new-game-btn" type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+    
+        </div>
+        </div>
+    </div>
+</body>
+</html>
+

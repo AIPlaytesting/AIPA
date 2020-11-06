@@ -2,22 +2,207 @@
  "fragments": [
   {
    "startState": {
+    "gameStage": "PlayerTurn",
     "player": {
      "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
+     "currentHP": 80,
+     "maxHP": 80,
      "block": 0,
      "gameUniqueID": "player",
-     "buffs": []
+     "buffs": [],
+     "information": {}
     },
     "enemies": [
      {
       "name": "The Guardian",
-      "currentHP": 100,
-      "maxHP": 100,
+      "currentHP": 240,
+      "maxHP": 240,
       "block": 0,
       "gameUniqueID": "boss",
-      "buffs": []
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "unnamed_intent",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
+     },
+     {
+      "gameUniqueID": "Disarm15",
+      "name": "Disarm",
+      "energyCost": 1,
+      "description": "Enemy loses 2 Strength. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\disarm.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
      }
     ],
     "enemyIntents": [
@@ -37,95 +222,164 @@
     ],
     "cardsOnHand": [
      {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
      },
      {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      },
      {
-      "gameUniqueID": "Disarm10",
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Disarm15",
       "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
+      "energyCost": 1,
+      "description": "Enemy loses 2 Strength. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\disarm.png"
      }
     ],
     "drawPile": [
      {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
      },
      {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
      },
      {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
      },
      {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      },
      {
-      "gameUniqueID": "Iron Wave6",
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
       "name": "Iron Wave",
-      "energyCost": 1
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
      },
      {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
      }
     ],
     "discardPile": [],
     "energy": {
      "name": "energy",
      "curValue": 3,
-     "maxValue": 3
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
     }
    },
    "gameEvents": []
   },
   {
    "startState": {
+    "gameStage": "PlayerTurn",
     "player": {
      "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
+     "currentHP": 80,
+     "maxHP": 80,
      "block": 0,
      "gameUniqueID": "player",
-     "buffs": []
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
     },
     "enemies": [
      {
       "name": "The Guardian",
-      "currentHP": 100,
-      "maxHP": 100,
+      "currentHP": 240,
+      "maxHP": 240,
       "block": 0,
       "gameUniqueID": "boss",
-      "buffs": []
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
      }
     ],
     "enemyIntents": [
@@ -145,392 +399,170 @@
     ],
     "cardsOnHand": [
      {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      },
      {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
      },
      {
-      "gameUniqueID": "Disarm10",
+      "gameUniqueID": "Disarm15",
       "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
+      "energyCost": 1,
+      "description": "Enemy loses 2 Strength. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\disarm.png"
      }
     ],
     "drawPile": [
      {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
      },
      {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
      },
      {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
      },
      {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      },
      {
-      "gameUniqueID": "Iron Wave6",
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
       "name": "Iron Wave",
-      "energyCost": 1
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
      },
      {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Anger0"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "6"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 94,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": []
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
      },
      {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
      },
      {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
      },
      {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
      }
     ],
     "discardPile": [
      {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Body Slam5"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "0"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 94,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": []
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Double Tap9",
+      "gameUniqueID": "Double Tap11",
       "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
      }
     ],
     "energy": {
      "name": "energy",
      "curValue": 2,
-     "maxValue": 3
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
     }
    },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Clothesline11"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "boss",
-      "buffName": "Weakened",
-      "newBuffValue": "2"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "12"
-     }
-    }
-   ]
+   "gameEvents": []
   },
   {
    "startState": {
+    "gameStage": "PlayerTurn",
     "player": {
      "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
+     "currentHP": 80,
+     "maxHP": 80,
      "block": 0,
      "gameUniqueID": "player",
-     "buffs": []
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
     },
     "enemies": [
      {
       "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
+      "currentHP": 240,
+      "maxHP": 240,
       "block": 0,
       "gameUniqueID": "boss",
       "buffs": [
        {
-        "buffName": "Weakened",
-        "buffValue": 2
+        "buffName": "Strength",
+        "buffValue": -2
        }
-      ]
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
      }
     ],
     "enemyIntents": [
@@ -550,120 +582,554 @@
     ],
     "cardsOnHand": [
      {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
      }
     ],
     "drawPile": [
      {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
      },
      {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
      },
      {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
      },
      {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      },
      {
-      "gameUniqueID": "Iron Wave6",
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
       "name": "Iron Wave",
-      "energyCost": 1
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
      },
      {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
      }
     ],
     "discardPile": [
      {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "11"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "11"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 218,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
      },
      {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
      },
      {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
      },
      {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
      }
     ],
     "energy": {
      "name": "energy",
      "curValue": 0,
-     "maxValue": 3
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 22,
+     "maxValue": 30,
+     "renderClass": "guadian"
     }
    },
-   "gameEvents": []
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
   },
   {
    "startState": {
+    "gameStage": "EnemyTurn",
     "player": {
      "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
+     "currentHP": 80,
+     "maxHP": 80,
      "block": 0,
      "gameUniqueID": "player",
-     "buffs": []
+     "buffs": [],
+     "information": {}
     },
     "enemies": [
      {
       "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
+      "currentHP": 218,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 22,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 2,
+     "information": {
+      "combatUnitGUID": "boss",
+      "newBlockValue": "9"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 218,
+      "maxHP": 240,
       "block": 9,
       "gameUniqueID": "boss",
       "buffs": [
        {
-        "buffName": "Weakened",
-        "buffValue": 1
+        "buffName": "Strength",
+        "buffValue": -2
        }
-      ]
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
      }
     ],
     "enemyIntents": [
      {
-      "name": "Fierce Bash",
-      "is_attack": true,
-      "attack_value": 32,
-      "is_block": false,
-      "block_value": 0,
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
       "is_debuff": false,
       "debuff_type": "",
       "debuff_value": 1,
@@ -672,113 +1138,168 @@
       "enbuff_value": 1
      }
     ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
+    "cardsOnHand": [],
     "drawPile": [
      {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
      },
      {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
      }
     ],
     "discardPile": [
      {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
      },
      {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
      },
      {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      }
     ],
     "energy": {
      "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 22,
+     "maxValue": 30,
+     "renderClass": "guadian"
     }
    },
-   "gameEvents": []
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
   },
   {
    "startState": {
+    "gameStage": "PlayerTurn",
     "player": {
      "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
+     "currentHP": 80,
+     "maxHP": 80,
      "block": 0,
      "gameUniqueID": "player",
-     "buffs": []
+     "buffs": [],
+     "information": {}
     },
     "enemies": [
      {
       "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
+      "currentHP": 218,
+      "maxHP": 240,
       "block": 9,
       "gameUniqueID": "boss",
       "buffs": [
        {
-        "buffName": "Weakened",
-        "buffValue": 1
+        "buffName": "Strength",
+        "buffValue": -2
        }
-      ]
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
      }
     ],
     "enemyIntents": [
@@ -798,415 +1319,136 @@
     ],
     "cardsOnHand": [
      {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
      },
      {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
      },
      {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
      },
      {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
+      "gameUniqueID": "Impervious14",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
      },
      {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      }
     ],
     "drawPile": [
      {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
      },
      {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\heavyblade.png"
      }
     ],
     "discardPile": [
      {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
      },
      {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
      },
      {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\ironwave.png"
      },
      {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\swordboomerang.png"
      }
     ],
     "energy": {
      "name": "energy",
      "curValue": 3,
-     "maxValue": 3
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 22,
+     "maxValue": 30,
+     "renderClass": "guadian"
     }
    },
    "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Disarm10"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "boss",
-      "buffName": "Strength",
-      "newBuffValue": "-2"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
-      "block": 9,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Fierce Bash",
-      "is_attack": true,
-      "attack_value": 32,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Flex8"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "player",
-      "buffName": "Strength",
-      "newBuffValue": "2"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "player",
-      "buffName": "Flex",
-      "newBuffValue": "2"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Strength",
-       "buffValue": 2
-      },
-      {
-       "buffName": "Flex",
-       "buffValue": 2
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
-      "block": 9,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Fierce Bash",
-      "is_attack": true,
-      "attack_value": 32,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Iron Wave6"
-     }
-    },
     {
      "eventChannel": 3,
      "cardEvent": 0,
      "combatUnitEvent": 2,
      "information": {
-      "combatUnitGUID": "player",
-      "newBlockValue": "5"
+      "combatUnitGUID": "boss",
+      "newBlockValue": "18"
      }
     },
     {
@@ -1215,4672 +1457,7 @@
      "combatUnitEvent": 1,
      "information": {
       "combatUnitGUID": "boss",
-      "hurtValue": "0"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Strength",
-       "buffValue": 2
-      },
-      {
-       "buffName": "Flex",
-       "buffValue": 2
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
-      "block": 2,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Fierce Bash",
-      "is_attack": true,
-      "attack_value": 32,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 1,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Shrug It Off2"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 2,
-     "information": {
-      "combatUnitGUID": "player",
-      "newBlockValue": "13"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 100,
-     "maxHP": 100,
-     "block": 13,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Strength",
-       "buffValue": 2
-      },
-      {
-       "buffName": "Flex",
-       "buffValue": 2
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
-      "block": 2,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Fierce Bash",
-      "is_attack": true,
-      "attack_value": 32,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 0,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Vent Steam",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": true,
-      "debuff_type": "Weakened",
-      "debuff_value": 2,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Vent Steam",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": true,
-      "debuff_type": "Weakened",
-      "debuff_value": 2,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Defend1"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 2,
-     "information": {
-      "combatUnitGUID": "player",
-      "newBlockValue": "5"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 82,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Vent Steam",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": true,
-      "debuff_type": "Weakened",
-      "debuff_value": 2,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Anger0"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "6"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 76,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Vent Steam",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": true,
-      "debuff_type": "Weakened",
-      "debuff_value": 2,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Pommel Strike3"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "9"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 67,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Vent Steam",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": true,
-      "debuff_type": "Weakened",
-      "debuff_value": 2,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 1,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Sword Boomerang4"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "3"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "3"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "3"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 58,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Vent Steam",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": true,
-      "debuff_type": "Weakened",
-      "debuff_value": 2,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 0,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Weakened",
-       "buffValue": 1
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 58,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Whirlwind",
-      "is_attack": true,
-      "attack_value": 20,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Weakened",
-       "buffValue": 1
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 58,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Whirlwind",
-      "is_attack": true,
-      "attack_value": 20,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Clothesline11"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "boss",
-      "buffName": "Weakened",
-      "newBuffValue": "2"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "9"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Weakened",
-       "buffValue": 1
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 49,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 2
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Whirlwind",
-      "is_attack": true,
-      "attack_value": 20,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 1,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Flex8"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "player",
-      "buffName": "Strength",
-      "newBuffValue": "2"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "player",
-      "buffName": "Flex",
-      "newBuffValue": "2"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Weakened",
-       "buffValue": 1
-      },
-      {
-       "buffName": "Strength",
-       "buffValue": 2
-      },
-      {
-       "buffName": "Flex",
-       "buffValue": 2
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 49,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 2
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -2
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Whirlwind",
-      "is_attack": true,
-      "attack_value": 20,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 1,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Disarm10"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "boss",
-      "buffName": "Strength",
-      "newBuffValue": "-2"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 83,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": [
-      {
-       "buffName": "Weakened",
-       "buffValue": 1
-      },
-      {
-       "buffName": "Strength",
-       "buffValue": 2
-      },
-      {
-       "buffName": "Flex",
-       "buffValue": 2
-      }
-     ]
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 49,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 2
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Whirlwind",
-      "is_attack": true,
-      "attack_value": 20,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 0,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 49,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 49,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Iron Wave6"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 2,
-     "information": {
-      "combatUnitGUID": "player",
-      "newBlockValue": "5"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "5"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 44,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Anger12"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "6"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 38,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Anger0"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "6"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 32,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Shrug It Off2"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 2,
-     "information": {
-      "combatUnitGUID": "player",
-      "newBlockValue": "13"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 13,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 32,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 1,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Body Slam5"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "13"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 13,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 19,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Weakened",
-        "buffValue": 1
-       },
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Charging Up",
-      "is_attack": false,
-      "attack_value": 0,
-      "is_block": true,
-      "block_value": 9,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 0,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 19,
-      "maxHP": 100,
-      "block": 20,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Roll Attack",
-      "is_attack": true,
-      "attack_value": 9,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 19,
-      "maxHP": 100,
-      "block": 20,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Roll Attack",
-      "is_attack": true,
-      "attack_value": 9,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Double Tap9"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 71,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 19,
-      "maxHP": 100,
-      "block": 20,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Roll Attack",
-      "is_attack": true,
-      "attack_value": 9,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Heavy Blade7"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "0"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "player",
-      "hurtValue": "3"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "8"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "player",
-      "hurtValue": "3"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 65,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 11,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Roll Attack",
-      "is_attack": true,
-      "attack_value": 9,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 0,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Anger15"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "6"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "player",
-      "hurtValue": "3"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 62,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 5,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Roll Attack",
-      "is_attack": true,
-      "attack_value": 9,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger19",
-      "name": "Anger",
-      "energyCost": 0
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 0,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 57,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 5,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Twin slam",
-      "is_attack": true,
-      "attack_value": 18,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger19",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": []
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 57,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": 5,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Twin slam",
-      "is_attack": true,
-      "attack_value": 18,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     }
-    ],
-    "drawPile": [
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     }
-    ],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger19",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 3,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Pommel Strike3"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "boss",
-      "hurtValue": "9"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 1,
-     "information": {
-      "combatUnitGUID": "player",
-      "hurtValue": "3"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 54,
-     "maxHP": 100,
-     "block": 0,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": -4,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Twin slam",
-      "is_attack": true,
-      "attack_value": 18,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger19",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 2,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Defend1"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 2,
-     "information": {
-      "combatUnitGUID": "player",
-      "newBlockValue": "5"
-     }
-    }
-   ]
-  },
-  {
-   "startState": {
-    "player": {
-     "name": "Player",
-     "currentHP": 54,
-     "maxHP": 100,
-     "block": 5,
-     "gameUniqueID": "player",
-     "buffs": []
-    },
-    "enemies": [
-     {
-      "name": "The Guardian",
-      "currentHP": -4,
-      "maxHP": 100,
-      "block": 0,
-      "gameUniqueID": "boss",
-      "buffs": [
-       {
-        "buffName": "Strength",
-        "buffValue": -4
-       },
-       {
-        "buffName": "Thorns",
-        "buffValue": 3
-       }
-      ]
-     }
-    ],
-    "enemyIntents": [
-     {
-      "name": "Twin slam",
-      "is_attack": true,
-      "attack_value": 18,
-      "is_block": false,
-      "block_value": 0,
-      "is_debuff": false,
-      "debuff_type": "",
-      "debuff_value": 1,
-      "is_enbuff": false,
-      "enbuff_type": "",
-      "enbuff_value": 1
-     }
-    ],
-    "cardsOnHand": [
-     {
-      "gameUniqueID": "Clothesline13",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Flex8",
-      "name": "Flex",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Clothesline16",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Clothesline11",
-      "name": "Clothesline",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Defend1",
-      "name": "Defend",
-      "energyCost": 1
-     }
-    ],
-    "drawPile": [],
-    "discardPile": [
-     {
-      "gameUniqueID": "Anger12",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger17",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger0",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger18",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Shrug It Off2",
-      "name": "Shrug It Off",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Body Slam5",
-      "name": "Body Slam",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Sword Boomerang4",
-      "name": "Sword Boomerang",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Double Tap9",
-      "name": "Double Tap",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Heavy Blade7",
-      "name": "Heavy Blade",
-      "energyCost": 2
-     },
-     {
-      "gameUniqueID": "Anger15",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Anger19",
-      "name": "Anger",
-      "energyCost": 0
-     },
-     {
-      "gameUniqueID": "Disarm10",
-      "name": "Disarm",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Iron Wave6",
-      "name": "Iron Wave",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Pommel Strike3",
-      "name": "Pommel Strike",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend14",
-      "name": "Defend",
-      "energyCost": 1
-     },
-     {
-      "gameUniqueID": "Defend20",
-      "name": "Defend",
-      "energyCost": 1
-     }
-    ],
-    "energy": {
-     "name": "energy",
-     "curValue": 1,
-     "maxValue": 3
-    }
-   },
-   "gameEvents": [
-    {
-     "eventChannel": 2,
-     "cardEvent": 1,
-     "combatUnitEvent": 0,
-     "information": {
-      "cardGUID": "Flex8"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "player",
-      "buffName": "Strength",
-      "newBuffValue": "2"
-     }
-    },
-    {
-     "eventChannel": 3,
-     "cardEvent": 0,
-     "combatUnitEvent": 3,
-     "information": {
-      "combatUnitGUID": "player",
-      "buffName": "Flex",
-      "newBuffValue": "2"
+      "hurtValue": "10"
      }
     }
    ]

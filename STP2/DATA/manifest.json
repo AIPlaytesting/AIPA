@@ -1,5 +1,10 @@
 {
     "game_app": "TestApp",
     "root_directory": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA",
-    "resource_directory": "Resources"
+    "resource_directory": "Resources",
+    "installed_app": [
+        "DefaultApp",
+        "DefinitewinAPP",
+        "TestApp"
+    ]
 }

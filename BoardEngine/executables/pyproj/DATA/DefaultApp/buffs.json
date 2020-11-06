@@ -1,0 +1,24 @@
+{
+    "registered_buffnames":[
+        "Weakened",
+        "Vulnerable",
+        "Strength",
+        "Artifact", 
+        "Thorns",
+        "Barricade",
+        "Metallicise",
+        "Plated Armor",
+        "Intangible",
+        "Regen",
+        "Frail",
+        "Dexterity",
+        "Entangled",
+        "Flex",
+        "Blur",
+        "DrawReduction",
+        "Minion",
+        "Poison",
+        "Shackled",
+        "DoubleTapActive"
+    ]
+}

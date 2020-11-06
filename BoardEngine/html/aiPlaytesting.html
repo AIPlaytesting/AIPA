@@ -1,0 +1,53 @@
+<!-- Code from d3-graph-gallery.com -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<!-- Load color palettes -->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<!--  Bootstrap4 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script>let $ = require('jquery');</script>
+<script>require('popper.js');</script>
+<script>require('bootstrap');</script>
+<!-- my script -->
+<script src = "../scripts/aiPlaytesting.js"></script>
+
+<!--style for hover-->
+<style>
+    .node:hover{
+      stroke-width: 7px !important;
+      opacity: 1 !important;
+    }
+</style>
+
+
+
+<body>
+  <div id = "playtest-root" class="text-center" style = "background-color:bisque;">
+    <button class="btn btn-primary" onclick="onClickPlaytest()">Playtest</button>
+    <div class="col dropdown">
+      <button id ="AI-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" >Select a AI to playtest</button>
+      <div id ="AI-dropdown-list" class="dropdown-menu">
+        <button class = 'dropdown-item'>AI-ver1</button>
+        <button class = 'dropdown-item'>AI-ver2</button>
+      </div>
+    </div>
+    <div id = "simulate-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">423/1000</div>    
+  </div>
+  <div id = 'data-status' class = 'text-center display-3'>Playtest to Get Data</div>
+  <div id = "data-display-root" class="row d-none">
+      <div id = "data-tab" class = "col-2">
+          <div class="btn-group-vertical">
+            <button class="btn btn-primary" onclick="drawStatisticPage()">Statistic</button>
+            <button class="btn btn-primary" onclick="drawAnomaliesPage()">Anomalies</button>
+            <button class="btn btn-primary" onclick = "drawComparePage()" >Compare</button>            
+          </div>
+      </div>  
+      <div id = "data-page" class = "col-10 border border-light">
+      </div>
+      <!-- Create a div where the graph will take place -->
+      <div id="my_dataviz"></div>
+  </div>
+</body>
