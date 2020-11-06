@@ -23,12 +23,13 @@ function onReceiveTrainMesssage(data){
 function onFinishPlaytest(){
     $('#data-status').attr('class','d-none')
     $('#data-display-root').removeClass('d-none')
+    drawStatisticPage()
 }
 
 function drawStatisticPage(){
     $('#data-page').text("")
     drawStatisticCatagories()
-    drawWinrateSection()
+    drawBasicData()
 }
 
 function drawStatisticCatagories(){
@@ -43,7 +44,23 @@ function drawStatisticCatagories(){
 
 function drawBasicData(){
     $('#data-page').text("")
-    dataVisualizer.drawRankChart('data-page')
+    let winrateCard = $(document.createElement('div'))
+    .attr('class','card bg-secondary text-white display-3')
+    .text("winrate: 86.7%")
+
+    let playerHPCard = $(document.createElement('div'))
+    .attr('class','card bg-danger text-white display-4')
+    .text("average Boss HP: 23.1")
+
+    let bossHPCard = $(document.createElement('div'))
+    .attr('class','card bg-danger text-white display-4')
+    .text("average Player HP: 23.1")
+
+    let turnCountCard = $(document.createElement('div'))
+    .attr('class','card bg-info text-white display-4')
+    .text("average Turn Count: 3.56")
+
+    $('#data-page').append(winrateCard,playerHPCard,bossHPCard,turnCountCard)
 }
 
 function drawCardsData(){
@@ -58,12 +75,6 @@ function drawCardRelationshipData(){
 }
 
 
-
-function drawWinrateSection(){
-    let winrateDiv = $(document.createElement('div'))
-    winrateDiv.text("winrate: 86.7%")
-    $('#data-page').append(winrateDiv)
-}
 
 function drawAnomaliesPage(){
     $('#data-page').text("")

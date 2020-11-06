@@ -71,7 +71,6 @@ function drawRankChart(divID){
         'playCount':'#e82cb6'
     }
     for( i = 0 ; i < optionList.length; i++){
-        console.log(optionList[i]+"reistered!")
         let optionBtn = $(document.createElement('button'))
         .text(optionList[i])
         .attr('class', 'btn')
@@ -87,8 +86,6 @@ function drawRankChart(divID){
 }
 
 function drawRelationshipTable(divID){
-    // clear 
-    $("#"+divID).text("")
     // set the dimensions and margins of the graph
     var margin = {top: 80, right: 25, bottom: 30, left: 40},
     width = 450 - margin.left - margin.right,

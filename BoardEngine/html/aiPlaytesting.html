@@ -25,7 +25,7 @@
 
 
 <body>
-  <div id = "playtest-root" class="text-center">
+  <div id = "playtest-root" class="text-center" style = "background-color:bisque;">
     <button class="btn btn-primary" onclick="onClickPlaytest()">Playtest</button>
     <div class="col dropdown">
       <button id ="AI-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" >Select a AI to playtest</button>
@@ -36,8 +36,8 @@
     </div>
     <div id = "simulate-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">423/1000</div>    
   </div>
-  <div id = 'data-status' class = 'text-center'>Playtest to Get Data</div>
-  <div id = "data-display-root" class="row">
+  <div id = 'data-status' class = 'text-center display-3'>Playtest to Get Data</div>
+  <div id = "data-display-root" class="row d-none">
       <div id = "data-tab" class = "col-2">
           <div class="btn-group-vertical">
             <button class="btn btn-primary" onclick="drawStatisticPage()">Statistic</button>
