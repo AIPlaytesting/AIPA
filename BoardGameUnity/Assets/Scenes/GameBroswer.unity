@@ -9388,7 +9388,7 @@ MonoBehaviour:
       argvUseRelativePath: 0
       enabled: 1
     showWindow: 1
-    startManually: 1
+    startManually: 0
 --- !u!4 &1185227819
 Transform:
   m_ObjectHideFlags: 0

@@ -113,10 +113,25 @@ function drawAnomaliesSection(anomaliesType){
         $('#'+sectionID).append(recordGroupList)
         for(i = 0; i < 10; i++){
             let recordItem = $(document.createElement('li')).text("record"+i).attr('class','list-group-item')
-            let recordPlayBtn = $(document.createElement('button')).text("Play")
+            let recordPlayBtn = $(document.createElement('button')).text("Play").click(onClickReplay)
             let reocrdTimeline = $(document.createElement('span')).text("-timeline-----------------------------------------")
             recordItem.append(recordPlayBtn,reocrdTimeline)
             recordGroupList.append(recordItem)
         }
+    })
+}
+
+function onClickReplay(){ 
+    let rootPath = require('electron-root-path').rootPath
+    let child = require('child_process').execFile;
+    let executablePath = rootPath + '/executables/recorderbuild/AIPA.exe';
+    console.log('launch recorder at: '+executablePath)
+    child(executablePath, function(err, data) {
+        if(err){
+           console.error(err);
+           return;
+        }
+     
+        console.log(data.toString());
     })
 }

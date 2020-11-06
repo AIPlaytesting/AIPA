@@ -1,0 +1,5129 @@
+{
+ "fragments": [
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "unnamed_intent",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Impervious5",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
+     },
+     {
+      "gameUniqueID": "Disarm6",
+      "name": "Disarm",
+      "energyCost": 1,
+      "description": "Enemy loses 2 Strength. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\disarm.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Disarm6",
+      "name": "Disarm",
+      "energyCost": 1,
+      "description": "Enemy loses 2 Strength. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\disarm.png"
+     },
+     {
+      "gameUniqueID": "Impervious5",
+      "name": "Impervious",
+      "energyCost": 2,
+      "description": "Gain 30 Block. Exhuast",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\impervious.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 2,
+     "information": {
+      "combatUnitGUID": "player",
+      "newBlockValue": "30"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 30,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Disarm6",
+      "name": "Disarm",
+      "energyCost": 1,
+      "description": "Enemy loses 2 Strength. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\disarm.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": []
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 30,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 30,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 2,
+     "information": {
+      "combatUnitGUID": "boss",
+      "newBlockValue": "9"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 30,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 9,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 9,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 2,
+     "information": {
+      "combatUnitGUID": "boss",
+      "newBlockValue": "18"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "2"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 238,
+      "maxHP": 240,
+      "block": 18,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 2,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 2,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": []
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 238,
+      "maxHP": 240,
+      "block": 18,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 2,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 238,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 2,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "30"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 50,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 238,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 2,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 50,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 238,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Vent Steam",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": true,
+      "debuff_type": "Weakened",
+      "debuff_value": 2,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 2,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "0"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 50,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 238,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 3
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 3
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Vent Steam",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": true,
+      "debuff_type": "Weakened",
+      "debuff_value": 2,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 2,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "16"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "16"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 50,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 206,
+      "maxHP": 240,
+      "block": 20,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 3
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 3
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Defensive Mode",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": true,
+      "enbuff_type": "Thorns",
+      "enbuff_value": 3
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 50,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 206,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Defensive Mode",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": true,
+      "enbuff_type": "Thorns",
+      "enbuff_value": 3
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 50,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 206,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Defensive Mode",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": true,
+      "enbuff_type": "Thorns",
+      "enbuff_value": 3
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 50,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 206,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "drawPile": [],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "0"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 47,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 206,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "drawPile": [],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 2,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": []
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 47,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 206,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "drawPile": [],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "16"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "16"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 41,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "drawPile": [],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 41,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "4"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 37,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 37,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Twin slam",
+      "is_attack": true,
+      "attack_value": 16,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "0"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 34,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Twin slam",
+      "is_attack": true,
+      "attack_value": 16,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 2,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": []
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 34,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Twin slam",
+      "is_attack": true,
+      "attack_value": 16,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 34,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Twin slam",
+      "is_attack": true,
+      "attack_value": 16,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "14"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 20,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Twin slam",
+      "is_attack": true,
+      "attack_value": 16,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 34,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 20,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [
+      {
+       "buffName": "DoubleTapActive",
+       "buffValue": 1
+      }
+     ],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 174,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Whirlwind",
+      "is_attack": true,
+      "attack_value": 20,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "19"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "19"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 20,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 136,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Whirlwind",
+      "is_attack": true,
+      "attack_value": 20,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 38,
+     "maxValue": 40,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "16"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 20,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 120,
+      "maxHP": 240,
+      "block": 20,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 2
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Defensive Mode",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": true,
+      "enbuff_type": "Thorns",
+      "enbuff_value": 3
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 20,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 120,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Defensive Mode",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": true,
+      "enbuff_type": "Thorns",
+      "enbuff_value": 3
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 20,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 120,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Defensive Mode",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": true,
+      "enbuff_type": "Thorns",
+      "enbuff_value": 3
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 20,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 120,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "0"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 17,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 120,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust10",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 2,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "16"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 14,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 104,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust10",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "0"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 11,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 104,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust10",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust11",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 11,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 104,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust10",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust11",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "7"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 4,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 104,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Roll Attack",
+      "is_attack": true,
+      "attack_value": 9,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust10",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust11",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 0,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 4,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 104,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Strength",
+        "buffValue": -2
+       },
+       {
+        "buffName": "Thorns",
+        "buffValue": 3
+       }
+      ],
+      "information": {
+       "mode": "Defensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Twin slam",
+      "is_attack": true,
+      "attack_value": 16,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Combust7",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Combust8",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus3",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\bash.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Combust9",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust10",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Combust11",
+      "name": "Combust",
+      "energyCost": 1,
+      "description": "combust",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\anger.png"
+     },
+     {
+      "gameUniqueID": "Double Tap4",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 54,
+     "maxValue": 50,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "3"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "0"
+     }
+    }
+   ]
+  }
+ ]
+}
