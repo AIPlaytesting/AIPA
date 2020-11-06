@@ -135,3 +135,15 @@ function onClickReplay(){
         console.log(data.toString());
     })
 }
+
+function drawComparePage(){
+    $('#data-page').text("")
+    let data = [
+        [
+          {"area": "rewards ", "value": 100*Math.random()},
+          {"area": "playPostions", "value": 100*Math.random()},
+          {"area": "PlayCounts", "value": 100*Math.random()}
+          ]
+      ]
+    dataVisualizer.drawRadarChart('data-page',data)
+}
