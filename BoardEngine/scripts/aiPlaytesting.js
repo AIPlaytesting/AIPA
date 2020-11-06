@@ -45,7 +45,7 @@ function createSection(sectionName,sectionID){
 
     let collapseDiv = $(document.createElement('div'))
     .attr('id',sectionID)
-    .attr('class','collapse show')
+    .attr('class','collapse show row')
     sectionDiv.append(collapseBtn,collapseDiv)
 
     return sectionDiv  
@@ -77,7 +77,10 @@ function drawBasicDataSection(){
 function drawCardsDataSection(){
     let setionDiv = createSection('cards','cards-data-section')
     $('#data-page').append(setionDiv)
-    dataVisualizer.drawRankChart('cards-data-section')
+    let rankChartDiv = $(document.createElement('div')).attr('id','card-data-rankChart').attr('class','col-7')
+    let radarChartDiv = $(document.createElement('div')).attr('id','card-data-radarChart').attr('class','col-5')
+    $('#cards-data-section').append(rankChartDiv,radarChartDiv)
+    dataVisualizer.drawRankChart('card-data-rankChart','card-data-radarChart')
 }
 
 function drawCardRelationshipDataSection(){
@@ -140,10 +143,20 @@ function drawComparePage(){
     $('#data-page').text("")
     let data = [
         [
-          {"area": "rewards ", "value": 100*Math.random()},
-          {"area": "playPostions", "value": 100*Math.random()},
-          {"area": "PlayCounts", "value": 100*Math.random()}
-          ]
+          {"area": "winrate ", "value": 100*Math.random()},
+          {"area": "playerHP", "value": 100*Math.random()},
+          {"area": "bossHP", "value": 100*Math.random()},
+          {"area": "trunCount", "value": 100*Math.random()},
+          {"area": "averageReward", "value": 100*Math.random()}
+          ],
+        [
+        {"area": "winrate ", "value": 100*Math.random()},
+        {"area": "playerHP", "value": 100*Math.random()},
+        {"area": "bossHP", "value": 100*Math.random()},
+        {"area": "trunCount", "value": 100*Math.random()},
+        {"area": "averageReward", "value": 100*Math.random()}
+        ]
       ]
-    dataVisualizer.drawRadarChart('data-page',data)
+    let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
+    dataVisualizer.drawRadarChart('data-page',data,radarColors)
 }
