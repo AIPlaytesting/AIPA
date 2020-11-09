@@ -59,16 +59,6 @@ class Environment:
         isTurnEnd = False
         unplayableCardSelected = False
 
-        #action_card contains string of card name
-        old_player_hp = self.game_manager.game_state.player.current_hp
-        old_player_block = self.game_manager.game_state.player.block
-        old_player_buffs = self.game_manager.game_state.player.buff_dict.copy()
-        old_player_energy = self.game_manager.game_state.player_energy
-        old_boss_hp = self.game_manager.game_state.boss.current_hp
-        old_boss_block = self.game_manager.game_state.boss.block
-        old_boss_buffs = self.game_manager.game_state.boss.buff_dict.copy()
-        
-
         #TODO: play the action card in the environment
         # new_state = state in flat list after playing card
         if(not self.IsAnyCardPlayable()): 
@@ -111,14 +101,6 @@ class Environment:
 
         new_state = self.ai_transformer.GetAIStateSpace(self.game_manager.game_state, self.game_manager.get_current_playable_cards())
 
-        new_player_hp = self.game_manager.game_state.player.current_hp
-        new_player_block = self.game_manager.game_state.player.block
-        new_player_buffs = self.game_manager.game_state.player.buff_dict
-        new_player_energy = self.game_manager.game_state.player_energy
-        new_boss_hp = self.game_manager.game_state.boss.current_hp
-        new_boss_block = self.game_manager.game_state.boss.block
-        new_boss_buffs = self.game_manager.game_state.boss.buff_dict
-
         #calculate isTerminal
         # isTerminal = true if the game has ended by taking action 
         isTerminal = self.game_manager.is_game_end()
@@ -128,13 +110,6 @@ class Environment:
         # reward by transitioning from current state to new state
 
         reward = 0
-
-        old_player_info = (old_player_hp, old_player_block, old_player_buffs, old_player_energy)
-        new_player_info = (new_player_hp, new_player_block, new_player_buffs, new_player_energy)
-        old_boss_info = (old_boss_hp, old_boss_block, old_boss_buffs)
-        new_boss_info = (new_boss_hp, new_boss_block, new_boss_buffs)
-
-        pac_state = (old_player_info, new_player_info, old_boss_info, new_boss_info)
 
         if (isTerminal and isPlayerWin) : 
             reward += self.win_reward
@@ -149,7 +124,7 @@ class Environment:
                 reward += self.loss_pun
                 self.win_int = -1
 
-        return new_state, int(action_neuron_number), reward, isTerminal, pac_state, isTurnEnd
+        return new_state, int(action_neuron_number), reward, isTerminal, isTurnEnd
 
 
     def ExecutePlayerEndFunctions(self):

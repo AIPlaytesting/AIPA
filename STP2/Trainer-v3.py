@@ -20,7 +20,7 @@ game_buffer = AI_Module.GameBuffer.GameBuffer(env.ai_transformer.state_space, en
 game_buffer.data_collector.StoreDeckConfig(env.ai_transformer.deck_config)
 
 #Replace string with file description is needed
-data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'reward for total damage - memsize increase')
+data_writer = AI_Module.DataWriter.DataWriter(game_buffer.data_collector, 'batch size low - nn complex lowered')
 
 state_space_len = env.state_space_dim
 action_space_len = env.action_space_dim
@@ -47,7 +47,7 @@ start_time = time.time()
 
 #Double Q-Learning
 ai_agent = AI_Module.AI_Brain_Q_Double.AI_Brain(gamma=0, state_space = env.ai_transformer.state_space, action_space = env.ai_transformer.action_space,
-                hidden_layer_dims=[128, 256, 128, 64], epsilon=1.0, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 500000, batch_size = 512, unplayable_pun = env.unplayable_card_pun)
+                hidden_layer_dims=[128, 64, 32, 32], epsilon=1.0, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 250000, batch_size = 128, unplayable_pun = env.unplayable_card_pun)
 
 
 total_episode_rewards = []
@@ -73,14 +73,14 @@ for i in range(number_of_games):
         end_prediction_time = time.time()
         prediction_time += end_prediction_time - start_prediction_time
 
-        new_state, action, reward, done, pac_state, isTurnEnd = env.Step(action_space_vec, isRandom)
+        new_state, action, reward, done, isTurnEnd = env.Step(action_space_vec, isRandom)
         
         episode_len += 1
         
-        if(action != -1):
-            game_buffer.StoreByTurns(state, new_state, action, reward, done, isTurnEnd)
-        else:
+        if(action == -1):
             game_buffer.TurnEnd()
+
+        game_buffer.StoreByTurns(state, new_state, action, reward, done, isTurnEnd)
             
         state = new_state
     
@@ -107,7 +107,7 @@ for i in range(number_of_games):
     print("Episode Ended - " + str(i))
     print("================================================")
 
-    if (i != 0 and (i + 1) % 250 == 0):
+    if (i != 0 and (i + 1) % 100 == 0):
         data_writer.WriteFile()
         ai_agent.SaveModel()
 

@@ -27,8 +27,7 @@ class Q_Model:
         self.model = model
 
 
-
-class AI_Brain:
+class AI_Brain_B:
     
     def __init__(self, gamma,
         state_space, action_space, hidden_layer_dims,
@@ -124,20 +123,6 @@ class AI_Brain:
 
         q_target = np.copy(q_state_predicts)
 
-        #creating a target that can be used for training
-        # indexing of the following is complex:
-        # batch_size, actions, rewards, q_new_state_predicts.shape[0], isTerminals have the same dimensions
-        # hence imagine that the following is iterating over the length
-        # because of numpy indexing the following can be read like :
-        # for i in range(len(batch_index)):
-        #       q_target[batch_index[i], actions[i]] = rewards[i] + self.gamma * np.max(q_new_state_predicts[i])
-        # 
-        # notice that only one value (one action neuron's value) per action_space is going to be updated here
-        # unsurprising, this value is going to be chosen by 'actions'. Therefore only the taken actions value is updated 
-        
-        
-        #q_target[batch_index, actions] = rewards + self.gamma * np.max(q_new_state_predicts) * isTerminals
-
         for i in range(self.batch_size):
             q_target[i, actions[i]] = rewards[i] + self.gamma * np.max(q_new_state_predicts[i]) * isTerminals[i]
 
@@ -202,6 +187,3 @@ class AI_Brain:
             action_mask[action_index] = not_card_in_hand
         
         return action_mask
-            
-
-    
