@@ -5,11 +5,11 @@ const dataVisualizer = require('../scripts/dataVisualizer')
 function onClickPlaytest(){
     let pyProcess = new PythonProcess(12,
 	    function () { console.log('success!') },
-        onReceiveTrainMesssage)
+        onReceivePlaytestMesssage)
     $('#data-status').text('Is playtesting...')
 }
 
-function onReceiveTrainMesssage(data){
+function onReceivePlaytestMesssage(data){
     simulateInfo = JSON.parse(data).content
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress

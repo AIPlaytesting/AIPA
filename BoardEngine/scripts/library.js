@@ -1,26 +1,12 @@
 const dbmanager = require('../scripts/dbmanager')
 const rootPath = require('electron-root-path').rootPath
+const PythonProcess = require('../Scripts/pythonProcess.js')
 
 var currentGameData = {}
 
 function refreshLibraryPage(){
     console.log("refresh!")
     dbmanager.loadDB(onFinishDBLoad)
-}
-
-
-function onClickPlay(){
-    let child = require('child_process').execFile;
-    let executablePath = rootPath + '/executables/unitybuild/AIPA.exe';
-    console.log('launch unity at: '+executablePath)
-    child(executablePath, function(err, data) {
-        if(err){
-           console.error(err);
-           return;
-        }
-     
-        console.log(data.toString());
-    });  
 }
 
 function onFinishDBLoad(){
@@ -50,6 +36,38 @@ function onFinishDBLoad(){
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
     updateGameMainPage()
+}
+
+
+function onClickPlay(){
+    let child = require('child_process').execFile;
+    let executablePath = rootPath + '/executables/unitybuild/AIPA.exe';
+    console.log('launch unity at: '+executablePath)
+    child(executablePath, function(err, data) {
+        if(err){
+           console.error(err);
+           return;
+        }
+     
+        console.log(data.toString());
+    });  
+}
+
+function onClickTrain(){
+    let pyProcess = new PythonProcess(11,
+	    function () { console.log('success!') },
+        onReceiveTrainMesssage)
+}
+
+function onReceiveTrainMesssage(data){
+    trainInfo = JSON.parse(data).content
+    let curprogress =  trainInfo.curprogress
+    let maxprogress = trainInfo.maxprogress
+    console.log('recevice!')
+    $('#train-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    $('#train-progress').text((curprogress*100/maxprogress) + '%')
+    $('#train-cur-winrate').text("Iterations Completed : " + curprogress + " / " + maxprogress)
+    $('#remaining_time').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
 }
 
 function onClickCreateNewGame(){
@@ -86,6 +104,29 @@ function onClickRemoveGame(){
         }
     }
     )
+}
+
+function onClickPlaytest(){
+    let pyProcess = new PythonProcess(12,
+	    function () { console.log('success!') },
+        onReceivePlaytestMesssage)
+    $('#data-status').text('Is playtesting...')
+}
+
+function onReceivePlaytestMesssage(data){
+    simulateInfo = JSON.parse(data).content
+    let curprogress =   simulateInfo.curprogress
+    let maxprogress =  simulateInfo.maxprogress
+    $('#simulate-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    $('#simulate-progress').text(curprogress+'/'+maxprogress)
+    if(simulateInfo.curprogress >= simulateInfo.maxprogress){
+        onFinishPlaytest()
+    }
+}
+
+function onFinishPlaytest(){
+    $('#data-status').attr('class','d-none')
+    $('#data-display-root').removeClass('d-none')
 }
 
 function onSwitchCurrentDeck(deckName){

@@ -9,7 +9,8 @@
     <script>let $ = require('jquery');</script>
     <script>require('popper.js');</script>
     <script>require('bootstrap');</script>
-    <script src="../scripts/library.js"></script>
+    <!-- my script -->
+    <script src = "../scripts/library.js"></script>
 </head>
 <body>
     <script>
@@ -23,28 +24,30 @@
 
         <div id = "game-main-page" class = "col-10 border border-light">
             <div id = "game-basic-section">
-                <h1 id = 'game-title'>Game</h1>
-                <hr>
                 <div class="row">
-                    <button type="button" class="btn btn-success" onclick="location.href='appIndex.html'">Use this App</button>
+                    <h1 id = 'game-title'>Game</h1>
+                    <button type="button" class="btn btn-success" onclick="location.href='appIndex.html'">Advance</button>
                     <button id = "remove-game-btn" class="btn btn-danger" onclick="onClickRemoveGame()"> Remove</button>
                 </div>
             </div>
-            <div id ="discription-section">
-                <hr>
-                <h4>Decription</h4>
-                <p>This is a game for example</p>
-            </div>
             <div id ="quick-view-section">
                 <hr>
-                <h4>Quick View</h4>
+                <h4>Game</h4>
+                <div id = "game-rules" class = "row">
+                    <span class='col-1'>Player HP:</span>
+                    <input type="range" class="custom-range col-3" id="customRange1">
+                    <span class='col-1'></span>
+                    <span class='col-1'>Boss HP:</span>
+                    <input type="range" class="custom-range col-3" id="customRange1">
+                    <span class='col-1'></span>
+                </div>
                 <div id ="game-profile" class="row">
                     <div class="col dropdown">
                         <span>Current Deck:</span>
                         <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
                         <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
                     </div>
-                    <div class="col">
+                    <div class="col d-none">
                         <span>Deck:</span>
                         <span id = 'deck-count'></span>
                         <span>Cards:</span>
@@ -53,8 +56,30 @@
                         <span id = 'buff-count'></span>
                     </div>
                 </div>
-                <div id = "deck-img-view" class="border border-primary">
+                <div id = "deck-img-view">
 
+                </div>
+            </div>
+            <div id ="train-section">
+                <h4>Train</h4>
+                <hr>
+                <button class="btn btn-primary" onclick="onClickTrain()">Train</button>
+                <div id="train-info-div">
+                    <div id = "train-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">423/1000</div>
+                    <p id="train-cur-winrate"></p>
+                    <p id="remaining_time"></p>
+                </div>
+            </div>
+            <div id ="data-visualization-section">
+                <h4>Playtest</h4>
+                <hr>
+                <button class="btn btn-primary" onclick="onClickPlaytest()">Playtest</button>
+                <div id = "playtest-root" class="text-center" style = "background-color:gray;">
+                    <div id = "simulate-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>    
+                </div>
+                <div id = 'data-status' class = 'text-center display-3'>Playtest to Get Data</div>
+                <div id = "data-display-root" class="row d-none">
+                    winrate: 22%
                 </div>
             </div>
         </div>
@@ -75,7 +100,6 @@
             </div>
             </div>
     </div>
-
 
     <div id ="confirm-modal" class="modal fade">
         <div class="modal-dialog">
