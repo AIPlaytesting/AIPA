@@ -2,7 +2,7 @@
     "useDevPyLauncher": true,
     "buildPyLauncher": "executables\\runpy.bat",
     "devPyLauncher":"executables\\runpyDev.bat",
-    "buildSource":{
+    "devDependencies":{
         "unityBackendLauncher":"executables\\backend-unity-postbuild",
         "pythonEnv":" C:\\users\\siqiwan2\\appdata\\local\\programs\\python\\python38\\lib\\site-packages",
         "pythonProject":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2",

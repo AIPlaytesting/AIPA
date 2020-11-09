@@ -5,11 +5,24 @@ const fs = require('fs');
 const ncp = require('ncp').ncp;
 const rimraf = require("rimraf");
 const rootPath = require('electron-root-path').rootPath
-const dbRoot = rootPath+'/executables/pyproj/DATA';
+const dbRoot = calculateDBRoot()
 
 var manifest = {}
 var installedGames = [];
 var resourceRoot = "";
+
+function calculateDBRoot(){	
+    let configPath = rootPath + '\\config.json'
+    let config = loadObjectFromJSONFile(configPath)
+    if(config.useDevPyLauncher){
+		console.log("set db root in development mode...")
+		return config.devDependencies.pythonProject+'\\DATA'
+	}
+	else{
+		console.log("set db root in build mode...")
+		return  rootPath+'\\executables\\pyproj\\DATA'
+	}
+}
 
 function loadDB(onFinishLoad){
     let manifestPath = dbRoot +'/manifest.json';
