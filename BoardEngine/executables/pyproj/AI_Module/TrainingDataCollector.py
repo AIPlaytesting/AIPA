@@ -62,6 +62,11 @@ class TrainingDataCollector:
         self.total_game_play_time.append(game_play_time + prediction_time)
 
     def PostDataCollectionAnalysis(self):
+
+        self.average_card_play_pos = self.empty_card_data_dict.copy()
+        self.card_average_reward = self.empty_card_data_dict.copy()
+        self.roll_avg_reward = []
+
         #average damage and max damage
         for damage_done_per_turn in self.damage_done_per_turn:
             self.max_damage.append(max(damage_done_per_turn))
@@ -78,14 +83,15 @@ class TrainingDataCollector:
 
         #rolling average reward
         for r_index in range(len(self.total_reward_list)):
-            end_index = r_index + 20
+            end_index = r_index + 50
+            start_index = r_index
             if end_index > len(self.total_reward_list) - 1: 
-                start_index = r_index - (end_index - len(self.total_reward_list))
+                end_index = len(self.total_reward_list) - 1
+                start_index = start_index - 50
 
                 if start_index < 0:
                     start_index = 0
 
-                end_index = len(self.total_reward_list)
             else:
                 start_index = r_index
 
@@ -150,9 +156,10 @@ class TrainingDataCollector:
         
         for step_index in range(len(action_list)):
             action_number = action_list[step_index]
-            card_played_sequence.append(action_number)
-            played_card = self.action_space[action_number]
-            self.card_play_count[played_card] += 1
+            if action_number != -1: # -1 action is for end turn
+                card_played_sequence.append(action_number)
+                played_card = self.action_space[action_number]
+                self.card_play_count[played_card] += 1
         
         #reward sequence
         rewards_in_turn = []

@@ -14,7 +14,7 @@ function detectEnv(){
             function(){onEnvDetectResult("none","none")})
     }
     catch(e){
-        console.log('py not installed!')
+        console.log('fail to launch py when detect env')
     }
 }
 

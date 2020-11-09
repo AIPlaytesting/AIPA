@@ -1,4 +1,5 @@
 const net = require('net')
+const fs = require('fs')
 const SERVER_PORT = 10000
 const rootPath = require('electron-root-path').rootPath
 
@@ -14,7 +15,7 @@ class PythonProcess {
 			launchProcessByBat(onFailListenter)
 		}
 		catch(e){
-			console.log('CATCH!')
+			console.log(e)
 			throw e
 		}
 		net.createServer(function (socket) {
@@ -43,8 +44,24 @@ function createMessage(methodCode,content){
 }
 
 function launchProcessByBat(onFailListenter){
-    let child = require('child_process').execFile;
-    let executablePath = rootPath+'\\executables\\runpy.bat'
+	function loadObjectFromJSONFile(jsonFilePath){
+		let initData = fs.readFileSync(jsonFilePath);
+		return JSON.parse(initData);
+	}
+	
+	let child = require('child_process').execFile;
+	let configPath = rootPath + '\\config.json'
+	let config = loadObjectFromJSONFile(configPath)
+	let executablePath = ''
+	if(config.useDevPyLauncher){
+		console.log("launch python in development mode...")
+		executablePath  = rootPath+'\\'+config.devPyLauncher
+	}
+	else{
+		console.log("launch python in build mode...")
+		executablePath  = rootPath+'\\'+config.buildPyLauncher
+	}
+
 	console.log('start bat at: '+executablePath)
 	child(executablePath, function(err, data) {
 		if(err){
