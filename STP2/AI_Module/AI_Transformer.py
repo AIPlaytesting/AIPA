@@ -7,23 +7,24 @@ import db.game_database
 class AI_Transformer:
 
     def __init__(self):
-        self.ReadStateActionDefFromFile("v1")
-        self.ReadSelectorFromFile("v1")
-        
+
         self.state_space_dim = 0
         self.state_space_strings = []
         self.state_space = {} #key : string name, value : index
         self.action_space_dim = 0
         self.action_space = {} #key : index, valuee : name
 
-        db_root = db.game_database.calculate_root_dir()
-        game_db = db.game_database.GameDatabase(db_root)
+        self.db_root = db.game_database.calculate_root_dir()
+        game_db = db.game_database.GameDatabase(self.db_root)
         self.deck_config = game_db.game_app_data.deck_config.copy()
         registered_buffnames = game_db.game_app_data.registered_buffnames.copy()
         self.empty_buff_dict = {}
         for buff_name in registered_buffnames:
             self.empty_buff_dict[buff_name] = 0
         
+        self.ReadStateActionDefFromFile("v1")
+        self.ReadSelectorFromFile("v1")
+
         self.CreateEmptyStateDicts()
         self.InitializeActionSpace()
         self.GetStateSpaceStringList()
@@ -53,13 +54,13 @@ class AI_Transformer:
 
 
     def ReadStateActionDefFromFile(self, version_string):
-        with open("AI_Module/StateActionDef/state_action_def_" + version_string + ".json", "r") as file:
+        with open(self.db_root + "\\StateActionDef\\state_action_def_" + version_string + ".json", "r") as file:
             raw_json_data = file.read()
             self.sa_json_data = json.loads(raw_json_data)
 
 
     def ReadSelectorFromFile(self, version_string):
-        with open("AI_Module/StateActionDef/state_space_selector_" + version_string + ".json", "r") as file:
+        with open(self.db_root + "\\StateActionDef\\state_space_selector_" + version_string + ".json", "r") as file:
             raw_json_data = file.read()
             selection_data = json.loads(raw_json_data)
             self.selector = selection_data['selectors']

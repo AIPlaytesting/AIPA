@@ -28,6 +28,8 @@ class GameBuffer:
         self.q_model_switch_count = 0
         self.unplayable_pun = unplayable_pun
 
+        self.n_steps_return = 2
+
 
 
     def ResetCurrentLists(self):
@@ -73,7 +75,20 @@ class GameBuffer:
 
 
     def TransferToReplayBuffer(self, ai_agent, win_int):
-        store_count = 5 if win_int == 1 else 1
+        #adjust store count depending on previous winrate
+
+        if len(self.data_collector.win_data_list) > 0:
+            winrate = self.data_collector.win_data_list.count('Win') / len(self.data_collector.win_data_list)
+        else:
+            winrate = 0
+
+        if winrate > 0.5:
+            store_count = 2 if win_int == 1 else 1
+        else:
+            store_count = 5 if win_int == 1 else 1
+        
+
+
 
         for turn_index in range(len(self.reward_list_turns)):
             for step_index in range(len(self.reward_list_turns[turn_index])):
@@ -87,7 +102,8 @@ class GameBuffer:
             for state, new_state, action, reward, terminal in zip(state_list, new_state_list, action_list, reward_list, terminal_list):
 
                 for x in range(store_count):
-                    ai_agent.StoreTransition(state, new_state, action, reward, terminal)
+                    if action != -1:
+                        ai_agent.StoreTransition(state, new_state, action, reward, terminal)
 
                 ai_agent.Learn()
 
@@ -150,18 +166,56 @@ class GameBuffer:
                     self.add_reward_list_turns[turn_index][step_index] += special_reward_sum
 
         #start reward from total damage done
-        end_reward_discounted = 0 if self.isCustomCardRewards else self.reward_functions.TotalRewardOfBossDamage()
+        
+        #end_reward_discounted = 0
 
+        self.UpdateWithMonteCarloReturn()
+        self.UpdateWithNStepTDReward()
+
+
+
+    def UpdateWithMonteCarloReturn(self):
+        end_reward_discounted = 0 if self.isCustomCardRewards else self.reward_functions.TotalRewardOfBossDamage()
         for turn_index in range(len(self.state_list_turns) - 1, -1, -1):
             for step_index in range(len(self.state_list_turns[turn_index]) - 1, -1, -1):
             
                 if (turn_index == len(self.state_list_turns) - 1) and (step_index == len(self.state_list_turns[turn_index]) - 1):
                     if self.reward_list_turns[turn_index][step_index] != self.unplayable_pun:
-                        end_reward_discounted = self.reward_list_turns[turn_index][step_index]
+                        end_reward_discounted += self.reward_list_turns[turn_index][step_index]
                 else:
                     end_reward_discounted *= 0.9
                 
                 self.add_reward_list_turns[turn_index][step_index] += end_reward_discounted
+
+
+
+    def UpdateWithNStepTDReward(self):
+        
+        for turn_index in range(len(self.state_list_turns)):
+            for step_index in range(len(self.state_list_turns[turn_index])):
+                gamma = 0.9
+                step_count = len(self.state_list_turns[turn_index])
+                td_reward = self.add_reward_list_turns[turn_index][step_index]
+                ti_temp = turn_index
+                si_temp = step_index
+                i = 0
+
+                while i < self.n_steps_return:
+                    if si_temp >= step_count:
+                        ti_temp += 1
+                        if ti_temp >= len(self.state_list_turns):
+                            break
+                        si_temp = 0
+                        step_count = len(self.state_list_turns[ti_temp])
+                        
+                    td_reward += self.add_reward_list_turns[ti_temp][si_temp] * gamma
+                    si_temp += 1
+                    i += 1
+                    gamma *= 0.9
+                
+                self.add_reward_list_turns[turn_index][step_index] = td_reward
+
+
 
 
     def StoreGameData(self, epsilon, win_int, new_state, prediction_time, game_time, train_time):

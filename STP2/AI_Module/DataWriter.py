@@ -14,9 +14,7 @@ class DataWriter:
         self.filename = dt_string + " Training _ " + add_string + '.xlsx'
         
         self.trainin_data_header = ['Episode #', 'Epsilon', 'Total Cards Played', 'Total Reward', 'Win/Loss', 'Boss End HP', 'Player End HP', 'Max Dmg (1 Turn)', 'Avg Dmg Per Turn', 'Roll Avg Reward']
-        self.training_data = [self.data_collector.episode_index_list, self.data_collector.epsilon_list, self.data_collector.episode_length_list, self.data_collector.total_reward_list,\
-            self.data_collector.win_data_list, self.data_collector.boss_end_hp_list, self.data_collector.player_end_hp_list, self.data_collector.max_damage, self.data_collector.average_damage, self.data_collector.roll_avg_reward]
-
+        
         self.card_stat_header = ['Action #', 'Card Name', 'Deck Count', 'Card Play Count', 'Opportunities Utilized', 'Avg Card Play Position', 'Avg Reward']
 
 
@@ -42,6 +40,9 @@ class DataWriter:
 
         #need to analyze data post collection before writing to calculate and store data in a representable format
         self.data_collector.PostDataCollectionAnalysis()
+
+        self.training_data = [self.data_collector.episode_index_list, self.data_collector.epsilon_list, self.data_collector.episode_length_list, self.data_collector.total_reward_list,\
+            self.data_collector.win_data_list, self.data_collector.boss_end_hp_list, self.data_collector.player_end_hp_list, self.data_collector.max_damage, self.data_collector.average_damage, self.data_collector.roll_avg_reward]
 
         self.CreateExcelFile()
         training_data_worksheet = self.workbook.add_worksheet('Training Data')
