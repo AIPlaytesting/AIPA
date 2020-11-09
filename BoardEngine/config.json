@@ -2,7 +2,6 @@
     "isDevMode": true,
     "devDependencies":{
         "pyLauncher":"executables\\runpyDev.bat",
-        "unityBackendLauncher":"executables\\backend-unity-postbuild",
         "pythonEnv":" C:\\users\\siqiwan2\\appdata\\local\\programs\\python\\python38",
         "pythonProject":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2",
         "unityGameFrontend":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\executables\\unitybuild",
