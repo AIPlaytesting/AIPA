@@ -1,12 +1,19 @@
 {
-    "useDevPyLauncher": true,
-    "buildPyLauncher": "executables\\runpy.bat",
-    "devPyLauncher":"executables\\runpyDev.bat",
+    "isDevMode": true,
     "devDependencies":{
+        "pyLauncher":"executables\\runpyDev.bat",
         "unityBackendLauncher":"executables\\backend-unity-postbuild",
-        "pythonEnv":" C:\\users\\siqiwan2\\appdata\\local\\programs\\python\\python38\\lib\\site-packages",
+        "pythonEnv":" C:\\users\\siqiwan2\\appdata\\local\\programs\\python\\python38",
         "pythonProject":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2",
-        "sourceUnityGameFrontendDir":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardGameUnity\\builds\\GameFrontend",
-        "sourceUnityRecordPlayerDir":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardGameUnity\\builds\\RecordPlayer"
+        "unityGameFrontend":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\executables\\unitybuild",
+        "unityRecordPlayer":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\executables\\recorderbuild"
+    },
+
+    "buildDependencies":{
+        "pyLauncher": "executables\\runpy.bat",
+        "pythonEnv":"executables\\pyexe",
+        "pythonProject":"executables\\pyproj",
+        "unityGameFrontendDir":"executables\\unitybuild",
+        "unityRecordPlayerDir":"executables\\recorderbuild"
     }
 }

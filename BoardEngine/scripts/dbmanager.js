@@ -1,10 +1,12 @@
 // for historical reason, the naming styple in db is same to the Python one
 // because the database is originnally wrote in Python
 
-const fs = require('fs');
-const ncp = require('ncp').ncp;
-const rimraf = require("rimraf");
+const fs = require('fs')
+const ncp = require('ncp').ncp
+const rimraf = require("rimraf")
 const rootPath = require('electron-root-path').rootPath
+const config = require('../scripts/config')
+
 const dbRoot = calculateDBRoot()
 
 var manifest = {}
@@ -12,9 +14,7 @@ var installedGames = [];
 var resourceRoot = "";
 
 function calculateDBRoot(){	
-    let configPath = rootPath + '\\config.json'
-    let config = loadObjectFromJSONFile(configPath)
-    if(config.useDevPyLauncher){
+    if(config.isDevMode){
 		console.log("set db root in development mode...")
 		return config.devDependencies.pythonProject+'\\DATA'
 	}

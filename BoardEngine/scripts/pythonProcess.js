@@ -1,8 +1,7 @@
 const net = require('net')
-const fs = require('fs')
 const SERVER_PORT = 10000
 const rootPath = require('electron-root-path').rootPath
-
+const config = require('../scripts/config')
 // methodCode: 
 // env = 10
 // train = 11
@@ -44,23 +43,17 @@ function createMessage(methodCode,content){
 }
 
 function launchProcessByBat(onFailListenter){
-	function loadObjectFromJSONFile(jsonFilePath){
-		let initData = fs.readFileSync(jsonFilePath);
-		return JSON.parse(initData);
-	}
-	
 	let child = require('child_process').execFile;
-	let configPath = rootPath + '\\config.json'
-	let config = loadObjectFromJSONFile(configPath)
 	let executablePath = ''
-	if(config.useDevPyLauncher){
+	if(config.isDevMode){
 		console.log("launch python in development mode...")
-		executablePath  = rootPath+'\\'+config.devPyLauncher
+		executablePath  = rootPath+'\\'+config.devDependencies.pyLauncher
 	}
 	else{
 		console.log("launch python in build mode...")
-		executablePath  = rootPath+'\\'+config.buildPyLauncher
+		executablePath  = rootPath+'\\'+config.buildDependencies.pyLauncher
 	}
+
 
 	console.log('start bat at: '+executablePath)
 	child(executablePath, function(err, data) {
