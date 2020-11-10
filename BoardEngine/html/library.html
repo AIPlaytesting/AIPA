@@ -15,6 +15,8 @@
     <script src = "../scripts/library.js"></script>
     <!-- css -->
     <link rel="stylesheet" href="../css/library.css">
+    <link rel="stylesheet" href="../css/circle.css">
+    
 </head>
 <body>
     <script>
@@ -39,35 +41,40 @@
                     </span>
                 </div>
             </div>
-            <div id ="quick-view-section">
-                <h4 class ='d-none'>Game</h4>
-                <hr>
-                <button class="btn btn-primary" onclick="onClickPlay()">Play</button>
-                <div id = "game-rules" class = "row">
-                    <span class='col-1'>Player HP:</span>
-                    <input type="range" class="custom-range col-3" id="customRange1">
-                    <span class='col-1'></span>
-                    <span class='col-1'>Boss HP:</span>
-                    <input type="range" class="custom-range col-3" id="customRange1">
-                    <span class='col-1'></span>
-                </div>
-                <div id ="game-profile" class="row">
-                    <div class="col dropdown">
-                        <span>Current Deck:</span>
-                        <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
-                        <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+            <div id ="game-edit-section" class="overlaycontainer">
+                <div>
+                    <h4 class ='d-none'>Game</h4>
+                    <hr>
+                    <button class="btn btn-primary" onclick="onClickPlay()">Play</button>
+                    <div id = "game-rules" class = "row">
+                        <span class='col-1'>Player HP:</span>
+                        <input type="range" class="custom-range col-3" id="customRange1">
+                        <span class='col-1'></span>
+                        <span class='col-1'>Boss HP:</span>
+                        <input type="range" class="custom-range col-3" id="customRange1">
+                        <span class='col-1'></span>
                     </div>
-                    <div class="col d-none">
-                        <span>Deck:</span>
-                        <span id = 'deck-count'></span>
-                        <span>Cards:</span>
-                        <span id = 'card-count'></span>
-                        <span>Buffs:</span>
-                        <span id = 'buff-count'></span>
+                    <div id ="game-profile" class="row">
+                        <div class="col dropdown">
+                            <span>Current Deck:</span>
+                            <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                            <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+                        </div>
+                        <div class="col d-none">
+                            <span>Deck:</span>
+                            <span id = 'deck-count'></span>
+                            <span>Cards:</span>
+                            <span id = 'card-count'></span>
+                            <span>Buffs:</span>
+                            <span id = 'buff-count'></span>
+                        </div>
+                    </div>
+                    <div id = "deck-img-view">
+    
                     </div>
                 </div>
-                <div id = "deck-img-view">
-
+                <div id = "game-edit-section-overlay" class="overlay d-none">
+                    <div class="hovertext">Cannot modify game while training</div>
                 </div>
             </div>
             <div id ="train-section">
@@ -85,7 +92,7 @@
                 </div>
             </div>
 
-            <div id ="data-visualization-section" class="overlaycontainer">
+            <div id ="playtest-section" class="overlaycontainer">
                 <div>
                     <h4 class ='d-none'>Playtest</h4>
                     <hr>
@@ -97,12 +104,23 @@
                     </div>
                     <div id = 'data-status' class = 'display-3'>Playtest you game</div>
                     <div id = "data-display-root" class="row d-none">
-                        <div id = 'playtest-winrate' class="col-5"></div>
-                        <div id = 'playtest-radar-chart' class="col-6"></div>
+                        <div id = 'playtest-radar-chart' class="col-4"></div>
+                        <div class="col-2"></div>
+                        <div id = 'playtest-winrate' class="col-4">
+                            <div class="clearfix text-center">
+                                <div class="c100 p60 big blue">
+                                    <span>60% <br>winrate</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="overlay">
-                    <div class="hovertext">Hi~</div>
+                <div id = "playtest-section-overlay" class="overlay d-none">
+                    <div class="hovertext">Need to train AI before the playtest</div>
                 </div>
             </div>
         </div>

@@ -377,7 +377,7 @@ function drawRadarChart(divID,data,colors){
              .style("font-size", "10px")
              .attr("transform", "translate(" + (cfg.w/2-levelFactor + cfg.ToRight) + ", " + (cfg.h/2-levelFactor) + ")")
              .attr("fill", "#737373")
-             .text((j+1)*100/cfg.levels);
+             //.text((j+1)*100/cfg.levels);
           }
       
           series = 0;
@@ -401,7 +401,7 @@ function drawRadarChart(divID,data,colors){
             .attr("class", "legend")
             .text(function(d){return d})
             .style("font-family", "sans-serif")
-            .style("font-size", "11px")
+            .style("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("dy", "1.5em")
             .attr("transform", function(d, i){return "translate(0, -10)"})

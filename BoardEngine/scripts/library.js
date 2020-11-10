@@ -10,6 +10,7 @@ function refreshLibraryPage(){
     dbmanager.loadDB(onFinishDBLoad)
 }
 
+
 function onFinishDBLoad(){
     let installedGames = dbmanager.getInstalledGameApps()
     // fill game lib list
@@ -55,6 +56,7 @@ function onClickPlay(){
 }
 
 function onClickTrain(){
+    $('#game-edit-section-overlay').removeClass('d-none')
     $('#train-btn').addClass('d-none')
     $('#train-spinner').removeClass('d-none')
     $('#train-status').text('load AI...')
@@ -140,9 +142,9 @@ function onFinishPlaytest(){
     let data = [
         [
           {"area": "winrate ", "value": 100*Math.random()},
-          {"area": "playerHP", "value": 100*Math.random()},
-          {"area": "bossHP", "value": 100*Math.random()},
-          {"area": "trunCount", "value": 100*Math.random()},
+          {"area": "player HP", "value": 100*Math.random()},
+          {"area": "boss HP", "value": 100*Math.random()},
+          {"area": "average turns", "value": 100*Math.random()},
           ]
       ]
     let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
