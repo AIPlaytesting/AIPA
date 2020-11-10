@@ -1,5 +1,6 @@
 const dbmanager = require('../scripts/dbmanager')
 const rootPath = require('electron-root-path').rootPath
+const dataVisualizer = require('../scripts/dataVisualizer')
 const PythonProcess = require('../Scripts/pythonProcess.js')
 
 var currentGameData = {}
@@ -54,6 +55,9 @@ function onClickPlay(){
 }
 
 function onClickTrain(){
+    $('#train-btn').addClass('d-none')
+    $('#train-spinner').removeClass('d-none')
+    $('#train-status').text('load AI...')
     let pyProcess = new PythonProcess(11,
 	    function () { console.log('success!') },
         onReceiveTrainMesssage)
@@ -65,9 +69,8 @@ function onReceiveTrainMesssage(data){
     let maxprogress = trainInfo.maxprogress
     console.log('recevice!')
     $('#train-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
-    $('#train-progress').text((curprogress*100/maxprogress) + '%')
-    $('#train-cur-winrate').text("Iterations Completed : " + curprogress + " / " + maxprogress)
-    $('#remaining_time').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
+    $('#train-progress-text').text(curprogress + "/" + maxprogress)
+    $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
 }
 
 function onClickCreateNewGame(){
@@ -107,6 +110,10 @@ function onClickRemoveGame(){
 }
 
 function onClickPlaytest(){
+    $('#playtest-btn').addClass('d-none')
+    $('#playtest-spinner').removeClass('d-none')
+    $('#data-status').removeClass('d-none')
+    $('#data-display-root').addClass('d-none')
     let pyProcess = new PythonProcess(12,
 	    function () { console.log('success!') },
         onReceivePlaytestMesssage)
@@ -117,16 +124,29 @@ function onReceivePlaytestMesssage(data){
     simulateInfo = JSON.parse(data).content
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress
-    $('#simulate-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
-    $('#simulate-progress').text(curprogress+'/'+maxprogress)
+    $('#playtest-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
     if(simulateInfo.curprogress >= simulateInfo.maxprogress){
         onFinishPlaytest()
     }
 }
 
 function onFinishPlaytest(){
-    $('#data-status').attr('class','d-none')
+    $('#playtest-btn').removeClass('d-none')
+    $('#playtest-spinner').addClass('d-none')
+    $('#data-status').addClass('d-none')
     $('#data-display-root').removeClass('d-none')
+    // draw data
+    let data = [
+        [
+          {"area": "winrate ", "value": 100*Math.random()},
+          {"area": "playerHP", "value": 100*Math.random()},
+          {"area": "bossHP", "value": 100*Math.random()},
+          {"area": "trunCount", "value": 100*Math.random()},
+          ]
+      ]
+    let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
+    dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
 }
 
 function onSwitchCurrentDeck(deckName){
