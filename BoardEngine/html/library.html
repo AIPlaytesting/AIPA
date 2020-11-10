@@ -16,116 +16,186 @@
     <!-- css -->
     <link rel="stylesheet" href="../css/library.css">
     <link rel="stylesheet" href="../css/circle.css">
-    
+    <link rel="stylesheet" href="../css/tab.css">
+    <!--stepper-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+    <script src = "https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 </head>
 <body>
     <script>
         window.onload = refreshLibraryPage
+        // stepper
+        let stepperOptions = {
+            linear: false,
+            animation: true,
+            selectors: {
+                steps: '.step',
+                trigger: '.step-trigger',
+                stepper: '.bs-stepper'
+            }
+        }
+        $(document).ready(function () {
+        var stepper = new Stepper($('.bs-stepper')[0],stepperOptions)
+        })
     </script>
-    <div id = "root" class="row">
-        <div id = "game-library" class = "col-2">
-            <h2>Library</h2>
-            <div id = "game-entry-list" class="btn-group-vertical"></div>
-        </div>  
-
-        <div id = "game-main-page" class = "col-10 border border-light">
-            <div id = "game-basic-section">
-                <div class="row">
-                    <h1 id = 'game-title'>Game</h1>
-                    <span class="dropdown">
-                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
-                        <div class="dropdown-menu">
-                            <button type="button" class="dropdown-item" onclick="location.href='appIndex.html'">Advance</button>
-                            <button id = "remove-game-btn" class="dropdown-item" onclick="onClickRemoveGame()" style="color:red;"> Remove</button>
-                        </div>
-                    </span>
-                </div>
-            </div>
-            <div id ="game-edit-section" class="overlaycontainer">
-                <div>
-                    <h4 class ='d-none'>Game</h4>
-                    <hr>
-                    <button class="btn btn-primary" onclick="onClickPlay()">Play</button>
-                    <div id = "game-rules" class = "row">
-                        <span class='col-1'>Player HP:</span>
-                        <input type="range" class="custom-range col-3" id="customRange1">
-                        <span class='col-1'></span>
-                        <span class='col-1'>Boss HP:</span>
-                        <input type="range" class="custom-range col-3" id="customRange1">
-                        <span class='col-1'></span>
-                    </div>
-                    <div id ="game-profile" class="row">
-                        <div class="col dropdown">
-                            <span>Current Deck:</span>
-                            <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
-                            <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
-                        </div>
-                        <div class="col d-none">
-                            <span>Deck:</span>
-                            <span id = 'deck-count'></span>
-                            <span>Cards:</span>
-                            <span id = 'card-count'></span>
-                            <span>Buffs:</span>
-                            <span id = 'buff-count'></span>
+    <div class="row">
+        <!--left tab-->
+        <div class="col-0.5">
+            <img id = 'logo' src="../static/logo.png" alt="Cinque Terre">
+        </div>
+        <!-- library root -->
+        <div id = 'lib-root' class = 'col-11'>
+            <h1>Library</h1>
+            <hr>
+            <div class=" d-flex  mt-100">
+                <div id = "game-library" >
+                    <ul class="nav nav-tabs"  role="tablist"></ul>
+                    <div id = "game-entry-list" class="btn-group-vertical"></div>
+                    </ul>
+                </div>  
+        
+                <div id = "game-main-page" class = 'col-10' style = "background: #fff;">
+                    <div id = "game-basic-section">
+                        <div class = "text-center">
+                            <h1 id = 'game-title'>Game</h1>
+                            <span class="dropdown">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                                <div class="dropdown-menu">
+                                    <button type="button" class="dropdown-item" onclick="location.href='appIndex.html'">Advance</button>
+                                    <button id = "remove-game-btn" class="dropdown-item" onclick="onClickRemoveGame()" style="color:red;"> Remove</button>
+                                </div>
+                            </span>
                         </div>
                     </div>
-                    <div id = "deck-img-view">
-    
-                    </div>
-                </div>
-                <div id = "game-edit-section-overlay" class="overlay d-none">
-                    <div class="hovertext">Cannot modify game while training</div>
-                </div>
-            </div>
-            <div id ="train-section">
-                <h4 class ='d-none'>Train</h4>
-                <hr>
-                <button id = "train-btn" class="btn btn-primary" onclick="onClickTrain()">Train</button>
-                <span id = "train-spinner" class="spinner-border text-dark d-none" role="status"></span>
-                <div id="train-info-div">
-                    <div class="progress md-progress row">
-                        <span id = "train-progress-text" class="col-1"></span>
-                        <div id = "train-progress" class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p id="train-cur-winrate"></p>
-                    <div id = 'train-status' class = 'display-3'>Train your AI</div>
-                </div>
-            </div>
-
-            <div id ="playtest-section" class="overlaycontainer">
-                <div>
-                    <h4 class ='d-none'>Playtest</h4>
-                    <hr>
-                    <button id = "playtest-btn" class="btn btn-primary" onclick="onClickPlaytest()">Playtest</button>
-                    <span id = "playtest-spinner" class="spinner-border text-dark d-none" role="status"></span> 
-                    <div class="progress md-progress">
-                        <span id = "playtest-progress-text" class="col-1"></span>
-                        <div id = "playtest-progress" class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div id = 'data-status' class = 'display-3'>Playtest you game</div>
-                    <div id = "data-display-root" class="row d-none">
-                        <div id = 'playtest-radar-chart' class="col-4"></div>
-                        <div class="col-2"></div>
-                        <div id = 'playtest-winrate' class="col-4">
-                            <div class="clearfix text-center">
-                                <div class="c100 p60 big blue">
-                                    <span>60% <br>winrate</span>
-                                    <div class="slice">
-                                        <div class="bar"></div>
-                                        <div class="fill"></div>
+                    <div class="bs-stepper">
+                        <div class="bs-stepper-header" role="tablist">
+                        <!-- your steps here -->
+                        <div class="step" data-target="#game-edit-step">
+                            <button type="button"  class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                            <span class="bs-stepper-circle">1</span>
+                            <span class="bs-stepper-label">Design</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#train-step">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                            <span class="bs-stepper-circle">2</span>
+                            <span class="bs-stepper-label">Train</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#playtest-step">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                            <span class="bs-stepper-circle">3</span>
+                            <span class="bs-stepper-label">Playtest</span>
+                            </button>
+                        </div>
+                        </div>
+                        <div class="bs-stepper-content">
+                            <!-- game edit step -->
+                            <div id="game-edit-step" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                                <div id ="game-edit-section" class="overlaycontainer">
+                                    <div>
+                                        <h4 class ='d-none'>Game</h4>
+                                        <button class="btn btn-primary" onclick="onClickPlay()">Play</button>
+                                        <div id = "game-rules" class = "row">
+                                            <span class='col-1'>Player HP:</span>
+                                            <input type="range" class="custom-range col-3" id="customRange1">
+                                            <span class='col-1'></span>
+                                            <span class='col-1'>Boss HP:</span>
+                                            <input type="range" class="custom-range col-3" id="customRange1">
+                                            <span class='col-1'></span>
+                                        </div>
+                                        <div id ="game-profile" class="row">
+                                            <div class="col dropdown">
+                                                <span>Current Deck:</span>
+                                                <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                                                <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+                                            </div>
+                                            <div class="col d-none">
+                                                <span>Deck:</span>
+                                                <span id = 'deck-count'></span>
+                                                <span>Cards:</span>
+                                                <span id = 'card-count'></span>
+                                                <span>Buffs:</span>
+                                                <span id = 'buff-count'></span>
+                                            </div>
+                                        </div>
+                                        <div id = "deck-img-view">
+                        
+                                        </div>
+                                    </div>
+                                    <div id = "game-edit-section-overlay" class="overlay d-none">
+                                        <div class="hovertext">Cannot modify game while training</div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- train AI step-->
+                            <div id="train-step" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                                <div id ="train-section">
+                                    <h4 class ='d-none'>Train</h4>
+                                    <!-- train operation-->
+                                    <div>
+                                        <button id = "train-btn" class="btn btn-primary " onclick="onClickTrain()">Train</button>
+                                        <span id = "train-spinner" class="spinner-border text-dark d-none" role="status"></span>  
+                                        <span class='col-1'>iterations:</span>
+                                        <input type="range" class="custom-range col-3" id="customRange1">
+                                    </div>
+                                    <div id="train-info-div">
+                                        <div class="progress md-progress row">
+                                            <span id = "train-progress-text" class="col-1"></span>
+                                            <div id = "train-progress" class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <p id="train-cur-winrate"></p>
+                                        <div id = 'train-status' class = 'display-3 text-center'>Train your AI</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Playtest step-->
+                            <div id="playtest-step" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                                <div id ="playtest-section" class="overlaycontainer">
+                                    <div>
+                                        <h4 class ='d-none'>Playtest</h4>
+                                        <!--play test operation-->
+                                        <div>
+                                            <button id = "playtest-btn" class="btn btn-primary" onclick="onClickPlaytest()">Playtest</button>
+                                            <span id = "playtest-spinner" class="spinner-border text-dark d-none" role="status"></span> 
+                                            <span class='col-1'>number of games:</span>
+                                            <input type="range" class="custom-range col-3" id="customRange1">    
+                                        </div>
+                                        <!--play test operation-->
+                                        <div id = "playtest-progress" class="progress md-progress">
+                                            <span id = "playtest-progress-text" class="col-1"></span>
+                                            <div id = "playtest-progress-bar" class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <div id = 'data-status' class = 'display-3  text-center'>Playtest you game</div>
+                                        <div id = "data-display-root" class="row d-none">
+                                            <div id = 'playtest-radar-chart' class="col-4"></div>
+                                            <div class="col-2"></div>
+                                            <div id = 'playtest-winrate' class="col-4">
+                                                <div class="clearfix text-center">
+                                                    <div class="c100 p60 big blue">
+                                                        <span>60% <br>winrate</span>
+                                                        <div class="slice">
+                                                            <div class="bar"></div>
+                                                            <div class="fill"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id = "playtest-section-overlay" class="overlay d-none">
+                                        <div class="hovertext">Need to train AI before the playtest</div>
+                                    </div>
+                                </div>
+                            </div>     
                         </div>
                     </div>
-                </div>
-                <div id = "playtest-section-overlay" class="overlay d-none">
-                    <div class="hovertext">Need to train AI before the playtest</div>
                 </div>
             </div>
         </div>
     </div>
-
     <div id ='modals'>
         <div id ="warning-modal" class="modal fade">
             <div class="modal-dialog">

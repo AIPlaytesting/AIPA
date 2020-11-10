@@ -126,7 +126,7 @@ function onReceivePlaytestMesssage(data){
     simulateInfo = JSON.parse(data).content
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress
-    $('#playtest-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    $('#playtest-progress-bar').attr("style","width:"+(curprogress*100/maxprogress)+"%")
     $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
     if(simulateInfo.curprogress >= simulateInfo.maxprogress){
         onFinishPlaytest()
@@ -161,19 +161,27 @@ function onSwitchCurrentDeck(deckName){
 function createLibraryEntry(gameName){
     let entryBtn =$(document.createElement('button'))
     entryBtn.text(gameName)
-    entryBtn.attr('class',"btn btn-light")
+    entryBtn.attr('class',"btn btn-light tab-v")
     entryBtn.click(function(){
+        $(".tab-v").removeClass('active')
+        $(this).addClass('active')
         onClickLibraryGameEntry(gameName)})
     return entryBtn
 }
 
 function createNewGameBtn(){
+    let container = $(document.createElement('div'))
     let entryBtn =$(document.createElement('button'))
-    entryBtn.text("+New Game")
-    entryBtn.attr('class',"btn btn-dark")
-    entryBtn.attr('data-toggle','modal')
-    entryBtn.attr('data-target','#create-game-modal')
-    return entryBtn;
+    entryBtn.text("+")
+        .attr('class',"btn btn-dark")
+        .attr('data-toggle','modal')
+        .attr('data-target','#create-game-modal')
+        .css('width','30px')
+        .css('position','absolute')
+        .css('right','0px')
+        .addClass('text-center')
+    container.append(entryBtn)
+    return container;
 }
 
 // update main page based on current game in manifest

@@ -1,0 +1,131 @@
+body {
+    font-family: 'Circular Std Book';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color: #71748d;
+    background-color: #efeff6;
+    -webkit-font-smoothing: antialiased
+}
+
+.mt-20 {
+    margin-top: 50px !important
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #3d405c;
+    margin: 0px 0px 15px 0px;
+    font-family: 'Circular Std Medium'
+}
+
+h1 {
+    font-size: 34px
+}
+
+h2 {
+    font-size: 28px;
+    line-height: 30px
+}
+
+h3 {
+    font-size: 20px
+}
+
+h4 {
+    font-size: 16px;
+    line-height: 26px
+}
+
+h5 {
+    font-size: 15px;
+    line-height: 26px
+}
+
+h6 {
+    font-size: 12px
+}
+
+p {
+    margin: 0px 0px 20px 0px
+}
+
+p:last-child {
+    margin: 0px
+}
+
+a {
+    color: #71748d
+}
+
+a:hover {
+    color: #ff407b;
+    text-decoration: none
+}
+
+a:active,
+a:hover {
+    outline: 0;
+    text-decoration: none
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #ff407b;
+    border-color: #ff407b
+}
+
+.btn {
+    font-size: 14px;
+    padding: 9px 16px;
+    border-radius: 2px
+}
+
+.tab-vertical .nav.nav-tabs {
+    float: left;
+    display: block;
+    margin-right: 0px;
+    border-bottom: 0
+}
+
+.tab-vertical .nav.nav-tabs .nav-item {
+    margin-bottom: 6px
+}
+
+.tab-vertical .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    background: #fff;
+    padding: 17px 49px;
+    color: #71748d;
+    background-color: #dddde8;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0px 0px 4px
+}
+
+.tab-vertical .nav-tabs .nav-link.active {
+    color: #5969ff;
+    background-color: #fff !important;
+    border-color: transparent !important
+}
+
+.tab-vertical .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 0px !important
+}
+
+.tab-vertical .tab-content {
+    overflow: auto;
+    -webkit-border-radius: 0px 4px 4px 4px;
+    -moz-border-radius: 0px 4px 4px 4px;
+    border-radius: 0px 4px 4px 4px;
+    background: #fff;
+    padding: 30px
+}

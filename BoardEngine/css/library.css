@@ -1,3 +1,37 @@
+/*tab CSS start*/
+#logo{
+    width: 150px;
+    height: 150px;
+}
+
+#game-main-page{
+    height: 1000px;
+}
+#lib-root{
+    border-left: 2px solid #080808;
+}
+
+.tab-v{
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-radius: 2px;
+    background: #fff;
+    padding: 17px 49px;
+    color: #71748d;
+    background-color: #dddde8;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0px 0px 4px;
+    margin-bottom: 6px;
+}
+.tab-v.active {
+    color: #5969ff;
+    background-color: #fff !important;
+    border-color: transparent !important
+}
+
+/*overlay CSS start*/
 .overlaycontainer {
     position: relative;
     width: 100%;
