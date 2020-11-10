@@ -191,6 +191,15 @@ function getGameRecordDataRoot(gameName,isPlayerRecord){
     }
 }
 
+function modifyDeck(deckname,cardname,newCardCopyNumber){
+    let gameData = loadGameData(getCurrentGameName())
+    let targetDeck = gameData.decks[deckname]
+    targetDeck[cardname] = newCardCopyNumber
+    
+    let deckPath= dbRoot + '\\' + getCurrentGameName()+'\\Decks\\'+ deckname +'.json'
+    saveObjectToFileAsJSON(targetDeck,deckPath)
+}
+
 module.exports = {
     loadDB,
     getInstalledGameApps,
@@ -200,6 +209,7 @@ module.exports = {
     setCurrentGame,
     createNewGame,
     createNewDeckOnCurrentGame,
+    modifyDeck,
     removeGame,
     getGameAppRoot,
     getResourceRoot,

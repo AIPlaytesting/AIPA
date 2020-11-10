@@ -112,6 +112,17 @@ function onClickCreateNewDeck(){
     }
 }
 
+function onClickAddNewCard(){
+    let deckname = currentGameData.rules.deck
+    let cardname =  $('#newcard-name-dropdown').text()
+    let newCardCopies = 1
+    if(cardname in currentGameData.decks[deckname]){
+        newCardCopies =  currentGameData.decks[deckname][cardname]+1
+    }
+    dbmanager.modifyDeck(deckname,cardname,newCardCopies)
+    refreshLibraryPage()
+}
+
 function onClickLibraryGameEntry(gameName){
     dbmanager.setCurrentGame(gameName)
     updateGameMainPage()
@@ -199,7 +210,7 @@ function createNewGameBtn(){
         .attr('class',"btn btn-dark")
         .attr('data-toggle','modal')
         .attr('data-target','#create-game-modal')
-        .css('width','30px')
+        .css('width','50px')
         .css('position','absolute')
         .css('right','0px')
         .addClass('text-center')
@@ -218,6 +229,7 @@ function updateGameMainPage(){
     $('#card-count').text(Object.keys(gameData.cards).length)
     $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
 
+    updateDropdownList('newcard-name-list','newcard-name-dropdown',Object.keys(gameData.cards))
     updateDeckDropdown()
     updateDeckTemplateList()
 
@@ -254,8 +266,32 @@ function updateGameMainPage(){
                 currentImgRow.append(imgDiv)   
             }
         }
+        // add create new card buttons
+
+        // check row change
+        if(currentImgRowCount >= maxImgRowCount){
+            deckImgView.append(currentImgRow)
+            currentImgRow = $(document.createElement('div'))
+            currentImgRow.attr('class',"row")
+            currentImgRowCount = 0
+        }
+        currentImgRow.append(createAddNewCardDiv())   
+
         // add the last row 
         deckImgView.append(currentImgRow)
+    }
+
+    function createAddNewCardDiv(){
+        let rootDiv = $(document.createElement('div')).attr('class','col-2')
+        let addCardBtn = $(document.createElement('button'))
+        .text('+new card')
+        .attr('class','btn btn-dark div-center')
+        .css('width','100px')
+        .css('height','150px')
+        .attr('data-toggle','modal')
+        .attr('data-target','#add-card-modal')
+        rootDiv.append(addCardBtn)   
+        return rootDiv
     }
 
     function updateDeckDropdown(){
@@ -284,6 +320,21 @@ function updateGameMainPage(){
                 $('#deck-template-dropdown').text($(this).text())
             })
             deckTemplateList.append(templateOptionBtn)
+        }
+    }
+
+    function updateDropdownList(dropdownMenuID,dropwdownBtnID,options){
+        let dropdownMenu = $("#"+dropdownMenuID);
+        dropdownMenu .text("");
+        $('#'+dropwdownBtnID).text("please select")
+        for(option of options){
+            let optionBtn =$(document.createElement('button'))
+            .attr('class','dropdown-item')
+            .text(option)
+            .click(function(){
+                $('#'+dropwdownBtnID).text($(this).text())
+            })
+            dropdownMenu .append(optionBtn)
         }
     }
 }
