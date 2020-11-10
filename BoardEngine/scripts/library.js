@@ -149,6 +149,7 @@ function onFinishPlaytest(){
       ]
     let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
     dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
+    dataVisualizer.drawRankChart("../static/card.csv",'card-data-rankChart')
 }
 
 function onSwitchCurrentDeck(deckName){

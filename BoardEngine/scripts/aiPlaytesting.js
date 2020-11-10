@@ -80,7 +80,7 @@ function drawCardsDataSection(){
     let rankChartDiv = $(document.createElement('div')).attr('id','card-data-rankChart').attr('class','col-7')
     let radarChartDiv = $(document.createElement('div')).attr('id','card-data-radarChart').attr('class','col-5')
     $('#cards-data-section').append(rankChartDiv,radarChartDiv)
-    dataVisualizer.drawRankChart('card-data-rankChart','card-data-radarChart')
+    dataVisualizer.drawRankChart("../static/card.csv",'card-data-rankChart','card-data-radarChart')
 }
 
 function drawCardRelationshipDataSection(){

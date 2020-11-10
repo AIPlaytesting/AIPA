@@ -1,4 +1,4 @@
-function drawRankChart(divID,hookedRadarDivID){
+function drawRankChart(csvURL,divID,hookedRadarDivID=''){
     let optionDiv = $(document.createElement('div'))
     let chartDiv = $(document.createElement('div')).attr('id',divID+'-chart')
     $('#'+divID).append(optionDiv,chartDiv)
@@ -30,13 +30,14 @@ function drawRankChart(divID,hookedRadarDivID){
     var yAxis = svg.append("g")
     .attr("class", "myYaxis")
 
-    let csvURL = "../static/card.csv";
     let radarData = []
     let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
     // A function that create / update the plot for a given variable:
     function update(selectedVar,color) {
         // clear radar chart
-        $('#'+hookedRadarDivID).text("")
+        if(hookedRadarDivID != ''){
+            $('#'+hookedRadarDivID).text("")
+        }
         radarData = []
         // Parse the Data
         d3.csv(csvURL, function(data) {
@@ -66,14 +67,16 @@ function drawRankChart(divID,hookedRadarDivID){
             }
             
             function mouseclick(){
-                $('#'+hookedRadarDivID).text("")
-                radarData.push(
-                    [
-                      {"area": "rawards", "value": 100*Math.random()},
-                      {"area": "playPosition", "value": 100*Math.random()},
-                      {"area": "playCount", "value": 100*Math.random()}
-                      ])
-                drawRadarChart(hookedRadarDivID,radarData,radarColors)
+                if(hookedRadarDivID != ""){
+                    $('#'+hookedRadarDivID).text("")
+                    radarData.push(
+                        [
+                          {"area": "rawards", "value": 100*Math.random()},
+                          {"area": "playPosition", "value": 100*Math.random()},
+                          {"area": "playCount", "value": 100*Math.random()}
+                          ])
+                    drawRadarChart(hookedRadarDivID,radarData,radarColors)   
+                }
             }
             // update bars
             u
