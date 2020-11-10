@@ -11,7 +11,6 @@ function refreshLibraryPage(){
     dbmanager.loadDB(onFinishDBLoad)
 }
 
-
 function onFinishDBLoad(){
     let installedGames = dbmanager.getInstalledGameApps()
     // fill game lib list
@@ -22,25 +21,30 @@ function onFinishDBLoad(){
     }
     // set game create button
     gameEntryList.append(createNewGameBtn())
-    let gameTemplateList = $("#game-template-list");
-    gameTemplateList.text("");
-    $('#game-template-dropdown').text("please select a template")
-    for(gameName of installedGames){
-        // create game template option button
-        let templateOptionBtn =$(document.createElement('button'))
-        templateOptionBtn.attr('class','dropdown-item')
-        templateOptionBtn.text(gameName)
-        templateOptionBtn.click(function(){
-            $('#game-template-dropdown').text($(this).text())
-        })
-        gameTemplateList.append(templateOptionBtn)
-    }
+    
+    updateGameTemplateList()
+
     $('#create-new-game-btn').off()
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
     updateGameMainPage()
-}
 
+    function updateGameTemplateList(){
+        let gameTemplateList = $("#game-template-list");
+        gameTemplateList.text("");
+        $('#game-template-dropdown').text("please select a template")
+        for(gameName of installedGames){
+            // create game template option button
+            let templateOptionBtn =$(document.createElement('button'))
+            templateOptionBtn.attr('class','dropdown-item')
+            templateOptionBtn.text(gameName)
+            templateOptionBtn.click(function(){
+                $('#game-template-dropdown').text($(this).text())
+            })
+            gameTemplateList.append(templateOptionBtn)
+        }
+    }
+}
 
 function onClickPlay(){
     let child = require('child_process').execFile;
@@ -86,6 +90,23 @@ function onClickCreateNewGame(){
 
     try {
         dbmanager.createNewGame(templateName, newGameName,refreshLibraryPage)
+    } catch (error) {
+        popupWarning(error)
+    }
+}
+
+function onClickCreateNewDeck(){
+    let templateName = $('#deck-template-dropdown').text()
+    let newDeckName = $('#new-deck-name-input').val()
+    if(newDeckName  == ""){
+        popupWarning("deck name cannot be empty!")
+        return
+    }
+
+    try {
+        dbmanager.createNewDeckOnCurrentGame(templateName, newDeckName)
+        refreshLibraryPage()
+        onSwitchCurrentDeck(newDeckName)
     } catch (error) {
         popupWarning(error)
     }
@@ -196,54 +217,77 @@ function updateGameMainPage(){
     $('#deck-count').text(Object.keys(gameData.decks).length)
     $('#card-count').text(Object.keys(gameData.cards).length)
     $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
-    let deckImgView = $('#deck-img-view')
-    deckImgView.text("")
-    let currentDeckinfo = gameData.decks[gameData.rules.deck]
-    // create card info
-    let currentImgRow = $(document.createElement('div'))
-    currentImgRow.attr('class',"row")
-    let currentImgRowCount = 0
-    let maxImgRowCount = 6
-    for(let cardName in currentDeckinfo){
-        let cardCopies = currentDeckinfo[cardName]
-        let cardImgFullPath = "../static/defaultcard.png"
-        if( "img_relative_path" in gameData.cards[cardName]){
-            let cardImgRelativePath = gameData.cards[cardName].img_relative_path
-            cardImgFullPath = dbmanager.getResourceRoot()+'\\'+cardImgRelativePath
-        }
-
-        for(i = 0; i <cardCopies; i++){
-            // check row change
-            if(currentImgRowCount >= maxImgRowCount){
-                deckImgView.append(currentImgRow)
-                currentImgRow = $(document.createElement('div'))
-                currentImgRow.attr('class',"row")
-                currentImgRowCount = 0
-            }
-            currentImgRowCount += 1
-            // render card
-            let imgDiv = cardRenderer.createCardElement(cardImgFullPath,cardName,'',1)
-            currentImgRow.append(imgDiv)   
-        }
-    }
-    // add the last row 
-    deckImgView.append(currentImgRow)
 
     updateDeckDropdown()
-}
+    updateDeckTemplateList()
 
-function updateDeckDropdown(){
-    $('#current-deck-dropdown-btn').text(currentGameData.rules.deck)
-    let deckList = $('#current-deck-dropdown-list')
-    deckList.text("")
-    for(let deckName in currentGameData.decks){
-        let deckSwitchBtn = $(document.createElement('button'))
-        deckSwitchBtn.text(deckName)
-        deckSwitchBtn.click(function(){onSwitchCurrentDeck(deckName)})
-        deckSwitchBtn.attr('class','dropdown-item')
-        deckList.append(deckSwitchBtn)
+    renderCardGrid()
+
+    function renderCardGrid(){
+        let deckImgView = $('#deck-img-view')
+        deckImgView.text("")
+        let currentDeckinfo = gameData.decks[gameData.rules.deck]
+        // create card info
+        let currentImgRow = $(document.createElement('div'))
+        currentImgRow.attr('class',"row")
+        let currentImgRowCount = 0
+        let maxImgRowCount = 6
+        for(let cardName in currentDeckinfo){
+            let cardCopies = currentDeckinfo[cardName]
+            let cardImgFullPath = "../static/defaultcard.png"
+            if( "img_relative_path" in gameData.cards[cardName]){
+                let cardImgRelativePath = gameData.cards[cardName].img_relative_path
+                cardImgFullPath = dbmanager.getResourceRoot()+'\\'+cardImgRelativePath
+            }
+    
+            for(i = 0; i <cardCopies; i++){
+                // check row change
+                if(currentImgRowCount >= maxImgRowCount){
+                    deckImgView.append(currentImgRow)
+                    currentImgRow = $(document.createElement('div'))
+                    currentImgRow.attr('class',"row")
+                    currentImgRowCount = 0
+                }
+                currentImgRowCount += 1
+                // render card
+                let imgDiv = cardRenderer.createCardElement(cardImgFullPath,cardName,'',1)
+                currentImgRow.append(imgDiv)   
+            }
+        }
+        // add the last row 
+        deckImgView.append(currentImgRow)
+    }
+
+    function updateDeckDropdown(){
+        $('#current-deck-dropdown-btn').text(currentGameData.rules.deck)
+        let deckList = $('#current-deck-dropdown-list')
+        deckList.text("")
+        for(let deckName in currentGameData.decks){
+            let deckSwitchBtn = $(document.createElement('button'))
+            deckSwitchBtn.text(deckName)
+            deckSwitchBtn.click(function(){onSwitchCurrentDeck(deckName)})
+            deckSwitchBtn.attr('class','dropdown-item')
+            deckList.append(deckSwitchBtn)
+        }
+    }
+
+    function updateDeckTemplateList(){
+        let deckTemplateList = $("#deck-template-list");
+        deckTemplateList.text("");
+        $('#deck-template-dropdown').text("please select a template")
+        for(deckName in currentGameData.decks){
+            // create deck template option button
+            let templateOptionBtn =$(document.createElement('button'))
+            templateOptionBtn.attr('class','dropdown-item')
+            templateOptionBtn.text(deckName)
+            templateOptionBtn.click(function(){
+                $('#deck-template-dropdown').text($(this).text())
+            })
+            deckTemplateList.append(templateOptionBtn)
+        }
     }
 }
+
 
 function popupWarning(message){
     $('#warning-modal').modal()

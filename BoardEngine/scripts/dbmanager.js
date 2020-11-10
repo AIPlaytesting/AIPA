@@ -63,6 +63,23 @@ function createNewGame(templateGame,newGameName,onFinishCallback){
     });
 }
 
+function createNewDeckOnCurrentGame(templateDeck,newDeckName){
+    let gameName = getCurrentGameName()
+    let gameData = loadGameData(gameName)
+
+    if(!templateDeck in gameData.decks){
+        throw "no template named: " + templateDeck
+    }
+
+    if(newDeckName in gameData.decks){
+        throw "game named: "+newDeckName+" already exists!"
+    }
+
+    let newDeck = JSON.parse(JSON.stringify(gameData.decks[templateDeck]))  
+    let newDeckPath= dbRoot + '\\' + gameName+'\\Decks\\'+ newDeckName +'.json'
+    saveObjectToFileAsJSON(newDeck,newDeckPath)
+}
+
 function removeGame(gameName,onFinishCallback){
     if(!installedGames.includes(gameName)){
         throw "no such registered game: " + gameName
@@ -182,6 +199,7 @@ module.exports = {
     getCurrentGameName,
     setCurrentGame,
     createNewGame,
+    createNewDeckOnCurrentGame,
     removeGame,
     getGameAppRoot,
     getResourceRoot,
