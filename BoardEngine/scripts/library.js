@@ -1,6 +1,7 @@
 const dbmanager = require('../scripts/dbmanager')
 const rootPath = require('electron-root-path').rootPath
 const dataVisualizer = require('../scripts/dataVisualizer')
+const cardRenderer = require('../scripts/cardRenderer')
 const PythonProcess = require('../Scripts/pythonProcess.js')
 
 var currentGameData = {}
@@ -202,30 +203,28 @@ function updateGameMainPage(){
     let currentImgRow = $(document.createElement('div'))
     currentImgRow.attr('class',"row")
     let currentImgRowCount = 0
-    let maxImgRowCount = 4
+    let maxImgRowCount = 6
     for(let cardName in currentDeckinfo){
-        // check row change
-        if(currentImgRowCount >= maxImgRowCount){
-            deckImgView.append(currentImgRow)
-            currentImgRow = $(document.createElement('div'))
-            currentImgRow.attr('class',"row")
-            currentImgRowCount = 0
-        }
-        currentImgRowCount += 1
-
         let cardCopies = currentDeckinfo[cardName]
         let cardImgFullPath = "../static/defaultcard.png"
         if( "img_relative_path" in gameData.cards[cardName]){
             let cardImgRelativePath = gameData.cards[cardName].img_relative_path
             cardImgFullPath = dbmanager.getResourceRoot()+'\\'+cardImgRelativePath
         }
-        let imgDiv = $(document.createElement('div'))
-        imgDiv.attr('class','col-3')
-        let imgElement = $(document.createElement('img'))
-        imgElement.attr('src',cardImgFullPath)
-        imgDiv.append(imgElement)
-        imgDiv.append(cardName+"*"+cardCopies)
-        currentImgRow.append(imgDiv)
+
+        for(i = 0; i <cardCopies; i++){
+            // check row change
+            if(currentImgRowCount >= maxImgRowCount){
+                deckImgView.append(currentImgRow)
+                currentImgRow = $(document.createElement('div'))
+                currentImgRow.attr('class',"row")
+                currentImgRowCount = 0
+            }
+            currentImgRowCount += 1
+            // render card
+            let imgDiv = cardRenderer.createCardElement(cardImgFullPath,cardName,'',1)
+            currentImgRow.append(imgDiv)   
+        }
     }
     // add the last row 
     deckImgView.append(currentImgRow)
