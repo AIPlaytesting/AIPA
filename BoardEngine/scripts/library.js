@@ -123,6 +123,22 @@ function onClickAddNewCard(){
     refreshLibraryPage()
 }
 
+function onClickRemoveCard(cardname){
+    let deckname = currentGameData.rules.deck
+    let newCardCopies = 1
+    if(cardname in currentGameData.decks[deckname]){
+        newCardCopies =  currentGameData.decks[deckname][cardname] - 1
+        if(newCardCopies < 0){
+            newCardCopies = 0
+        }
+        dbmanager.modifyDeck(deckname,cardname,newCardCopies)
+        refreshLibraryPage()
+    }
+    else{
+        console.log(cardname+'doesnt exist!')
+    }
+}
+
 function onClickLibraryGameEntry(gameName){
     dbmanager.setCurrentGame(gameName)
     updateGameMainPage()
@@ -263,7 +279,12 @@ function updateGameMainPage(){
                 currentImgRowCount += 1
                 // render card
                 let cardObj = gameData.cards[cardName]
-                let imgDiv = cardRenderer.createCardElement(cardImgFullPath,cardName,cardObj.description,cardObj.energy_cost)
+                let imgDiv = cardRenderer.createCardElement(
+                    cardImgFullPath,
+                    cardName,
+                    cardObj.description,
+                    cardObj.energy_cost,
+                    function(){onClickRemoveCard(cardName)})
                 currentImgRow.append(imgDiv)   
             }
         }
