@@ -39,13 +39,7 @@
         })
     </script>
     <div class="row">
-        <!--left tab-->
-        <div class="col-0.5">
-            <img id = 'logo' src="../static/logo.png" alt="Cinque Terre">
-        </div>
-        <!-- library root -->
-        <div id = 'lib-root' class = 'col-11'>
-            <h1>Library</h1>
+        <div id = 'lib-root' class = 'col-12'>
             <hr>
             <div class=" d-flex  mt-100">
                 <div id = "game-library" >
@@ -99,10 +93,12 @@
                                         <button class="btn btn-primary core-btn rounded" onclick="onClickPlay()">Play</button>
                                         <div id = "game-rules" class = "row">
                                             <span class='col-1'>Player HP:</span>
-                                            <input type="range" class="custom-range col-3" id="customRange1">
+                                            <input id = 'player-hp-slider' type="range" class="custom-range col-3" >
+                                            <span id = 'player-hp-slider-value'>0</span>
                                             <span class='col-1'></span>
                                             <span class='col-1'>Boss HP:</span>
-                                            <input type="range" class="custom-range col-3" id="customRange1">
+                                            <input id = 'boss-hp-slider' type="range" class="custom-range col-3">
+                                            <span id = 'boss-hp-slider-value'>0</span>
                                             <span class='col-1'></span>
                                         </div>
                                         <!--deck operations-->
@@ -114,14 +110,14 @@
                                             <div class = 'col-1'>
                                                 <button id = 'create-deck-btn' class="btn btn-dark" data-toggle = 'modal' data-target = '#create-deck-modal'>+</button>                           
                                             </div>
-                                            <div class="col d-none">
+                                            <!-- <div class="col d-none">
                                                     <span>Deck:</span>
                                                     <span id = 'deck-count'></span>
                                                     <span>Cards:</span>
                                                     <span id = 'card-count'></span>
                                                     <span>Buffs:</span>
                                                     <span id = 'buff-count'></span>
-                                                </div>
+                                            </div> -->
                                         </div>
                                         <!--deck card grid-->
                                         <div id = "deck-img-view" class="middle-section">
@@ -158,21 +154,12 @@
                                             <div id = 'train-config'>
                                                 <span>
                                                     <h2>number of iterations:</h2>
-                                                    <input type="range" class="custom-range col-4" id="customRange1">
+                                                    <input type="text" value = "12000">
                                                 </span>                                        
                                             </div>
                                             <div id = 'train-status' class = 'display-4  d-none'>Train your AI</div>
                                         </div>
                                     </div>
-                                    
-                                    <!-- train operation
-                                    <div id="train-info-div">
-                                        <div class="progress md-progress row">
-                                            <span id = "train-progress-text" class="col-1"></span>
-                                            <div id = "train-progress" class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <p id="train-cur-winrate"></p>
-                                    </div> -->
                                 </div>
                             </div>
                             <!-- Playtest step-->
@@ -198,17 +185,13 @@
                                         <!--play test config-->
                                         <div class="col-8" >
                                             <div class="row" id = 'playtest-config-div' style="height: 150px;">
-                                                <div class="col-6" >
+                                                <div class="col-4" >
                                                     <h2>number of games:</h2>
-                                                    <input type="range" class="custom-range" id="customRange1">  
+                                                    <input type="text" value = "1000">  
                                                 </div>
-                                                <div class="dropdown col-6">
-                                                    <button id ="AI-dropdown-btn" type="button" style = "width:100%" class="btn dropdown-toggle" data-toggle="dropdown" >
-                                                        <h2>Select playtest AI</h2>
-                                                    </button>
+                                                <div class="dropdown col-4">
+                                                    <button id ="AI-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
                                                     <div id ="AI-dropdown-list" class="dropdown-menu">
-                                                      <button class = 'dropdown-item'><h3>AI 1</h3></button>
-                                                      <button class = 'dropdown-item'><h3>AI 2</h3></button>
                                                     </div>
                                                 </div>
                                             </div>

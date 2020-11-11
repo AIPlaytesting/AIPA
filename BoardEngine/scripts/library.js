@@ -2,6 +2,7 @@ const dbmanager = require('../scripts/dbmanager')
 const rootPath = require('electron-root-path').rootPath
 const dataVisualizer = require('../scripts/dataVisualizer')
 const cardRenderer = require('../scripts/cardRenderer')
+const utils = require('../scripts/utils')
 const PythonProcess = require('../Scripts/pythonProcess.js')
 
 var currentGameData = {}
@@ -249,20 +250,28 @@ function updateGameMainPage(){
     let gameName = dbmanager.getCurrentGameName()
     currentGameData = dbmanager.loadGameData(gameName)
     let gameData = currentGameData
-    //console.log(gameData)
-    $('#game-title').text(gameName)
-    $('#deck-count').text(Object.keys(gameData.decks).length)
-    $('#card-count').text(Object.keys(gameData.cards).length)
-    $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
 
-    updateDropdownList('newcard-name-list','newcard-name-dropdown',Object.keys(gameData.cards))
+    $('#game-title').text(gameName)
+    updateGameSettingSection()
+
+    utils.setupDropdown('newcard-name-list','newcard-name-dropdown',Object.keys(gameData.cards))
+    utils.setupDropdown('deck-template-list','deck-template-dropdown',Object.keys(gameData.decks))
+
     updateDeckDropdown()
-    updateDeckTemplateList()
 
     renderCardGrid()
 
     // also update playtest
     updatePlaytestPage()
+
+    function updateGameSettingSection(){
+        $('#deck-count').text(Object.keys(gameData.decks).length)
+        $('#card-count').text(Object.keys(gameData.cards).length)
+        $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
+        utils.setupSlider('player-hp-slider','player-hp-slider-value',30,100)
+        utils.setupSlider('boss-hp-slider','boss-hp-slider-value',100,400)
+    }
+
     function renderCardGrid(){
         let deckImgView = $('#deck-img-view')
         deckImgView.text("")
@@ -350,40 +359,10 @@ function updateGameMainPage(){
             deckList.append(deckSwitchBtn)
         }
     }
-
-    function updateDeckTemplateList(){
-        let deckTemplateList = $("#deck-template-list");
-        deckTemplateList.text("");
-        $('#deck-template-dropdown').text("please select a template")
-        for(deckName in currentGameData.decks){
-            // create deck template option button
-            let templateOptionBtn =$(document.createElement('button'))
-            templateOptionBtn.attr('class','dropdown-item')
-            templateOptionBtn.text(deckName)
-            templateOptionBtn.click(function(){
-                $('#deck-template-dropdown').text($(this).text())
-            })
-            deckTemplateList.append(templateOptionBtn)
-        }
-    }
-
-    function updateDropdownList(dropdownMenuID,dropwdownBtnID,options){
-        let dropdownMenu = $("#"+dropdownMenuID);
-        dropdownMenu .text("");
-        $('#'+dropwdownBtnID).text("please select")
-        for(option of options){
-            let optionBtn =$(document.createElement('button'))
-            .attr('class','dropdown-item')
-            .text(option)
-            .click(function(){
-                $('#'+dropwdownBtnID).text($(this).text())
-            })
-            dropdownMenu .append(optionBtn)
-        }
-    }
 }
 
 function updatePlaytestPage(){
+    utils.setupDropdown('AI-dropdown-list','AI-dropdown-btn',['AI1','AI-2'])
     updatePlaytestHistory()
 
     function updatePlaytestHistory(){
