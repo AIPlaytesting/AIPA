@@ -113,8 +113,13 @@ function onClickCreateNewDeck(){
 }
 
 function onClickAddNewCard(){
+    const defaultText = 'please select'
     let deckname = currentGameData.rules.deck
     let cardname =  $('#newcard-name-dropdown').text()
+    if(cardname ==defaultText){
+        popupWarning('need to select a card to add!')
+        return 
+    }
     let newCardCopies = 1
     if(cardname in currentGameData.decks[deckname]){
         newCardCopies =  currentGameData.decks[deckname][cardname]+1
@@ -222,7 +227,7 @@ function createLibraryEntry(gameName){
 function createNewGameBtn(){
     let container = $(document.createElement('div'))
     let entryBtn =$(document.createElement('button'))
-    entryBtn.text("+")
+        .text("+")
         .attr('class',"btn btn-dark")
         .attr('data-toggle','modal')
         .attr('data-target','#create-game-modal')
@@ -261,6 +266,11 @@ function updateGameMainPage(){
         let currentImgRowCount = 0
         let maxImgRowCount = 6
         for(let cardName in currentDeckinfo){
+            if(gameData.cards[cardName] == undefined){
+                console.error(cardName+' is undefined in cards')
+                continue
+            }
+
             let cardCopies = currentDeckinfo[cardName]
             let cardImgFullPath = "../static/defaultcard.png"
             if( "img_relative_path" in gameData.cards[cardName]){
@@ -304,14 +314,20 @@ function updateGameMainPage(){
     }
 
     function createAddNewCardDiv(){
-        let rootDiv = $(document.createElement('div')).attr('class','col-2')
+        let rootDiv = $(document.createElement('div'))
+            .attr('class','col-2')
+            .css('height','220px')
+        let addCardImg = $(document.createElement('img'))
+            .attr('src','../static/add.png')
+            .css('width','100%')
+            .css('height','100%')
         let addCardBtn = $(document.createElement('button'))
-        .text('+new card')
-        .attr('class','btn btn-dark div-center')
-        .css('width','100px')
-        .css('height','150px')
-        .attr('data-toggle','modal')
-        .attr('data-target','#add-card-modal')
+            .attr('class','btn')
+            .css('width','100%')
+            .css('height','80%')
+            .attr('data-toggle','modal')
+            .attr('data-target','#add-card-modal')
+            .append(addCardImg)
         rootDiv.append(addCardBtn)   
         return rootDiv
     }
