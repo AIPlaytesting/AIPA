@@ -56,10 +56,10 @@ function createCardElement(imgPath,cardName,description,energy,onClickListener =
     let hoverSign = $(document.createElement('img'))
         .attr('src',hoverImgPath)
         .css('position','absolute')
-        .css('width','100%')
-        .css('height','100%')
-        .css('top','0px')
-        .css('left','0px')
+        .css('width','70%')
+        .css('height','70%')
+        .css('top','15%')
+        .css('left','15%')
         .css('opacity',0)
         .hover(function(){
             $(this).css('opacity', 0.9).css('background-color','rgba(1,0,0,0)');
