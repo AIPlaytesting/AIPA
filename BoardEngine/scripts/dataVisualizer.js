@@ -1,4 +1,5 @@
 function drawRankChart(csvURL,divID,hookedRadarDivID=''){
+    $('#'+divID).text("")
     let optionDiv = $(document.createElement('div'))
     let chartDiv = $(document.createElement('div')).attr('id',divID+'-chart')
     $('#'+divID).append(optionDiv,chartDiv)

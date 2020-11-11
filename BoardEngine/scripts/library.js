@@ -63,7 +63,9 @@ function onClickPlay(){
 function onClickTrain(){
     $('#game-edit-section-overlay').removeClass('d-none')
     $('#train-btn').addClass('d-none')
-    $('#train-spinner').removeClass('d-none')
+    $('#train-config').addClass('d-none')
+    $('#train-progress').removeClass('d-none')
+    $('#train-status').removeClass('d-none')
     $('#train-status').text('load AI...')
     let pyProcess = new PythonProcess(11,
 	    function () { console.log('success!') },
@@ -74,8 +76,8 @@ function onReceiveTrainMesssage(data){
     trainInfo = JSON.parse(data).content
     let curprogress =  trainInfo.curprogress
     let maxprogress = trainInfo.maxprogress
-    console.log('recevice!')
-    $('#train-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    let percentage = Math.ceil(100*curprogress/maxprogress)
+    $('#train-progress').attr("class","c100 p"+percentage)
     $('#train-progress-text').text(curprogress + "/" + maxprogress)
     $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
 }
@@ -167,30 +169,33 @@ function onClickRemoveGame(){
 
 function onClickPlaytest(){
     $('#playtest-btn').addClass('d-none')
-    $('#playtest-spinner').removeClass('d-none')
-    $('#data-status').removeClass('d-none')
+    $('#playtest-config-div').addClass('d-none')
+    $('#playtest-progress').removeClass('d-none')
+    $('#playtest-status').removeClass('d-none')
     $('#data-display-root').addClass('d-none')
     let pyProcess = new PythonProcess(12,
 	    function () { console.log('success!') },
         onReceivePlaytestMesssage)
-    $('#data-status').text('Is playtesting...')
+    $('#playtest-status').text('Is playtesting...')
 }
 
 function onReceivePlaytestMesssage(data){
     simulateInfo = JSON.parse(data).content
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress
-    $('#playtest-progress-bar').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    let percentage = Math.ceil(100*curprogress/maxprogress)
+    $('#playtest-progress-bar').attr("class","c100 p"+percentage)
     $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
     if(simulateInfo.curprogress >= simulateInfo.maxprogress){
-        onFinishPlaytest()
+        viewPlaytestData()
     }
 }
 
-function onFinishPlaytest(){
+function viewPlaytestData(){
     $('#playtest-btn').removeClass('d-none')
-    $('#playtest-spinner').addClass('d-none')
-    $('#data-status').addClass('d-none')
+    $('#playtest-config-div').removeClass('d-none')
+    $('#playtest-progress').addClass('d-none')
+    $('#playtest-status').addClass('d-none')
     $('#data-display-root').removeClass('d-none')
     // draw data
     let data = [
@@ -256,6 +261,8 @@ function updateGameMainPage(){
 
     renderCardGrid()
 
+    // also update playtest
+    updatePlaytestPage()
     function renderCardGrid(){
         let deckImgView = $('#deck-img-view')
         deckImgView.text("")
@@ -376,6 +383,41 @@ function updateGameMainPage(){
     }
 }
 
+function updatePlaytestPage(){
+    updatePlaytestHistory()
+
+    function updatePlaytestHistory(){
+        $('#playtest-history-list').text("")
+        for(i = 0; i <5;i++){
+            $('#playtest-history-list').append(createHistoryEntry())
+        }
+    }
+
+    function createHistoryEntry(){
+        let entryRoot = $(document.createElement('div'))
+            .attr('class','row playtest-history-entry')
+            .css('border-radius','10px;')
+        let deckText = $(document.createElement('span')).attr('class','col-3 text-center').text("Deck 1")
+        let timeText = $(document.createElement('span')).attr('class','col-3').text("11-Oct-10-23")
+        let viewResBtn = $(document.createElement('button'))
+            .attr('class','col-2 btn btn-primary')
+            .text('View Result')
+            .click(function(){
+                viewPlaytestData()
+                $('.playtest-history-entry')
+                    .css('color','')
+                    .css('font-weight','')
+                    .css('font-size','')
+                $(this).parent()
+                    .css('color','red')
+                    .css('font-weight','bold')
+                    .css('font-size','large')
+            })
+        let delBtn = $(document.createElement('button')).attr('class','col-2 btn btn-danger').text('Delete')
+        entryRoot.append(deckText,timeText,viewResBtn,delBtn)
+        return entryRoot
+    }
+}
 
 function popupWarning(message){
     $('#warning-modal').modal()

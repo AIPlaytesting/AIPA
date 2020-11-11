@@ -9,6 +9,17 @@
     width: 200px;
     height: 250px;
 }
+
+.head-pannel{
+    background-color: #efeff6;
+    border-radius: 10px;
+}
+
+.middle-section{
+    background-color: #efeff6;
+    border-radius: 10px;
+    margin-top:10px;
+}
 /*tab CSS start*/
 #logo{
     width: 100px;
