@@ -262,7 +262,8 @@ function updateGameMainPage(){
                 }
                 currentImgRowCount += 1
                 // render card
-                let imgDiv = cardRenderer.createCardElement(cardImgFullPath,cardName,'',1)
+                let cardObj = gameData.cards[cardName]
+                let imgDiv = cardRenderer.createCardElement(cardImgFullPath,cardName,cardObj.description,cardObj.energy_cost)
                 currentImgRow.append(imgDiv)   
             }
         }

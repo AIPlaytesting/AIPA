@@ -5,6 +5,10 @@
     transform: translate(-50%, -50%); 
 }
 
+.card-div{
+    width: 200px;
+    height: 250px;
+}
 /*tab CSS start*/
 #logo{
     width: 100px;
