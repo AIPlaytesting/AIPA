@@ -5,6 +5,18 @@
     transform: translate(-50%, -50%); 
 }
 
+.core-btn{
+    width:200px;
+    height:70px;
+    border-radius: 30px;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 50px;
+    margin: 4px 2px;
+}
+
 .card-div{
     width: 200px;
     height: 250px;
