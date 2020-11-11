@@ -89,26 +89,22 @@
                             <!-- game edit step -->
                             <div id="game-edit-step" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                                 <div id ="game-edit-section" class="overlaycontainer">
-                                    <div>
-                                        <button class="btn btn-primary core-btn rounded" onclick="onClickPlay()">Play</button>
-                                        <div id = "game-rules" class = "row">
-                                            <span class='col-1'>Player HP:</span>
-                                            <input id = 'player-hp-slider' type="range" class="custom-range col-3" >
-                                            <span id = 'player-hp-slider-value'>0</span>
-                                            <span class='col-1'></span>
-                                            <span class='col-1'>Boss HP:</span>
-                                            <input id = 'boss-hp-slider' type="range" class="custom-range col-3">
-                                            <span id = 'boss-hp-slider-value'>0</span>
-                                            <span class='col-1'></span>
+                                    <!--head pannel-->
+                                    <div class = "row head-pannel">
+                                        <!--play game operation-->
+                                        <div class = "col-3">
+                                            <button id ='play-btn' class="btn" onclick="onClickPlay()">
+                                                <img src="../static/play-btn.png">
+                                            </button>
                                         </div>
                                         <!--deck operations-->
-                                        <div id ="game-profile" class="row">
-                                            <div class="col-1 dropdown">
-                                                <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
-                                                <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
-                                            </div>
-                                            <div class = 'col-1'>
-                                                <button id = 'create-deck-btn' class="btn btn-dark" data-toggle = 'modal' data-target = '#create-deck-modal'>+</button>                           
+                                        <div id ="game-profile" class="row col-3">
+                                            <div class ="div-center">
+                                                <div class=" dropdown">
+                                                    <button id = 'create-deck-btn' class="btn btn-dark" data-toggle = 'modal' data-target = '#create-deck-modal'>+</button>                           
+                                                    <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                                                    <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+                                                </div>
                                             </div>
                                             <!-- <div class="col d-none">
                                                     <span>Deck:</span>
@@ -118,12 +114,29 @@
                                                     <span>Buffs:</span>
                                                     <span id = 'buff-count'></span>
                                             </div> -->
-                                        </div>
-                                        <!--deck card grid-->
-                                        <div id = "deck-img-view" class="middle-section">
-                        
+                                        </div>                                        
+                                        <!--game edit config-->
+                                        <div class = "col-6">
+                                            <div>
+                                                <div class  ="row" style="height:50px;">
+                                                    <img src = '../static/player-hp-icon.png' class="col-4" style = "height:40px">
+                                                    <h1 id = 'player-hp-slider-value' class="col-5" >0</h1>
+                                                </div>
+                                                <input id = 'player-hp-slider' type="range" class="custom-range " >
+                                            </div>
+                                            <div>
+                                                <div class  ="row" style="height:50px;">
+                                                    <img src = '../static/boss-hp-icon.png' class="col-4" style = "height:40px">
+                                                    <h1 id = 'boss-hp-slider-value' class="col-5" >0</h1>
+                                                </div>
+                                                <input id = 'boss-hp-slider' type="range" class="custom-range">
+                                            </div>
                                         </div>
                                     </div>
+                                    <!--deck card grid-->
+                                    <div id = "deck-img-view" class="middle-section">
+                                    </div>                                    
+                                    <!--overlay-->
                                     <div id = "game-edit-section-overlay" class="overlay d-none">
                                         <div class="hovertext">Cannot modify game while training</div>
                                     </div>
@@ -133,11 +146,13 @@
                             <div id="train-step" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                 <div id ="train-section">
                                      <!--train head pannel-->
-                                     <div class = "row head-pannel" style="height:150px;">
+                                     <div class = "row head-pannel">
                                         <!--train operation-->
-                                        <div class = "col-2"> 
+                                        <div class = "col-3"> 
                                             <!--train btn-->
-                                            <button id = "train-btn" class="btn btn-primary core-btn rounded" onclick="onClickTrain()">Train</button>
+                                            <button id = "train-btn" class="btn" onclick="onClickTrain()">
+                                                <img src="../static/train-btn.png">
+                                            </button>
                                             <!--play test progress-->
                                             <div id = "train-progress"  class="clearfix text-center d-none">
                                                 <div id = "train-progress-bar" class="c100 p0">
@@ -166,11 +181,13 @@
                             <div id="playtest-step" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                 <div id ="playtest-section" class="overlaycontainer">
                                      <!--playtest head pannel-->
-                                    <div class = "row head-pannel" style="height:150px;">
+                                    <div class = "row head-pannel">
                                         <!--play test operation-->
-                                        <div class = "col-2"> 
+                                        <div class = "col-3"> 
                                             <!--play test btn-->
-                                            <button id = "playtest-btn" class="btn btn-primary core-btn rounded" onclick="onClickPlaytest()">Playtest</button>
+                                            <button id = "playtest-btn" class="btn" onclick="onClickPlaytest()">
+                                                <img src="../static/playtest-btn.png">
+                                            </button>
                                             <!--play test progress-->
                                             <div id = "playtest-progress"  class="clearfix text-center d-none">
                                                 <div id = "playtest-progress-bar" class="c100 p0">
@@ -183,7 +200,7 @@
                                             </div>  
                                         </div>
                                         <!--play test config-->
-                                        <div class="col-8" >
+                                        <div class="col-6" >
                                             <div class="row" id = 'playtest-config-div' style="height: 150px;">
                                                 <div class="col-4" >
                                                     <h2>number of games:</h2>

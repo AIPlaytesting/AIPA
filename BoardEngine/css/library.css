@@ -1,20 +1,9 @@
+
 .div-center{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); 
-}
-
-.core-btn{
-    width:200px;
-    height:70px;
-    border-radius: 30px;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    display: inline-block;
-    font-size: 50px;
-    margin: 4px 2px;
 }
 
 .card-div{
@@ -25,6 +14,7 @@
 .head-pannel{
     background-color: #efeff6;
     border-radius: 10px;
+    height: 160px;
 }
 
 .middle-section{
@@ -32,6 +22,7 @@
     border-radius: 10px;
     margin-top:10px;
 }
+
 /*tab CSS start*/
 #logo{
     width: 100px;
