@@ -129,7 +129,8 @@ class DataCollector:
 
         #card played when available percentage
         for card_name in self.card_played_when_available:
-            self.card_played_when_available[card_name] = self.card_play_count[card_name] / self.available_cards[card_name]
+            if not self.available_cards[card_name] == 0:
+                self.card_played_when_available[card_name] = self.card_play_count[card_name] / self.available_cards[card_name]
 
 
     def StoreDeckConfig(self, deck_config):
