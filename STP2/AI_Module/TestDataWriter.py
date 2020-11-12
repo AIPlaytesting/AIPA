@@ -17,7 +17,7 @@ class TestDataWriter():
     def GetDataFromCollector(self):
         self.data_collector.PostDataCollectionAnalysis()
 
-        self.basic_stats['avg_game_length'] = sum(self.data_collector.episode_length_list) / len(self.data_collector.game_length_list)
+        self.basic_stats['avg_game_length'] = sum(self.data_collector.episode_length_list) / len(self.data_collector.episode_length_list)
         self.basic_stats['win_rate'] = self.data_collector.win_data_list.count('Win') / len(self.data_collector.win_data_list)
         self.basic_stats['avg_player_hp'] = sum(self.data_collector.player_end_hp_list) / len(self.data_collector.player_end_hp_list)
         self.basic_stats['avg_boss_hp'] = sum(self.data_collector.boss_end_hp_list) / len(self.data_collector.boss_end_hp_list)
@@ -56,7 +56,7 @@ class TestDataWriter():
         rows_to_write.append(['Card One Name', 'Card Two Name', 'Combination Play Count'])
 
         for card_one in self.card_pair_counter:
-            for card_two in self.card_pair_counter['pairs'][card_one]:
+            for card_two in self.card_pair_counter[card_one]:
                 rows_to_write.append([ card_one, card_two, self.card_pair_counter[card_one][card_two] ])
         
         with open(self.test_data_path + "\\card_pair_combo_data.csv", 'w') as csvfile:

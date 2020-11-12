@@ -12,7 +12,6 @@ class AI_Tester:
 
     
     def PredictAction(self, state):
-        actions = self.q_model.__call__(np.array([state]), dtype=float)
+        actions = self.q_model.__call__(np.array([state], dtype=float))
         action_vec = actions[0]
-
         return action_vec, False

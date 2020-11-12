@@ -107,7 +107,7 @@ class DataCollector:
         #card count in deck
         for card_index in self.action_space:
             card_name = self.action_space[card_index]
-            self.card_count_in_deck[card_index] = self.deck_config[card_name]
+            self.card_count_in_deck[card_name] = self.deck_config[card_name]
 
         #average card play position
         for game_index in range(len(self.all_card_seq)):
