@@ -25,7 +25,7 @@ class AI_Tester:
         self.game_buffer.data_collector.StoreDeckConfig(self.env.ai_transformer.deck_config)
 
         self.test_data_writer = AI_Module.TestDataWriter.TestDataWriter(self.game_buffer.data_collector, test_data_path=self.test_data_path)
-        
+
         self.start_time = time.time()
 
         #AI Tester
@@ -101,7 +101,7 @@ class AI_Tester:
         self.main_folder_path = self.ai_data_root
 
         #subfolder 1 - model
-        self.model_path = self.main_folder_path + "\\Trained_Model\\"
+        self.model_path = self.main_folder_path + "\\Training_Model\\"
 
         #subfolder 2 - training data collection
         self.train_data_path = self.main_folder_path + "\\Training_Data\\"
