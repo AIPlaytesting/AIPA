@@ -5,17 +5,87 @@
 
 <!--  Bootstrap4 -->
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/train-page.css">
 <script>let $ = require('jquery');</script>
 <script>require('popper.js');</script>
 <script>require('bootstrap');</script>
 <!-- my script -->
 <script src = "../scripts/train.js"></script>
 
-
-
-<button class="btn btn-primary" onclick="train()">Train</button>
 <div id="train-info-div">
-    <div id = "train-progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">423/1000</div>
-    <p id="train-cur-winrate"></p>
-    <p id="remaining_time"></p>
+    <div class="container">
+      <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+              <div class="panel panel-info">
+                  <div class="panel-heading">
+                      <div class="panel-title">Select Training Options</div>
+
+                  </div>
+                  <div class="panel-body" >
+                      <form method="post" action=".">
+
+                          <form  class="form-horizontal" method="post" >
+                              <div class="form-group">
+                                  <div class="controls col-md-offset-4 col-md-8 ">
+                                      <div id="div_id_terms" class="checkbox required">
+                                          <label for="id_terms" class=" requiredField">
+                                               <input class="input-ms checkboxinput" id="id_terms" name="terms" style="margin-bottom: 10px" type="checkbox" />
+                                               Default Settings
+                                          </label>
+                                      </div>
+
+                                  </div>
+                              </div>
+
+                              <div id="div_id_username" class="form-group required">
+                                  <label for="id_username" class="control-label col-md-4  requiredField"> Number of Games<span class="asteriskField">*</span> </label>
+                                  <div class="controls col-md-8 ">
+                                      <input class="input-md  textinput textInput form-control" id="id_username" maxlength="30" name="username" placeholder="15000" style="margin-bottom: 10px" type="text" />
+                                  </div>
+                              </div>
+                              <div id="div_epsilon" class="form-group required">
+                                  <label for="id_username" class="control-label col-md-4  requiredField"> Start Epsilon<span class="asteriskField">*</span> </label>
+                                  <div class="controls col-md-8 ">
+                                      <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="1" style="margin-bottom: 10px" type="text" />
+                                  </div>
+                              </div>
+                              <div id="div_epsilon_dec" class="form-group required">
+                                  <label for="id_username" class="control-label col-md-4  requiredField"> Epsilon Decay<span class="asteriskField">*</span> </label>
+                                  <div class="controls col-md-8 ">
+                                      <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="0.0003" style="margin-bottom: 10px" type="text" />
+                                  </div>
+                              </div>
+                              <div id="div_epsilon_dec" class="form-group required">
+                                  <label for="id_username" class="control-label col-md-4  requiredField">Minimum Epsilon<span class="asteriskField">*</span> </label>
+                                  <div class="controls col-md-8 ">
+                                      <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="0.01" style="margin-bottom: 10px" type="text" />
+                                  </div>
+                              </div>
+                              <div id="div_batch_size" class="form-group required">
+                                  <label for="id_username" class="control-label col-md-4  requiredField">Batch Size<span class="asteriskField">*</span> </label>
+                                  <div class="controls col-md-8 ">
+                                      <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="128" style="margin-bottom: 10px" type="text" />
+                                  </div>
+                              </div>
+                              <div class="">
+                                  <div class="aab controls col-md-4 "></div>
+                                  <div class="controls col-md-8 "
+                                  </div>
+                              </div>
+
+                          </form>
+
+                      </form>
+                  </div>
+              </div>
+            <button name="StartTraining" value="Start Training" onclick="train()" class="btn btn-primary btn btn-info">Start Training</button>
+            <div class="mt-2">
+              <div class="trainprogressbar">
+              <div id = "train-progress" class=" progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"><p> </p></div>
+            </div>
+              <p id="iterations-complete" class="mt-2"></p>
+              <p id="remaining_time"></p>
+            </div>
+      </div>
+
+    </dv>
 </div>

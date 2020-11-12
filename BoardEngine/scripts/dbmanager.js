@@ -1,15 +1,28 @@
 // for historical reason, the naming styple in db is same to the Python one
 // because the database is originnally wrote in Python
 
-const fs = require('fs');
-const ncp = require('ncp').ncp;
-const rimraf = require("rimraf");
+const fs = require('fs')
+const ncp = require('ncp').ncp
+const rimraf = require("rimraf")
 const rootPath = require('electron-root-path').rootPath
-const dbRoot = rootPath+'/executables/pyproj/DATA';
+const config = require('../scripts/config')
+
+const dbRoot = calculateDBRoot()
 
 var manifest = {}
 var installedGames = [];
 var resourceRoot = "";
+
+function calculateDBRoot(){	
+    if(config.isDevMode){
+		console.log("set db root in development mode...")
+		return config.devDependencies.pythonProject+'\\DATA'
+	}
+	else{
+		console.log("set db root in build mode...")
+		return  rootPath+'\\executables\\pyproj\\DATA'
+	}
+}
 
 function loadDB(onFinishLoad){
     let manifestPath = dbRoot +'/manifest.json';
@@ -48,6 +61,23 @@ function createNewGame(templateGame,newGameName,onFinishCallback){
         onFinishCallback()
         console.log('done!');
     });
+}
+
+function createNewDeckOnCurrentGame(templateDeck,newDeckName){
+    let gameName = getCurrentGameName()
+    let gameData = loadGameData(gameName)
+
+    if(!templateDeck in gameData.decks){
+        throw "no template named: " + templateDeck
+    }
+
+    if(newDeckName in gameData.decks){
+        throw "game named: "+newDeckName+" already exists!"
+    }
+
+    let newDeck = JSON.parse(JSON.stringify(gameData.decks[templateDeck]))  
+    let newDeckPath= dbRoot + '\\' + gameName+'\\Decks\\'+ newDeckName +'.json'
+    saveObjectToFileAsJSON(newDeck,newDeckPath)
 }
 
 function removeGame(gameName,onFinishCallback){
@@ -161,6 +191,15 @@ function getGameRecordDataRoot(gameName,isPlayerRecord){
     }
 }
 
+function modifyDeck(deckname,cardname,newCardCopyNumber){
+    let gameData = loadGameData(getCurrentGameName())
+    let targetDeck = gameData.decks[deckname]
+    targetDeck[cardname] = newCardCopyNumber
+    
+    let deckPath= dbRoot + '\\' + getCurrentGameName()+'\\Decks\\'+ deckname +'.json'
+    saveObjectToFileAsJSON(targetDeck,deckPath)
+}
+
 module.exports = {
     loadDB,
     getInstalledGameApps,
@@ -169,6 +208,8 @@ module.exports = {
     getCurrentGameName,
     setCurrentGame,
     createNewGame,
+    createNewDeckOnCurrentGame,
+    modifyDeck,
     removeGame,
     getGameAppRoot,
     getResourceRoot,

@@ -1,4 +1,5 @@
-function drawRankChart(divID,hookedRadarDivID){
+function drawRankChart(csvURL,divID,hookedRadarDivID=''){
+    $('#'+divID).text("")
     let optionDiv = $(document.createElement('div'))
     let chartDiv = $(document.createElement('div')).attr('id',divID+'-chart')
     $('#'+divID).append(optionDiv,chartDiv)
@@ -30,13 +31,14 @@ function drawRankChart(divID,hookedRadarDivID){
     var yAxis = svg.append("g")
     .attr("class", "myYaxis")
 
-    let csvURL = "../static/card.csv";
     let radarData = []
     let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
     // A function that create / update the plot for a given variable:
     function update(selectedVar,color) {
         // clear radar chart
-        $('#'+hookedRadarDivID).text("")
+        if(hookedRadarDivID != ''){
+            $('#'+hookedRadarDivID).text("")
+        }
         radarData = []
         // Parse the Data
         d3.csv(csvURL, function(data) {
@@ -66,14 +68,16 @@ function drawRankChart(divID,hookedRadarDivID){
             }
             
             function mouseclick(){
-                $('#'+hookedRadarDivID).text("")
-                radarData.push(
-                    [
-                      {"area": "rawards", "value": 100*Math.random()},
-                      {"area": "playPosition", "value": 100*Math.random()},
-                      {"area": "playCount", "value": 100*Math.random()}
-                      ])
-                drawRadarChart(hookedRadarDivID,radarData,radarColors)
+                if(hookedRadarDivID != ""){
+                    $('#'+hookedRadarDivID).text("")
+                    radarData.push(
+                        [
+                          {"area": "rawards", "value": 100*Math.random()},
+                          {"area": "playPosition", "value": 100*Math.random()},
+                          {"area": "playCount", "value": 100*Math.random()}
+                          ])
+                    drawRadarChart(hookedRadarDivID,radarData,radarColors)   
+                }
             }
             // update bars
             u
@@ -377,7 +381,7 @@ function drawRadarChart(divID,data,colors){
              .style("font-size", "10px")
              .attr("transform", "translate(" + (cfg.w/2-levelFactor + cfg.ToRight) + ", " + (cfg.h/2-levelFactor) + ")")
              .attr("fill", "#737373")
-             .text((j+1)*100/cfg.levels);
+             //.text((j+1)*100/cfg.levels);
           }
       
           series = 0;
@@ -401,7 +405,7 @@ function drawRadarChart(divID,data,colors){
             .attr("class", "legend")
             .text(function(d){return d})
             .style("font-family", "sans-serif")
-            .style("font-size", "11px")
+            .style("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("dy", "1.5em")
             .attr("transform", function(d, i){return "translate(0, -10)"})

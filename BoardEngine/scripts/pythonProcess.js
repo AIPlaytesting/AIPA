@@ -1,26 +1,26 @@
 const net = require('net')
 const SERVER_PORT = 10000
 const rootPath = require('electron-root-path').rootPath
-
+const config = require('../scripts/config')
 // methodCode: 
 // env = 10
 // train = 11
 // simulate = 12
 class PythonProcess {
-	constructor(methodCode, onSuccessListenter, onReceiveDataListener, onFailListenter = null) {
+	constructor(methodCode,params, onSuccessListenter, onReceiveDataListener, onFailListenter = null) {
 		this.socket = undefined
 		let curPythonProcess = this
 		try{
 			launchProcessByBat(onFailListenter)
 		}
 		catch(e){
-			console.log('CATCH!')
+			console.log(e)
 			throw e
 		}
 		net.createServer(function (socket) {
 			curPythonProcess.socket = socket
 			curPythonProcess.socket.on('data',onReceiveDataListener)
-			curPythonProcess.sendMessage(createMessage(methodCode,""))
+			curPythonProcess.sendMessage(createMessage(methodCode,params))
 			console.log("connected...")
 			onSuccessListenter()
 			console.log("about to close listen server...")
@@ -43,8 +43,18 @@ function createMessage(methodCode,content){
 }
 
 function launchProcessByBat(onFailListenter){
-    let child = require('child_process').execFile;
-    let executablePath = rootPath+'\\executables\\runpy.bat'
+	let child = require('child_process').execFile;
+	let executablePath = ''
+	if(config.isDevMode){
+		console.log("launch python in development mode...")
+		executablePath  = rootPath+'\\'+config.devDependencies.pyLauncher
+	}
+	else{
+		console.log("launch python in build mode...")
+		executablePath  = rootPath+'\\'+config.buildDependencies.pyLauncher
+	}
+
+
 	console.log('start bat at: '+executablePath)
 	child(executablePath, function(err, data) {
 		if(err){

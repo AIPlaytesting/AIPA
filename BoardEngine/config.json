@@ -1,0 +1,18 @@
+{
+    "isDevMode": true,
+    "devDependencies":{
+        "pyLauncher":"executables\\runpyDev.bat",
+        "pythonEnv":" C:\\users\\siqiwan2\\appdata\\local\\programs\\python\\python38",
+        "pythonProject":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2",
+        "unityGameFrontend":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\executables\\unitybuild",
+        "unityRecordPlayer":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\executables\\recorderbuild"
+    },
+
+    "buildDependencies":{
+        "pyLauncher": "executables\\runpy.bat",
+        "pythonEnv":"executables\\pyexe",
+        "pythonProject":"executables\\pyproj",
+        "unityGameFrontendDir":"executables\\unitybuild",
+        "unityRecordPlayerDir":"executables\\recorderbuild"
+    }
+}
