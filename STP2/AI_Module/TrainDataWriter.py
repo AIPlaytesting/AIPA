@@ -1,12 +1,12 @@
 import xlsxwriter
 from datetime import datetime
 import os
-import AI_Module.TrainingDataCollector
+import AI_Module.DataCollector
 
 
 class TrainDataWriter:
 
-    def __init__(self, data_collector:AI_Module.TrainingDataCollector.TrainingDataCollector, path):
+    def __init__(self, data_collector:AI_Module.DataCollector.DataCollector, path):
 
         self.data_collector = data_collector
 
