@@ -4,6 +4,7 @@ import numpy as np
 class AI_Tester:
     def __init__(self, model_path):
         self.model_path = model_path
+        self.LoadModel()
 
     def LoadModel(self):
         self.q_model = tf.keras.model.load_model(self.model_path)
