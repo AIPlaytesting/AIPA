@@ -11,7 +11,7 @@ ELECTRON_SIMULATE = 12
 connection = Connection(ELECTRON_LISTEN_PORT)
 connection.connect()
 
-def detect_env_mainloop():
+def detect_env_mainloop(config):
     def detectEnv():
         version = {}
         import sys
@@ -28,7 +28,8 @@ def detect_env_mainloop():
     connection.send_response(ResponseMessage("electron",ver))
     print("detect env mainloop done: ",ver)
 
-def train_mainloop():
+def train_mainloop(config):
+    print(config)
     import time
     import ai_train_controller
     import sys, os
@@ -36,9 +37,9 @@ def train_mainloop():
     #disable printing
     sys.stdout = open(os.devnull, 'w')
 
-    ai_trainer = ai_train_controller.AI_Trainer(app_id="", deck_id="")
+    ai_trainer = ai_train_controller.AI_Trainer(app_id=config['game_id'], deck_id=config['deck_id'])
     train_time_list = []
-    num_games = 14000
+    num_games = int(config['iterations'])
 
     for i in range(num_games):
         train_time = ai_trainer.TrainOneIteration(i)
@@ -61,12 +62,13 @@ def train_mainloop():
     #enable print again
     sys.stdout = sys.__stdout__
 
-def simulate_mainloop():
+
+def simulate_mainloop(config):
     import time
     import ai_test_controller
     import sys, os
 
-    ai_tester = ai_test_controller.AI_Tester(app_id='', deck_id='')
+    ai_tester = ai_test_controller.AI_Tester(app_id=config['game_id'], deck_id=config['deck_id'])
 
     if ai_tester.main_folder_path == "":
         return
@@ -74,12 +76,12 @@ def simulate_mainloop():
     #disable printing
     sys.stdout = open(os.devnull, 'w')
     
-
-    for i in range(2000):
+    game_nums = int(config['game_nums'])
+    for i in range(game_nums):
         ai_tester.TestOneIteration(i)
         simulate_progress ={}
         simulate_progress['curprogress'] = i+1
-        simulate_progress['maxprogress'] = 2000
+        simulate_progress['maxprogress'] = game_nums
         connection.send_response(ResponseMessage("electron",simulate_progress))
     
     #enable print again
@@ -91,10 +93,10 @@ def simulate_mainloop():
 # wait method
 request = connection.wait_one_request()
 if request.method == ELECTRON_DETECT_ENV:
-    detect_env_mainloop()
+    detect_env_mainloop(request.content)
 elif request.method == ELECTRON_TRAIN:
-    train_mainloop()
+    train_mainloop(request.content)
 elif request.method == ELECTRON_SIMULATE:
-    simulate_mainloop()
+    simulate_mainloop(request.content)
 else:
     print("undefined method: ",request.method)

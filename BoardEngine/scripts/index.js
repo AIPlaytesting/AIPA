@@ -8,7 +8,9 @@ function onStart(){
 
 function detectEnv(){
     try{
-        let pyProcess = new PythonProcess(10,
+        let pyProcess = new PythonProcess(
+            10,
+            {},
             function () { console.log('success!') },
             onReceiveEnvMesssage,
             function(){onEnvDetectResult("none","none")})

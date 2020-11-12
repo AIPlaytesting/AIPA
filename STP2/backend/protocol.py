@@ -34,16 +34,20 @@ class PlayerStep:
 # each method has its own field,
 # for example, method 'UserInput' has its inforamtion stored in field 'self.user_input'
 class RequestMessage:
-    def __init__(self,method,enable_rlbot:bool,player_step:PlayerStep,db_query:DBQuery,gamestate_markup:dict):
+    def __init__(self,method,enable_rlbot:bool,player_step:PlayerStep,db_query:DBQuery,gamestate_markup:dict,content = {}):
         self.method = method # method can be: 'ResetGame'/'PlayerStep'/'DBQuery'/'ReverseGamestate'/'Terminate'/'None'
         self.enable_rlbot = enable_rlbot
         self.player_step = player_step # PlayerStep
         self.db_query = db_query
         self.gamestate_markup = gamestate_markup
+        self.content = content
 
     @classmethod
     def create_request_message_from(cls,request_dict:dict):
         method = request_dict['method']
+        if 'content' in request_dict:
+            # eletron message 
+            return RequestMessage(method,False,None,None,None,request_dict['content'])
         if method  == 'PlayerStep':
             player_step_dict = request_dict['playerStep']
             player_step = PlayerStep(

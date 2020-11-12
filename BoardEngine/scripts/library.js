@@ -68,7 +68,12 @@ function onClickTrain(){
     $('#train-progress').removeClass('d-none')
     $('#train-status').removeClass('d-none')
     $('#train-status').text('load AI...')
-    let pyProcess = new PythonProcess(11,
+    let gameID = dbmanager.getCurrentGameName()
+    let deckID = currentGameData.rules.deck
+    let iterationNums = $('#train-iter-config').val()
+    let pyProcess = new PythonProcess(
+        11,
+        {'game_id':gameID,'deck_id':deckID,'iterations':iterationNums},
 	    function () { console.log('success!') },
         onReceiveTrainMesssage)
 }
@@ -174,7 +179,12 @@ function onClickPlaytest(){
     $('#playtest-progress').removeClass('d-none')
     $('#playtest-status').removeClass('d-none')
     $('#data-display-root').addClass('d-none')
-    let pyProcess = new PythonProcess(12,
+    let gameID = dbmanager.getCurrentGameName()
+    let deckID = currentGameData.rules.deck
+    let gameNums = $('#playtest-game-num').val()
+    let pyProcess = new PythonProcess(
+        12,
+        {'game_id':gameID,'deck_id':deckID,'game_nums':gameNums},
 	    function () { console.log('success!') },
         onReceivePlaytestMesssage)
     $('#playtest-status').text('Is playtesting...')

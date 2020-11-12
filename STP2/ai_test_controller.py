@@ -86,7 +86,7 @@ class AI_Tester:
 
             for dir_name in sub_dirs:
                 name_comp = dir_name.split('~')
-                if name_comp > 2:
+                if len(name_comp) > 2:
                     app_id_l = name_comp[0].split('_')
                     app_id_l = app_id_l[1]
                     deck_id_l = name_comp[1].split('_')
