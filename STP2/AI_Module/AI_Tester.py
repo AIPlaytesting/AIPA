@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow import keras
 import numpy as np
 
 class AI_Tester:
@@ -7,7 +8,7 @@ class AI_Tester:
         self.LoadModel()
 
     def LoadModel(self):
-        self.q_model = tf.keras.model.load_model(self.model_path)
+        self.q_model = tf.keras.models.load_model(self.model_path)
 
     
     def PredictAction(self, state):
