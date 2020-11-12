@@ -2,32 +2,38 @@ import AI_Module.AI_Brain_Build_v1
 
 import AI_Module.ReplayBuffer
 import AI_Module.GameBuffer
-import AI_Module.DataWriter
+import AI_Module.TrainDataWriter
 import Environment #also a part of the AI
 
-import numpy as np
-import csv
+import os
 import time
-import winsound
+from datetime import datetime
+
 
 
 class AI_Trainer:
-    def __init__(self):
+    def __init__(self, app_id, deck_id):
+        self.app_id = app_id
+        self.deck_id = deck_id
+        
         #initialize the environment
         self.env = Environment.Environment()
 
-        self.game_buffer = AI_Module.GameBuffer.GameBuffer(self.env.ai_transformer.state_space, self.env.ai_transformer.action_space, self.env.unplayable_card_pun,isCustomCardRewards = False)
+        self.CreateDataSavingPath()
+
+        self.game_buffer = AI_Module.GameBuffer.GameBuffer(self.env.ai_transformer.state_space, self.env.ai_transformer.action_space, self.env.unplayable_card_pun,isCustomCardRewards = False, isTrain=True)
         self.game_buffer.data_collector.StoreDeckConfig(self.env.ai_transformer.deck_config)
 
         #Replace string with file description is needed
-        self.data_writer = AI_Module.DataWriter.DataWriter(self.game_buffer.data_collector, 'batch size low - nn complex lowered')
+        self.data_writer = AI_Module.TrainDataWriter.TrainDataWriter(self.game_buffer.data_collector, self.train_data_path)
 
         self.number_of_games = 15000
         self.start_time = time.time()
 
         #Double Q-Learning
         self.ai_agent = AI_Module.AI_Brain_Build_v1.AI_Brain_B(gamma=0, state_space = self.env.ai_transformer.state_space, action_space = self.env.ai_transformer.action_space,
-                        hidden_layer_dims=[128, 64, 32, 32], epsilon=1.0, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 250000, batch_size = 128, unplayable_pun = self.env.unplayable_card_pun)
+                        hidden_layer_dims=[128, 64, 32, 32], epsilon=1.0, epsilon_dec=0.0003, epsilon_min = 0.01, mem_size = 250000, batch_size = 128, 
+                        model_save_path = self.train_data_path, unplayable_pun = self.env.unplayable_card_pun)
 
 
     def TrainOneIteration(self, train_itr):
@@ -84,4 +90,38 @@ class AI_Trainer:
         return end_train_time - game_start_time
 
 
+    def CreateDataSavingPath(self):
+        self.ai_data_root = self.env.ai_transformer.db_root + "\\AI_Data"
+
+        #create special token for this training run
+        #time component
+        now = datetime.now()
+        dt_string = now.strftime("%d-%b-%y %H-%M")
+        
+        self.main_folder_path = self.ai_data_root
+        self.main_folder_path += "\\App_" + self.app_id + "~"
+        self.main_folder_path += "Deck_" + self.deck_id + "~"
+        self.main_folder_path += dt_string
+
+        os.makedirs(self.main_folder_path)
+
+        #subfolder 1 - model
+        self.model_path = self.main_folder_path + "\\Trained_Model\\"
+
+        #subfolder 2 - training data collection
+        self.train_data_path = self.main_folder_path + "\\Training_Data\\"
+        os.makedirs(self.train_data_path)
+
+        #subfolder 3 - test data collection
+        self.test_data_path = self.main_folder_path + "\\Test_Data\\"
+        os.makedirs(self.test_data_path)
+
+
+
+
+
+
+
+        
+        
 

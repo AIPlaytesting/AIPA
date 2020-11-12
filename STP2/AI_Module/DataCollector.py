@@ -1,11 +1,15 @@
+import AI_Module.TestStatCollector
 
+class DataCollector:
 
-class TrainingDataCollector:
-
-    def __init__(self, state_space, action_space):
+    def __init__(self, state_space, action_space, isTrain):
         
         self.state_space = state_space #key : string name, value : index
         self.action_space = action_space #key : index, value : string name
+        self.isTrain = isTrain
+
+        self.anomaly_tracker = AI_Module.TestStatCollector.AnomalyTracker()
+        self.card_rel_tracker = AI_Module.TestStatCollector.CardRelationshipTrackers(self.action_space)
 
         #to keep track of win rate
         self.win_data_list = [] # (-1 : loss by boss damage), (-2 : loss by wrong card), (1 : win)
@@ -30,10 +34,12 @@ class TrainingDataCollector:
         self.cur_damage_done_in_turns = []
         self.cur_card_play_sequence_turns = []
         self.cur_reward_list = []
+        self.cur_state_list = []
 
-        self.damage_done_per_turn = []
-        self.card_play_sequence_per_turn = []
-        self.reward_list_per_turn = []
+        self.all_damage_per_turn = []
+        self.all_card_seq = []
+        self.all_reward_per_turn = []
+        self.all_game_states = []
 
         self.empty_card_data_dict = {}
         for card_index in self.action_space:
@@ -68,7 +74,7 @@ class TrainingDataCollector:
         self.roll_avg_reward = []
 
         #average damage and max damage
-        for damage_done_per_turn in self.damage_done_per_turn:
+        for damage_done_per_turn in self.all_damage_per_turn:
             self.max_damage.append(max(damage_done_per_turn))
             self.average_damage.append(sum(damage_done_per_turn) / len(damage_done_per_turn))
 
@@ -104,10 +110,10 @@ class TrainingDataCollector:
             self.card_count_in_deck[card_index] = self.deck_config[card_name]
 
         #average card play position
-        for game_index in range(len(self.card_play_sequence_per_turn)):
-            for turn_index in range(len(self.card_play_sequence_per_turn[game_index])):
-                action_turn_list = self.card_play_sequence_per_turn[game_index][turn_index]
-                reward_turn_list = self.reward_list_per_turn[game_index][turn_index]
+        for game_index in range(len(self.all_card_seq)):
+            for turn_index in range(len(self.all_card_seq[game_index])):
+                action_turn_list = self.all_card_seq[game_index][turn_index]
+                reward_turn_list = self.all_reward_per_turn[game_index][turn_index]
                 for index in range(len(action_turn_list)):
                     card_name = self.action_space[action_turn_list[index]]
                     #card position is the same as the index of the card in the turn list (index + 1 because index starts with 0 but card is playes as FIRST card of turn)
@@ -125,7 +131,6 @@ class TrainingDataCollector:
         for card_name in self.card_played_when_available:
             self.card_played_when_available[card_name] = self.card_play_count[card_name] / self.available_cards[card_name]
 
-        
 
     def StoreDeckConfig(self, deck_config):
         self.deck_config = deck_config
@@ -166,7 +171,6 @@ class TrainingDataCollector:
         for step_index in range(len(reward_list)):
             rewards_in_turn.append(reward_list[step_index])
 
-
         damage_done_in_turn = 0
 
         boss_hp_index = self.state_space['boss_health']
@@ -176,36 +180,37 @@ class TrainingDataCollector:
 
         damage_done_in_turn = (turn_start_boss_hp - turn_end_boss_hp) if (turn_start_boss_hp - turn_end_boss_hp) > 0 else 0
 
-        self.StoreTurnData(card_played_sequence, rewards_in_turn, damage_done_in_turn)
+        self.StoreTurnData(state_list, card_played_sequence, rewards_in_turn, damage_done_in_turn)
 
 
-    def StoreTurnData(self, card_played_sequence, rewards_in_turn, damage_done_in_turn):
+    def StoreTurnData(self, state_list, card_played_sequence, rewards_in_turn, damage_done_in_turn):
         self.cur_card_play_sequence_turns.append(card_played_sequence)
         self.cur_damage_done_in_turns.append(damage_done_in_turn)
         self.cur_reward_list.append(rewards_in_turn)
+        self.cur_state_list.append(state_list)
 
 
-    def AddCurrentTurnDataToGameLists(self):
-        self.card_play_sequence_per_turn.append(self.cur_card_play_sequence_turns)
+
+    def AddCurrentTurnDataToGameLists(self, isWin):
+        self.all_card_seq.append(self.cur_card_play_sequence_turns)
+        self.all_damage_per_turn.append(self.cur_damage_done_in_turns)
+        self.all_reward_per_turn.append(self.cur_reward_list)
+
+        if not self.isTrain:
+            self.all_game_states.append(self.cur_state_list)
+            self.anomaly_tracker.CheckAnomaly(self.cur_state_list, self.cur_damage_done_in_turns, game_number=len(self.all_game_states)-1, isWin=isWin)
+            self.card_rel_tracker.CountCardRelationships(self.cur_card_play_sequence_turns)
+
         self.cur_card_play_sequence_turns = []
-
-        self.damage_done_per_turn.append(self.cur_damage_done_in_turns)
         self.cur_damage_done_in_turns = []
-
-        self.reward_list_per_turn.append(self.cur_reward_list)
         self.cur_reward_list = []
+        self.cur_state_list = []
 
 
     def RecordQModelSwitch(self):
         self.q_model_switch_episode_index.append(len(self.episode_index_list) - 1)
 
-
-
-
-
-
-
-
+    
 
 
 
