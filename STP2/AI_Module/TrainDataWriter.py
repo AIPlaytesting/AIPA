@@ -4,14 +4,13 @@ import os
 import AI_Module.TrainingDataCollector
 
 
-class DataWriter:
+class TrainDataWriter:
 
-    def __init__(self, data_collector:AI_Module.TrainingDataCollector.TrainingDataCollector, add_string):
+    def __init__(self, data_collector:AI_Module.TrainingDataCollector.TrainingDataCollector, path):
 
         self.data_collector = data_collector
-        now = datetime.now()
-        dt_string = now.strftime("%d-%b-%y %H-%M")
-        self.filename = dt_string + " Training _ " + add_string + '.xlsx'
+
+        self.filepath = path + " Training.xlsx"
         
         self.trainin_data_header = ['Episode #', 'Epsilon', 'Total Cards Played', 'Total Reward', 'Win/Loss', 'Boss End HP', 'Player End HP', 'Max Dmg (1 Turn)', 'Avg Dmg Per Turn', 'Roll Avg Reward']
         
@@ -19,10 +18,13 @@ class DataWriter:
 
 
     def CreateExcelFile(self):
-        if os.path.exists(self.filename):
-            os.remove(self.filename)
+        if os.path.exists(self.filepath):
+            try: 
+                os.remove(self.filepath)
+            except Exception as x:
+                return False
         
-        self.workbook = xlsxwriter.Workbook(self.filename)
+        self.workbook = xlsxwriter.Workbook(self.filepath)
 
         self.bold = self.workbook.add_format({'bold': True, 'border' :1})
         self.bold_center = self.workbook.add_format({'bold': True, 'border':1})
@@ -35,6 +37,8 @@ class DataWriter:
         self.center_align.set_align('center')
         self.border = self.workbook.add_format({'border' : 1})
 
+        return True
+
 
     def WriteFile(self):
 
@@ -44,7 +48,11 @@ class DataWriter:
         self.training_data = [self.data_collector.episode_index_list, self.data_collector.epsilon_list, self.data_collector.episode_length_list, self.data_collector.total_reward_list,\
             self.data_collector.win_data_list, self.data_collector.boss_end_hp_list, self.data_collector.player_end_hp_list, self.data_collector.max_damage, self.data_collector.average_damage, self.data_collector.roll_avg_reward]
 
-        self.CreateExcelFile()
+        isFileCreate = self.CreateExcelFile()
+
+        if not isFileCreate:
+            return
+
         training_data_worksheet = self.workbook.add_worksheet('Training Data')
 
         #add headers

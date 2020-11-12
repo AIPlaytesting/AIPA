@@ -30,13 +30,13 @@ def detect_env_mainloop():
 
 def train_mainloop():
     import time
-    import ai_controller
+    import ai_train_controller
     import sys, os
 
     #disable printing
     sys.stdout = open(os.devnull, 'w')
 
-    ai_trainer = ai_controller.AI_Trainer()
+    ai_trainer = ai_train_controller.AI_Trainer(app_id="", deck_id="")
     train_time_list = []
     num_games = 14000
 
@@ -63,12 +63,29 @@ def train_mainloop():
 
 def simulate_mainloop():
     import time
-    for i in range(100):
-        time.sleep(0.05)
+    import ai_test_controller
+    import sys, os
+
+    ai_tester = ai_test_controller.AI_Tester(app_id='', deck_id='')
+
+    if ai_tester.main_folder_path == "":
+        return
+
+    #disable printing
+    sys.stdout = open(os.devnull, 'w')
+    
+
+    for i in range(2000):
+        ai_tester.TestOneIteration(i)
         simulate_progress ={}
         simulate_progress['curprogress'] = i+1
-        simulate_progress['maxprogress'] = 100
+        simulate_progress['maxprogress'] = 2000
         connection.send_response(ResponseMessage("electron",simulate_progress))
+    
+    #enable print again
+    sys.stdout = sys.__stdout__
+
+    ai_tester.ProcessDataAndWriteFiles()
 
 
 # wait method
