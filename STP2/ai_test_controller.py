@@ -98,13 +98,13 @@ class AI_Tester:
         else:
             self.main_folder_path = self.ai_data_root + "\\" + self.special_path
 
-        self.main_folder_path = self.ai_data_root
-
-        #subfolder 1 - model
-        self.model_path = self.main_folder_path + "\\Training_Model\\"
+        #self.main_folder_path = self.ai_data_root
 
         #subfolder 2 - training data collection
         self.train_data_path = self.main_folder_path + "\\Training_Data\\"
+
+        #model path
+        self.model_path = self.train_data_path + "\\Training_Model\\"
 
         #subfolder 3 - test data collection
         self.test_data_path = self.main_folder_path + "\\Test_Data\\"
