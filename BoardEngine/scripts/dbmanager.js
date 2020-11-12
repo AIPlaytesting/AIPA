@@ -35,6 +35,28 @@ function loadDB(onFinishLoad){
     });     
 }
 
+function loadPlaytestData(gamename,deckname){
+    let dbRoot = calculateDBRoot()
+    let AIDataRoot = dbRoot + '\\AI_Data'
+    let name_prefix = "App_" + gamename + "~"+"Deck_" + deckname + "~"
+
+    let playtestDataRoot = undefined
+    for(root of fs.readdirSync(AIDataRoot)){
+        if(root.startsWith(name_prefix)){
+            playtestDataRoot =AIDataRoot + '\\' + root+'\\Test_Data'
+            break
+        }
+    }
+    
+    let playtestData = {}
+    if(playtestDataRoot == undefined){
+        return playtestData
+    }
+
+    playtestData['basicStats'] = loadObjectFromJSONFile(playtestDataRoot+'\\basic_stats.json')
+    playtestData['card_perfromance_csv_url'] = playtestDataRoot + "\\card_performance_data.csv"
+    return playtestData
+}
 
 function getResourceRoot(){
     return resourceRoot
@@ -213,5 +235,6 @@ module.exports = {
     removeGame,
     getGameAppRoot,
     getResourceRoot,
-    getGameRecordDataRoot
+    getGameRecordDataRoot,
+    loadPlaytestData
 }

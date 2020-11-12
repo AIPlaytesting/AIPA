@@ -29,7 +29,6 @@ def detect_env_mainloop(config):
     print("detect env mainloop done: ",ver)
 
 def train_mainloop(config):
-    print(config)
     import time
     import ai_train_controller
     import sys, os
@@ -53,10 +52,11 @@ def train_mainloop(config):
         rem_min = int((remaining_time - rem_hrs * 3600 ) % 60)
 
         train_info ={}
-        train_info['curprogress'] = i
+        train_info['curprogress'] = i+1
         train_info['maxprogress'] = num_games
         train_info['remaining_hours'] = rem_hrs
         train_info['remaining_minutes'] = rem_min
+        train_info['is_finished'] = i+1 == num_games
         connection.send_response(ResponseMessage("electron",train_info))
 
     #enable print again
@@ -82,6 +82,7 @@ def simulate_mainloop(config):
         simulate_progress ={}
         simulate_progress['curprogress'] = i+1
         simulate_progress['maxprogress'] = game_nums
+        simulate_progress['is_finished'] = False
         connection.send_response(ResponseMessage("electron",simulate_progress))
     
     #enable print again
@@ -89,6 +90,12 @@ def simulate_mainloop(config):
 
     ai_tester.ProcessDataAndWriteFiles()
 
+    # send termiante message
+    simulate_progress ={}
+    simulate_progress['curprogress'] = game_nums
+    simulate_progress['maxprogress'] = game_nums
+    simulate_progress['is_finished'] = True
+    connection.send_response(ResponseMessage("electron",simulate_progress))
 
 # wait method
 request = connection.wait_one_request()

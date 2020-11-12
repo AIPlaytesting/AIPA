@@ -85,7 +85,12 @@ function onReceiveTrainMesssage(data){
     let percentage = Math.ceil(100*curprogress/maxprogress)
     $('#train-progress').attr("class","c100 p"+percentage)
     $('#train-progress-text').text(curprogress + "/" + maxprogress)
-    $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
+    if(trainInfo.is_finished){
+        $('#train-status').text('training is over')
+    }
+    else{
+        $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
+    }
 }
 
 function onClickCreateNewGame(){
@@ -182,6 +187,7 @@ function onClickPlaytest(){
     let gameID = dbmanager.getCurrentGameName()
     let deckID = currentGameData.rules.deck
     let gameNums = $('#playtest-game-num').val()
+    console.log('Playtst: [game]-'+gameID+'[deck]-'+ deckID)
     let pyProcess = new PythonProcess(
         12,
         {'game_id':gameID,'deck_id':deckID,'game_nums':gameNums},
@@ -197,29 +203,39 @@ function onReceivePlaytestMesssage(data){
     let percentage = Math.ceil(100*curprogress/maxprogress)
     $('#playtest-progress-bar').attr("class","c100 p"+percentage)
     $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
-    if(simulateInfo.curprogress >= simulateInfo.maxprogress){
-        viewPlaytestData()
+    if(simulateInfo.is_finished){
+        let gamename= dbmanager.getCurrentGameName()
+        let deckname = currentGameData.rules.deck
+        viewPlaytestData(gamename,deckname)
     }
 }
 
-function viewPlaytestData(){
+function viewPlaytestData(gamename,deckname){
+    let playtestData = dbmanager.loadPlaytestData(gamename,deckname)
+    console.log(playtestData)
     $('#playtest-btn').removeClass('d-none')
     $('#playtest-config-div').removeClass('d-none')
     $('#playtest-progress').addClass('d-none')
     $('#playtest-status').addClass('d-none')
     $('#data-display-root').removeClass('d-none')
+
+    let basicStats = playtestData.basicStats
+    // set wintrate graph
+    $('#win-rate-text').text(basicStats.win_rate*100+'%')
+    let percentage = Math.ceil(basicStats.win_rate*100)
+    $('#win-rate-progress').attr("class","green c100 p"+percentage)
     // draw data
     let data = [
         [
-          {"area": "winrate ", "value": 100*Math.random()},
-          {"area": "player HP", "value": 100*Math.random()},
-          {"area": "boss HP", "value": 100*Math.random()},
-          {"area": "average turns", "value": 100*Math.random()},
+          {"area": "winrate ", "value": basicStats.win_rate*100},
+          {"area": "player HP", "value": (basicStats.avg_player_hp/100)*100},
+          {"area": "avg boss HP", "value":  (basicStats.avg_boss_hp/250)*100},
+          {"area": "ave game length", "value": basicStats.avg_game_length},
           ]
       ]
     let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
     dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
-    dataVisualizer.drawRankChart("../static/card.csv",'card-data-rankChart')
+    dataVisualizer.drawRankChart('../static/card.csv','card-data-rankChart')
 }
 
 function onSwitchCurrentDeck(deckName){
@@ -392,7 +408,7 @@ function updatePlaytestPage(){
             .attr('class','col-2 btn btn-primary')
             .text('View Result')
             .click(function(){
-                viewPlaytestData()
+                viewPlaytestData('TestApp','deck1')
                 $('.playtest-history-entry')
                     .css('color','')
                     .css('font-weight','')
