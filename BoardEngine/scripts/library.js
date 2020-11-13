@@ -28,7 +28,10 @@ function onFinishDBLoad(){
     $('#create-new-game-btn').off()
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
-    updateGameMainPage()
+    // refresh design page
+    updateDesignPage()
+    // also update playtest
+    updatePlaytestPage()
 
     function updateGameTemplateList(){
         let gameTemplateList = $("#game-template-list");
@@ -62,7 +65,6 @@ function onClickPlay(){
 }
 
 function onClickTrain(){
-    $('#game-edit-section-overlay').removeClass('d-none')
     $('#train-btn').addClass('d-none')
     $('#train-config').addClass('d-none')
     $('#train-progress').removeClass('d-none')
@@ -71,6 +73,8 @@ function onClickTrain(){
     let gameID = dbmanager.getCurrentGameName()
     let deckID = currentGameData.rules.deck
     let iterationNums = $('#train-iter-config').val()
+    // lock the deck before training
+    dbmanager.updateGameData(gameID,'lockedDeck',deckID,refreshLibraryPage)
     let pyProcess = new PythonProcess(
         11,
         {'game_id':gameID,'deck_id':deckID,'iterations':iterationNums},
@@ -87,6 +91,8 @@ function onReceiveTrainMesssage(data){
     $('#train-progress-text').text(curprogress + "/" + maxprogress)
     if(trainInfo.is_finished){
         $('#train-status').text('training is over')
+        // also update playtest
+        updatePlaytestPage()
     }
     else{
         $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
@@ -213,12 +219,13 @@ function onReceivePlaytestMesssage(data){
     if(simulateInfo.is_finished){
         let gamename= dbmanager.getCurrentGameName()
         let deckname = currentGameData.rules.deck
-        viewPlaytestData(gamename,deckname)
+        let trainVersion = $('#AI-dropdown-btn').text()
+        viewPlaytestData(gamename,deckname, trainVersion)
     }
 }
 
-function viewPlaytestData(gamename,deckname){
-    let playtestData = dbmanager.loadPlaytestData(gamename,deckname)
+function viewPlaytestData(gamename,deckname,trainVersion){
+    let playtestData = dbmanager.loadPlaytestData(gamename,deckname,trainVersion)
     console.log(playtestData)
     $('#playtest-btn').removeClass('d-none')
     $('#playtest-config-div').removeClass('d-none')
@@ -279,11 +286,17 @@ function createNewGameBtn(){
 }
 
 // update main page based on current game in manifest
-function updateGameMainPage(){
+function updateDesignPage(){
     let gameName = dbmanager.getCurrentGameName()
     currentGameData = dbmanager.loadGameData(gameName)
     let gameData = currentGameData
-
+    // lock the deck edit if it is locked 
+    if(gameData.rules.locked_decks.includes(gameData.rules.deck)){
+        $('#game-edit-section-overlay').removeClass('d-none')
+    }
+    else{
+        $('#game-edit-section-overlay').addClass('d-none')
+    }
     $('#game-title').text(gameName)
     updateGameSettingSection()
 
@@ -293,9 +306,6 @@ function updateGameMainPage(){
     updateDeckDropdown()
 
     renderCardGrid()
-
-    // also update playtest
-    updatePlaytestPage()
 
     function updateGameSettingSection(){
         $('#deck-count').text(Object.keys(gameData.decks).length)

@@ -49,10 +49,16 @@ function getAllTrainedVersion(gamename,deckname){
     }
     return res;
 }
-function loadPlaytestData(gamename,deckname){
+function loadPlaytestData(gamename,deckname,trainVersion = ""){
     let dbRoot = calculateDBRoot()
     let AIDataRoot = dbRoot + '\\AI_Data'
-    let name_prefix = "App_" + gamename + "~"+"Deck_" + deckname + "~"
+    let name_prefix
+    if(trainVersion == ""){
+        name_prefix = "App_" + gamename + "~"+"Deck_" + deckname + "~"
+    }
+    else{
+        name_prefix = trainVersion
+    }
 
     let playtestDataRoot = undefined
     for(root of fs.readdirSync(AIDataRoot)){
@@ -172,8 +178,8 @@ function loadGameData(gameName){
 
 // current veilable attr: 
 // currentDeck
-// ..
-function updateGameData(gameName,attr,value,onFinishCallback){
+// lockedDeck
+function updateGameData(gameName,attr,value,onFinishCallback = undefined){
     if(attr == "currentDeck"){
         let gameDataRoot = getGameAppRoot(gameName)
         let ruleObjPath = gameDataRoot+'/rules.json'
@@ -181,11 +187,21 @@ function updateGameData(gameName,attr,value,onFinishCallback){
         rulesObj.deck = value
         saveObjectToFileAsJSON(rulesObj,ruleObjPath)
     }
+    else if(attr == "lockedDeck"){
+        let gameDataRoot = getGameAppRoot(gameName)
+        let ruleObjPath = gameDataRoot+'/rules.json'
+        let rulesObj = loadObjectFromJSONFile(ruleObjPath)
+        if(!rulesObj.locked_decks.includes(value)){
+            rulesObj.locked_decks.push(value)
+        }
+        saveObjectToFileAsJSON(rulesObj,ruleObjPath)
+    }
     else{
         throw "undefined attribute name  to update: "+attr
     }
-
-    onFinishCallback()
+    if(onFinishCallback!=undefined){
+        onFinishCallback()
+    }
 }
 
 function getCurrentGameName(){

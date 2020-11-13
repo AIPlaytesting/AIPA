@@ -88,7 +88,7 @@
                         <div class="bs-stepper-content">
                             <!-- game edit step -->
                             <div id="game-edit-step" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                <div id ="game-edit-section" class="overlaycontainer">
+                                <div id ="game-edit-section">
                                     <!--head pannel-->
                                     <div class = "row head-pannel">
                                         <!--play game operation-->
@@ -133,13 +133,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--deck card grid-->
-                                    <div id = "deck-img-view" class="middle-section">
-                                    </div>                                    
-                                    <!--overlay-->
-                                    <div id = "game-edit-section-overlay" class="overlay d-none">
-                                        <div class="hovertext">Cannot modify game while training</div>
-                                    </div>
+                                    <!--design lock div-->
+                                    <div class="overlaycontainer">
+                                        <div id = "deck-img-view" class="middle-section overlaycontainer">
+                                        </div>     
+                                        <!--design lock overlay-->
+                                        <div id = "game-edit-section-overlay" class="overlay d-none">
+                                            <div class="hovertext">Deck is locked after you train, create  a new deck instead</div>
+                                        </div>
+                                    </div>                               
                                 </div>
                             </div>
                             <!-- train AI step-->
