@@ -35,6 +35,20 @@ function loadDB(onFinishLoad){
     });     
 }
 
+function getAllTrainedVersion(gamename,deckname){
+    let res = []
+    let dbRoot = calculateDBRoot()
+    let AIDataRoot = dbRoot + '\\AI_Data'
+    let name_prefix = "App_" + gamename + "~"+"Deck_" + deckname + "~"
+
+    let playtestDataRoot = undefined
+    for(root of fs.readdirSync(AIDataRoot)){
+        if(root.startsWith(name_prefix)){
+            res.push(root)
+        }
+    }
+    return res;
+}
 function loadPlaytestData(gamename,deckname){
     let dbRoot = calculateDBRoot()
     let AIDataRoot = dbRoot + '\\AI_Data'
@@ -236,5 +250,6 @@ module.exports = {
     getGameAppRoot,
     getResourceRoot,
     getGameRecordDataRoot,
+    getAllTrainedVersion,
     loadPlaytestData
 }

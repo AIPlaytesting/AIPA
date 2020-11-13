@@ -179,21 +179,27 @@ function onClickRemoveGame(){
 }
 
 function onClickPlaytest(){
+    let gameNums = $('#playtest-game-num').val()
+    let gameName = dbmanager.getCurrentGameName()
+    let deckName = currentGameData.rules.deck
+    let trainVersion = $('#AI-dropdown-btn').text()
+
+    if(!dbmanager.getAllTrainedVersion(gameName,deckName).includes(trainVersion)){
+        popupWarning("must select correct AI to playtest!")
+        return 
+    }
     $('#playtest-btn').addClass('d-none')
     $('#playtest-config-div').addClass('d-none')
     $('#playtest-progress').removeClass('d-none')
     $('#playtest-status').removeClass('d-none')
     $('#data-display-root').addClass('d-none')
-    let gameID = dbmanager.getCurrentGameName()
-    let deckID = currentGameData.rules.deck
-    let gameNums = $('#playtest-game-num').val()
-    console.log('Playtst: [game]-'+gameID+'[deck]-'+ deckID)
+    console.log('Playtst: [train ver]-'+trainVersion)
     let pyProcess = new PythonProcess(
         12,
-        {'game_id':gameID,'deck_id':deckID,'game_nums':gameNums},
+        {'train_version': trainVersion,'game_nums':gameNums},
 	    function () { console.log('success!') },
         onReceivePlaytestMesssage)
-    $('#playtest-status').text('Is playtesting...')
+    $('#playtest-status').text('load trained AI modal...')
 }
 
 function onReceivePlaytestMesssage(data){
@@ -201,6 +207,7 @@ function onReceivePlaytestMesssage(data){
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress
     let percentage = Math.ceil(100*curprogress/maxprogress)
+    $('#playtest-status').text('Is playtesting...')
     $('#playtest-progress-bar').attr("class","c100 p"+percentage)
     $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
     if(simulateInfo.is_finished){
@@ -388,7 +395,10 @@ function updateGameMainPage(){
 }
 
 function updatePlaytestPage(){
-    utils.setupDropdown('AI-dropdown-list','AI-dropdown-btn',['AI1','AI-2'])
+    utils.setupDropdown(
+        'AI-dropdown-list',
+        'AI-dropdown-btn',
+        dbmanager.getAllTrainedVersion(dbmanager.getCurrentGameName(),currentGameData.rules.deck))
     updatePlaytestHistory()
 
     function updatePlaytestHistory(){
