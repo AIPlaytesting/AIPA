@@ -98,10 +98,11 @@ class GameBuffer:
             for state, new_state, action, reward, terminal in zip(state_list, new_state_list, action_list, reward_list, terminal_list):
 
                 for x in range(store_count):
-                    if action != -1:
+                    if action != -1 and self.isTrain:
                         ai_agent.StoreTransition(state, new_state, action, reward, terminal)
 
-                ai_agent.Learn()
+                if self.isTrain:
+                    ai_agent.Learn()
 
                 if self.CheckForQModelSwitch(ai_agent):
                     self.data_collector.RecordQModelSwitch()

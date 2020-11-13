@@ -107,11 +107,11 @@ class CardRelationshipTrackers():
         for card_seq in card_seq_lists:
             for idx in range(len(card_seq)):
                 if idx+1 < len(card_seq):
-                    self.card_pair_counter[card_seq[idx]][card_seq[idx+1]] += 1
+                    self.card_pair_counter[self.action_space[card_seq[idx]]][self.action_space[card_seq[idx+1]]] += 1
             
                 if idx+2 < len(card_seq):
                     #create key
-                    key = card_seq[idx] + "-" + card_seq[idx+1] + "-" + card_seq[idx+2]
+                    key = self.action_space[card_seq[idx]] + "-" + self.action_space[card_seq[idx+1]] + "-" + self.action_space[card_seq[idx+2]]
 
                     if key not in self.card_trio_counter:
                         self.card_trio_counter[key] = 0

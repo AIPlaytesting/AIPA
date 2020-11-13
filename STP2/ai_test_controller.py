@@ -63,7 +63,7 @@ class AI_Tester:
 
         self.game_buffer.TurnEnd()
         self.game_buffer.RewardCalculations()
-
+        self.game_buffer.TransferToReplayBuffer(self.ai_tester, self.env.win_int)
         self.game_buffer.StoreGameData(0, self.env.win_int, new_state, prediction_time, game_play_time, test_time)
         self.game_buffer.ResetBuffer()
 
@@ -104,7 +104,7 @@ class AI_Tester:
         self.train_data_path = self.main_folder_path + "\\Training_Data\\"
 
         #model path
-        self.model_path = self.train_data_path + "\\Training_Model\\"
+        self.model_path = self.train_data_path + "Training_Model\\"
 
         #subfolder 3 - test data collection
         self.test_data_path = self.main_folder_path + "\\Test_Data\\"
