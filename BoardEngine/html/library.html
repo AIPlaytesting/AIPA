@@ -226,6 +226,7 @@
                                     </div>
                                      <!--data visualization-->
                                     <div id = "data-display-root" class="row d-none">
+                                        <!--winrate info-->
                                         <div id = 'playtest-winrate' class="col-2">
                                             <div class="clearfix text-center div-center">
                                                 <div id = 'win-rate-progress' class="c100 p60 green">
@@ -237,7 +238,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id = 'playtest-radar-chart' class="col-4" ></div>
+                                        <!--basic info-->
+                                        <div id = 'basicInfo' class="col-4" >
+                                            <div class="div-center">
+                                                <h1 id = 'avg-game-len'></h1>
+                                                <h1 id = 'avg-player-hp'></h1>
+                                                <h1 id = 'avg-boss-hp'></h1>
+                                            </div>
+                                        </div>
                                         <div class="col-1" ></div>
                                         <!--card rank-->
                                         <div id = 'card-data-rankChart' class="col-5"></div>

@@ -1,4 +1,4 @@
-function drawRankChart(csvURL,divID,hookedRadarDivID=''){
+function drawRankChart(csvURL,xValName,divID){
     $('#'+divID).text("")
     let optionDiv = $(document.createElement('div'))
     let chartDiv = $(document.createElement('div')).attr('id',divID+'-chart')
@@ -31,20 +31,13 @@ function drawRankChart(csvURL,divID,hookedRadarDivID=''){
     var yAxis = svg.append("g")
     .attr("class", "myYaxis")
 
-    let radarData = []
-    let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
+
     // A function that create / update the plot for a given variable:
     function update(selectedVar,color) {
-        // clear radar chart
-        if(hookedRadarDivID != ''){
-            $('#'+hookedRadarDivID).text("")
-        }
-        radarData = []
         // Parse the Data
         d3.csv(csvURL, function(data) {
-
             // X axis
-            x.domain(data.map(function(d) { return d.group; }))
+            x.domain(data.map(function(d) { return d[xValName]; }))
             xAxis.transition().duration(1000).call(d3.axisBottom(x))
 
             // Add Y axis
@@ -68,16 +61,7 @@ function drawRankChart(csvURL,divID,hookedRadarDivID=''){
             }
             
             function mouseclick(){
-                if(hookedRadarDivID != ""){
-                    $('#'+hookedRadarDivID).text("")
-                    radarData.push(
-                        [
-                          {"area": "rawards", "value": 100*Math.random()},
-                          {"area": "playPosition", "value": 100*Math.random()},
-                          {"area": "playCount", "value": 100*Math.random()}
-                          ])
-                    drawRadarChart(hookedRadarDivID,radarData,radarColors)   
-                }
+
             }
             // update bars
             u
@@ -86,7 +70,7 @@ function drawRankChart(csvURL,divID,hookedRadarDivID=''){
             .merge(u)
             .transition()
             .duration(1000)
-                .attr("x", function(d) { return x(d.group); })
+                .attr("x", function(d) { return x(d[xValName]); })
                 .attr("y", function(d) { return y(d[selectedVar]); })
                 .attr("width", x.bandwidth())
                 .attr("height", function(d) { return height - y(d[selectedVar]); })
@@ -100,25 +84,24 @@ function drawRankChart(csvURL,divID,hookedRadarDivID=''){
     }
 
     // fill option Buttons
-    var optionList = ['rewards','playPosition','playCount']
-    let colorDict={
-        'rewards':"#69b3a2",
-        'playPosition':"#eba434",
-        'playCount':'#e82cb6'
-    }
-    for( i = 0 ; i < optionList.length; i++){
-        let optionBtn = $(document.createElement('button'))
-        .text(optionList[i])
-        .attr('class', 'btn')
-        .css('color',colorDict[optionList[i]])
-        .click(function(){
-            let option = $(this).text()
-            let color = colorDict[option]
-            update($(this).text(),color)})
-        optionDiv.append(optionBtn)
-    }
-    // Initialize plot
-    update('rewards',"#69b3a2")
+    d3.csv(csvURL, function(data){
+        let optionList = data.columns
+        optionList.shift()
+        console.log(optionList)
+        for( i = 0 ; i < optionList.length; i++){
+            let optionBtn = $(document.createElement('button'))
+            .text(optionList[i])
+            .attr('class', 'btn')
+            .css('color','#69b3a2')
+            .click(function(){
+                let option = $(this).text()
+                let color = '#69b3a2'
+                update($(this).text(),color)})
+            optionDiv.append(optionBtn)
+        }
+        // Initialize plot
+        update(optionList[0],"#69b3a2")
+    })
 }
 
 function drawRelationshipTable(divID){

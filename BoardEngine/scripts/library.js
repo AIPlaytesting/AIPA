@@ -165,7 +165,7 @@ function onClickRemoveCard(cardname){
 
 function onClickLibraryGameEntry(gameName){
     dbmanager.setCurrentGame(gameName)
-    updateGameMainPage()
+    refreshLibraryPage()
 }
 
 function onClickRemoveGame(){
@@ -238,18 +238,21 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     $('#win-rate-text').text(basicStats.win_rate*100+'%')
     let percentage = Math.ceil(basicStats.win_rate*100)
     $('#win-rate-progress').attr("class","green c100 p"+percentage)
+    $('#avg-game-len').text("average game length: "+basicStats.avg_game_length)
+    $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
+    $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
     // draw data
-    let data = [
-        [
-          {"area": "winrate ", "value": basicStats.win_rate*100},
-          {"area": "player HP", "value": (basicStats.avg_player_hp/100)*100},
-          {"area": "avg boss HP", "value":  (basicStats.avg_boss_hp/250)*100},
-          {"area": "ave game length", "value": basicStats.avg_game_length},
-          ]
-      ]
-    let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
-    dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
-    dataVisualizer.drawRankChart('../static/card.csv','card-data-rankChart')
+    // let data = [
+    //     [
+    //       {"area": "winrate ", "value": basicStats.win_rate*100},
+    //       {"area": "player HP", "value": (basicStats.avg_player_hp/100)*100},
+    //       {"area": "avg boss HP", "value":  (basicStats.avg_boss_hp/250)*100},
+    //       {"area": "ave game length", "value": basicStats.avg_game_length},
+    //       ]
+    //   ]
+    // let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
+    // dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
+    dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
 }
 
 function onSwitchCurrentDeck(deckName){
