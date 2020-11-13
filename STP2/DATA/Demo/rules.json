@@ -2,5 +2,7 @@
     "deck": "deck2",
     "player_hp": 80,
     "boss_hp": 240,
-    "locked_decks": []
+    "locked_decks": [
+        "deck2"
+    ]
 }
