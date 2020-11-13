@@ -60,7 +60,7 @@ function launchProcessByBat(onFailListenter){
 		if(err){
 			console.error(err);
 			if(onFailListenter!=null){
-				onFailListenter()
+				onFailListenter(err)
 			}
 		}
 	}) 

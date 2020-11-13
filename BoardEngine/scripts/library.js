@@ -79,7 +79,8 @@ function onClickTrain(){
         11,
         {'game_id':gameID,'deck_id':deckID,'iterations':iterationNums},
 	    function () { console.log('success!') },
-        onReceiveTrainMesssage)
+        onReceiveTrainMesssage,
+        function(err){popupWarning(err)})
 }
 
 function onReceiveTrainMesssage(data){
@@ -204,7 +205,8 @@ function onClickPlaytest(){
         12,
         {'train_version': trainVersion,'game_nums':gameNums},
 	    function () { console.log('success!') },
-        onReceivePlaytestMesssage)
+        onReceivePlaytestMesssage,
+        function(err){popupWarning(err)})
     $('#playtest-status').text('load trained AI modal...')
 }
 
