@@ -1,6 +1,1 @@
-setlocal
-cd /d %~dp0
-cd ../
-cd ../
-cd pyproj
-py backend_launcher.py
+python  C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\backend_launcher.py
