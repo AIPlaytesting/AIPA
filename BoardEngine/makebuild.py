@@ -4,6 +4,8 @@ import os
 import shutil
 from distutils.dir_util import copy_tree
 
+ORIGINAL_BUILD_DIR = 'out'
+
 def load_json_from_file(file_path):
     with open(file_path, "r") as file:
         raw_json_data = file.read()
@@ -63,5 +65,6 @@ def build(root_path):
     makesure_clean_path(pyexe_dir)
     copy_dir(config['buildConfig']['pythonEnvSource'],pyexe_dir)
 
-path = sys.argv[1] 
-build(path)
+    print("[build] - done")   
+
+build(ORIGINAL_BUILD_DIR)
