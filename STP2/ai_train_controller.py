@@ -91,29 +91,29 @@ class AI_Trainer:
 
 
     def CreateDataSavingPath(self):
-        self.ai_data_root = self.env.ai_transformer.db_root + "\\AI_Data"
+        self.ai_data_root = self.env.ai_transformer.db_root + "\\ad"
 
         #create special token for this training run
         #time component
         now = datetime.now()
-        dt_string = now.strftime("%d-%b-%y %H-%M")
+        dt_string = now.strftime("%d%b%H%M")
         
         self.main_folder_path = self.ai_data_root
-        self.main_folder_path += "\\App_" + self.app_id + "~"
-        self.main_folder_path += "Deck_" + self.deck_id + "~"
+        self.main_folder_path += "\\A_" + self.app_id + "~"
+        self.main_folder_path += "D_" + self.deck_id + "~"
         self.main_folder_path += dt_string
 
         os.makedirs(self.main_folder_path)
 
         #subfolder 1 - model
-        self.model_path = self.main_folder_path + "\\Trained_Model\\"
+        self.model_path = self.main_folder_path + "\\TM\\"
 
         #subfolder 2 - training data collection
-        self.train_data_path = self.main_folder_path + "\\Training_Data\\"
+        self.train_data_path = self.main_folder_path + "\\TrD\\"
         os.makedirs(self.train_data_path)
 
         #subfolder 3 - test data collection
-        self.test_data_path = self.main_folder_path + "\\Test_Data\\"
+        self.test_data_path = self.main_folder_path + "\\TeD\\"
         os.makedirs(self.test_data_path)
 
 

@@ -77,7 +77,7 @@ class AI_Tester:
 
 
     def CreateDataSavingPath(self):
-        self.ai_data_root = self.env.ai_transformer.db_root + "\\AI_Data"
+        self.ai_data_root = self.env.ai_transformer.db_root + "\\ad"
         self.main_folder_path = ""
 
         if self.special_path == "":
@@ -101,13 +101,13 @@ class AI_Tester:
         #self.main_folder_path = self.ai_data_root
 
         #subfolder 2 - training data collection
-        self.train_data_path = self.main_folder_path + "\\Training_Data\\"
+        self.train_data_path = self.main_folder_path + "\\TrD\\"
 
         #model path
-        self.model_path = self.train_data_path + "Training_Model\\"
+        self.model_path = self.train_data_path + "TM\\"
 
         #subfolder 3 - test data collection
-        self.test_data_path = self.main_folder_path + "\\Test_Data\\"
+        self.test_data_path = self.main_folder_path + "\\TeD\\"
 
 
 
