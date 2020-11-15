@@ -38,8 +38,8 @@ function loadDB(onFinishLoad){
 function getAllTrainedVersion(gamename,deckname){
     let res = []
     let dbRoot = calculateDBRoot()
-    let AIDataRoot = dbRoot + '\\AI_Data'
-    let name_prefix = "App_" + gamename + "~"+"Deck_" + deckname + "~"
+    let AIDataRoot = dbRoot + '\\ad'
+    let name_prefix = "A_" + gamename + "~"+"D_" + deckname + "~"
 
     let playtestDataRoot = undefined
     for(root of fs.readdirSync(AIDataRoot)){
@@ -51,10 +51,10 @@ function getAllTrainedVersion(gamename,deckname){
 }
 function loadPlaytestData(gamename,deckname,trainVersion = ""){
     let dbRoot = calculateDBRoot()
-    let AIDataRoot = dbRoot + '\\AI_Data'
+    let AIDataRoot = dbRoot + '\\ad'
     let name_prefix
     if(trainVersion == ""){
-        name_prefix = "App_" + gamename + "~"+"Deck_" + deckname + "~"
+        name_prefix = "A_" + gamename + "~"+"D_" + deckname + "~"
     }
     else{
         name_prefix = trainVersion
@@ -63,7 +63,7 @@ function loadPlaytestData(gamename,deckname,trainVersion = ""){
     let playtestDataRoot = undefined
     for(root of fs.readdirSync(AIDataRoot)){
         if(root.startsWith(name_prefix)){
-            playtestDataRoot =AIDataRoot + '\\' + root+'\\Test_Data'
+            playtestDataRoot =AIDataRoot + '\\' + root+'\\TeD'
             break
         }
     }
