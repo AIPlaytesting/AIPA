@@ -36,7 +36,7 @@ function onFinishDBLoad() {
   var parameters = location.search.substring(1).split("&");
   var temp = parameters[0].split('=');
   cardName = unescape(temp[1]).substring(1, unescape(temp[1]).length - 1);
-  
+
   // append all cards in select options
   const select = document.getElementById('cardsSelect');
   fs.readdir(cardFolderPath, (err, files) => {
@@ -111,22 +111,11 @@ function submitForm(e) {
     }
   };
 
-
-  // image upload
-  console.log(document.getElementById("image-file").files[0]);
-  // remove 'Plus' from name if any for reference to the original png.
-  let imgName = data['img_relative_path'];
-  // name = name.replace(' Plus', '');
-  console.log(document.getElementById("image-file"));
-  let uploadImgPath = document.getElementById("image-file").files[0].path;
-  let saveImgPath = appPath + imgName;
-  console.log(saveImgPath);
-  if (uploadImgPath != '') {
-    fs.copyFile(uploadImgPath, saveImgPath, (err) => {
-      if (err) throw err;
-      console.log('File was copied to destination');
-    });
+  // upload image
+  if (document.getElementById("image-file").files[0] !== undefined) {
+    imgUpload(data);
   }
+
   // // image reload
   // let imgInput = document.getElementById("image-file");
   // var fReader = new FileReader();
@@ -157,7 +146,7 @@ function submitForm(e) {
   // buff_data = JSON.parse(buff_data);
   // console.log(buff_data['registered_buffnames']);
   // let registered_buffnames = buff_data['registered_buffnames'];
-  
+
   // registered_buffnames.forEach(buff_name => {
   //   data['buffs_info'][buff_name] = {
   //     value: document.getElementById(`buff_${buff_name}_value`).value,
@@ -174,6 +163,19 @@ function submitForm(e) {
     alert('Data written to file');
     location.reload();
   });
+}
+
+function imgUpload(data) {
+  let imgName = data['img_relative_path'];
+  let uploadImgPath = document.getElementById("image-file").files[0].path;
+  let saveImgPath = appPath + imgName;
+  console.log(saveImgPath);
+  if (uploadImgPath != '') {
+    fs.copyFile(uploadImgPath, saveImgPath, (err) => {
+      if (err) throw err;
+      console.log('File was copied to destination');
+    });
+  }
 }
 
 // get card data from DATA
@@ -298,8 +300,8 @@ function indicator(obj) {
   if (document.getElementById('cardsSelect') == null) {
     return;
   }
-  cardName = document.getElementById('cardsSelect').value;  
-  
+  cardName = document.getElementById('cardsSelect').value;
+
   console.log(cardName);
   // console.log(cardName);
   cardPath = `${cardFolderPath}${cardName}.json`
