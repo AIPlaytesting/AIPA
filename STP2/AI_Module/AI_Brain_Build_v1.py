@@ -32,7 +32,7 @@ class AI_Brain_B:
     def __init__(self, gamma,
         state_space, action_space, hidden_layer_dims,
         epsilon, epsilon_dec, epsilon_min, 
-        mem_size, batch_size, unplayable_pun, gamma_max = 0.99):
+        mem_size, batch_size, unplayable_pun, model_save_path, gamma_max = 0.99):
 
         self.state_space_dim = len(state_space)
         self.hidden_layer_dims = hidden_layer_dims
@@ -54,12 +54,8 @@ class AI_Brain_B:
         self.q_model_trained = None
         self.q_model_switch_count = 0
         self.q_model_switch_threshold = 1e8
-        
+        self.model_save_path = model_save_path + "TM"
 
-        #save model name
-        now = datetime.now()
-        dt_string = now.strftime("%d-%b-%y %H-%M")
-        self.filename = "Saved Models\\%s saved-model" % dt_string
 
 
     def InitializeNewQModel(self):
@@ -168,9 +164,9 @@ class AI_Brain_B:
 
     def SaveModel(self):
         if self.q_model_trained == None:
-            self.q_model_current.model.save(self.filename)
+            self.q_model_current.model.save(self.model_save_path)
         else:
-            self.q_model_trained.model.save(self.filename)
+            self.q_model_trained.model.save(self.model_save_path)
 
     def LoadModel(self, filepath):
         self.q_model_current = self.q_model_current.load_model(filepath)
@@ -187,3 +183,7 @@ class AI_Brain_B:
             action_mask[action_index] = not_card_in_hand
         
         return action_mask
+
+
+    def SetModelSaveParams(self, filepath):
+        pass

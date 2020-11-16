@@ -7,7 +7,7 @@ const config = require('../scripts/config')
 // train = 11
 // simulate = 12
 class PythonProcess {
-	constructor(methodCode, onSuccessListenter, onReceiveDataListener, onFailListenter = null) {
+	constructor(methodCode,params, onSuccessListenter, onReceiveDataListener, onFailListenter = null) {
 		this.socket = undefined
 		let curPythonProcess = this
 		try{
@@ -20,7 +20,7 @@ class PythonProcess {
 		net.createServer(function (socket) {
 			curPythonProcess.socket = socket
 			curPythonProcess.socket.on('data',onReceiveDataListener)
-			curPythonProcess.sendMessage(createMessage(methodCode,""))
+			curPythonProcess.sendMessage(createMessage(methodCode,params))
 			console.log("connected...")
 			onSuccessListenter()
 			console.log("about to close listen server...")
@@ -60,7 +60,7 @@ function launchProcessByBat(onFailListenter){
 		if(err){
 			console.error(err);
 			if(onFailListenter!=null){
-				onFailListenter()
+				onFailListenter(err)
 			}
 		}
 	}) 

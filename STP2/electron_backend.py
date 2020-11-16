@@ -11,7 +11,7 @@ ELECTRON_SIMULATE = 12
 connection = Connection(ELECTRON_LISTEN_PORT)
 connection.connect()
 
-def detect_env_mainloop():
+def detect_env_mainloop(config):
     def detectEnv():
         version = {}
         import sys
@@ -28,17 +28,17 @@ def detect_env_mainloop():
     connection.send_response(ResponseMessage("electron",ver))
     print("detect env mainloop done: ",ver)
 
-def train_mainloop():
+def train_mainloop(config):
     import time
-    import ai_controller
+    import ai_train_controller
     import sys, os
 
     #disable printing
     sys.stdout = open(os.devnull, 'w')
 
-    ai_trainer = ai_controller.AI_Trainer()
+    ai_trainer = ai_train_controller.AI_Trainer(app_id=config['game_id'], deck_id=config['deck_id'])
     train_time_list = []
-    num_games = 14000
+    num_games = int(config['iterations'])
 
     for i in range(num_games):
         train_time = ai_trainer.TrainOneIteration(i)
@@ -52,32 +52,58 @@ def train_mainloop():
         rem_min = int((remaining_time - rem_hrs * 3600 ) % 60)
 
         train_info ={}
-        train_info['curprogress'] = i
+        train_info['curprogress'] = i+1
         train_info['maxprogress'] = num_games
         train_info['remaining_hours'] = rem_hrs
         train_info['remaining_minutes'] = rem_min
+        train_info['is_finished'] = i+1 == num_games
         connection.send_response(ResponseMessage("electron",train_info))
 
     #enable print again
     sys.stdout = sys.__stdout__
 
-def simulate_mainloop():
+
+def simulate_mainloop(config):
     import time
-    for i in range(100):
-        time.sleep(0.05)
+    import ai_test_controller
+    import sys, os
+
+    ai_tester = ai_test_controller.AI_Tester(app_id="", deck_id="", special_folder_name = config['train_version'])
+
+    if ai_tester.main_folder_path == "":
+        return
+
+    #disable printing
+    sys.stdout = open(os.devnull, 'w')
+    
+    game_nums = int(config['game_nums'])
+    for i in range(game_nums):
+        ai_tester.TestOneIteration(i)
         simulate_progress ={}
         simulate_progress['curprogress'] = i+1
-        simulate_progress['maxprogress'] = 100
+        simulate_progress['maxprogress'] = game_nums
+        simulate_progress['is_finished'] = False
         connection.send_response(ResponseMessage("electron",simulate_progress))
+    
+    #enable print again
+    sys.stdout = sys.__stdout__
 
+    ai_tester.ProcessDataAndWriteFiles()
+
+    # send termiante message
+    simulate_progress ={}
+    simulate_progress['curprogress'] = game_nums
+    simulate_progress['maxprogress'] = game_nums
+    simulate_progress['is_finished'] = True
+    connection.send_response(ResponseMessage("electron",simulate_progress))
 
 # wait method
 request = connection.wait_one_request()
 if request.method == ELECTRON_DETECT_ENV:
-    detect_env_mainloop()
+    detect_env_mainloop(request.content)
 elif request.method == ELECTRON_TRAIN:
-    train_mainloop()
+    train_mainloop(request.content)
 elif request.method == ELECTRON_SIMULATE:
-    simulate_mainloop()
+    simulate_mainloop(request.content)
 else:
     print("undefined method: ",request.method)

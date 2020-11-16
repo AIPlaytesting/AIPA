@@ -2,6 +2,7 @@ const dbmanager = require('../scripts/dbmanager')
 const rootPath = require('electron-root-path').rootPath
 const dataVisualizer = require('../scripts/dataVisualizer')
 const cardRenderer = require('../scripts/cardRenderer')
+const utils = require('../scripts/utils')
 const PythonProcess = require('../Scripts/pythonProcess.js')
 
 var currentGameData = {}
@@ -27,7 +28,10 @@ function onFinishDBLoad(){
     $('#create-new-game-btn').off()
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
-    updateGameMainPage()
+    // refresh design page
+    updateDesignPage()
+    // also update playtest
+    updatePlaytestPage()
 
     function updateGameTemplateList(){
         let gameTemplateList = $("#game-template-list");
@@ -61,23 +65,39 @@ function onClickPlay(){
 }
 
 function onClickTrain(){
-    $('#game-edit-section-overlay').removeClass('d-none')
     $('#train-btn').addClass('d-none')
-    $('#train-spinner').removeClass('d-none')
+    $('#train-config').addClass('d-none')
+    $('#train-progress').removeClass('d-none')
+    $('#train-status').removeClass('d-none')
     $('#train-status').text('load AI...')
-    let pyProcess = new PythonProcess(11,
+    let gameID = dbmanager.getCurrentGameName()
+    let deckID = currentGameData.rules.deck
+    let iterationNums = $('#train-iter-config').val()
+    // lock the deck before training
+    dbmanager.updateGameData(gameID,'lockedDeck',deckID,refreshLibraryPage)
+    let pyProcess = new PythonProcess(
+        11,
+        {'game_id':gameID,'deck_id':deckID,'iterations':iterationNums},
 	    function () { console.log('success!') },
-        onReceiveTrainMesssage)
+        onReceiveTrainMesssage,
+        function(err){popupWarning(err)})
 }
 
 function onReceiveTrainMesssage(data){
     trainInfo = JSON.parse(data).content
     let curprogress =  trainInfo.curprogress
     let maxprogress = trainInfo.maxprogress
-    console.log('recevice!')
-    $('#train-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    let percentage = Math.ceil(100*curprogress/maxprogress)
+    $('#train-progress').attr("class","c100 p"+percentage)
     $('#train-progress-text').text(curprogress + "/" + maxprogress)
-    $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
+    if(trainInfo.is_finished){
+        $('#train-status').text('training is over')
+        // also update playtest
+        updatePlaytestPage()
+    }
+    else{
+        $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
+    }
 }
 
 function onClickCreateNewGame(){
@@ -146,7 +166,7 @@ function onClickRemoveCard(cardname){
 
 function onClickLibraryGameEntry(gameName){
     dbmanager.setCurrentGame(gameName)
-    updateGameMainPage()
+    refreshLibraryPage()
 }
 
 function onClickRemoveGame(){
@@ -166,44 +186,75 @@ function onClickRemoveGame(){
 }
 
 function onClickPlaytest(){
+    let gameNums = $('#playtest-game-num').val()
+    let gameName = dbmanager.getCurrentGameName()
+    let deckName = currentGameData.rules.deck
+    let trainVersion = $('#AI-dropdown-btn').text()
+
+    if(!dbmanager.getAllTrainedVersion(gameName,deckName).includes(trainVersion)){
+        popupWarning("must select correct AI to playtest!")
+        return 
+    }
     $('#playtest-btn').addClass('d-none')
-    $('#playtest-spinner').removeClass('d-none')
-    $('#data-status').removeClass('d-none')
+    $('#playtest-config-div').addClass('d-none')
+    $('#playtest-progress').removeClass('d-none')
+    $('#playtest-status').removeClass('d-none')
     $('#data-display-root').addClass('d-none')
-    let pyProcess = new PythonProcess(12,
+    console.log('Playtst: [train ver]-'+trainVersion)
+    let pyProcess = new PythonProcess(
+        12,
+        {'train_version': trainVersion,'game_nums':gameNums},
 	    function () { console.log('success!') },
-        onReceivePlaytestMesssage)
-    $('#data-status').text('Is playtesting...')
+        onReceivePlaytestMesssage,
+        function(err){popupWarning(err)})
+    $('#playtest-status').text('load trained AI modal...')
 }
 
 function onReceivePlaytestMesssage(data){
     simulateInfo = JSON.parse(data).content
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress
-    $('#playtest-progress-bar').attr("style","width:"+(curprogress*100/maxprogress)+"%")
+    let percentage = Math.ceil(100*curprogress/maxprogress)
+    $('#playtest-status').text('Is playtesting...')
+    $('#playtest-progress-bar').attr("class","c100 p"+percentage)
     $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
-    if(simulateInfo.curprogress >= simulateInfo.maxprogress){
-        onFinishPlaytest()
+    if(simulateInfo.is_finished){
+        let gamename= dbmanager.getCurrentGameName()
+        let deckname = currentGameData.rules.deck
+        let trainVersion = $('#AI-dropdown-btn').text()
+        viewPlaytestData(gamename,deckname, trainVersion)
     }
 }
 
-function onFinishPlaytest(){
+function viewPlaytestData(gamename,deckname,trainVersion){
+    let playtestData = dbmanager.loadPlaytestData(gamename,deckname,trainVersion)
+    console.log(playtestData)
     $('#playtest-btn').removeClass('d-none')
-    $('#playtest-spinner').addClass('d-none')
-    $('#data-status').addClass('d-none')
+    $('#playtest-config-div').removeClass('d-none')
+    $('#playtest-progress').addClass('d-none')
+    $('#playtest-status').addClass('d-none')
     $('#data-display-root').removeClass('d-none')
+
+    let basicStats = playtestData.basicStats
+    // set wintrate graph
+    $('#win-rate-text').text(basicStats.win_rate*100+'%')
+    let percentage = Math.ceil(basicStats.win_rate*100)
+    $('#win-rate-progress').attr("class","green c100 p"+percentage)
+    $('#avg-game-len').text("average game length: "+basicStats.avg_game_length)
+    $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
+    $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
     // draw data
-    let data = [
-        [
-          {"area": "winrate ", "value": 100*Math.random()},
-          {"area": "player HP", "value": 100*Math.random()},
-          {"area": "boss HP", "value": 100*Math.random()},
-          {"area": "average turns", "value": 100*Math.random()},
-          ]
-      ]
-    let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
-    dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
-    dataVisualizer.drawRankChart("../static/card.csv",'card-data-rankChart')
+    // let data = [
+    //     [
+    //       {"area": "winrate ", "value": basicStats.win_rate*100},
+    //       {"area": "player HP", "value": (basicStats.avg_player_hp/100)*100},
+    //       {"area": "avg boss HP", "value":  (basicStats.avg_boss_hp/250)*100},
+    //       {"area": "ave game length", "value": basicStats.avg_game_length},
+    //       ]
+    //   ]
+    // let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
+    // dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
+    dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
 }
 
 function onSwitchCurrentDeck(deckName){
@@ -240,21 +291,34 @@ function createNewGameBtn(){
 }
 
 // update main page based on current game in manifest
-function updateGameMainPage(){
+function updateDesignPage(){
     let gameName = dbmanager.getCurrentGameName()
     currentGameData = dbmanager.loadGameData(gameName)
     let gameData = currentGameData
-    //console.log(gameData)
+    // lock the deck edit if it is locked 
+    if(gameData.rules.locked_decks.includes(gameData.rules.deck)){
+        $('#game-edit-section-overlay').removeClass('d-none')
+    }
+    else{
+        $('#game-edit-section-overlay').addClass('d-none')
+    }
     $('#game-title').text(gameName)
-    $('#deck-count').text(Object.keys(gameData.decks).length)
-    $('#card-count').text(Object.keys(gameData.cards).length)
-    $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
+    updateGameSettingSection()
 
-    updateDropdownList('newcard-name-list','newcard-name-dropdown',Object.keys(gameData.cards))
+    utils.setupDropdown('newcard-name-list','newcard-name-dropdown',Object.keys(gameData.cards))
+    utils.setupDropdown('deck-template-list','deck-template-dropdown',Object.keys(gameData.decks))
+
     updateDeckDropdown()
-    updateDeckTemplateList()
 
     renderCardGrid()
+
+    function updateGameSettingSection(){
+        $('#deck-count').text(Object.keys(gameData.decks).length)
+        $('#card-count').text(Object.keys(gameData.cards).length)
+        $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
+        utils.setupSlider('player-hp-slider','player-hp-slider-value',30,100)
+        utils.setupSlider('boss-hp-slider','boss-hp-slider-value',100,400)
+    }
 
     function renderCardGrid(){
         let deckImgView = $('#deck-img-view')
@@ -343,39 +407,47 @@ function updateGameMainPage(){
             deckList.append(deckSwitchBtn)
         }
     }
-
-    function updateDeckTemplateList(){
-        let deckTemplateList = $("#deck-template-list");
-        deckTemplateList.text("");
-        $('#deck-template-dropdown').text("please select a template")
-        for(deckName in currentGameData.decks){
-            // create deck template option button
-            let templateOptionBtn =$(document.createElement('button'))
-            templateOptionBtn.attr('class','dropdown-item')
-            templateOptionBtn.text(deckName)
-            templateOptionBtn.click(function(){
-                $('#deck-template-dropdown').text($(this).text())
-            })
-            deckTemplateList.append(templateOptionBtn)
-        }
-    }
-
-    function updateDropdownList(dropdownMenuID,dropwdownBtnID,options){
-        let dropdownMenu = $("#"+dropdownMenuID);
-        dropdownMenu .text("");
-        $('#'+dropwdownBtnID).text("please select")
-        for(option of options){
-            let optionBtn =$(document.createElement('button'))
-            .attr('class','dropdown-item')
-            .text(option)
-            .click(function(){
-                $('#'+dropwdownBtnID).text($(this).text())
-            })
-            dropdownMenu .append(optionBtn)
-        }
-    }
 }
 
+function updatePlaytestPage(){
+    utils.setupDropdown(
+        'AI-dropdown-list',
+        'AI-dropdown-btn',
+        dbmanager.getAllTrainedVersion(dbmanager.getCurrentGameName(),currentGameData.rules.deck))
+    updatePlaytestHistory()
+
+    function updatePlaytestHistory(){
+        $('#playtest-history-list').text("")
+        for(i = 0; i <5;i++){
+            $('#playtest-history-list').append(createHistoryEntry())
+        }
+    }
+
+    function createHistoryEntry(){
+        let entryRoot = $(document.createElement('div'))
+            .attr('class','row playtest-history-entry')
+            .css('border-radius','10px;')
+        let deckText = $(document.createElement('span')).attr('class','col-3 text-center').text("Deck 1")
+        let timeText = $(document.createElement('span')).attr('class','col-3').text("11-Oct-10-23")
+        let viewResBtn = $(document.createElement('button'))
+            .attr('class','col-2 btn btn-primary')
+            .text('View Result')
+            .click(function(){
+                viewPlaytestData('TestApp','deck1')
+                $('.playtest-history-entry')
+                    .css('color','')
+                    .css('font-weight','')
+                    .css('font-size','')
+                $(this).parent()
+                    .css('color','red')
+                    .css('font-weight','bold')
+                    .css('font-size','large')
+            })
+        let delBtn = $(document.createElement('button')).attr('class','col-2 btn btn-danger').text('Delete')
+        entryRoot.append(deckText,timeText,viewResBtn,delBtn)
+        return entryRoot
+    }
+}
 
 function popupWarning(message){
     $('#warning-modal').modal()

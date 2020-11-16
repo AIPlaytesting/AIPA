@@ -1,15 +1,16 @@
 import AI_Module.RewardFunctions
-import AI_Module.TrainingDataCollector
+import AI_Module.DataCollector
 
 class GameBuffer:
     
-    def __init__(self, state_space, action_space, unplayable_pun, isCustomCardRewards):
+    def __init__(self, state_space, action_space, unplayable_pun, isCustomCardRewards, isTrain):
 
         self.isCustomCardRewards = isCustomCardRewards
         self.state_space = state_space #key : string name, value : index
         self.action_space = action_space #key : index, value : name
+        self.isTrain = isTrain
         self.reward_functions = AI_Module.RewardFunctions.RewardFunctions(self.state_space, self.action_space)
-        self.data_collector = AI_Module.TrainingDataCollector.TrainingDataCollector(self.state_space, self.action_space)
+        self.data_collector = AI_Module.DataCollector.DataCollector(self.state_space, self.action_space, self.isTrain)
 
         self.cur_states = []
         self.cur_new_states = []
@@ -29,8 +30,6 @@ class GameBuffer:
         self.unplayable_pun = unplayable_pun
 
         self.n_steps_return = 2
-
-
 
     def ResetCurrentLists(self):
         self.cur_states = []
@@ -86,9 +85,6 @@ class GameBuffer:
             store_count = 2 if win_int == 1 else 1
         else:
             store_count = 5 if win_int == 1 else 1
-        
-
-
 
         for turn_index in range(len(self.reward_list_turns)):
             for step_index in range(len(self.reward_list_turns[turn_index])):
@@ -102,15 +98,16 @@ class GameBuffer:
             for state, new_state, action, reward, terminal in zip(state_list, new_state_list, action_list, reward_list, terminal_list):
 
                 for x in range(store_count):
-                    if action != -1:
+                    if action != -1 and self.isTrain:
                         ai_agent.StoreTransition(state, new_state, action, reward, terminal)
 
-                ai_agent.Learn()
+                if self.isTrain:
+                    ai_agent.Learn()
 
                 if self.CheckForQModelSwitch(ai_agent):
                     self.data_collector.RecordQModelSwitch()
         
-        self.data_collector.AddCurrentTurnDataToGameLists()
+        self.data_collector.AddCurrentTurnDataToGameLists(isWin=(win_int==1))
 
 
 

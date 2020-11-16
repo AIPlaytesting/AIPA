@@ -10,7 +10,7 @@ function onReceiveTrainMesssage(data){
     let curprogress =  trainInfo.curprogress
     let maxprogress = trainInfo.maxprogress
     $('#train-progress').attr("style","width:"+(curprogress*100/maxprogress)+"%")
-    $('#train-progress').text((curprogress*100/maxprogress) + '%')
-    $('#train-cur-winrate').text("Iterations Completed : " + curprogress + " / " + maxprogress)
+    //$('#train-progress').text((curprogress*100/maxprogress) + '%')
+    $('#iterations-complete').text("Iterations Completed : " + curprogress + " / " + maxprogress)
     $('#remaining_time').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
 }
