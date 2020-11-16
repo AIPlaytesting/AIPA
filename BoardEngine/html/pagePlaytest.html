@@ -1,0 +1,70 @@
+<!--playtest head pannel-->
+<div class = "row head-pannel">
+    <!--play test operation-->
+    <div class = "col-3"> 
+        <!--play test btn-->
+        <button id = "playtest-btn" class="btn" onclick="onClickPlaytest()">
+            <img src="../static/playtest-btn.png">
+        </button>
+        <!--play test progress-->
+        <div id = "playtest-progress"  class="clearfix text-center d-none">
+            <div id = "playtest-progress-bar" class="c100 p0">
+                <span id = "playtest-progress-text" >0/100</span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <!--play test config-->
+    <div class="col-6" >
+        <div class="row" id = 'playtest-config-div' style="height: 150px;">
+            <div class="col-4" >
+                <h2>number of games:</h2>
+                <input id = 'playtest-game-num'type="text" value = "1000">  
+            </div>
+            <div class="dropdown col-4">
+                <button id ="AI-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                <div id ="AI-dropdown-list" class="dropdown-menu">
+                </div>
+            </div>
+        </div>
+        <div id = 'playtest-status' class = 'display-3  d-none'>Playtest you game</div>
+    </div>
+    <hr>
+</div>
+
+<!-- playtest history-->
+<div class="middle-section d-none">
+    <button class="btn" data-toggle="collapse" data-target="#playtest-history-list ">History</button>
+    <div id = "playtest-history-list" class='collapse show' >
+    </div>
+</div>
+
+<!--data visualization-->
+<div id = "data-display-root" class="row d-none">
+    <!--winrate info-->
+    <div id = 'playtest-winrate' class="col-2">
+        <div class="clearfix text-center div-center">
+            <div id = 'win-rate-progress' class="c100 p60 green">
+                <span><span id = 'win-rate-text'></span><br>winrate</span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--basic info-->
+    <div id = 'basicInfo' class="col-4" >
+        <div class="div-center">
+            <h1 id = 'avg-game-len'></h1>
+            <h1 id = 'avg-player-hp'></h1>
+            <h1 id = 'avg-boss-hp'></h1>
+        </div>
+    </div>
+    <div class="col-1" ></div>
+    <!--card rank-->
+    <div id = 'card-data-rankChart' class="col-5"></div>
+</div>

@@ -22,6 +22,17 @@
     <script src = "https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 </head>
 <body>
+    <!--load sub pages htmls from exernal files-->
+    <script>
+        $(document).ready(function(e) {
+            $('#train-section').load('pageTrain.html')
+            $('#game-edit-section').load('pageDesign.html')
+            $('#playtest-section').load('pagePlaytest.html')
+            $('#modal-basic').load('modalBasic.html')
+            var stepper = new Stepper($('.bs-stepper')[0],stepperOptions)
+        });
+    </script>
+
     <script>
         window.onload = refreshLibraryPage
         // stepper
@@ -34,10 +45,8 @@
                 stepper: '.bs-stepper'
             }
         }
-        $(document).ready(function () {
-        var stepper = new Stepper($('.bs-stepper')[0],stepperOptions)
-        })
     </script>
+
     <div class="row">
         <div id = 'lib-root' class = 'col-12'>
             <hr>
@@ -63,12 +72,9 @@
                     </div>
                     <div class="bs-stepper">
                         <div class="bs-stepper-header" role="tablist">
-                        <!-- your steps here -->
                         <div class="step" data-target="#game-edit-step">
                             <button type="button"  class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
                             <img src="../static/designStep.png">
-                            <!-- <span class="bs-stepper-circle">1</span>
-                            <span class="bs-stepper-label">Design</span> -->
                             </button>
                         </div>
                         <div class="line"></div>
@@ -88,197 +94,18 @@
                             <!-- game edit step -->
                             <div id="game-edit-step" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                                 <div id ="game-edit-section">
-                                    <!--head pannel-->
-                                    <div class = "row head-pannel">
-                                        <!--play game operation-->
-                                        <div class = "col-3">
-                                            <button id ='play-btn' class="btn" onclick="onClickPlay()">
-                                                <img src="../static/play-btn.png">
-                                            </button>
-                                        </div>
-                                        <!--deck operations-->
-                                        <div id ="game-profile" class="row col-3">
-                                            <div class ="div-center">
-                                                <div class=" dropdown">
-                                                    <button id = 'create-deck-btn' class="btn btn-dark" data-toggle = 'modal' data-target = '#create-deck-modal'>+</button>                           
-                                                    <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
-                                                    <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col d-none">
-                                                    <span>Deck:</span>
-                                                    <span id = 'deck-count'></span>
-                                                    <span>Cards:</span>
-                                                    <span id = 'card-count'></span>
-                                                    <span>Buffs:</span>
-                                                    <span id = 'buff-count'></span>
-                                            </div> -->
-                                        </div>                                        
-                                        <!--game edit config-->
-                                        <div class = "col-6 d-none">
-                                            <div>
-                                                <div class  ="row" style="height:50px;">
-                                                    <img src = '../static/player-hp-icon.png' class="col-4" style = "height:40px">
-                                                    <h1 id = 'player-hp-slider-value' class="col-5" >0</h1>
-                                                </div>
-                                                <input id = 'player-hp-slider' type="range" class="custom-range " >
-                                            </div>
-                                            <div>
-                                                <div class  ="row" style="height:50px;">
-                                                    <img src = '../static/boss-hp-icon.png' class="col-4" style = "height:40px">
-                                                    <h1 id = 'boss-hp-slider-value' class="col-5" >0</h1>
-                                                </div>
-                                                <input id = 'boss-hp-slider' type="range" class="custom-range">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--design lock div-->
-                                    <div class="overlaycontainer">
-                                        <div id = "deck-img-view" class="middle-section overlaycontainer">
-                                        </div>     
-                                        <!--design lock overlay-->
-                                        <div id = "game-edit-section-overlay" class="overlay d-none">
-                                            <div class="hovertext">Deck is locked after you train, create  a new deck instead</div>
-                                        </div>
-                                    </div>                               
+                        
                                 </div>
                             </div>
                             <!-- train AI step-->
                             <div id="train-step" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                 <div id ="train-section">
-                                    <!--train head pannel-->
-                                    <div class = "row head-pannel">
-                                    <!--train operation-->
-                                    <div class = "col-3"> 
-                                        <!--train btn-->
-                                        <button id = "train-btn" class="btn" onclick="onClickTrain()">
-                                            <img src="../static/train-btn.png">
-                                        </button>
-                                        <!--play test progress-->
-                                        <div id = "train-progress"  class="clearfix text-center d-none">
-                                            <div id = "train-progress-bar" class="c100 p0">
-                                                <span id = "train-progress-text" >??</span>
-                                                <div class="slice">
-                                                    <div class="bar"></div>
-                                                    <div class="fill"></div>
-                                                </div>
-                                            </div>
-                                        </div>  
-                                    </div>
-                                    <!--train config-->
-                                    <div class="col-8" >
-                                        <div id = 'train-config'>
-                                            <span>
-                                                <h2>number of iterations:</h2>
-                                                <input id = 'train-iter-config' type="text" value = "12000">
-                                            </span>                                        
-                                        </div>
-                                        <div id = 'train-status' class = 'display-4  d-none'>Train your AI</div>
-                                    </div>
-                                    </div>
-                                    <!-- train advanced config-->
-                                    <div class="middle-section">
-                                        <button class="btn" data-toggle="collapse" data-target="#train-advanced-config ">Advance</button>
-                                        <div id = "train-advanced-config" class='collapse'>
-                                            <div id="div_epsilon" class="form-group required">
-                                                <label for="id_username" class="control-label col-md-4  requiredField"> Start Epsilon<span class="asteriskField">*</span> </label>
-                                                <div class="controls col-md-8 ">
-                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="1" style="margin-bottom: 10px" type="text" />
-                                                </div>
-                                            </div>
-                                            <div id="div_epsilon_dec" class="form-group required">
-                                                <label for="id_username" class="control-label col-md-4  requiredField"> Epsilon Decay<span class="asteriskField">*</span> </label>
-                                                <div class="controls col-md-8 ">
-                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="0.0003" style="margin-bottom: 10px" type="text" />
-                                                </div>
-                                            </div>
-                                            <div id="div_epsilon_dec" class="form-group required">
-                                                <label for="id_username" class="control-label col-md-4  requiredField">Minimum Epsilon<span class="asteriskField">*</span> </label>
-                                                <div class="controls col-md-8 ">
-                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="0.01" style="margin-bottom: 10px" type="text" />
-                                                </div>
-                                            </div>
-                                            <div id="div_batch_size" class="form-group required">
-                                                <label for="id_username" class="control-label col-md-4  requiredField">Batch Size<span class="asteriskField">*</span> </label>
-                                                <div class="controls col-md-8 ">
-                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="128" style="margin-bottom: 10px" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                             <!-- Playtest step-->
                             <div id="playtest-step" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                 <div id ="playtest-section" class="overlaycontainer">
-                                     <!--playtest head pannel-->
-                                    <div class = "row head-pannel">
-                                        <!--play test operation-->
-                                        <div class = "col-3"> 
-                                            <!--play test btn-->
-                                            <button id = "playtest-btn" class="btn" onclick="onClickPlaytest()">
-                                                <img src="../static/playtest-btn.png">
-                                            </button>
-                                            <!--play test progress-->
-                                            <div id = "playtest-progress"  class="clearfix text-center d-none">
-                                                <div id = "playtest-progress-bar" class="c100 p0">
-                                                    <span id = "playtest-progress-text" >0/100</span>
-                                                    <div class="slice">
-                                                        <div class="bar"></div>
-                                                        <div class="fill"></div>
-                                                    </div>
-                                                </div>
-                                            </div>  
-                                        </div>
-                                        <!--play test config-->
-                                        <div class="col-6" >
-                                            <div class="row" id = 'playtest-config-div' style="height: 150px;">
-                                                <div class="col-4" >
-                                                    <h2>number of games:</h2>
-                                                    <input id = 'playtest-game-num'type="text" value = "1000">  
-                                                </div>
-                                                <div class="dropdown col-4">
-                                                    <button id ="AI-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
-                                                    <div id ="AI-dropdown-list" class="dropdown-menu">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id = 'playtest-status' class = 'display-3  d-none'>Playtest you game</div>
-                                        </div>
-                                        <hr>
-                                    </div>
-                                    <!-- playtest history-->
-                                    <div class="middle-section d-none">
-                                        <button class="btn" data-toggle="collapse" data-target="#playtest-history-list ">History</button>
-                                        <div id = "playtest-history-list" class='collapse show' >
-                                        </div>
-                                    </div>
-                                     <!--data visualization-->
-                                    <div id = "data-display-root" class="row d-none">
-                                        <!--winrate info-->
-                                        <div id = 'playtest-winrate' class="col-2">
-                                            <div class="clearfix text-center div-center">
-                                                <div id = 'win-rate-progress' class="c100 p60 green">
-                                                    <span><span id = 'win-rate-text'></span><br>winrate</span>
-                                                    <div class="slice">
-                                                        <div class="bar"></div>
-                                                        <div class="fill"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--basic info-->
-                                        <div id = 'basicInfo' class="col-4" >
-                                            <div class="div-center">
-                                                <h1 id = 'avg-game-len'></h1>
-                                                <h1 id = 'avg-player-hp'></h1>
-                                                <h1 id = 'avg-boss-hp'></h1>
-                                            </div>
-                                        </div>
-                                        <div class="col-1" ></div>
-                                        <!--card rank-->
-                                        <div id = 'card-data-rankChart' class="col-5"></div>
-                                    </div>
                                 </div>
                             </div>     
                         </div>
@@ -289,40 +116,7 @@
     </div>
     <!--modals-->
     <div id ='modals'>
-        <!--warining-->
-        <div id ="warning-modal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h4 class="modal-title">Warning</h4></div>
-            
-                    <div id ="warning-modal-body" class="modal-body alert alert-danger">
-                    </div>
-            
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
-                    </div>    
-                </div>
-                </div>
-        </div>
-        <!--confirm-->
-        <div id ="confirm-modal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 id="confirm-modal-title">Warning</h4>
-                    </div>
-            
-                    <div id ="confirm-modal-body" class="modal-body alert alert-danger">
-                    </div>
-            
-                    <div class="modal-footer">
-                    <button id = "confirm-model-confirm-btn" type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                    </div>    
-                </div>
-                </div>
-        </div>
+        <div id = 'modal-basic'></div>
         <!--creategame-->
         <div id = "create-game-modal" class="modal fade">
             <div class="modal-dialog">
@@ -352,7 +146,6 @@
             </div>
             </div>
         </div>
-
         <!--create deck -->
         <div id = "create-deck-modal" class="modal fade">
             <div class="modal-dialog">
@@ -381,7 +174,6 @@
                 </div>
             </div>
         </div>
-
         <!--add card -->
         <div id = "add-card-modal" class="modal fade">
             <div class="modal-dialog">
