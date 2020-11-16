@@ -146,34 +146,64 @@
                             <!-- train AI step-->
                             <div id="train-step" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                 <div id ="train-section">
-                                     <!--train head pannel-->
-                                     <div class = "row head-pannel">
-                                        <!--train operation-->
-                                        <div class = "col-3"> 
-                                            <!--train btn-->
-                                            <button id = "train-btn" class="btn" onclick="onClickTrain()">
-                                                <img src="../static/train-btn.png">
-                                            </button>
-                                            <!--play test progress-->
-                                            <div id = "train-progress"  class="clearfix text-center d-none">
-                                                <div id = "train-progress-bar" class="c100 p0">
-                                                    <span id = "train-progress-text" >??</span>
-                                                    <div class="slice">
-                                                        <div class="bar"></div>
-                                                        <div class="fill"></div>
-                                                    </div>
+                                    <!--train head pannel-->
+                                    <div class = "row head-pannel">
+                                    <!--train operation-->
+                                    <div class = "col-3"> 
+                                        <!--train btn-->
+                                        <button id = "train-btn" class="btn" onclick="onClickTrain()">
+                                            <img src="../static/train-btn.png">
+                                        </button>
+                                        <!--play test progress-->
+                                        <div id = "train-progress"  class="clearfix text-center d-none">
+                                            <div id = "train-progress-bar" class="c100 p0">
+                                                <span id = "train-progress-text" >??</span>
+                                                <div class="slice">
+                                                    <div class="bar"></div>
+                                                    <div class="fill"></div>
                                                 </div>
-                                            </div>  
-                                        </div>
-                                        <!--train config-->
-                                        <div class="col-8" >
-                                            <div id = 'train-config'>
-                                                <span>
-                                                    <h2>number of iterations:</h2>
-                                                    <input id = 'train-iter-config' type="text" value = "12000">
-                                                </span>                                        
                                             </div>
-                                            <div id = 'train-status' class = 'display-4  d-none'>Train your AI</div>
+                                        </div>  
+                                    </div>
+                                    <!--train config-->
+                                    <div class="col-8" >
+                                        <div id = 'train-config'>
+                                            <span>
+                                                <h2>number of iterations:</h2>
+                                                <input id = 'train-iter-config' type="text" value = "12000">
+                                            </span>                                        
+                                        </div>
+                                        <div id = 'train-status' class = 'display-4  d-none'>Train your AI</div>
+                                    </div>
+                                    </div>
+                                    <!-- train advanced config-->
+                                    <div class="middle-section">
+                                        <button class="btn" data-toggle="collapse" data-target="#train-advanced-config ">Advance</button>
+                                        <div id = "train-advanced-config" class='collapse'>
+                                            <div id="div_epsilon" class="form-group required">
+                                                <label for="id_username" class="control-label col-md-4  requiredField"> Start Epsilon<span class="asteriskField">*</span> </label>
+                                                <div class="controls col-md-8 ">
+                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="1" style="margin-bottom: 10px" type="text" />
+                                                </div>
+                                            </div>
+                                            <div id="div_epsilon_dec" class="form-group required">
+                                                <label for="id_username" class="control-label col-md-4  requiredField"> Epsilon Decay<span class="asteriskField">*</span> </label>
+                                                <div class="controls col-md-8 ">
+                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="0.0003" style="margin-bottom: 10px" type="text" />
+                                                </div>
+                                            </div>
+                                            <div id="div_epsilon_dec" class="form-group required">
+                                                <label for="id_username" class="control-label col-md-4  requiredField">Minimum Epsilon<span class="asteriskField">*</span> </label>
+                                                <div class="controls col-md-8 ">
+                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="0.01" style="margin-bottom: 10px" type="text" />
+                                                </div>
+                                            </div>
+                                            <div id="div_batch_size" class="form-group required">
+                                                <label for="id_username" class="control-label col-md-4  requiredField">Batch Size<span class="asteriskField">*</span> </label>
+                                                <div class="controls col-md-8 ">
+                                                    <input class="input-md  textinput textInput form-control" maxlength="30" name="username" placeholder="128" style="margin-bottom: 10px" type="text" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
