@@ -1,24 +1,24 @@
 .imgDiv {
     position: relative;
     text-align: center;
-    color: white;
+    color: black;
 }
 
 .top-left {
-    position: absolute;
-    top: 2px;
-    left: 11px;
-    background-color: orange;
-    font-size: large;
+    /* position: absolute; */
+    /* top: 2px;
+    left: 11px; */
+    /* background-color: orange; */
+    font-size: small;
   }
 
 .bottom-center {
-    position: absolute;
-    top: 130px;
+    /* position: absolute; */
+    /* top: 50px;
     left: 20px;
-    right: 20px;
-    background-color: rgb(161, 54, 54);
-    font-size: large;
+    right: 20px; */
+    /* background-color: rgb(161, 54, 54); */
+    font-size: small
   } 
 
 .font-xxlarge {

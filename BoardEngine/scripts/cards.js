@@ -27,6 +27,11 @@ function onFinishDBLoad() {
   cardFolderPath = curGameroot + '/Cards/';
   // TODO: image path to img_relative_path
 
+  // display current app name
+  let curapp = document.getElementById('curapp');
+  curapp.innerHTML = curGameName;
+  curapp.parentElement.style.fontStyle = 'italic';
+
   // get parameters from html url query string, including cardFolderPath
   var parameters = location.search.substring(1).split("&");
   var temp = parameters[0].split('=');
@@ -69,6 +74,17 @@ function onFinishDBLoad() {
 // submit to save into local json file
 function submitForm(e) {
   e.preventDefault();
+
+  // text validation check
+  let nameElement = document.getElementById('name');
+  if (!textIsValid(nameElement.value)) {
+    console.log('Card name can only contain alphabet, number, and space.');
+    alert('Card name can only contain alphabet, number, and space.');
+    nameElement.value = '';
+    return;
+  }
+
+  // get input to object
   let data = {
     "name": document.getElementById('name').value,
     "type": document.getElementById('type').value,
@@ -101,6 +117,7 @@ function submitForm(e) {
   // remove 'Plus' from name if any for reference to the original png.
   let imgName = data['img_relative_path'];
   // name = name.replace(' Plus', '');
+  console.log(document.getElementById("image-file"));
   let uploadImgPath = document.getElementById("image-file").files[0].path;
   let saveImgPath = appPath + imgName;
   console.log(saveImgPath);
@@ -277,7 +294,13 @@ function indicator(obj) {
   // console.log(obj.value);
 
   // get card values from local json file
-  let cardName = document.getElementById('cardsSelect').value;
+  let cardName = '';
+  if (document.getElementById('cardsSelect') == null) {
+    return;
+  }
+  cardName = document.getElementById('cardsSelect').value;  
+  
+  console.log(cardName);
   // console.log(cardName);
   cardPath = `${cardFolderPath}${cardName}.json`
   // console.log(cardPath);
@@ -346,4 +369,12 @@ function createBuffTable() {
     tr.appendChild(th);
   });
   table.appendChild(tr);
+}
+
+function textIsValid(text) {
+  let letterNumberSpace = /^[A-Za-z0-9 ]+$/i;
+  if (text.match(letterNumberSpace) == null) {
+    return false;
+  }
+  return true;
 }

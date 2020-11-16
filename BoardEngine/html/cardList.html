@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script>let $ = require('jquery');</script>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src='../scripts/cardList.js'></script>
+  <link rel="stylesheet" href="../css/cardList.css">
+
+</head>
+
+<body onload="onLoadCardList()">
+  <div class='container m-3'>
+    <div class="row">
+      <div class='col-2'>
+        <div class='row m-3 cursor-pointer'>
+          <i class="material-icons" onclick="window.close();">
+            clear
+          </i>
+        </div>
+        <div class='row m-3'>
+          <a class='' href='cardList.html'>
+            <button class='btn btn-primary'>
+              <span>Cards</span>
+            </button>
+          </a>
+        </div>
+        <div class='row m-3'>
+          <a class='' href='decks.html'>
+            <button class='btn btn-primary'>
+              <div>Decks</div>
+            </button>
+          </a>
+        </div>
+        <div class='row m-3'>
+          <a class='' href='train.html'>
+            <button class='btn btn-primary'>
+              <div>Training</div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class='col-10'>
+        <h2>Cards</h2>
+        <hr>
+        <h6>Current APP: <span id='curapp'></span></h6>
+
+        <div id='cards' class='row'>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

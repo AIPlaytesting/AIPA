@@ -44,7 +44,7 @@ function onLoadCards() {
     files.forEach(file => {
       // div element
       const div = document.createElement('div');
-      div.className = 'col-3 mb-5';
+      div.className = 'col-3 mb-3';
       // get image path
       fs.readFile(cardFolderPath + file, (err, data) => {
         if (err) throw err;
@@ -65,18 +65,20 @@ function onLoadCards() {
         const img = document.createElement('img');
         img.src = imgPath;
         img.width = '160';
+        img.className = 'img-fluid mx-auto';
         imgDiv.appendChild(img);
 
-        const topLeft = document.createElement('div');
-        topLeft.className = 'top-left';
-        topLeft.innerHTML = energyCost;
-        imgDiv.appendChild(topLeft);
-
         const bottomCenter = document.createElement('div');
-        bottomCenter.className = 'bottom-center';
+        bottomCenter.className = 'bottom-center mx-auto px-3';
         bottomCenter.innerHTML = description;
         imgDiv.appendChild(bottomCenter);
-        
+
+        const topLeft = document.createElement('div');
+        topLeft.className = 'top-left mx-auto px-3';
+        topLeft.innerHTML = `Cost: ${energyCost}`;
+        imgDiv.appendChild(topLeft);
+
+
         div.appendChild(imgDiv);
       });
 
@@ -94,11 +96,11 @@ function onLoadCards() {
       // Edit Button
       const row2 = document.createElement('div');
       row2.className = 'row justify-content-center';
-      const a = document.createElement('a');
-      a.className = 'ml-1 mb-1 btn btn-info';
-      a.innerHTML = 'Edit';
-      a.href = `cards.html?cardName="${card_name}"`;
-      row2.appendChild(a);
+      // const a = document.createElement('a');
+      // a.className = 'ml-1 mb-1 btn btn-info';
+      // a.innerHTML = 'Edit';
+      // a.href = `cards.html?cardName="${card_name}"`;
+      // row2.appendChild(a);
 
       // Delete card
       const icon = document.createElement('i');
@@ -113,7 +115,7 @@ function onLoadCards() {
       // Add to deck
       btn = document.createElement('button');
       btn.className = 'ml-1 mb-1 btn btn-success';
-      btn.innerHTML = '+ Deck';
+      btn.innerHTML = '+Deck';
       btn.onclick = addToDeck;
       row2.appendChild(btn);
 
