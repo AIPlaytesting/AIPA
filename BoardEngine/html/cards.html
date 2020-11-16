@@ -3,175 +3,207 @@
 
 <head>
   <meta charset="utf-8">
-  <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
-  <link rel='stylesheet' href='../css/style.css'>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <link rel='stylesheet' href='../css/style.css'> -->
+  <link rel='stylesheet' href='../css/cards.css'>
   <script src='../scripts/cards.js'></script>
 </head>
 
 <body onload="onLoadCards()">
-  <a name="top"></a>
-  <h2 class='center'>Create/Edit Card!</h2>
-  <p class='center'>Fill out the form and click save.</p>
-  <p class='right'><a href='decks.html'>Home</a></p>
-  <label id='cardsSelectLabel' for="cardsSelect">Choose a card:</label>
-  <select name="cardsSelect" id="cardsSelect" onchange="readCard()"></select>
-
-  <div class="container">
-    <form id='saveForm'>
-      <div class="row">
-        <div class="col-25">
-          <label for="name">Name</label>
+  <div class='container m-3'>
+    <div class="row">
+      <div class='col-2'>
+        <div class='row m-3 cursor-pointer'>
+          <i class="material-icons" onclick="window.close();">
+            clear
+          </i>
         </div>
-        <div class="col-75">
-          <input type="text" id="name" name="name" value="card name" onchange='indicator(this)'>
+        <div class='row m-3'>
+          <a class='' href='cardList.html'>
+            <button class='btn btn-primary'>
+              <span>Cards</span>
+            </button>
+          </a>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="type">Type</label>
+        <div class='row m-3'>
+          <a class='' href='decks.html'>
+            <button class='btn btn-primary'>
+              <div>Decks</div>
+            </button>
+          </a>
         </div>
-        <div class="col-75">
-          <select id="type" name="type" onchange='indicator(this)'>
-            <option value="Attack">Attack</option>
-            <option value="Skill">Skill</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="energy_cost">Energy cost</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id="energy_cost" name="energy_cost" value="0" onchange='indicator(this)'>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="damage_target">damage_target</label>
-        </div>
-        <div class="col-75">
-          <select id="damage_target" name="damage_target" onchange='indicator(this)'>
-            <option value="enemy">enemy</option>
-            <option value="self">self</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="description">description</label>
-        </div>
-        <div class="col-75">
-          <textarea type='text' id="description" name="description" onchange='indicator(this)' rows="4">
-          </textarea>
-        </div>
-      </div>
-      <div class="row">
-        <div class='col-25'>
-          <label for="img_relative_path">img_relative_path</label>
-        </div>
-        <div class='col-75'>
-          <input type='text' id="img_relative_path" name="img_relative_path" value="img_relative_path"
-            onchange='indicator(this)'>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="card-img">image</label>
-        </div>
-        <div class="col-25">
-          <img id="card-img" src="" width='200'/>
-        </div>
-        <div class="col-25">
-          <input id="image-file" type="file" />
+        <div class='row m-3'>
+          <a class='' href='train.html'>
+            <button class='btn btn-primary'>
+              <div>Training</div>
+            </button>
+          </a>
         </div>
       </div>
 
-      <h3>damage block info:</h3>
-      <div class="row">
-        <div class="col-25">
-          <label for="damage">damage</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id='damage' name='damage' value="0" onchange='indicator(this)'>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="damage_instances">damage_instances</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id='damage_instances' name='damage_instances' value="0" onchange='indicator(this)'>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="block">block</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id='block' name='block' value="0" onchange='indicator(this)'>
-        </div>
-      </div>
+      <div class='col-10'>
+        <h2 class='center'>Cards</h2>
+        <hr>
+        <h6>Current APP: <span id='curapp'></span></h6>
+        <label id='cardsSelectLabel' for="cardsSelect">Choose a card:</label>
+        <select name="cardsSelect" id="cardsSelect" onchange="readCard()"></select>
+        <div class='row mt-3'>
 
-      <h3>card_life_cycle_info:</h3>
-      <div class="row">
-        <div class="col-25">
-          <label for="copies_in_discard_pile_when_played">copies_in_discard_pile_when_played</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id='copies_in_discard_pile_when_played' name='copies_in_discard_pile_when_played'
-            value="0" onchange='indicator(this)'>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="draw_card">draw_card</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id='draw_card' name='draw_card' value="0" onchange='indicator(this)'>
-        </div>
-      </div>
+          <div class='col-sm-3'>
+            <div class="row">
+              <div>
+                <img id="card-img" src="" width='200' />
+              </div>
+              <div>
+                <input class='btn' id="image-file" type="file" />
+              </div>
+            </div>
+          </div>
+          <div class='col-sm-9'>
+            <form id='saveForm'>
+              <div class="form-group row">
+                <label class='col-sm-3 col-form-label' for="name">Name</label>
+                <div class="col-sm-9">
+                  <input class='form-control' type="text" id="name" name="name" value="card name"
+                    onchange='indicator(this)'>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class='col-sm-3 col-form-label' for="type">Type</label>
+                <div class='col-sm-9'>
+                  <select class='form-control' id="type" name="type" onchange='indicator(this)'>
+                    <option value="Attack">Attack</option>
+                    <option value="Skill">Skill</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class='col-sm-3 col-form-label' for="energy_cost">Energy cost</label>
+                <div class='col-sm-9'>
+                  <input class="form-control" type='number' id="energy_cost" name="energy_cost" value="0"
+                    onchange='indicator(this)'>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class='col-sm-3 col-form-label' for="damage_target">damage_target</label>
+                <div class='col-sm-9'>
+                  <select class="form-control" id="damage_target" name="damage_target" onchange='indicator(this)'>
+                    <option value="enemy">enemy</option>
+                    <option value="self">self</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class='col-sm-3 col-form-label' for="description">description</label>
+                <div class='col-sm-9'>
+                  <textarea class="form-control" type='text' id="description" name="description"
+                    onchange='indicator(this)' rows="4">
+                  </textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class='col-sm-3 col-form-label' for="img_relative_path">img_relative_path</label>
+                <div class='col-sm-9'>
+                  <input class="form-control" type='text' id="img_relative_path" name="img_relative_path"
+                    value="img_relative_path" onchange='indicator(this)'>
+                </div>
+              </div>
 
-      <h3>buffs_info:</h3>
-      <!-- <div class='row'> -->
-      <table id='buff-table'>
-      </table>
-      <!-- </div> -->
+              <br>
+              <div class='row'>
+                <div class='col-sm-6'>
+                  <h5>damage block info:</h5>
+                  <div class="form-group row">
+                    <label class='col-sm-8 col-form-label' for="damage">damage</label>
+                    <div class='col-sm-4'>
+                      <input class="form-control" type='number' id='damage' name='damage' value="0"
+                        onchange='indicator(this)'>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class='col-sm-8 col-form-label' for="damage_instances">damage_instances</label>
+                    <div class="col-sm-4">
+                      <input class='form-control' type='number' id='damage_instances' name='damage_instances' value="0"
+                        onchange='indicator(this)'>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class='col-sm-8 col-form-label' for="block">block</label>
+                    <div class="col-sm-4">
+                      <input class='form-control' type='number' id='block' name='block' value="0"
+                        onchange='indicator(this)'>
+                    </div>
+                  </div>
+                </div>
 
-      <h3>special_modifiers_info:</h3>
-      <div class="row">
-        <div class="col-25">
-          <label for="unique_damage">unique_damage</label>
+                <div class='col-sm-6'>
+                  <h5>card_life_cycle_info:</h5>
+                  <div class="form-group row">
+                    <label class='col-sm-8 col-form-label'
+                      for="copies_in_discard_pile_when_played">copies_in_discard_pile_when_played</label>
+                    <div class="col-sm-4">
+                      <input class='form-control' type='number' id='copies_in_discard_pile_when_played'
+                        name='copies_in_discard_pile_when_played' value="0" onchange='indicator(this)'>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class='col-sm-8 col-form-label' for="draw_card">draw_card</label>
+                    <div class="col-sm-4">
+                      <input class='form-control' type='number' id='draw_card' name='draw_card' value="0"
+                        onchange='indicator(this)'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <h5>buffs_info:</h5>
+              <!-- <div class='row'> -->
+              <table id='buff-table'>
+              </table>
+              <!-- </div> -->
+
+              <br>
+              <h5>special_modifiers_info:</h5>
+              <div class="form-group row">
+                  <label class='col-sm-8 col-form-label' for="unique_damage">unique_damage</label>
+                <div class="col-sm-4">
+                  <input class='form-control' type='text' id='unique_damage' name='unique_damage' value="none" onchange='indicator(this)'>
+                </div>
+              </div>
+              <div class="form-group row">
+                  <label class='col-sm-8 col-form-label' for="strength_multiplier">strength_multiplier</label>
+                <div class="col-sm-4">
+                  <input class='form-control' type='number' id='strength_multiplier' name='strength_multiplier' value="1"
+                    onchange='indicator(this)'>
+                </div>
+              </div>
+              <div class="form-group row">
+                  <label class='col-sm-8 col-form-label' for="next_attack_count">next_attack_count</label>
+                <div class="col-sm-4">
+                  <input class='form-control' type='number' id='next_attack_count' name='next_attack_count' value="1"
+                    onchange='indicator(this)'>
+                </div>
+              </div>
+
+              <br>
+              <p id="message" hidden></p>
+              <div class="mb-5">
+                <button class='btn btn-primary waves-effect' type="submit">Save</button>
+              </div>
+            </form>
+          </div>
+
         </div>
-        <div class="col-75">
-          <input type='text' id='unique_damage' name='unique_damage' value="none" onchange='indicator(this)'>
-        </div>
+
+
+
       </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="strength_multiplier">strength_multiplier</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id='strength_multiplier' name='strength_multiplier' value="1" onchange='indicator(this)'>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="next_attack_count">next_attack_count</label>
-        </div>
-        <div class="col-75">
-          <input type='number' id='next_attack_count' name='next_attack_count' value="1" onchange='indicator(this)'>
-        </div>
-      </div>
-      <br>
-      <p id="message" hidden></p>
-      <div class="row">
-        <button type="submit">Save</button>
-      </div>
-    </form>
-    <p class='right'><a href='decks.html'>Home</a></p>
-    <p class='right'><a href="#top">Back to top of page</a></p>
+    </div>
+
   </div>
+
 
 </body>
 

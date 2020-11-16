@@ -10,7 +10,7 @@ function createWindow () {
   })
 
   win.loadFile('html/index.html')
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 }
 
 app.whenReady().then(createWindow)

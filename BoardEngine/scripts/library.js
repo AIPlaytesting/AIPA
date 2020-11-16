@@ -28,7 +28,10 @@ function onFinishDBLoad(){
     $('#create-new-game-btn').off()
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
-    updateGameMainPage()
+    // refresh design page
+    updateDesignPage()
+    // also update playtest
+    updatePlaytestPage()
 
     function updateGameTemplateList(){
         let gameTemplateList = $("#game-template-list");
@@ -62,7 +65,6 @@ function onClickPlay(){
 }
 
 function onClickTrain(){
-    $('#game-edit-section-overlay').removeClass('d-none')
     $('#train-btn').addClass('d-none')
     $('#train-config').addClass('d-none')
     $('#train-progress').removeClass('d-none')
@@ -71,11 +73,14 @@ function onClickTrain(){
     let gameID = dbmanager.getCurrentGameName()
     let deckID = currentGameData.rules.deck
     let iterationNums = $('#train-iter-config').val()
+    // lock the deck before training
+    dbmanager.updateGameData(gameID,'lockedDeck',deckID,refreshLibraryPage)
     let pyProcess = new PythonProcess(
         11,
         {'game_id':gameID,'deck_id':deckID,'iterations':iterationNums},
 	    function () { console.log('success!') },
-        onReceiveTrainMesssage)
+        onReceiveTrainMesssage,
+        function(err){popupWarning(err)})
 }
 
 function onReceiveTrainMesssage(data){
@@ -87,6 +92,8 @@ function onReceiveTrainMesssage(data){
     $('#train-progress-text').text(curprogress + "/" + maxprogress)
     if(trainInfo.is_finished){
         $('#train-status').text('training is over')
+        // also update playtest
+        updatePlaytestPage()
     }
     else{
         $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
@@ -159,7 +166,7 @@ function onClickRemoveCard(cardname){
 
 function onClickLibraryGameEntry(gameName){
     dbmanager.setCurrentGame(gameName)
-    updateGameMainPage()
+    refreshLibraryPage()
 }
 
 function onClickRemoveGame(){
@@ -179,21 +186,28 @@ function onClickRemoveGame(){
 }
 
 function onClickPlaytest(){
+    let gameNums = $('#playtest-game-num').val()
+    let gameName = dbmanager.getCurrentGameName()
+    let deckName = currentGameData.rules.deck
+    let trainVersion = $('#AI-dropdown-btn').text()
+
+    if(!dbmanager.getAllTrainedVersion(gameName,deckName).includes(trainVersion)){
+        popupWarning("must select correct AI to playtest!")
+        return 
+    }
     $('#playtest-btn').addClass('d-none')
     $('#playtest-config-div').addClass('d-none')
     $('#playtest-progress').removeClass('d-none')
     $('#playtest-status').removeClass('d-none')
     $('#data-display-root').addClass('d-none')
-    let gameID = dbmanager.getCurrentGameName()
-    let deckID = currentGameData.rules.deck
-    let gameNums = $('#playtest-game-num').val()
-    console.log('Playtst: [game]-'+gameID+'[deck]-'+ deckID)
+    console.log('Playtst: [train ver]-'+trainVersion)
     let pyProcess = new PythonProcess(
         12,
-        {'game_id':gameID,'deck_id':deckID,'game_nums':gameNums},
+        {'train_version': trainVersion,'game_nums':gameNums},
 	    function () { console.log('success!') },
-        onReceivePlaytestMesssage)
-    $('#playtest-status').text('Is playtesting...')
+        onReceivePlaytestMesssage,
+        function(err){popupWarning(err)})
+    $('#playtest-status').text('load trained AI modal...')
 }
 
 function onReceivePlaytestMesssage(data){
@@ -201,17 +215,19 @@ function onReceivePlaytestMesssage(data){
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress
     let percentage = Math.ceil(100*curprogress/maxprogress)
+    $('#playtest-status').text('Is playtesting...')
     $('#playtest-progress-bar').attr("class","c100 p"+percentage)
     $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
     if(simulateInfo.is_finished){
         let gamename= dbmanager.getCurrentGameName()
         let deckname = currentGameData.rules.deck
-        viewPlaytestData(gamename,deckname)
+        let trainVersion = $('#AI-dropdown-btn').text()
+        viewPlaytestData(gamename,deckname, trainVersion)
     }
 }
 
-function viewPlaytestData(gamename,deckname){
-    let playtestData = dbmanager.loadPlaytestData(gamename,deckname)
+function viewPlaytestData(gamename,deckname,trainVersion){
+    let playtestData = dbmanager.loadPlaytestData(gamename,deckname,trainVersion)
     console.log(playtestData)
     $('#playtest-btn').removeClass('d-none')
     $('#playtest-config-div').removeClass('d-none')
@@ -224,18 +240,21 @@ function viewPlaytestData(gamename,deckname){
     $('#win-rate-text').text(basicStats.win_rate*100+'%')
     let percentage = Math.ceil(basicStats.win_rate*100)
     $('#win-rate-progress').attr("class","green c100 p"+percentage)
+    $('#avg-game-len').text("average game length: "+basicStats.avg_game_length)
+    $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
+    $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
     // draw data
-    let data = [
-        [
-          {"area": "winrate ", "value": basicStats.win_rate*100},
-          {"area": "player HP", "value": (basicStats.avg_player_hp/100)*100},
-          {"area": "avg boss HP", "value":  (basicStats.avg_boss_hp/250)*100},
-          {"area": "ave game length", "value": basicStats.avg_game_length},
-          ]
-      ]
-    let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
-    dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
-    dataVisualizer.drawRankChart('../static/card.csv','card-data-rankChart')
+    // let data = [
+    //     [
+    //       {"area": "winrate ", "value": basicStats.win_rate*100},
+    //       {"area": "player HP", "value": (basicStats.avg_player_hp/100)*100},
+    //       {"area": "avg boss HP", "value":  (basicStats.avg_boss_hp/250)*100},
+    //       {"area": "ave game length", "value": basicStats.avg_game_length},
+    //       ]
+    //   ]
+    // let radarColors= ["#69257F", "#CA0D59", "#CA0D19", "#CA1D52"]
+    // dataVisualizer.drawRadarChart('playtest-radar-chart',data,radarColors)
+    dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
 }
 
 function onSwitchCurrentDeck(deckName){
@@ -272,11 +291,17 @@ function createNewGameBtn(){
 }
 
 // update main page based on current game in manifest
-function updateGameMainPage(){
+function updateDesignPage(){
     let gameName = dbmanager.getCurrentGameName()
     currentGameData = dbmanager.loadGameData(gameName)
     let gameData = currentGameData
-
+    // lock the deck edit if it is locked 
+    if(gameData.rules.locked_decks.includes(gameData.rules.deck)){
+        $('#game-edit-section-overlay').removeClass('d-none')
+    }
+    else{
+        $('#game-edit-section-overlay').addClass('d-none')
+    }
     $('#game-title').text(gameName)
     updateGameSettingSection()
 
@@ -286,9 +311,6 @@ function updateGameMainPage(){
     updateDeckDropdown()
 
     renderCardGrid()
-
-    // also update playtest
-    updatePlaytestPage()
 
     function updateGameSettingSection(){
         $('#deck-count').text(Object.keys(gameData.decks).length)
@@ -388,7 +410,10 @@ function updateGameMainPage(){
 }
 
 function updatePlaytestPage(){
-    utils.setupDropdown('AI-dropdown-list','AI-dropdown-btn',['AI1','AI-2'])
+    utils.setupDropdown(
+        'AI-dropdown-list',
+        'AI-dropdown-btn',
+        dbmanager.getAllTrainedVersion(dbmanager.getCurrentGameName(),currentGameData.rules.deck))
     updatePlaytestHistory()
 
     function updatePlaytestHistory(){

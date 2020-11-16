@@ -68,7 +68,7 @@ def simulate_mainloop(config):
     import ai_test_controller
     import sys, os
 
-    ai_tester = ai_test_controller.AI_Tester(app_id=config['game_id'], deck_id=config['deck_id'])
+    ai_tester = ai_test_controller.AI_Tester(app_id="", deck_id="", special_folder_name = config['train_version'])
 
     if ai_tester.main_folder_path == "":
         return

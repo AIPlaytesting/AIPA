@@ -13,7 +13,7 @@ function detectEnv(){
             {},
             function () { console.log('success!') },
             onReceiveEnvMesssage,
-            function(){onEnvDetectResult("none","none")})
+            function(err){onEnvDetectResult("none","none")})
     }
     catch(e){
         console.log('fail to launch py when detect env')

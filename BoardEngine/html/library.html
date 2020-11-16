@@ -66,29 +66,28 @@
                         <!-- your steps here -->
                         <div class="step" data-target="#game-edit-step">
                             <button type="button"  class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
-                            <span class="bs-stepper-circle">1</span>
-                            <span class="bs-stepper-label">Design</span>
+                            <img src="../static/designStep.png">
+                            <!-- <span class="bs-stepper-circle">1</span>
+                            <span class="bs-stepper-label">Design</span> -->
                             </button>
                         </div>
                         <div class="line"></div>
                         <div class="step" data-target="#train-step">
                             <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
-                            <span class="bs-stepper-circle">2</span>
-                            <span class="bs-stepper-label">Train</span>
+                                <img src="../static/trainStep.png">
                             </button>
                         </div>
                         <div class="line"></div>
                         <div class="step" data-target="#playtest-step">
-                            <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
-                            <span class="bs-stepper-circle">3</span>
-                            <span class="bs-stepper-label" onclick="updatePlaytestPage()">Playtest</span>
+                            <button type="button" onclick="updatePlaytestPage()" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                <img src="../static/playtestStep.png">
                             </button>
                         </div>
                         </div>
                         <div class="bs-stepper-content">
                             <!-- game edit step -->
                             <div id="game-edit-step" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                <div id ="game-edit-section" class="overlaycontainer">
+                                <div id ="game-edit-section">
                                     <!--head pannel-->
                                     <div class = "row head-pannel">
                                         <!--play game operation-->
@@ -116,7 +115,7 @@
                                             </div> -->
                                         </div>                                        
                                         <!--game edit config-->
-                                        <div class = "col-6">
+                                        <div class = "col-6 d-none">
                                             <div>
                                                 <div class  ="row" style="height:50px;">
                                                     <img src = '../static/player-hp-icon.png' class="col-4" style = "height:40px">
@@ -133,13 +132,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--deck card grid-->
-                                    <div id = "deck-img-view" class="middle-section">
-                                    </div>                                    
-                                    <!--overlay-->
-                                    <div id = "game-edit-section-overlay" class="overlay d-none">
-                                        <div class="hovertext">Cannot modify game while training</div>
-                                    </div>
+                                    <!--design lock div-->
+                                    <div class="overlaycontainer">
+                                        <div id = "deck-img-view" class="middle-section overlaycontainer">
+                                        </div>     
+                                        <!--design lock overlay-->
+                                        <div id = "game-edit-section-overlay" class="overlay d-none">
+                                            <div class="hovertext">Deck is locked after you train, create  a new deck instead</div>
+                                        </div>
+                                    </div>                               
                                 </div>
                             </div>
                             <!-- train AI step-->
@@ -217,13 +218,14 @@
                                         <hr>
                                     </div>
                                     <!-- playtest history-->
-                                    <div class="middle-section">
+                                    <div class="middle-section d-none">
                                         <button class="btn" data-toggle="collapse" data-target="#playtest-history-list ">History</button>
                                         <div id = "playtest-history-list" class='collapse show' >
                                         </div>
                                     </div>
                                      <!--data visualization-->
                                     <div id = "data-display-root" class="row d-none">
+                                        <!--winrate info-->
                                         <div id = 'playtest-winrate' class="col-2">
                                             <div class="clearfix text-center div-center">
                                                 <div id = 'win-rate-progress' class="c100 p60 green">
@@ -235,7 +237,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id = 'playtest-radar-chart' class="col-4" ></div>
+                                        <!--basic info-->
+                                        <div id = 'basicInfo' class="col-4" >
+                                            <div class="div-center">
+                                                <h1 id = 'avg-game-len'></h1>
+                                                <h1 id = 'avg-player-hp'></h1>
+                                                <h1 id = 'avg-boss-hp'></h1>
+                                            </div>
+                                        </div>
                                         <div class="col-1" ></div>
                                         <!--card rank-->
                                         <div id = 'card-data-rankChart' class="col-5"></div>

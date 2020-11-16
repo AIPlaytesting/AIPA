@@ -54,7 +54,7 @@ class AI_Brain_B:
         self.q_model_trained = None
         self.q_model_switch_count = 0
         self.q_model_switch_threshold = 1e8
-        self.model_save_path = model_save_path + "Training_Model"
+        self.model_save_path = model_save_path + "TM"
 
 
 
