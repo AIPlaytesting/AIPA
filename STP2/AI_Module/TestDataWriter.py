@@ -47,7 +47,7 @@ class TestDataWriter():
             row.append(self.card_performance_stats['avg_play_pos'][card])
             rows_to_write.append(row)
         
-        with open(self.test_data_path + "\\card_performance_data.csv", 'w') as csvfile:
+        with open(self.test_data_path + "\\card_performance_data.csv", 'w', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
             csvwriter.writerows(rows_to_write)
         
@@ -59,7 +59,7 @@ class TestDataWriter():
             for card_two in self.card_pair_counter[card_one]:
                 rows_to_write.append([ card_one, card_two, self.card_pair_counter[card_one][card_two] ])
         
-        with open(self.test_data_path + "\\card_pair_combo_data.csv", 'w') as csvfile:
+        with open(self.test_data_path + "\\card_pair_combo_data.csv", 'w', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
             csvwriter.writerows(rows_to_write)
         
