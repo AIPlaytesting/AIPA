@@ -120,7 +120,7 @@ class CardRelationshipTrackers():
         
                 if idx+3 < len(card_seq):
                     #create key
-                    key = card_seq[idx] + "-" + card_seq[idx+1] + "-" + card_seq[idx+2] + "-" + card_seq[idx+3]
+                    key = self.action_space[card_seq[idx]] + "-" + self.action_space[card_seq[idx+1]] + "-" + self.action_space[card_seq[idx+2]] + "-" + self.action_space[card_seq[idx+3]]
 
                     if key not in self.card_quadro_counter:
                         self.card_quadro_counter[key] = 0
