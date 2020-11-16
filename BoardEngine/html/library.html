@@ -66,22 +66,21 @@
                         <!-- your steps here -->
                         <div class="step" data-target="#game-edit-step">
                             <button type="button"  class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
-                            <span class="bs-stepper-circle">1</span>
-                            <span class="bs-stepper-label">Design</span>
+                            <img src="../static/designStep.png">
+                            <!-- <span class="bs-stepper-circle">1</span>
+                            <span class="bs-stepper-label">Design</span> -->
                             </button>
                         </div>
                         <div class="line"></div>
                         <div class="step" data-target="#train-step">
                             <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
-                            <span class="bs-stepper-circle">2</span>
-                            <span class="bs-stepper-label">Train</span>
+                                <img src="../static/trainStep.png">
                             </button>
                         </div>
                         <div class="line"></div>
                         <div class="step" data-target="#playtest-step">
-                            <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
-                            <span class="bs-stepper-circle">3</span>
-                            <span class="bs-stepper-label" onclick="updatePlaytestPage()">Playtest</span>
+                            <button type="button" onclick="updatePlaytestPage()" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                <img src="../static/playtestStep.png">
                             </button>
                         </div>
                         </div>
