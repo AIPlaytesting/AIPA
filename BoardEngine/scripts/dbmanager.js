@@ -75,6 +75,7 @@ function loadPlaytestData(gamename,deckname,trainVersion = ""){
 
     playtestData['basicStats'] = loadObjectFromJSONFile(playtestDataRoot+'\\basic_stats.json')
     playtestData['card_perfromance_csv_url'] = playtestDataRoot + "\\card_performance_data.csv"
+    playtestData['card_relationship_csv_url'] = playtestDataRoot + "\\card_pair_combo_data.csv"
     return playtestData
 }
 

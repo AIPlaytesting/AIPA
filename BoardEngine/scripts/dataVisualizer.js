@@ -104,7 +104,12 @@ function drawRankChart(csvURL,xValName,divID){
     })
 }
 
-function drawRelationshipTable(divID){
+function drawRelationshipTable(cvsURL,divID){
+    let CARD_ONE_KEY = "Card One Name"
+    let CARD_TWO_KEY = "Card Two Name"
+    let VALUE_KEY = "Combination Play Count"
+
+    $("#"+divID).text("")
     // set the dimensions and margins of the graph
     var margin = {top: 80, right: 25, bottom: 30, left: 40},
     width = 450 - margin.left - margin.right,
@@ -120,92 +125,93 @@ function drawRelationshipTable(divID){
         "translate(" + margin.left + "," + margin.top + ")");
 
     //Read the data
-    d3.csv("../static/cardrelationship.csv", function(data) {
+    d3.csv(cvsURL, function(data) {
+        // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
+        var myGroups = d3.map(data, function(d){return d[CARD_ONE_KEY];}).keys()
+        var myVars = d3.map(data, function(d){return d[CARD_TWO_KEY];}).keys()
 
-    // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
-    var myGroups = d3.map(data, function(d){return d.group;}).keys()
-    var myVars = d3.map(data, function(d){return d.variable;}).keys()
+        // Build X scales and axis:
+        var x = d3.scaleBand()
+        .range([ 0, width ])
+        .domain(myGroups)
+        .padding(0.05);
+        svg.append("g")
+        .style("font-size", 15)
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSize(0))
+        .select(".domain").remove()
 
-    // Build X scales and axis:
-    var x = d3.scaleBand()
-    .range([ 0, width ])
-    .domain(myGroups)
-    .padding(0.05);
-    svg.append("g")
-    .style("font-size", 15)
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).tickSize(0))
-    .select(".domain").remove()
+        // Build Y scales and axis:
+        var y = d3.scaleBand()
+        .range([ height, 0 ])
+        .domain(myVars)
+        .padding(0.05);
+        svg.append("g")
+        .style("font-size", 15)
+        .call(d3.axisLeft(y).tickSize(0))
+        .select(".domain").remove()
 
-    // Build Y scales and axis:
-    var y = d3.scaleBand()
-    .range([ height, 0 ])
-    .domain(myVars)
-    .padding(0.05);
-    svg.append("g")
-    .style("font-size", 15)
-    .call(d3.axisLeft(y).tickSize(0))
-    .select(".domain").remove()
-
-    // Build color scale
-    var myColor = d3.scaleSequential()
-    .interpolator(d3.interpolateInferno)
-    .domain([1,100])
-
-    // create a tooltip
-    var tooltip = d3.select("#"+divID)
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "5px")
-
-    // Three function that change the tooltip when user hover / move / leave a cell
-    var mouseover = function(d) {
-    let data = {a: Math.random(), b: Math.random(), c:Math.random(), d:Math.random(), e:Math.random()}
-    drawPieChart('card-relationship-pie',data)
-
-    tooltip
-        .style("opacity", 1)
-    d3.select(this)
-        .style("stroke", "black")
-        .style("opacity", 1)
-    }
-    var mousemove = function(d) {
-    tooltip
-        .html("The exact value of<br>this cell is: " + d.value)
-        .style("left", (d3.mouse(this)[0]+70) + "px")
-        .style("top", (d3.mouse(this)[1]) + "px")
-    }
-    var mouseleave = function(d) {
-    tooltip
+        // Build color scale
+        let max = d3.max(data, function(d) { return  parseInt(d[VALUE_KEY]); });
+        var myColor = d3.scaleLinear()
+        .range(["white", "#ff1100"])
+        .domain([1,max])
+        
+        // create a tooltip
+        var tooltip = d3.select("#"+divID)
+        .append("div")
         .style("opacity", 0)
-    d3.select(this)
-        .style("stroke", "none")
-        .style("opacity", 0.8)
-    }
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+        .style("position","relative")
 
-    // add the squares
-    svg.selectAll()
-    .data(data, function(d) {return d.group+':'+d.variable;})
-    .enter()
-    .append("rect")
-        .attr("x", function(d) { return x(d.group) })
-        .attr("y", function(d) { return y(d.variable) })
-        .attr("rx", 4)
-        .attr("ry", 4)
-        .attr("width", x.bandwidth() )
-        .attr("height", y.bandwidth() )
-        .style("fill", function(d) { return myColor(d.value)} )
-        .style("stroke-width", 4)
-        .style("stroke", "none")
-        .style("opacity", 0.8)
-    .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
-    .on("mouseleave", mouseleave)
+        // Three function that change the tooltip when user hover / move / leave a cell
+        var mouseover = function(d) {
+            tooltip
+                .style("opacity", 1)
+            d3.select(this)
+                .style("stroke", "black")
+                .style("opacity", 1)
+        }
+
+        var mousemove = function(d) {
+            let card1 = d[CARD_ONE_KEY]
+            let card2 = d[CARD_TWO_KEY]
+            tooltip
+                .html("occur times: " + d[VALUE_KEY]+"  ("+card1+","+card2+")")
+                .style("left", (d3.mouse(this)[0]+70) + "px")
+                .style("top", (d3.mouse(this)[1])-400 + "px")
+        }
+        var mouseleave = function(d) {
+            tooltip
+                .style("opacity", 0)
+            d3.select(this)
+                .style("stroke", "none")
+                .style("opacity", 0.8)
+        }
+
+        // add the squares
+        svg.selectAll()
+        .data(data, function(d) {return d[CARD_ONE_KEY]+':'+d[CARD_TWO_KEY];})
+        .enter()
+        .append("rect")
+            .attr("x", function(d) { return x(d[CARD_ONE_KEY]) })
+            .attr("y", function(d) { return y(d[CARD_TWO_KEY]) })
+            .attr("rx", 4)
+            .attr("ry", 4)
+            .attr("width", x.bandwidth() )
+            .attr("height", y.bandwidth() )
+            .style("fill", function(d) { return myColor(d[VALUE_KEY])} )
+            .style("stroke-width", 4)
+            .style("stroke", "none")
+            .style("opacity", 0.8)
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
     })
 
     // Add title to graph
@@ -215,16 +221,6 @@ function drawRelationshipTable(divID){
         .attr("text-anchor", "left")
         .style("font-size", "22px")
         .text("Cards Relationship");
-
-    // Add subtitle to graph
-    svg.append("text")
-        .attr("x", 0)
-        .attr("y", -20)
-        .attr("text-anchor", "left")
-        .style("font-size", "14px")
-        .style("fill", "grey")
-        .style("max-width", 400)
-        .text("A short description of cards relationship");
 }
 
 function drawPieChart(divID,data){   
