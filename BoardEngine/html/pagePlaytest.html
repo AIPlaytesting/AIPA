@@ -60,17 +60,24 @@
                     </div>
                 </div>
             </div>
-            <!--basic info-->
-            <div id = 'basicInfo-attrs' class="col-4" >
-                <div class="div-center">
+            <!--basic attrs-->        
+            <div class="col-3 nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="game-len-tab" data-toggle="pill" href="#v-pills-game-len" role="tab" aria-controls="v-pills-home" aria-selected="true">Game Length</a>
+                <a class="nav-link" id="player-hp-tab" data-toggle="pill" href="#v-pills-player-hp" role="tab" aria-controls="v-pills-profile" aria-selected="false">Player HP</a>
+                <a class="nav-link" id="boss-hp-tab" data-toggle="pill" href="#v-pills-boss-hp" role="tab" aria-controls="v-pills-messages" aria-selected="false">BOSS HP</a>
+                </div>
+            <div class="col-7 tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-game-len" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <h1 id = 'avg-game-len'></h1>
+                </div>
+                <div class="tab-pane fade" id="v-pills-player-hp" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <h1 id = 'avg-player-hp'></h1>
+                </div>
+                <div class="tab-pane fade" id="v-pills-boss-hp" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <h1 id = 'avg-boss-hp'></h1>
                 </div>
-            </div>
-            <div class="col-1" ></div>
-            <!--card rank-->
-            <div id = 'card-data-rankChart' class="col-5"></div>
+            </div>   
+            <!--basic attrs end-->                
         </div>
     </div> 
 
