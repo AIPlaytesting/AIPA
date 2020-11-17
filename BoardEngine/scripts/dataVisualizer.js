@@ -185,7 +185,7 @@ function drawRelationshipTable(cvsURL,divID){
             tooltip
                 .html("occur times: " + d[VALUE_KEY]+"  ("+card1+","+card2+")")
                 .style("left", (d3.mouse(this)[0]+70) + "px")
-                .style("top", (d3.mouse(this)[1])-400 + "px")
+                .style("top", (d3.mouse(this)[1])-700 + "px")
         }
         var mouseleave = function(d) {
             tooltip
@@ -276,6 +276,7 @@ function drawPieChart(divID,data){
 }
 
 function drawDistribution(cvsURL,divID){
+    $("#"+divID).text("")
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 50},
     width = 460 - margin.left - margin.right,

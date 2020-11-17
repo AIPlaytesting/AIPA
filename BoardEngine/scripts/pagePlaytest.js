@@ -54,9 +54,12 @@ function onClickPlaytest(){
     }
     $('#playtest-btn').addClass('d-none')
     $('#playtest-config-div').addClass('d-none')
+    $('#playtest-history-div').addClass('d-none')
+    $('#data-display-root').addClass('d-none')
+
     $('#playtest-progress').removeClass('d-none')
     $('#playtest-status').removeClass('d-none')
-    $('#data-display-root').addClass('d-none')
+
     console.log('Playtst: [train ver]-'+trainVersion)
     let pyProcess = new PythonProcess(
         12,
@@ -89,21 +92,23 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     console.log(playtestData)
     $('#playtest-btn').removeClass('d-none')
     $('#playtest-config-div').removeClass('d-none')
+    $('#playtest-history-div').removeClass('d-none')
+    $('#data-display-root').removeClass('d-none')
+    
     $('#playtest-progress').addClass('d-none')
     $('#playtest-status').addClass('d-none')
-    $('#data-display-root').removeClass('d-none')
 
     let basicStats = playtestData.basicStats
     // set wintrate graph
-    $('#win-rate-text').text(basicStats.win_rate*100+'%')
+    $('#win-rate-text').text((basicStats.win_rate*100).toFixed(2)+'%')
     let percentage = Math.ceil(basicStats.win_rate*100)
     $('#win-rate-progress').attr("class","green c100 p"+percentage)
 
     // draw distributions
     drawDistribution("v-pills-game-len")
     // $('#avg-game-len').text("average game length: "+basicStats.avg_game_length)
-    // $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
-    // $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
+    $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
+    $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
 
     // relationship heat map
     dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table')

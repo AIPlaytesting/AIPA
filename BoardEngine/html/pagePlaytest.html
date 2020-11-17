@@ -36,15 +36,15 @@
 </div>
 
 <!-- playtest history-->
-<div class="middle-section">
+<div id = "playtest-history-div" class="middle-section">
     <button class="btn" data-toggle="collapse" data-target="#playtest-history-list">History</button>
     <div id = "playtest-history-list" class='collapse show' >
     </div>
 </div>
 
-
 <!--data visualization-->
 <div id = "data-display-root" class="d-none">
+    <!--basic info-->
     <div class="middle-section">
         <button class="btn" data-toggle="collapse" data-target="#basic-info">Basic Info</button>
         <div id = "basic-info" class="row collapse show">
@@ -66,7 +66,7 @@
                 <a class="nav-link" id="player-hp-tab" data-toggle="pill" href="#v-pills-player-hp" role="tab" aria-controls="v-pills-profile" aria-selected="false">Player HP</a>
                 <a class="nav-link" id="boss-hp-tab" data-toggle="pill" href="#v-pills-boss-hp" role="tab" aria-controls="v-pills-messages" aria-selected="false">BOSS HP</a>
                 </div>
-            <div class="col-7 tab-content" id="v-pills-tabContent">
+            <div class="col-7 tab-content" id="v-pills-tabContent" >
                 <div class="tab-pane fade show active" id="v-pills-game-len" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <h1 id = 'avg-game-len'></h1>
                 </div>
