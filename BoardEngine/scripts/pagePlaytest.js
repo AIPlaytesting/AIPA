@@ -42,7 +42,6 @@ function updatePlaytestPage(){
     }
 }
 
-
 function onClickPlaytest(){
     let gameNums = $('#playtest-game-num').val()
     let gameName = dbmanager.getCurrentGameName()
@@ -99,13 +98,21 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     $('#win-rate-text').text(basicStats.win_rate*100+'%')
     let percentage = Math.ceil(basicStats.win_rate*100)
     $('#win-rate-progress').attr("class","green c100 p"+percentage)
-    $('#avg-game-len').text("average game length: "+basicStats.avg_game_length)
-    $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
-    $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
+
+    // draw distributions
+    drawDistribution("v-pills-game-len")
+    // $('#avg-game-len').text("average game length: "+basicStats.avg_game_length)
+    // $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
+    // $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
 
     // relationship heat map
     dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table')
-    dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
+    
+    //dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
+}
+
+function drawDistribution(rootID){
+    dataVisualizer.drawDistribution("../static/tempdistribution.csv",rootID)
 }
 
 
