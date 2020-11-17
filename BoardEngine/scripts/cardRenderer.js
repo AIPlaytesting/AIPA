@@ -1,6 +1,6 @@
 const dbmanager = require('../scripts/dbmanager')
 
-function createCardElement(imgPath,cardName,description,energy,onClickListener = undefined){
+function createCardElement(imgPath,cardName,description,energy,hoverImgPath = "", onClickListener = undefined){
     let frameWidth = '166px'
     let textFrameWidth = '130px'
     let framwHeight = '220px'
@@ -53,8 +53,9 @@ function createCardElement(imgPath,cardName,description,energy,onClickListener =
         .css('width',textFrameWidth)
         .css('color','white')
 
-    let hoverImgPath = '../static/delete.png'
-    let hoverSign = $(document.createElement('img'))
+    let hoverSign = ""
+    if(hoverImgPath!=""){
+        hoverSign = $(document.createElement('img'))
         .attr('src',hoverImgPath)
         .css('position','absolute')
         .css('width','70%')
@@ -72,6 +73,7 @@ function createCardElement(imgPath,cardName,description,energy,onClickListener =
                 onClickListener()
             }
         })
+    }   
 
     imgDiv.append(imgElement,cardFrame,nameText,energyText,descriptionText,hoverSign) 
     return imgDiv

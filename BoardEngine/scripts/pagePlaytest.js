@@ -1,6 +1,7 @@
 const dataVisualizer = require('../scripts/dataVisualizer')
 const dbmanager = require('../scripts/dbmanager')
 const utils = require('../scripts/utils')
+const cardRenderer = require('./cardRenderer')
 
 function updatePlaytestPage(){
     utils.setupDropdown(
@@ -139,6 +140,9 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     // relationship heat map
     dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table',gamename)
     
+    // top combos
+    drawTopCombos('top-combo',gamename, playtestData.comboInfo)
+
     //dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
 }
 
@@ -146,5 +150,34 @@ function drawDistribution(rootID){
     dataVisualizer.drawDistribution("../static/tempdistribution.csv",rootID)
 }
 
+function drawTopCombos(divID,gameName,comboInfo){
+    let rootDiv = $('#'+divID)
+    rootDiv.text("")
+    let topNum = 5
+    let curNum = 0
+    for(let combo in comboInfo.trios){
+        if(curNum >= topNum){
+            break;
+        }
+        curNum++
+        let names = parseCardNamesFromComboName(combo)
+        console.log(names)
+        let comboElement = createComboElement(names[0],names[1],names[2],comboInfo.trios[combo])
+        rootDiv.append(comboElement)
+    }
+
+    function parseCardNamesFromComboName(comboName){
+        return comboName.split('-')
+    }
+    function createComboElement(card1,card2,card3,occurTimes){
+        let comboDiv = $(document.createElement('div'))
+        .attr('class','row')
+        .append(cardRenderer.createCardElementByName(gameName,card1))
+        .append(cardRenderer.createCardElementByName(gameName,card2))
+        .append(cardRenderer.createCardElementByName(gameName,card3))
+        .append(occurTimes)
+        return comboDiv
+    }
+}
 
 module.exports ={onClickPlaytest,viewPlaytestData,updatePlaytestPage}

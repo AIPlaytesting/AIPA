@@ -114,9 +114,9 @@ function drawRelationshipTable(cvsURL,divID,gameName){
 
     $("#"+divID).text("")
     // set the dimensions and margins of the graph
-    var margin = {top: 80, right: 25, bottom: 0, left: 120},
+    var margin = {top: 10, right: 25, bottom: 0, left: 120},
     width = 670 - margin.left - margin.right,
-    height = 550 - margin.top - margin.bottom;
+    height = 480 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#"+divID)

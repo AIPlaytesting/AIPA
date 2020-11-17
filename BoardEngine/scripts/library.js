@@ -295,6 +295,7 @@ function updateDesignPage(){
                     cardName,
                     cardObj.description,
                     cardObj.energy_cost,
+                    '../static/delete.png',
                     function(){onClickRemoveCard(cardName)})
                 currentImgRow.append(imgDiv)   
             }
