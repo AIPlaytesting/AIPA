@@ -10,23 +10,48 @@ function updatePlaytestPage(){
     updatePlaytestHistory()
 
     function updatePlaytestHistory(){
-        $('#playtest-history-list').text("")
+        $('#playtest-history-list').text("").append(createInfoEntry())
         for(let history of dbmanager.getPlaytestHistory(dbmanager.getCurrentGameName(),currentGameData.rules.deck)){
             $('#playtest-history-list').append(createHistoryEntry(history))
         }
     }
 
-    function createHistoryEntry(history){
+    function createInfoEntry(){
         let entryRoot = $(document.createElement('div'))
             .attr('class','row playtest-history-entry')
             .css('border-radius','10px;')
-        //let deckText = $(document.createElement('span')).attr('class','col-3 text-center').text("Deck 1")
-        let trainVersionText = $(document.createElement('span')).attr('class','col-3').text(history)
+        let space = $(document.createElement('span')).attr('class','col-1')
+        let trainVersionText = $(document.createElement('span'))
+        .attr('class','col-3')
+        .text("AI version")
+        .css('font-weight','bold')
+        let winrateText = $(document.createElement('span'))
+        .attr('class','col-2')
+        .text("winrate")
+        .css('font-weight','bold')
+        let gameNumText = $(document.createElement('span'))
+        .attr('class','col-2')
+        .text("number of games")
+        .css('font-weight','bold')
+        entryRoot.append(space, trainVersionText,winrateText, gameNumText)
+        return entryRoot
+    }
+
+    function createHistoryEntry(historyInfo){
+        let entryRoot = $(document.createElement('div'))
+            .attr('class','row playtest-history-entry')
+            .css('border-radius','10px;')
+        let space = $(document.createElement('span')).attr('class','col-1')
+        let trainVersionText = $(document.createElement('span')).attr('class','col-3').text(historyInfo.trainVersion)
+        let playtestData = dbmanager.loadPlaytestData(historyInfo.gameName,historyInfo.deckName,historyInfo.trainVersion)
+        let winrateStr = (playtestData.basicStats.win_rate*100).toFixed(2) +'%'
+        let winrateText = $(document.createElement('span')).attr('class','col-2').text(winrateStr)
+        let gameNumText = $(document.createElement('span')).attr('class','col-2').text(historyInfo.gameNums)
         let viewResBtn = $(document.createElement('button'))
             .attr('class','col-2 btn btn-primary')
             .text('View Result')
             .click(function(){
-                viewPlaytestData('','',trainVersionText.text())
+                viewPlaytestData(historyInfo.gameName,history.deckName,trainVersionText.text())
                 $('.playtest-history-entry')
                     .css('color','')
                     .css('font-weight','')
@@ -36,8 +61,8 @@ function updatePlaytestPage(){
                     .css('font-weight','bold')
                     .css('font-size','large')
             })
-        let delBtn = $(document.createElement('button')).attr('class','col-2 btn btn-danger').text('Delete')
-        entryRoot.append(trainVersionText,viewResBtn,delBtn)
+        //let delBtn = $(document.createElement('button')).attr('class','col-2 btn btn-danger').text('Retest')
+        entryRoot.append(space,trainVersionText,winrateText, gameNumText,viewResBtn)
         return entryRoot
     }
 }
@@ -82,7 +107,8 @@ function onReceivePlaytestMesssage(data){
         let gamename= dbmanager.getCurrentGameName()
         let deckname = currentGameData.rules.deck
         let trainVersion = $('#AI-dropdown-btn').text()
-        dbmanager.recordPlaytestHistory(trainVersion)
+        dbmanager.recordPlaytestHistory(gamename,deckname,maxprogress,trainVersion)
+        updatePlaytestPage()
         viewPlaytestData(gamename,deckname, trainVersion)
     }
 }
@@ -111,7 +137,7 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
 
     // relationship heat map
-    dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table')
+    dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table',gamename)
     
     //dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
 }

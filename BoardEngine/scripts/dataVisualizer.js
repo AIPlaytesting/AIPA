@@ -107,7 +107,7 @@ function drawRankChart(csvURL,xValName,divID){
     })
 }
 
-function drawRelationshipTable(cvsURL,divID,gameName = "Demo"){
+function drawRelationshipTable(cvsURL,divID,gameName){
     let CARD_ONE_KEY = "Card One Name"
     let CARD_TWO_KEY = "Card Two Name"
     let VALUE_KEY = "Combination Play Count"

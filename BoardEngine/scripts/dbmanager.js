@@ -50,23 +50,37 @@ function getAllTrainedVersion(gamename,deckname){
     return res;
 }
 
-function recordPlaytestHistory(trainVersion){
+function recordPlaytestHistory(gameName,deckName,gameNums,trainVersion){
     let AIDataRoot = calculateDBRoot() + '\\ad'
     let trainDir = AIDataRoot +'\\'+ trainVersion
-    playtestRecord = {"time":undefined}
+    playtestRecord = {
+        "time":100,
+        "gameName":gameName,
+        "deckName":deckName,
+        "gameNums":gameNums,
+        "trainVersion":trainVersion
+    }
     saveObjectToFileAsJSON(playtestRecord,trainDir+'\\playtestHistory.json')
 }
 
 
-// return the trainVersions
+// return history obj[]
+// {
+//     "time":100,
+//     "gameName":gameName,
+//     "deckName":deckName,
+//     "gameNums":gameNums,
+//     "trainVersion":trainVersion
+// }
 function getPlaytestHistory(gamename,deckname){
     let res = []
 
     let AIDataRoot = calculateDBRoot() + '\\ad'
     let name_prefix = "A_" + gamename + "~"+"D_" + deckname + "~"
     for(root of fs.readdirSync(AIDataRoot)){
-        if(root.startsWith(name_prefix) && fs.existsSync(AIDataRoot+'\\'+root+'\\playtestHistory.json')){
-            res.push(root)
+        let recordPath = AIDataRoot+'\\'+root+'\\playtestHistory.json'
+        if(root.startsWith(name_prefix) && fs.existsSync(recordPath)){
+            res.push(loadObjectFromJSONFile(recordPath))
         }
     }
     return res
