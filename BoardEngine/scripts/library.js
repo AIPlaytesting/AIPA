@@ -222,6 +222,7 @@ function onReceivePlaytestMesssage(data){
         let gamename= dbmanager.getCurrentGameName()
         let deckname = currentGameData.rules.deck
         let trainVersion = $('#AI-dropdown-btn').text()
+        dbmanager.recordPlaytestHistory(trainVersion)
         viewPlaytestData(gamename,deckname, trainVersion)
     }
 }
@@ -410,22 +411,22 @@ function updatePlaytestPage(){
 
     function updatePlaytestHistory(){
         $('#playtest-history-list').text("")
-        for(i = 0; i <5;i++){
-            $('#playtest-history-list').append(createHistoryEntry())
+        for(let history of dbmanager.getPlaytestHistory(dbmanager.getCurrentGameName(),currentGameData.rules.deck)){
+            $('#playtest-history-list').append(createHistoryEntry(history))
         }
     }
 
-    function createHistoryEntry(){
+    function createHistoryEntry(history){
         let entryRoot = $(document.createElement('div'))
             .attr('class','row playtest-history-entry')
             .css('border-radius','10px;')
-        let deckText = $(document.createElement('span')).attr('class','col-3 text-center').text("Deck 1")
-        let timeText = $(document.createElement('span')).attr('class','col-3').text("11-Oct-10-23")
+        //let deckText = $(document.createElement('span')).attr('class','col-3 text-center').text("Deck 1")
+        let trainVersionText = $(document.createElement('span')).attr('class','col-3').text(history)
         let viewResBtn = $(document.createElement('button'))
             .attr('class','col-2 btn btn-primary')
             .text('View Result')
             .click(function(){
-                viewPlaytestData('TestApp','deck1')
+                viewPlaytestData('','',trainVersionText.text())
                 $('.playtest-history-entry')
                     .css('color','')
                     .css('font-weight','')
@@ -436,7 +437,7 @@ function updatePlaytestPage(){
                     .css('font-size','large')
             })
         let delBtn = $(document.createElement('button')).attr('class','col-2 btn btn-danger').text('Delete')
-        entryRoot.append(deckText,timeText,viewResBtn,delBtn)
+        entryRoot.append(trainVersionText,viewResBtn,delBtn)
         return entryRoot
     }
 }

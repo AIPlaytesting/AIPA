@@ -111,9 +111,9 @@ function drawRelationshipTable(cvsURL,divID){
 
     $("#"+divID).text("")
     // set the dimensions and margins of the graph
-    var margin = {top: 80, right: 25, bottom: 30, left: 40},
-    width = 450 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+    var margin = {top: 80, right: 25, bottom: 100, left: 100},
+    width = 650 - margin.left - margin.right,
+    height = 650 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#"+divID)
@@ -159,15 +159,16 @@ function drawRelationshipTable(cvsURL,divID){
         
         // create a tooltip
         var tooltip = d3.select("#"+divID)
-        .append("div")
-        .style("opacity", 0)
-        .attr("class", "tooltip")
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "5px")
-        .style("position","relative")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "2px")
+            .style("border-radius", "5px")
+            .style("padding", "5px")
+            .style("position","relative")
+            .style("width","300px")
 
         // Three function that change the tooltip when user hover / move / leave a cell
         var mouseover = function(d) {
@@ -213,14 +214,6 @@ function drawRelationshipTable(cvsURL,divID){
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
     })
-
-    // Add title to graph
-    svg.append("text")
-        .attr("x", 0)
-        .attr("y", -50)
-        .attr("text-anchor", "left")
-        .style("font-size", "22px")
-        .text("Cards Relationship");
 }
 
 function drawPieChart(divID,data){   

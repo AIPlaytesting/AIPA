@@ -36,38 +36,53 @@
 </div>
 
 <!-- playtest history-->
-<div class="middle-section d-none">
-    <button class="btn" data-toggle="collapse" data-target="#playtest-history-list ">History</button>
+<div class="middle-section">
+    <button class="btn" data-toggle="collapse" data-target="#playtest-history-list">History</button>
     <div id = "playtest-history-list" class='collapse show' >
     </div>
 </div>
 
 
 <!--data visualization-->
-<div id = "data-display-root" class="row d-none">
-    <!--winrate info-->
-    <div id = 'playtest-winrate' class="col-2">
-        <div class="clearfix text-center div-center">
-            <div id = 'win-rate-progress' class="c100 p60 green">
-                <span><span id = 'win-rate-text'></span><br>winrate</span>
-                <div class="slice">
-                    <div class="bar"></div>
-                    <div class="fill"></div>
+<div id = "data-display-root" class="d-none">
+    <div class="middle-section">
+        <button class="btn" data-toggle="collapse" data-target="#basic-info">Basic Info</button>
+        <div id = "basic-info" class="row collapse show">
+            <!--winrate info-->
+            <div id = 'playtest-winrate' class="col-2">
+                <div class="clearfix text-center div-center">
+                    <div id = 'win-rate-progress' class="c100 p60 green">
+                        <span><span id = 'win-rate-text'></span><br>winrate</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!--basic info-->
+            <div id = 'basicInfo-attrs' class="col-4" >
+                <div class="div-center">
+                    <h1 id = 'avg-game-len'></h1>
+                    <h1 id = 'avg-player-hp'></h1>
+                    <h1 id = 'avg-boss-hp'></h1>
+                </div>
+            </div>
+            <div class="col-1" ></div>
+            <!--card rank-->
+            <div id = 'card-data-rankChart' class="col-5"></div>
         </div>
-    </div>
-    <!--basic info-->
-    <div id = 'basicInfo' class="col-4" >
-        <div class="div-center">
-            <h1 id = 'avg-game-len'></h1>
-            <h1 id = 'avg-player-hp'></h1>
-            <h1 id = 'avg-boss-hp'></h1>
-        </div>
-    </div>
-    <div class="col-1" ></div>
-    <!--card rank-->
-    <div id = 'card-data-rankChart' class="col-5"></div>
+    </div> 
+
     <!--relationship table-->
-    <div id='card-relationship-table'></div>
+    <div class="middle-section">
+        <button class="btn" data-toggle="collapse" data-target="#card-relationship-table">Card Relationship(Under development)</button>
+        <div id='card-relationship-table' class='collapse'></div>     
+    </div>
+
+    <!--top seqs-->
+    <div class="middle-section">
+        <button class="btn" data-toggle="collapse" data-target="#top-combo">Top Combo(Under development)</button>
+        <div id='top-combo' class='collapse show'></div>
+    </div>
 </div>

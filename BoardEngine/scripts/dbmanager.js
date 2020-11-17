@@ -49,6 +49,29 @@ function getAllTrainedVersion(gamename,deckname){
     }
     return res;
 }
+
+function recordPlaytestHistory(trainVersion){
+    let AIDataRoot = calculateDBRoot() + '\\ad'
+    let trainDir = AIDataRoot +'\\'+ trainVersion
+    playtestRecord = {"time":undefined}
+    saveObjectToFileAsJSON(playtestRecord,trainDir+'\\playtestHistory.json')
+}
+
+
+// return the trainVersions
+function getPlaytestHistory(gamename,deckname){
+    let res = []
+
+    let AIDataRoot = calculateDBRoot() + '\\ad'
+    let name_prefix = "A_" + gamename + "~"+"D_" + deckname + "~"
+    for(root of fs.readdirSync(AIDataRoot)){
+        if(root.startsWith(name_prefix) && fs.existsSync(AIDataRoot+'\\'+root+'\\playtestHistory.json')){
+            res.push(root)
+        }
+    }
+    return res
+}
+
 function loadPlaytestData(gamename,deckname,trainVersion = ""){
     let dbRoot = calculateDBRoot()
     let AIDataRoot = dbRoot + '\\ad'
@@ -268,5 +291,7 @@ module.exports = {
     getResourceRoot,
     getGameRecordDataRoot,
     getAllTrainedVersion,
-    loadPlaytestData
+    loadPlaytestData,
+    recordPlaytestHistory,
+    getPlaytestHistory
 }
