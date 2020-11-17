@@ -1,3 +1,4 @@
+const dbmanager = require('../scripts/dbmanager')
 
 function createCardElement(imgPath,cardName,description,energy,onClickListener = undefined){
     let frameWidth = '166px'
@@ -76,4 +77,21 @@ function createCardElement(imgPath,cardName,description,energy,onClickListener =
     return imgDiv
 }
 
-module.exports = {createCardElement}
+function createCardElementByName(gameName,cardName){
+    let gamedata = dbmanager.loadGameData(gameName)
+    let card = gamedata.cards[cardName]
+    let cardImgFullPath = "../static/defaultcard.png"
+    if( "img_relative_path" in card){
+        cardImgFullPath = dbmanager.getResourceRoot()+'\\'+card.img_relative_path
+    }
+
+    let cardElement = createCardElement(
+        cardImgFullPath,
+        cardName,                    
+        card.description,
+        card.energy_cost)
+
+    return cardElement
+}
+
+module.exports = {createCardElement,createCardElementByName}

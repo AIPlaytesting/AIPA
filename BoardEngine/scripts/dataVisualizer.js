@@ -1,3 +1,6 @@
+const cardRenderer = require('../scripts/cardRenderer'
+)
+
 function drawRankChart(csvURL,xValName,divID){
     $('#'+divID).text("")
     let optionDiv = $(document.createElement('div'))
@@ -104,16 +107,16 @@ function drawRankChart(csvURL,xValName,divID){
     })
 }
 
-function drawRelationshipTable(cvsURL,divID){
+function drawRelationshipTable(cvsURL,divID,gameName = "Demo"){
     let CARD_ONE_KEY = "Card One Name"
     let CARD_TWO_KEY = "Card Two Name"
     let VALUE_KEY = "Combination Play Count"
 
     $("#"+divID).text("")
     // set the dimensions and margins of the graph
-    var margin = {top: 80, right: 25, bottom: 100, left: 100},
-    width = 650 - margin.left - margin.right,
-    height = 650 - margin.top - margin.bottom;
+    var margin = {top: 80, right: 25, bottom: 0, left: 120},
+    width = 670 - margin.left - margin.right,
+    height = 550 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#"+divID)
@@ -177,15 +180,20 @@ function drawRelationshipTable(cvsURL,divID){
             d3.select(this)
                 .style("stroke", "black")
                 .style("opacity", 1)
+            $
+
+            let card1 = d[CARD_ONE_KEY]
+            let card2 = d[CARD_TWO_KEY]
+            refreshCardTooltips(card1, card2)
         }
 
         var mousemove = function(d) {
             let card1 = d[CARD_ONE_KEY]
             let card2 = d[CARD_TWO_KEY]
             tooltip
-                .html("occur times: " + d[VALUE_KEY]+"  ("+card1+","+card2+")")
+                .html("occur times: " + d[VALUE_KEY])
                 .style("left", (d3.mouse(this)[0]+70) + "px")
-                .style("top", (d3.mouse(this)[1])-700 + "px")
+                .style("top", (d3.mouse(this)[1])-560 + "px")
         }
         var mouseleave = function(d) {
             tooltip
@@ -193,6 +201,7 @@ function drawRelationshipTable(cvsURL,divID){
             d3.select(this)
                 .style("stroke", "none")
                 .style("opacity", 0.8)
+            clearCardTooltips()
         }
 
         // add the squares
@@ -214,6 +223,23 @@ function drawRelationshipTable(cvsURL,divID){
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
     })
+
+    let card1DivID = 'card-relationship-card1' 
+    let card2DivID = 'card-relationship-card2' 
+    function refreshCardTooltips(cardName1,cardName2){
+        $('#'+card1DivID).text("")
+        .append(cardRenderer.createCardElementByName(gameName,cardName1))
+        .append('<h2>FristCard</h2>')
+
+        $('#'+card2DivID).text("")
+        .append(cardRenderer.createCardElementByName(gameName,cardName2))
+        .append('<h2>SecondCard</h2>')
+    }
+
+    function clearCardTooltips(cardName1,cardName2){
+        $('#'+card1DivID).text("")
+        $('#'+card2DivID).text("")
+    }
 }
 
 function drawPieChart(divID,data){   
