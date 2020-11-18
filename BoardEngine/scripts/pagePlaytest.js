@@ -152,7 +152,7 @@ function drawDistribution(rootID){
 
 function drawTopCombos(divID,gameName,comboInfo){
     let rootDiv = $('#'+divID)
-    rootDiv.text("")
+    rootDiv.text("").append(createComboAnnoatationRow())
     let topNum = 5
     let curNum = 0
     for(let combo in comboInfo.trios){
@@ -169,13 +169,48 @@ function drawTopCombos(divID,gameName,comboInfo){
     function parseCardNamesFromComboName(comboName){
         return comboName.split('-')
     }
+
+    function createComboAnnoatationRow(){
+        let comboDiv = $(document.createElement('div'))
+        .attr('class','row')
+
+        let space = $(document.createElement('div')).attr('class','col-1')
+        let occurNumber = $(document.createElement('div'))
+            .attr('class','col-2')
+            .append($(document.createElement('h1')).text("occurTimes"))
+        
+        comboDiv.append(space)
+        .append(occurNumber)
+        .append($(document.createElement('h1')).text("firstCard").attr('class','col-2'))
+        .append($(document.createElement('div')).attr('class','col-1'))
+        .append($(document.createElement('h1')).text("secondCard").attr('class','col-2'))
+        .append($(document.createElement('div')).attr('class','col-1'))
+        .append($(document.createElement('h1')).text("thirdCard").attr('class','col-2'))
+        
+        return comboDiv
+    }
+
     function createComboElement(card1,card2,card3,occurTimes){
         let comboDiv = $(document.createElement('div'))
         .attr('class','row')
+        .css('border-radius','20px')
+        .css('margin-top','10px')
+        .css('margin-bottom','10px')
+        .css('margin-left','15px')
+        .css('margin-right','15px')
+        .css('background-color','white')
+
+        let space = $(document.createElement('div')).attr('class','col-1')
+        let occurNumber = $(document.createElement('div'))
+            .attr('class','col-2')
+            .append( $(document.createElement('h1')).text(occurTimes).attr('class','div-center'))
+        comboDiv.append(space)
+        .append(occurNumber)
         .append(cardRenderer.createCardElementByName(gameName,card1))
+        .append($(document.createElement('div')).attr('class','col-1'))
         .append(cardRenderer.createCardElementByName(gameName,card2))
+        .append($(document.createElement('div')).attr('class','col-1'))
         .append(cardRenderer.createCardElementByName(gameName,card3))
-        .append(occurTimes)
         return comboDiv
     }
 }
