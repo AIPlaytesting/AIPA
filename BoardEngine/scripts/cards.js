@@ -56,12 +56,16 @@ function onFinishDBLoad() {
       select.appendChild(option);
     });
     // console.log(isNewCard);
+
+    // if is new card, remove select element, and change name input readonly to false
     if (!isNewCard) {
       readCard();
     } else {
       // remove select bar and label
       document.getElementById('cardsSelect').remove();
       document.getElementById('cardsSelectLabel').remove();
+      document.getElementById('name').readOnly = false;
+      document.getElementById('name').className = 'form-control';
       // add buff 
       createBuffTable();
     }

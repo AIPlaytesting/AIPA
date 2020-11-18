@@ -1,5 +1,6 @@
 var fs = require('fs');
 const dbmanager = require('../scripts/dbmanager');
+const cardList = require('../scripts/cardList');
 // const { disconnect } = require('process');
 // input needed: 
 
@@ -16,28 +17,112 @@ function onLoadDesign() {
 
 function onFinishDBLoad() {
   let curGameName = dbmanager.getCurrentGameName();
-  console.log(curGameName);
   let curGameroot = dbmanager.getGameAppRoot(curGameName);
-  console.log(curGameroot);
-
   let curResourcesRoot = dbmanager.getResourceRoot();
+  console.log(curGameroot);
+  console.log(curGameName);
   console.log(curResourcesRoot);
 
   filePath = curGameroot + '/';
   appPath = curResourcesRoot + '/'
   deckFolderPath = curGameroot + '/Decks/';
   cardFolderPath = curGameroot + '/Cards/';
-  // TODO: image path to img_relative_path
 
-  // console.log(dbmanager.loadGameData());
+  // display current app name
+  let curapp = document.getElementById('curapp');
+  curapp.innerHTML = curGameName;
+  curapp.parentElement.style.fontStyle = 'italic';
+
   // display card information on load
+  // 2 parameters: onClickEvent function, and hoverImgPath
+  // onLoadCardsDeprecated()
+  //TODO: change to call onloadCard function from cardList.js
   onLoadCards();
+  // cardList.onLoadCards();
+  
   // display deck information on load
   onLoadDecks();
 }
 
-// display card information on load
 function onLoadCards() {
+  const cards = document.getElementById('cards');
+  // display card list
+  let dir = fs.readdirSync(cardFolderPath);
+  console.log(dir);
+
+  // iterate through each card component and display
+  for (let i = 0; i < dir.length; i++) {
+    const div = document.createElement('div');
+    div.className = 'col-3 mb-2';
+
+    // get card object from db
+    let data = fs.readFileSync(cardFolderPath + dir[i]);
+    let cardObj = JSON.parse(data);
+    // console.log(cardObj);
+
+    // get card img path
+    let cardImgFullPath = "../static/defaultcard.png";
+    if ("img_relative_path" in cardObj) {
+      let cardImgRelativePath = cardObj.img_relative_path;
+      cardImgFullPath = dbmanager.getResourceRoot() + '\\' + cardImgRelativePath;
+    }
+
+    // get hover img path
+    let hoverImgPath = '../static/noun_add.png';
+    // form a component
+    const imgDiv = cardList.createCard(
+      cardImgFullPath,
+      cardObj.name,
+      cardObj.description,
+      cardObj.energy_cost,
+      function(){addCardToDeck(cardObj.name)},
+      hoverImgPath
+    )
+
+    // append to DOM tree
+    div.appendChild(imgDiv);
+    cards.appendChild(div);
+  }
+}
+
+function addCardToDeck(name) {
+  console.log('add to deck');
+  // get card name
+  const cardName = name;
+  console.log(cardName);
+  // add to deck
+  // if card exist in deck, add amount by 1
+  // else if card not exist in deck, create new element with card name and amount 1
+  const form = document.getElementById('deckForm');
+  console.log(form.children.length-1);
+  // length - 1 for deducting save button
+  const n = form.children.length
+  let cardIsExist = false;
+  for (let i = 0; i < n; i++) {
+    if (cardIsExist) {
+      break;
+    }
+    if (i == n - 1) {
+      break;
+    }
+    console.log(form.children[i].firstChild.innerHTML);
+    if (form.children[i].firstChild.innerHTML == cardName) {
+      form.children[i].lastChild.firstChild.value = parseInt(form.children[i].lastChild.firstChild.value) + 1;
+      form.children[i].lastChild.firstChild.style.backgroundColor = 'powderblue';
+      cardIsExist = true;
+    }
+  }
+  if (!cardIsExist) {
+    const div = createDeckCard(cardName, 1);
+    div.lastChild.firstChild.style.backgroundColor = 'powderblue';
+    form.prepend(div);
+  }
+  // run saveButton function
+
+}
+
+// display card information on load
+function onLoadCardsDeprecated() {
   const cards = document.getElementById('cards');
   fs.readdir(cardFolderPath, (err, files) => {
     if (err) throw err;
@@ -52,7 +137,8 @@ function onLoadCards() {
         // console.log(card);
         let imgName = card['name'].replace(/\s/g, '').replace('Plus', '').toLowerCase();
         const imgPath = appPath + imgName + '.png';
-        // console.log(imgPath);
+
+        // validation check
         const energyCost = (card['energy_cost'] == undefined) ? 'energy_cost' : card['energy_cost'];
         const description = (card['description'] == undefined) ? 'No Description presented' : card['description'];
         // console.log(imgPath);
@@ -103,14 +189,14 @@ function onLoadCards() {
       // row2.appendChild(a);
 
       // Delete card
-      const icon = document.createElement('i');
-      icon.className = 'material-icons';
-      icon.innerHTML = 'delete';
-      let btn = document.createElement('button');
-      btn.className = 'ml-1 mb-1 btn btn-danger btn-sm';
-      btn.onclick = deleteCard;
-      btn.appendChild(icon);
-      row2.appendChild(btn);
+      // const icon = document.createElement('i');
+      // icon.className = 'material-icons';
+      // icon.innerHTML = 'delete';
+      // let btn = document.createElement('button');
+      // btn.className = 'ml-1 mb-1 btn btn-danger btn-sm';
+      // btn.onclick = deleteCard;
+      // btn.appendChild(icon);
+      // row2.appendChild(btn);
 
       // Add to deck
       btn = document.createElement('button');

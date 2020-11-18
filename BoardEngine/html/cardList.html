@@ -16,7 +16,7 @@
 <body onload="onLoadCardList()">
   <div class='container m-3'>
     <div class="row">
-      <div class='col-2'>
+      <div class='col-1'>
         <div class='row m-3 cursor-pointer'>
           <i class="material-icons" onclick="window.close();">
             clear
@@ -36,21 +36,32 @@
             </button>
           </a>
         </div>
-        <div class='row m-3'>
+        <!-- <div class='row m-3'>
           <a class='' href='train.html'>
             <button class='btn btn-primary'>
               <div>Training</div>
             </button>
           </a>
-        </div>
+        </div> -->
       </div>
 
-      <div class='col-10'>
-        <h2>Cards</h2>
-        <hr>
-        <h6>Current APP: <span id='curapp'></span></h6>
+      <div class='col-11'>
+        <div class='container'>
+          <h2>Cards</h2>
+          <hr>
 
-        <div id='cards' class='row'>
+          <div class="row">
+            <div class='col-9'>
+              <h6>Current APP: <span id='curapp'></span>
+                <!-- <button class='btn-sm btn-success float-right justify-content-end'>Add New</button> -->
+              </h6>
+              <div id='cards' class='row'>
+              </div>
+            </div>
+            <div class="col-3">
+
+            </div>
+          </div>
         </div>
       </div>
     </div>

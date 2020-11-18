@@ -1,4 +1,5 @@
 var fs = require('fs');
+const { windowsStore } = require('process');
 const dbmanager = require('../scripts/dbmanager');
 
 var filePath = '';
@@ -11,8 +12,9 @@ function onLoadCardList() {
   dbmanager.loadDB(onFinishDBLoad);
 }
 
-// get path
+
 function onFinishDBLoad() {
+  // get path
   let curGameName = dbmanager.getCurrentGameName();
   let curGameroot = dbmanager.getGameAppRoot(curGameName);
   let curResourcesRoot = dbmanager.getResourceRoot();
@@ -27,11 +29,13 @@ function onFinishDBLoad() {
   curapp.parentElement.style.fontStyle = 'italic';
 
   // display card information on load
+  // 2 parameters: onClickEvent function, and hoverImgPath
   onLoadCards();
 }
 
 function onLoadCards() {
   const cards = document.getElementById('cards');
+
   // display card list
   let dir = fs.readdirSync(cardFolderPath);
   console.log(dir);
@@ -53,22 +57,49 @@ function onLoadCards() {
       cardImgFullPath = dbmanager.getResourceRoot() + '\\' + cardImgRelativePath;
     }
 
+    // get hover img path
+    let hoverImgPath = '../static/noun_edit.png';
     // form a component
     const imgDiv = createCard(
       cardImgFullPath,
       cardObj.name,
       cardObj.description,
-      cardObj.energy_cost
+      cardObj.energy_cost,
+      function(){GoToCardByName(cardObj.name)},
+      hoverImgPath
     )
 
     // append to DOM tree
     div.appendChild(imgDiv);
     cards.appendChild(div);
   }
-
+  
+  // add new card: img
+  //
+  let div = document.createElement('div');
+  div.className = 'col-3 mb-2';
+  let imgDiv = document.createElement('div');
+  imgDiv.className = 'm-5';
+  let img = document.createElement('img');
+  img.id = 'addImg';
+  img.src = '../static/add.png';
+  img.width = '100';
+  img.height = '110';
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location = 'cards.html';
+  })
+  imgDiv.appendChild(img);
+  div.appendChild(imgDiv);
+  cards.prepend(div);
 }
 
-function createCard(imgPath, cardName, description, energy, onClickListener = undefined) {
+function GoToCardByName(cardName) {
+  window.location = `cards.html?cardName="${cardName}"`;
+}
+
+function createCard(imgPath, cardName, description, energy, onClickListener = undefined, hoverImgPath) {
   let frameWidth = '180'
   let textFrameWidth = '130'
   let framwHeight = '220'
@@ -78,7 +109,7 @@ function createCard(imgPath, cardName, description, energy, onClickListener = un
   imgDiv.style.cursor = 'pointer';
   imgDiv.addEventListener('click', function(e) {
     e.preventDefault();
-    window.location = `cards.html?cardName="${cardName}"`;
+    onClickListener();
   })
 
   let imgElement = document.createElement('img');
@@ -119,14 +150,13 @@ function createCard(imgPath, cardName, description, energy, onClickListener = un
 
   let descriptionText = document.createElement('p');
   descriptionText.innerText = description;
-  descriptionText.className = 'text-center mr-5 ml-4';
+  descriptionText.className = 'text-center mr-3 ml-4';
   descriptionText.style.position = 'absolute';
   descriptionText.style.top = '120px';
   descriptionText.style.left = '5px';
   descriptionText.style.width = textFrameWidth;
   descriptionText.style.color = 'white';
 
-  let hoverImgPath = '../static/noun_edit.png'
   let hoverSign = document.createElement('img');
   hoverSign.src = hoverImgPath;
   hoverSign.style.position = 'absolute';
@@ -147,4 +177,8 @@ function createCard(imgPath, cardName, description, energy, onClickListener = un
 
   imgDiv.append(cardFrame, imgElement, nameText, energyText, descriptionText, hoverSign);
   return imgDiv
+}
+
+module.exports = {
+  createCard
 }
