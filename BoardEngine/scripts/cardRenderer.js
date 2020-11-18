@@ -7,9 +7,8 @@ function createCardElement(imgPath,cardName,description,energy,hoverImgPath = ""
 
     let cardFramePath = "../static/cardframe.png"
     let imgDiv = $(document.createElement('div'))
-        .attr('class','card-div')
+        .attr('class','col-2')
         .css('position','relative')
-    imgDiv.attr('class','col-2')
 
     let imgElement = $(document.createElement('img'))
         .attr('src',imgPath)  
