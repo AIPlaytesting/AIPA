@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../css/decks.css">
+  <link rel="stylesheet" href="../css/cardList.css">
   <script src='../scripts/decks.js'></script>
 
 </head>
@@ -14,7 +15,7 @@
 <body onload="onLoadDesign()">
   <div class='container m-3'>
     <div class="row">
-      <div class='col-2'>
+      <div class='col-1'>
         <div class='row m-3 cursor-pointer'>
           <i class="material-icons" onclick="window.close();">
             clear
@@ -34,23 +35,24 @@
             </button>
           </a>
         </div>
-        <div class='row m-3'>
+        <!-- <div class='row m-3'>
           <a class='' href='train.html'>
             <button class='btn btn-primary'>
               <div>Training</div>
             </button>
           </a>
-        </div>
+        </div> -->
       </div>
 
-      <div class='col-10'>
+      <div class='col-11'>
 
         <div class='container'>
           <h2>Decks</h2>
+          <hr>
+          <h6>Current APP: <span id='curapp'></span></h6>  
           <div class="row">
             <div class='col-9'>
-              <!-- <h2>Cards</h2> -->
-              <div id='cards' class='row justify-content-center'>
+              <div id='cards' class='row'>
                 <!-- <div class='col-3 d-flex justify-content-center align-items-center'>
                   <a class='' href='cards.html'><button class='btn btn-primary'>
                       <div>Add New Card</div><span class="material-icons font-xxlarge">
@@ -63,7 +65,7 @@
 
             <div class='col-3'>
               <!-- <h2>Decks</h2> -->
-              <div id='decks' class='row'>
+              <div id='decks'>
                 <div class='row'>
                   <form>
                     <div class='form-group'>
