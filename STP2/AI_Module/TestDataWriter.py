@@ -61,7 +61,7 @@ class TestDataWriter():
 
         with open(self.test_data_path + "\\game_len_dist.csv", 'w', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
-            csvwriter.writerow("Game Length")
+            csvwriter.writerow(["value"])
             csvwriter.writerows(rows_to_write)
 
         #boss player hp
