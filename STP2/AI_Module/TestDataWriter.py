@@ -60,16 +60,25 @@ class TestDataWriter():
             csvwriter.writerow("Game Length")
             csvwriter.writerows(self.data_collector.episode_length_list)
 
-        with open(self.test_data_path + "\\boss_hp_dist.csv", 'w', newline='') as csvfile:
+        #boss player hp
+
+        rows_to_write = []
+
+        for i in range(len(self.data_collector.boss_end_hp_list)):
+            row1 = []
+            row1.append('Boss HP')
+            row1.append(self.data_collector.boss_end_hp_list[i])
+            row2 = []
+            row2.append('Player HP')
+            row2.append(self.data_collector.player_end_hp_list[i])
+            rows_to_write.append(row1)
+            rows_to_write.append(row2)
+
+        with open(self.test_data_path + "\\player_boss_hp_dist.csv", 'w', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
-            csvwriter.writerow("Boss HP")
-            csvwriter.writerows(self.data_collector.boss_end_hp_list)
-        
-        with open(self.test_data_path + "\\player_hp_dist.csv", 'w', newline='') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow("Player HP")
-            csvwriter.writerows(self.data_collector.player_end_hp_list)
-        
+            csvwriter.writerow(['type', 'value'])
+            csvwriter.writerows(rows_to_write)
+
         #write the card pair combination statistics
         rows_to_write = []
         rows_to_write.append(['Card One Name', 'Card Two Name', 'Combination Play Count'])
