@@ -132,10 +132,8 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     $('#win-rate-progress').attr("class","green c100 p"+percentage)
 
     // draw distributions
-    drawDistribution("v-pills-game-len")
-    // $('#avg-game-len').text("average game length: "+basicStats.avg_game_length)
-    $('#avg-boss-hp').text("average boss hp: "+basicStats.avg_boss_hp)
-    $('#avg-player-hp').text("average player hp: "+basicStats.avg_player_hp)
+    dataVisualizer.drawDistribution("../static/tempdistribution.csv","v-pills-game-len")
+    dataVisualizer.drawDualDistribution("../static/tempdualdistribution.csv","v-pills-ending-hp")
 
     // relationship heat map
     dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table',gamename)
@@ -144,10 +142,6 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     drawTopCombos('top-combo',gamename, playtestData.comboInfo)
 
     //dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
-}
-
-function drawDistribution(rootID){
-    dataVisualizer.drawDistribution("../static/tempdistribution.csv",rootID)
 }
 
 function drawTopCombos(divID,gameName,comboInfo){
@@ -161,7 +155,6 @@ function drawTopCombos(divID,gameName,comboInfo){
         }
         curNum++
         let names = parseCardNamesFromComboName(combo)
-        console.log(names)
         let comboElement = createComboElement(names[0],names[1],names[2],comboInfo.trios[combo])
         rootDiv.append(comboElement)
     }

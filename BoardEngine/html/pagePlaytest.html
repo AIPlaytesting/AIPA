@@ -37,7 +37,9 @@
 
 <!-- playtest history-->
 <div id = "playtest-history-div" class="middle-section">
-    <button class="btn" data-toggle="collapse" data-target="#playtest-history-list">History</button>
+    <button class="btn" data-toggle="collapse" data-target="#playtest-history-list">
+        <h1>Playtest History</h1>
+    </button>
     <div id = "playtest-history-list" class='collapse show' >
     </div>
 </div>
@@ -46,7 +48,9 @@
 <div id = "data-display-root" class="d-none">
     <!--basic info-->
     <div class="middle-section">
-        <button class="btn" data-toggle="collapse" data-target="#basic-info">Basic Info</button>
+        <button class="btn" data-toggle="collapse" data-target="#basic-info">
+            <h1>Basic Data</h1>
+        </button>
         <div id = "basic-info" class="row collapse show">
             <!--winrate info-->
             <div id = 'playtest-winrate' class="col-2">
@@ -61,20 +65,14 @@
                 </div>
             </div>
             <!--basic attrs-->        
-            <div class="col-3 nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+            <div class="col-1 nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="game-len-tab" data-toggle="pill" href="#v-pills-game-len" role="tab" aria-controls="v-pills-home" aria-selected="true">Game Length</a>
-                <a class="nav-link" id="player-hp-tab" data-toggle="pill" href="#v-pills-player-hp" role="tab" aria-controls="v-pills-profile" aria-selected="false">Player HP</a>
-                <a class="nav-link" id="boss-hp-tab" data-toggle="pill" href="#v-pills-boss-hp" role="tab" aria-controls="v-pills-messages" aria-selected="false">BOSS HP</a>
+                <a class="nav-link" id="player-hp-tab" data-toggle="pill" href="#v-pills-ending-hp" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ending Margin</a>
                 </div>
-            <div class="col-7 tab-content" id="v-pills-tabContent" >
+            <div class="col-8 tab-content" id="v-pills-tabContent" >
                 <div class="tab-pane fade show active" id="v-pills-game-len" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                    <h1 id = 'avg-game-len'></h1>
                 </div>
-                <div class="tab-pane fade" id="v-pills-player-hp" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    <h1 id = 'avg-player-hp'></h1>
-                </div>
-                <div class="tab-pane fade" id="v-pills-boss-hp" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                    <h1 id = 'avg-boss-hp'></h1>
+                <div class="tab-pane fade" id="v-pills-ending-hp" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 </div>
             </div>   
             <!--basic attrs end-->                
@@ -83,7 +81,9 @@
 
     <!--relationship table-->
     <div class="middle-section">
-        <button class="btn" data-toggle="collapse" data-target="#card-relationship">Card Relationship(Under development)</button>
+        <button class="btn" data-toggle="collapse" data-target="#card-relationship">
+            <h1>Card Relationship</h1>
+        </button>
         <div id = "card-relationship" class='collapse row'>
             <div id='card-relationship-table' class = "col-6"></div>    
             <div id='card-relationship-card1' class = "col-3">c1</div>    
@@ -93,7 +93,9 @@
 
     <!--top combos-->
     <div class="middle-section">
-        <button class="btn" data-toggle="collapse" data-target="#top-combo">Top Combo(Under development)</button>
-        <div id='top-combo' class='collapse show'></div>
+        <button class="btn" data-toggle="collapse" data-target="#top-combo">
+            <h1>Top Combos</h1>
+        </button>
+        <div id='top-combo' class='collapse'></div>
     </div>
 </div>
