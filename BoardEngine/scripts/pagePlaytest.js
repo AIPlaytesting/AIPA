@@ -132,8 +132,8 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     $('#win-rate-progress').attr("class","green c100 p"+percentage)
 
     // draw distributions
-    dataVisualizer.drawDistribution("../static/tempdistribution.csv","v-pills-game-len")
-    dataVisualizer.drawDualDistribution("../static/tempdualdistribution.csv","v-pills-ending-hp")
+    dataVisualizer.drawDistribution(playtestData.game_len_distribution_csv_url,"v-pills-game-len")
+    dataVisualizer.drawDualDistribution(playtestData.hp_distribution_csv_url,"v-pills-ending-hp")
 
     // card analysis
     drawCardAnalysisSection('card-analysis',playtestData)

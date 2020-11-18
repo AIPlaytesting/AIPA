@@ -113,6 +113,8 @@ function loadPlaytestData(gamename,deckname,trainVersion = ""){
     playtestData['basicStats'] = loadObjectFromJSONFile(playtestDataRoot+'\\basic_stats.json')
     playtestData['card_perfromance_csv_url'] = playtestDataRoot + "\\card_performance_data.csv"
     playtestData['card_relationship_csv_url'] = playtestDataRoot + "\\card_pair_combo_data.csv"
+    playtestData['hp_distribution_csv_url'] = playtestDataRoot + "\\player_boss_hp_dist.csv"
+    playtestData['game_len_distribution_csv_url'] = playtestDataRoot + "\\game_len_dist.csv"
     playtestData['comboInfo'] = loadObjectFromJSONFile(playtestDataRoot+'\\card_seqs.json')
     return playtestData
 }

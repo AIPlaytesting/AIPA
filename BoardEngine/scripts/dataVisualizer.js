@@ -322,7 +322,7 @@ function drawDistribution(cvsURL, divID) {
     d3.csv(cvsURL, function (data) {
         // add the x Axis
         var x = d3.scaleLinear()
-            .domain([0, 1000])
+            .domain([0, 100])
             .range([0, width]);
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -360,14 +360,14 @@ function drawDistribution(cvsURL, divID) {
     });
 
     // Handmade legend
-    svg.append("circle").attr("cx", 300).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
-    svg.append("circle").attr("cx", 300).attr("cy", 60).attr("r", 6).style("fill", "#69b3a2")
-    svg.append("circle").attr("cx", 300).attr("cy", 90).attr("r", 6).style("fill", "#69b3a2")
-    svg.append("circle").attr("cx", 300).attr("cy", 120).attr("r", 6).style("fill", "#404080")
-    svg.append("text").attr("x", 320).attr("y", 30).text("average: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
-    svg.append("text").attr("x", 320).attr("y", 60).text("middle: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
-    svg.append("text").attr("x", 320).attr("y", 90).text("max:999").style("font-size", "15px").attr("alignment-baseline", "middle")
-    svg.append("text").attr("x", 320).attr("y", 120).text("min:-1").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("circle").attr("cx", 300).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
+    // svg.append("circle").attr("cx", 300).attr("cy", 60).attr("r", 6).style("fill", "#69b3a2")
+    // svg.append("circle").attr("cx", 300).attr("cy", 90).attr("r", 6).style("fill", "#69b3a2")
+    // svg.append("circle").attr("cx", 300).attr("cy", 120).attr("r", 6).style("fill", "#404080")
+    // svg.append("text").attr("x", 320).attr("y", 30).text("average: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("text").attr("x", 320).attr("y", 60).text("middle: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("text").attr("x", 320).attr("y", 90).text("max:999").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("text").attr("x", 320).attr("y", 120).text("min:-1").style("font-size", "15px").attr("alignment-baseline", "middle")
 
     // Function to compute density
     function kernelDensityEstimator(kernel, X) {
@@ -404,10 +404,10 @@ function drawDualDistribution(csvURL, divID) {
 
     // get the data
     d3.csv(csvURL, function (data) {
-
+        let range = [-50, 250]
         // add the x Axis
         var x = d3.scaleLinear()
-            .domain([-20, 15])
+            .domain(range)
             .range([0, width]);
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -417,12 +417,12 @@ function drawDualDistribution(csvURL, divID) {
         // Compute kernel density estimation
         var kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(60))
         var density1 = kde(data
-            .filter(function (d) { return d.type === "variable 1" })
+            .filter(function (d) { return d.type === "Player HP" })
             .map(function (d) { return d.value; }))
         let maxDen1 = d3.max(density1, function (d) { return parseFloat(d[1]); });
 
         var density2 = kde(data
-            .filter(function (d) { return d.type === "variable 2" })
+            .filter(function (d) { return d.type === "Boss HP" })
             .map(function (d) { return d.value; }))
         let maxDen2 = d3.max(density2, function (d) { return parseFloat(d[1]); });
 
