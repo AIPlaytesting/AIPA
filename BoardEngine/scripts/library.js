@@ -67,7 +67,7 @@ function onClickPlay(){
 }
 
 function onClickTrain(){
-    pageTrain.onClickTrain()
+    pageTrain.startTrain(dbmanager.getCurrentGameName(),currentGameData.rules.deck)
 }
 
 function onClickCreateNewGame(){
