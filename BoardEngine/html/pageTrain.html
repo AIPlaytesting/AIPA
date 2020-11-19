@@ -29,8 +29,57 @@
     </div>
 </div>
 
+<!-- training queue-->
+<div class = "middle-section">
+    <button class="btn" data-toggle="collapse" data-target="#training-queue">
+        <h1>Training Queue</h1>
+    </button>
+
+    <div id = "training-queue" class="collapse show">
+        <div class =  "row">
+            <!-- progress-->
+            <div class = "col-3"> 
+                <!-- progress-->
+                <div  class="clearfix text-center">
+                    <div id = "train-progress-bar" class="c100 p45">
+                        <span id = "train-progress-text" >01/100</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <!--train status-->
+            <div class="col-8" >
+                <div id = 'train-status' class = 'display-4'>Train your AI</div>
+            </div>
+        </div>
+
+        <div class =  "row">
+            <!-- progress-->
+            <div class = "col-3"> 
+                <!-- progress-->
+                <div  class="clearfix text-center">
+                    <div id = "train-progress-bar" class="c100 p45">
+                        <span id = "train-progress-text" >01/100</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <!--train status-->
+            <div class="col-8" >
+                <div id = 'train-status' class = 'display-4'>Train your AI</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- train advanced config-->
-<div class="middle-section">
+<div class="middle-section d-none">
     <button class="btn" data-toggle="collapse" data-target="#train-advanced-config ">Advance</button>
     <div id = "train-advanced-config" class='collapse'>
         <div id="div_epsilon" class="form-group required">

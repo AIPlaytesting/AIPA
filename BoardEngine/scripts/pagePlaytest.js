@@ -151,16 +151,25 @@ function drawTopCombosSection(divID,gameName,comboInfo){
     let rootDiv = $('#'+divID)
     rootDiv.text("").append(createComboAnnoatationRow())
     let topNum = 5
-    let curNum = 0
+    let rankedCombos = []
     for(let combo in comboInfo.trios){
-        if(curNum >= topNum){
-            break;
-        }
-        curNum++
+        rankedCombos.push(combo)
+    }
+    for(let i = rankedCombos.length - 1; i >= 0 && i > rankedCombos.length - topNum -1; i--){
+        let combo = rankedCombos[i]
         let names = parseCardNamesFromComboName(combo)
         let comboElement = createComboElement(names[0],names[1],names[2],comboInfo.trios[combo])
         rootDiv.append(comboElement)
     }
+    // for(let combo in comboInfo.trios){
+    //     if(curNum >= topNum){
+    //         break;
+    //     }
+    //     curNum++
+    //     let names = parseCardNamesFromComboName(combo)
+    //     let comboElement = createComboElement(names[0],names[1],names[2],comboInfo.trios[combo])
+    //     rootDiv.append(comboElement)
+    // }
 
     function parseCardNamesFromComboName(comboName){
         return comboName.split('-')
