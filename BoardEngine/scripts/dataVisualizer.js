@@ -1,6 +1,53 @@
 const cardRenderer = require('../scripts/cardRenderer'
 )
 
+function drawCurve(divID,yDomain,xDomin,data) {
+    $('#' + divID).text("")
+    // set the dimensions and margins of the graph
+    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+        width = 1460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select('#' + divID)
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scaleLinear()
+        .domain(xDomin)
+        .range([0, width]);
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+        .domain(yDomain)
+        .range([height, 0]);
+    svg.append("g")
+        .call(d3.axisLeft(y));
+
+    // Add the line
+    svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+            .x(function (d) { return x(d[0]) })
+            .y(function (d) { return y(d[1]) })
+        )
+    if(data.length > 0){
+        let lastValue = data[data.length-1][1]
+        svg.append("circle").attr("cx", 30).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
+        svg.append("text").attr("x", 50).attr("y", 30).text("win rate: "+lastValue+"%").style("font-size", "15px").attr("alignment-baseline", "middle")    
+    }
+}
+
 function drawRankChart(csvURL, xValName, divID) {
     $('#' + divID).text("")
     let optionDiv = $(document.createElement('div'))
@@ -306,8 +353,8 @@ function drawDistribution(cvsURL, divID) {
     $("#" + divID).text("")
     // set the dimensions and margins of the graph
     var margin = { top: 30, right: 30, bottom: 30, left: 60 },
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+        width = 460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#" + divID)
@@ -387,14 +434,14 @@ function drawDistribution(cvsURL, divID) {
 }
 
 function drawDualDistribution(csvURL, divID) {
-    $("#"+divID).text("")
+    $("#" + divID).text("")
     // set the dimensions and margins of the graph
     var margin = { top: 30, right: 30, bottom: 30, left: 60 },
         width = 460 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#"+divID)
+    var svg = d3.select("#" + divID)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -714,5 +761,6 @@ module.exports = {
     drawPieChart,
     drawRadarChart,
     drawDistribution,
-    drawDualDistribution
+    drawDualDistribution,
+    drawCurve
 }

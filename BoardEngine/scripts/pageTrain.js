@@ -1,4 +1,6 @@
 const dbmanager = require('../scripts/dbmanager')
+const dataVisualizer = require('../scripts/dataVisualizer')
+
 var trainingQueue = []
 
 class TrainSession{
@@ -44,6 +46,8 @@ class TrainSession{
         .append(createProgressBarElement())
         .append(createTrainInfoElement())
         .append(createStatusElement())
+        .append(createDetailsInfoElement())
+
         console.log(trainSessionDiv)
         return trainSessionDiv
 
@@ -78,6 +82,22 @@ class TrainSession{
             
             return root.append(statusText)
         }
+
+        function createDetailsInfoElement(){
+            let root = $(document.createElement('div')).addClass('col-12')
+            let collpaseBtn = $(document.createElement('button'))
+            .addClass('btn')
+            .attr('data-toggle','collapse')
+            .attr('data-target','#'+sessionID+'-train-detail-collapse')
+            .text("Details")
+            let collpaseDiv = $(document.createElement('div'))
+            .addClass('collapse')
+            .attr('id',sessionID+'-train-detail-collapse')
+            let winrateCurveDiv = $(document.createElement('div'))
+            .attr('id',sessionID+'-winrate-curve')
+            root.append(collpaseBtn,collpaseDiv.append(winrateCurveDiv))
+            return root
+            }
     }
 }
 
@@ -131,6 +151,13 @@ function onReceiveTrainMesssage(sessionID,data){
     else{
         $('#'+sessionID+'-train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
     }
+
+    //draw Curves
+    let dummyData = []
+    for(let i = 0; i <curprogress; i++){
+        dummyData.push([i,100*i/maxprogress])
+    }
+    dataVisualizer.drawCurve(sessionID+'-winrate-curve',[0,100],[0,maxprogress],dummyData)
 }
 
 function updateTrainingQueueView(){
