@@ -136,15 +136,13 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     dataVisualizer.drawDualDistribution(playtestData.hp_distribution_csv_url,"v-pills-ending-hp")
 
     // card analysis
-    drawCardAnalysisSection('card-analysis',playtestData)
+    drawCardAnalysisSection(playtestData)
 
     // relationship heat map
     dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table',gamename)
     
     // top combos
     drawTopCombosSection('top-combo',gamename, playtestData.comboInfo)
-
-    //dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
 }
 
 function drawTopCombosSection(divID,gameName,comboInfo){
@@ -220,8 +218,12 @@ function drawTopCombosSection(divID,gameName,comboInfo){
     }
 }
 
-function drawCardAnalysisSection(divID,playtestData){
-    let sectionRoot = $('#'+divID).text("")
+function drawCardAnalysisSection(playtestData){
+    dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url,'Card Name','Card Utilization','card-utilization-histogram','red')
+    dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url,'Card Name','Avg Play Position','card-playpos-histogram','green')
+    dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url,'Card Name','Card Play Count','card-playcount-histogram','blue')
+
+    let sectionRoot = $('#card-analysis-list').text("")
     for(let analysis of createCardAnalysises(playtestData)){
         sectionRoot.append(createCardAnalysisElement(analysis))
     }
