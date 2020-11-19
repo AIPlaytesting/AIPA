@@ -30,11 +30,11 @@ function onFinishDBLoad(){
     $('#create-new-game-btn').off()
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
-    // refresh design page
+    // refresh all pages
     updateDesignPage()
-    // also update playtest
     updatePlaytestPage()
-
+    updateTrainPage()
+    
     function updateGameTemplateList(){
         let gameTemplateList = $("#game-template-list");
         gameTemplateList.text("");
@@ -318,6 +318,12 @@ function updateDesignPage(){
 
 function updatePlaytestPage(){
     pagePlaytest.updatePlaytestPage()
+}
+
+function updateTrainPage(){
+    let gameName = dbmanager.getCurrentGameName()
+    let deckName = dbmanager.loadGameData(gameName).rules.deck
+    pageTrain.updateTrainPageView(gameName,deckName)
 }
 
 function popupWarning(message){

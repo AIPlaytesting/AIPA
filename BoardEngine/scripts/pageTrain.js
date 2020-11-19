@@ -6,6 +6,10 @@ class TrainSession{
         this.trainInfo = trainInfo
     }
 
+    isTrainOf(gameName,deckName){
+        return this.trainInfo.gameName == gameName && this.trainInfo.deckName == deckName
+    }
+
     getSessionID(){
         return this.trainInfo.gameName+this.trainInfo.deckName
     }
@@ -32,17 +36,19 @@ class TrainSession{
     
     createView(){
         let sessionID = this.getSessionID()
+        let trainInfo = this.trainInfo
         let trainSessionDiv = $(document.createElement('div'))
         .attr('class','row')
         .attr('id',sessionID+'-train-session')
         .addClass('inner-section')
         .append(createProgressBarElement())
+        .append(createTrainInfoElement())
         .append(createStatusElement())
         console.log(trainSessionDiv)
         return trainSessionDiv
 
         function createProgressBarElement(){
-            let root = $(document.createElement('div')).addClass('col-3')
+            let root = $(document.createElement('div')).addClass('col-2')
             let progressRoot = $(document.createElement('div')).attr('class',"clearfix text-center")
             let progressBar = $(document.createElement('div'))
             .attr('id',sessionID+'-train-progress-bar')
@@ -53,8 +59,15 @@ class TrainSession{
             return root
         }
 
+        function createTrainInfoElement(){
+            let root = $(document.createElement('div')).addClass("col-2")
+            let gameName = $(document.createElement('h3')).text('Game: '+ trainInfo.gameName)
+            let deckName = $(document.createElement('h3')).text('Deck: '+ trainInfo.deckName)
+            return root.append(gameName,deckName)
+        }
+
         function createStatusElement(){
-            let root = $(document.createElement('div')).addClass("col-8")
+            let root = $(document.createElement('div')).addClass("col-4")
             let initIndicator = $(document.createElement('div'))
             .append("<span class='spinner-border text-dark' role='status'></span>")
             .append("initializing...")
@@ -73,7 +86,7 @@ function startTrain(gameName,deckName){
     let trainSession = new TrainSession(trainInfo)
     trainSession.startTrain()
     trainingQueue.push(trainSession)
-    updateTrainingQueueView()
+    updateTrainPageView(gameName,deckName)
 
     function collectTrainInfo(){
         let trainInfo = {
@@ -85,10 +98,24 @@ function startTrain(gameName,deckName){
     }
 }
 
-function updateTrainPage(){
-    updateTrainingQueueView()
-}
+function updateTrainPageView(currentGame,currentDeck){
+    let hookedTrainSession = undefined
+    for(let trainSession of trainingQueue){
+        if(trainSession.isTrainOf(currentGame,currentDeck)){
+            hookedTrainSession = trainSession
+        }
+    }
 
+    if(hookedTrainSession){
+        setTrainHeadPannel(true)
+    }
+    else{
+        setTrainHeadPannel(false)
+    }
+
+    updateTrainingQueueView()
+    $('#'+hookedTrainSession.getSessionID()+'-train-session').css('background-color','#dde8cf')
+}
 
 function onReceiveTrainMesssage(sessionID,data){
     let trainInfo = JSON.parse(data).content
@@ -145,4 +172,4 @@ function onTrainFinish(sessionID){
         }
     }
 }
-module.exports ={startTrain,updateTrainPage}
+module.exports ={startTrain,updateTrainPageView}
