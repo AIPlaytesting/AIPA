@@ -6,7 +6,7 @@
         <button id = "train-btn" class="btn" onclick="onClickTrain()">
             <img src="../static/train-btn.png">
         </button>
-        <!--play test progress-->
+        <!-- play test progress
         <div id = "train-progress"  class="clearfix text-center d-none">
             <div id = "train-progress-bar" class="c100 p0">
                 <span id = "train-progress-text" >??</span>
@@ -15,7 +15,7 @@
                     <div class="fill"></div>
                 </div>
             </div>
-        </div>  
+        </div>   -->
     </div>
     <!--train config-->
     <div class="col-8" >
@@ -25,8 +25,8 @@
                 <input id = 'train-iter-config' type="text" value = "12000">
             </span>                                        
         </div>
-        <div id = 'train-status' class = 'display-4  d-none'>Train your AI</div>
     </div>
+    <div id = 'train-status' class = 'col-12 display-4  d-none text-center'></div>
 </div>
 
 <!-- training queue-->
@@ -36,45 +36,7 @@
     </button>
 
     <div id = "training-queue" class="collapse show">
-        <div class =  "row">
-            <!-- progress-->
-            <div class = "col-3"> 
-                <!-- progress-->
-                <div  class="clearfix text-center">
-                    <div id = "train-progress-bar" class="c100 p45">
-                        <span id = "train-progress-text" >01/100</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>  
-            </div>
-            <!--train status-->
-            <div class="col-8" >
-                <div id = 'train-status' class = 'display-4'>Train your AI</div>
-            </div>
-        </div>
-
-        <div class =  "row">
-            <!-- progress-->
-            <div class = "col-3"> 
-                <!-- progress-->
-                <div  class="clearfix text-center">
-                    <div id = "train-progress-bar" class="c100 p45">
-                        <span id = "train-progress-text" >01/100</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>  
-            </div>
-            <!--train status-->
-            <div class="col-8" >
-                <div id = 'train-status' class = 'display-4'>Train your AI</div>
-            </div>
-        </div>
+        <div class = 'display-4 text-center'>No AI is training</div>
     </div>
 </div>
 
