@@ -6,26 +6,19 @@ var cardName = '';
 var filePath = '../STP2/DATA/DefinitewinAPP/';
 var appPath = '../STP2/DATA/Resources/';
 
-// TODO: path
-
 function onLoadCards() {
   dbmanager.loadDB(onFinishDBLoad);
 }
 
 function onFinishDBLoad() {
   let curGameName = dbmanager.getCurrentGameName();
-  console.log(curGameName);
   let curGameroot = dbmanager.getGameAppRoot(curGameName);
-  console.log(curGameroot);
-
   let curResourcesRoot = dbmanager.getResourceRoot();
-  console.log(curResourcesRoot);
 
   filePath = curGameroot + '/';
   appPath = curResourcesRoot + '/'
   // deckFolderPath = curGameroot + '/Decks/';
   cardFolderPath = curGameroot + '/Cards/';
-  // TODO: image path to img_relative_path
 
   // display current app name
   let curapp = document.getElementById('curapp');
@@ -38,49 +31,122 @@ function onFinishDBLoad() {
   cardName = unescape(temp[1]).substring(1, unescape(temp[1]).length - 1);
 
   // append all cards in select options
-  const select = document.getElementById('cardsSelect');
-  fs.readdir(cardFolderPath, (err, files) => {
-    if (err) throw err;
-    let isNewCard = true;
-    files.forEach(file => {
-      file = file.slice(0, -5);
-      const option = document.createElement('option');
-      option.value = file;
-      option.innerHTML = file;
-      // console.log(file);
-      if (file == cardName) {
-        // console.log(cardName);
-        option.selected = 'selected';
-        isNewCard = false;
-      }
-      select.appendChild(option);
-    });
-    // console.log(isNewCard);
-
-    // if is new card, remove select element, and change name input readonly to false
-    if (!isNewCard) {
-      readCard();
-    } else {
-      // remove select bar and label
-      document.getElementById('cardsSelect').remove();
-      document.getElementById('cardsSelectLabel').remove();
-      document.getElementById('name').readOnly = false;
-      document.getElementById('name').className = 'form-control';
-      // add buff 
-      createBuffTable();
-    }
-  });
+  let isNewCard = appendSelectCard();
+  console.log(isNewCard);
+  // if is new card, remove select element, and change name input readonly to false
+  if (isNewCard) {
+    document.getElementById('cardsSelect').remove();
+    document.getElementById('cardsSelectLabel').remove();
+    document.getElementById('name').readOnly = false;
+    document.getElementById('name').className = 'form-control';
+  }
+  // read information
+    readCard();
 
   // add eventListenser to write data into json file
   const form = document.getElementById('saveForm');
   form.addEventListener('submit', submitForm);
 }
+
+function readBuff(isNewCard, card) {
+  // clean buffList on
+  cleanBuffTable();
+  // clear buffSelect on
+  cleanBuffSelect();
+  // append buffList o
+  if (!isNewCard) {
+    appendBuffList(card);
+  }
+  // append buffSelect on
+  appendSelectBuff();
+  
+}
+function appendBuffList(card) {
+  console.log(card);
+  // set buff: create htmlDOM tree under table node, then assign value from local json file
+
+  // console.log(typeof(card.buffs_info));
+  // console.log(card.buffs_info);
+  const table = document.getElementById('buff-table');
+
+  for (const [buff_name, value_target_pair] of Object.entries(card.buffs_info)) {
+    if (value_target_pair['value'] == '0') {
+      continue;
+    }
+    let tr = document.createElement('tr');
+    let td = document.createElement('td');
+    let label = document.createElement('label');
+    let labelText = document.createTextNode(buff_name);
+    label.appendChild(labelText);
+    td.appendChild(label);
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    let input = document.createElement('input');
+    input.id = `buff_${buff_name}_value`;
+    input.type = 'number';
+    input.name = `buff_${buff_name}_value`;
+    input.value = `${value_target_pair.value}`;
+    input.setAttribute('onchange', 'indicator(this)');
+    td.appendChild(input);
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    let buff_target_select = document.createElement('select');
+    buff_target_select.id = `buff_${buff_name}_target`;
+    buff_target_select.name = `buff_${buff_name}_target`;
+    buff_target_select.setAttribute('onchange', 'indicator(this)');
+    options = ['self', 'enemy']
+    options.forEach(option => {
+      let opt = document.createElement('option');
+      opt.value = option;
+      opt.innerHTML = option;
+      if (option == value_target_pair.target) {
+        opt.selected = 'selected';
+      }
+      buff_target_select.appendChild(opt);
+    });
+
+    td.appendChild(buff_target_select)
+    tr.appendChild(td);
+
+    table.appendChild(tr);
+  }  
+}
+
+function appendSelectCard() {
+  const select = document.getElementById('cardsSelect');
+  let files = fs.readdirSync(cardFolderPath);
+  console.log(files);
+  let isNewCard = true;
+  files.forEach(file => {
+    file = file.slice(0, -5);
+    const option = document.createElement('option');
+    option.value = file;
+    option.innerHTML = file;
+    // console.log(file);
+    if (file == cardName) {
+      // console.log(cardName);
+      option.selected = 'selected';
+      isNewCard = false;
+    }
+    select.appendChild(option);
+  });
+  // console.log(isNewCard);
+  return isNewCard;
+}
+
 // submit to save into local json file
 function submitForm(e) {
   e.preventDefault();
 
   // text validation check
   let nameElement = document.getElementById('name');
+  if (nameElement.value == '') {
+    console.log('Card name is required.');
+    alert('Card name is required. Please type a card name.');
+    return;
+  }
   if (!textIsValid(nameElement.value)) {
     console.log('Card name can only contain alphabet, number, and space.');
     alert('Card name can only contain alphabet, number, and space.');
@@ -184,19 +250,26 @@ function imgUpload(data) {
 
 // get card data from DATA
 function readCard() {
-
-  let cardName = document.getElementById('cardsSelect').value;
-  console.log(cardName);
-  if (cardName == '') {
-    cardName = document.getElementById('cardsSelect').firstChild.value;
+  let isNewCard = false;
+  let card = '';
+  if (document.getElementById('cardsSelect') == null) {
+    console.log('new cards');
+    isNewCard = true;
   }
-  cardPath = `${cardFolderPath}${cardName}.json`
-  console.log(cardPath);
-  fs.readFile(cardPath, (err, data) => {
-    if (err) throw err;
-    let card = JSON.parse(data);
-    read(card);
-  });
+  if (!isNewCard) {
+    cardName = document.getElementById('cardsSelect').value;
+    console.log(cardName);
+    cardPath = `${cardFolderPath}${cardName}.json`;
+    console.log(cardPath);
+    let data = fs.readFileSync(cardPath);
+    card = JSON.parse(data);  
+  }
+
+  // read buff
+  readBuff(isNewCard, card);
+
+  // read by card json
+  read(card);
 }
 
 // set card by card json
@@ -230,69 +303,54 @@ function read(card) {
   let dest = appPath + imgName;
   console.log(dest);
   imgTag.src = dest;
+}
 
-  // set buff: create htmlDOM tree under table node, then assign value from local json file
-
-  // console.log(typeof(card.buffs_info));
-  // console.log(card.buffs_info);
+// TODO: initialize selectBuff select bar
+// put other buffs that are not added into current card into select bar
+function appendSelectBuff() {
   const table = document.getElementById('buff-table');
-  while (table.firstChild) {
-    table.removeChild(table.lastChild);
-  }
-  let tr = document.createElement('tr');
-  heads = ['Buff Name', 'Value', 'Target']
-  heads.forEach(head => {
-    let th = document.createElement('th');
-    th.innerHTML = head;
-    tr.appendChild(th);
-  });
-  table.appendChild(tr);
+  let trs = table.children;
+  // get all buffs
+  let data = fs.readFileSync(filePath + 'buffs.json');
+  data = JSON.parse(data);
+  let buffs = data['registered_buffnames'];
+  // if in current buff table, continue
+  // read all current buff from buff table
+  let selectBuff = document.getElementById('selectBuff');
 
-  for (const [buff_name, value_target_pair] of Object.entries(card.buffs_info)) {
-    if (value_target_pair['value'] == '0') {
-      continue;
-    }
-    let tr = document.createElement('tr');
-    let td = document.createElement('td');
-    let label = document.createElement('label');
-    let labelText = document.createTextNode(buff_name);
-    label.appendChild(labelText);
-    td.appendChild(label);
-    tr.appendChild(td);
-
-    td = document.createElement('td');
-    let input = document.createElement('input');
-    input.id = `buff_${buff_name}_value`;
-    input.type = 'number';
-    input.name = `buff_${buff_name}_value`;
-    input.value = `${value_target_pair.value}`;
-    input.setAttribute('onchange', 'indicator(this)');
-    td.appendChild(input);
-    tr.appendChild(td);
-
-    td = document.createElement('td');
-    let buff_target_select = document.createElement('select');
-    buff_target_select.id = `buff_${buff_name}_target`;
-    buff_target_select.name = `buff_${buff_name}_target`;
-    buff_target_select.setAttribute('onchange', 'indicator(this)');
-    options = ['self', 'enemy']
-    options.forEach(option => {
-      let opt = document.createElement('option');
-      opt.value = option;
-      opt.innerHTML = option;
-      if (option == value_target_pair.target) {
-        opt.selected = 'selected';
+  for (let i = 0; i < buffs.length; i++) {
+    let isExisted = false;
+    for (let j = 0; j < trs.length; j++) {
+      let buff_name = trs[j].firstChild.firstChild.innerHTML;
+      if (buff_name == buffs[i]) {
+        isExisted = true;
+        break;
       }
-      buff_target_select.appendChild(opt);
-    });
-
-    td.appendChild(buff_target_select)
-    tr.appendChild(td);
-
-    table.appendChild(tr);
+    }
+    if (!isExisted) {
+      // add into select bar
+      const option = document.createElement('option');
+      option.value = buffs[i];
+      option.innerHTML = buffs[i];
+      selectBuff.appendChild(option);
+    }
   }
 }
 
+function cleanBuffSelect() {
+  const selectBuff = document.getElementById('selectBuff');
+  while (selectBuff.firstChild) {
+    selectBuff.removeChild(selectBuff.lastChild);
+  }
+}
+
+
+// 1. add this buff info from select bar into buff table
+// 2. delete this buff option from select bar
+function addBuff() {
+  const buffName = document.getElementById('selectBuff').value;
+  console.log(buffName);
+}
 // if target value is not equal to original value, change background color
 function indicator(obj) {
   // console.log(obj);
@@ -360,13 +418,16 @@ function indicator(obj) {
 
 }
 
-function createBuffTable() {
+function cleanBuffTable() {
   const table = document.getElementById('buff-table');
   // remove all previous table elements
   while (table.firstChild) {
     table.removeChild(table.lastChild);
   }
-  // add table head to table's table row
+}
+
+function addBuffTableHead() {
+  const table = document.getElementById('buff-table');
   let tr = document.createElement('tr');
   heads = ['Buff Name', 'Value', 'Target']
   heads.forEach(head => {
