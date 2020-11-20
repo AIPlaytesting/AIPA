@@ -68,10 +68,9 @@ class DataCollector:
         self.total_game_play_time.append(game_play_time + prediction_time)
 
     def PostDataCollectionAnalysis(self):
-
         self.average_card_play_pos = self.empty_card_data_dict.copy()
         self.card_average_reward = self.empty_card_data_dict.copy()
-        self.roll_avg_reward = []
+        self.UpdateRollingReward()
 
         #average damage and max damage
         for damage_done_per_turn in self.all_damage_per_turn:
@@ -86,23 +85,6 @@ class DataCollector:
                 self.win_data_list[win_index] = 'Loss by Boss Damage'
             elif self.win_data_list[win_index] == -2:
                 self.win_data_list[win_index] = 'Loss by Wrong Card'
-
-        #rolling average reward
-        for r_index in range(len(self.total_reward_list)):
-            end_index = r_index + 50
-            start_index = r_index
-            if end_index > len(self.total_reward_list) - 1: 
-                end_index = len(self.total_reward_list) - 1
-                start_index = start_index - 50
-
-                if start_index < 0:
-                    start_index = 0
-
-            else:
-                start_index = r_index
-
-            self.roll_avg_reward.append(sum(self.total_reward_list[start_index:end_index]) / len(self.total_reward_list[start_index:end_index]))
-
 
         #card count in deck
         for card_index in self.action_space:
@@ -136,6 +118,29 @@ class DataCollector:
             self.anomaly_tracker.GenerateGameDictsFromAnomalies(self.all_game_states, self.all_card_seq)
             self.anomaly_dict = self.anomaly_tracker.anomaly_dict
 
+    def UpdateRollingReward(self):
+        if(len(self.total_reward_list) < 100):
+            return 
+
+        # fill the index gap
+        for gap in range(len(self.roll_avg_reward),len(self.total_reward_list)):
+            self.roll_avg_reward.append(0)
+        # update the latest value (in case when iteartion very high, update 10k+ very iteartion has high overhead)
+        update_start_index = max(len(self.total_reward_list)-100,0)
+        for r_index in range(update_start_index,len(self.total_reward_list)):
+            end_index = r_index + 50
+            start_index = r_index
+            if end_index > len(self.total_reward_list) - 1: 
+                end_index = len(self.total_reward_list) - 1
+                start_index = start_index - 50
+
+                if start_index < 0:
+                    start_index = 0
+
+            else:
+                start_index = r_index
+
+            self.roll_avg_reward[r_index] = sum(self.total_reward_list[start_index:end_index]) / len(self.total_reward_list[start_index:end_index])
 
     def StoreDeckConfig(self, deck_config):
         self.deck_config = deck_config
