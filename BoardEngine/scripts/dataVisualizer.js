@@ -1,6 +1,150 @@
 const cardRenderer = require('../scripts/cardRenderer'
 )
 
+function drawCurve(divID,yDomain,xDomin,data) {
+    $('#' + divID).text("")
+    // set the dimensions and margins of the graph
+    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+        width = 1460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select('#' + divID)
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scaleLinear()
+        .domain(xDomin)
+        .range([0, width]);
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+        .domain(yDomain)
+        .range([height, 0]);
+    svg.append("g")
+        .call(d3.axisLeft(y));
+
+    // Add the line
+    svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+            .x(function (d) { return x(d[0]) })
+            .y(function (d) { return y(d[1]) })
+        )
+    if(data.length > 0){
+        let lastValue = data[data.length-1][1]
+        svg.append("circle").attr("cx", 30).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
+        svg.append("text").attr("x", 50).attr("y", 30).text("win rate: "+lastValue+"%").style("font-size", "15px").attr("alignment-baseline", "middle")    
+    }
+}
+
+function drawHistorgram(csvURL, xValName,valueName,divID,color){
+    $('#' + divID).text("")
+    let titleDiv = $(document.createElement('h2')).text(valueName)
+    let chartDiv = $(document.createElement('div')).attr('id', divID + '-chart')
+    $('#' + divID).append(titleDiv, chartDiv)
+
+    // set the dimensions and margins of the graph
+    var margin = { top: 30, right: 30, bottom: 70, left: 60 },
+        width = 960 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#" + divID + '-chart')
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Initialize the X axis
+    var x = d3.scaleBand()
+        .range([0, width])
+        .padding(0.2);
+    var xAxis = svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+
+    // Initialize the Y axis
+    var y = d3.scaleLinear()
+        .range([height, 0]);
+    var yAxis = svg.append("g")
+        .attr("class", "myYaxis")
+
+    update(valueName,color)
+
+    // A function that create / update the plot for a given variable:
+    function update(selectedVar, color) {
+        // Parse the Data
+        d3.csv(csvURL, function (data) {
+            // rank data
+            for(let i = 0; i < data.length; i++){
+                for(let j = i+1; j < data.length; j++){
+                    if(parseFloat(data[i][selectedVar]) > parseFloat(data[j][selectedVar])){
+                        let temp = data[i]
+                        data[i] = data[j]
+                        data[j] = temp
+                    }
+                }
+            }
+            // X axis
+            x.domain(data.map(function (d) { return d[xValName]; }))
+            xAxis.transition().duration(1000).call(d3.axisBottom(x))
+
+            // Add Y axis
+            y.domain([0, d3.max(data, function (d) { return +d[selectedVar] })]);
+            yAxis.transition().duration(1000).call(d3.axisLeft(y));
+
+            // variable u: map data to existing bars
+            var u = svg.selectAll("rect")
+                .data(data)
+
+            function mouseover() {
+                d3.select(this)
+                    .style("stroke", "black")
+                    .style("opacity", 1)
+            }
+
+            function mouseleave() {
+                d3.select(this)
+                    .style("stroke", "none")
+                    .style("opacity", 0.8)
+            }
+
+            function mouseclick() {
+
+            }
+            // update bars
+            u
+                .enter()
+                .append("rect")
+                .merge(u)
+                .transition()
+                .duration(1000)
+                .attr("x", function (d) { return x(d[xValName]); })
+                .attr("y", function (d) { return y(d[selectedVar]); })
+                .attr("width", x.bandwidth())
+                .attr("height", function (d) { return height - y(d[selectedVar]); })
+                .attr("fill", color)
+
+            svg.selectAll("rect")
+                .on('mouseover', mouseover)
+                .on('mouseleave', mouseleave)
+                .on('click', mouseclick)
+        })
+    }
+}
+
 function drawRankChart(csvURL, xValName, divID) {
     $('#' + divID).text("")
     let optionDiv = $(document.createElement('div'))
@@ -243,71 +387,12 @@ function drawRelationshipTable(cvsURL, divID, gameName) {
     }
 }
 
-function drawPieChart(divID, data) {
-    // clear 
-    $("#" + divID).text("")
-    // set the dimensions and margins of the graph
-    var width = 450
-    height = 450
-    margin = 40
-
-    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-    var radius = Math.min(width, height) / 2 - margin
-
-    // append the svg object to the div called 'my_dataviz'
-    var svg = d3.select("#" + divID)
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-    // set the color scale
-    var color = d3.scaleOrdinal()
-        .domain(data)
-        .range(d3.schemeSet2);
-
-    // Compute the position of each group on the pie:
-    var pie = d3.pie()
-        .value(function (d) { return d.value; })
-    var data_ready = pie(d3.entries(data))
-    // Now I know that group A goes from 0 degrees to x degrees and so on.
-
-    // shape helper to build arcs:
-    var arcGenerator = d3.arc()
-        .innerRadius(0)
-        .outerRadius(radius)
-
-    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-    svg
-        .selectAll('mySlices')
-        .data(data_ready)
-        .enter()
-        .append('path')
-        .attr('d', arcGenerator)
-        .attr('fill', function (d) { return (color(d.data.key)) })
-        .attr("stroke", "black")
-        .style("stroke-width", "2px")
-        .style("opacity", 0.7)
-
-    // Now add the annotation. Use the centroid method to get the best coordinates
-    svg
-        .selectAll('mySlices')
-        .data(data_ready)
-        .enter()
-        .append('text')
-        .text(function (d) { return "grp " + d.data.key })
-        .attr("transform", function (d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
-        .style("text-anchor", "middle")
-        .style("font-size", 17)
-}
-
 function drawDistribution(cvsURL, divID) {
     $("#" + divID).text("")
     // set the dimensions and margins of the graph
     var margin = { top: 30, right: 30, bottom: 30, left: 60 },
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+        width = 460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#" + divID)
@@ -322,7 +407,7 @@ function drawDistribution(cvsURL, divID) {
     d3.csv(cvsURL, function (data) {
         // add the x Axis
         var x = d3.scaleLinear()
-            .domain([0, 1000])
+            .domain([0, 100])
             .range([0, width]);
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -360,14 +445,14 @@ function drawDistribution(cvsURL, divID) {
     });
 
     // Handmade legend
-    svg.append("circle").attr("cx", 300).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
-    svg.append("circle").attr("cx", 300).attr("cy", 60).attr("r", 6).style("fill", "#69b3a2")
-    svg.append("circle").attr("cx", 300).attr("cy", 90).attr("r", 6).style("fill", "#69b3a2")
-    svg.append("circle").attr("cx", 300).attr("cy", 120).attr("r", 6).style("fill", "#404080")
-    svg.append("text").attr("x", 320).attr("y", 30).text("average: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
-    svg.append("text").attr("x", 320).attr("y", 60).text("middle: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
-    svg.append("text").attr("x", 320).attr("y", 90).text("max:999").style("font-size", "15px").attr("alignment-baseline", "middle")
-    svg.append("text").attr("x", 320).attr("y", 120).text("min:-1").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("circle").attr("cx", 300).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
+    // svg.append("circle").attr("cx", 300).attr("cy", 60).attr("r", 6).style("fill", "#69b3a2")
+    // svg.append("circle").attr("cx", 300).attr("cy", 90).attr("r", 6).style("fill", "#69b3a2")
+    // svg.append("circle").attr("cx", 300).attr("cy", 120).attr("r", 6).style("fill", "#404080")
+    // svg.append("text").attr("x", 320).attr("y", 30).text("average: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("text").attr("x", 320).attr("y", 60).text("middle: 123").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("text").attr("x", 320).attr("y", 90).text("max:999").style("font-size", "15px").attr("alignment-baseline", "middle")
+    // svg.append("text").attr("x", 320).attr("y", 120).text("min:-1").style("font-size", "15px").attr("alignment-baseline", "middle")
 
     // Function to compute density
     function kernelDensityEstimator(kernel, X) {
@@ -387,14 +472,14 @@ function drawDistribution(cvsURL, divID) {
 }
 
 function drawDualDistribution(csvURL, divID) {
-    $("#"+divID).text("")
+    $("#" + divID).text("")
     // set the dimensions and margins of the graph
     var margin = { top: 30, right: 30, bottom: 30, left: 60 },
         width = 460 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#"+divID)
+    var svg = d3.select("#" + divID)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -404,10 +489,10 @@ function drawDualDistribution(csvURL, divID) {
 
     // get the data
     d3.csv(csvURL, function (data) {
-
+        let range = [-50, 250]
         // add the x Axis
         var x = d3.scaleLinear()
-            .domain([-20, 15])
+            .domain(range)
             .range([0, width]);
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -417,12 +502,12 @@ function drawDualDistribution(csvURL, divID) {
         // Compute kernel density estimation
         var kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(60))
         var density1 = kde(data
-            .filter(function (d) { return d.type === "variable 1" })
+            .filter(function (d) { return d.type === "Player HP" })
             .map(function (d) { return d.value; }))
         let maxDen1 = d3.max(density1, function (d) { return parseFloat(d[1]); });
 
         var density2 = kde(data
-            .filter(function (d) { return d.type === "variable 2" })
+            .filter(function (d) { return d.type === "Boss HP" })
             .map(function (d) { return d.value; }))
         let maxDen2 = d3.max(density2, function (d) { return parseFloat(d[1]); });
 
@@ -708,11 +793,72 @@ function drawRadarChart(divID, data, colors) {
         .attr("height", height);
 }
 
+function drawPieChart(divID, data) {
+    // clear 
+    $("#" + divID).text("")
+    // set the dimensions and margins of the graph
+    var width = 450
+    height = 450
+    margin = 40
+
+    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+    var radius = Math.min(width, height) / 2 - margin
+
+    // append the svg object to the div called 'my_dataviz'
+    var svg = d3.select("#" + divID)
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    // set the color scale
+    var color = d3.scaleOrdinal()
+        .domain(data)
+        .range(d3.schemeSet2);
+
+    // Compute the position of each group on the pie:
+    var pie = d3.pie()
+        .value(function (d) { return d.value; })
+    var data_ready = pie(d3.entries(data))
+    // Now I know that group A goes from 0 degrees to x degrees and so on.
+
+    // shape helper to build arcs:
+    var arcGenerator = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius)
+
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    svg
+        .selectAll('mySlices')
+        .data(data_ready)
+        .enter()
+        .append('path')
+        .attr('d', arcGenerator)
+        .attr('fill', function (d) { return (color(d.data.key)) })
+        .attr("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.7)
+
+    // Now add the annotation. Use the centroid method to get the best coordinates
+    svg
+        .selectAll('mySlices')
+        .data(data_ready)
+        .enter()
+        .append('text')
+        .text(function (d) { return "grp " + d.data.key })
+        .attr("transform", function (d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
+}
+
 module.exports = {
+    drawHistorgram,
     drawRankChart,
     drawRelationshipTable,
     drawPieChart,
     drawRadarChart,
     drawDistribution,
-    drawDualDistribution
+    drawDualDistribution,
+    drawCurve
 }

@@ -6,16 +6,6 @@
         <button id = "train-btn" class="btn" onclick="onClickTrain()">
             <img src="../static/train-btn.png">
         </button>
-        <!--play test progress-->
-        <div id = "train-progress"  class="clearfix text-center d-none">
-            <div id = "train-progress-bar" class="c100 p0">
-                <span id = "train-progress-text" >??</span>
-                <div class="slice">
-                    <div class="bar"></div>
-                    <div class="fill"></div>
-                </div>
-            </div>
-        </div>  
     </div>
     <!--train config-->
     <div class="col-8" >
@@ -25,12 +15,23 @@
                 <input id = 'train-iter-config' type="text" value = "12000">
             </span>                                        
         </div>
-        <div id = 'train-status' class = 'display-4  d-none'>Train your AI</div>
+    </div>
+    <div id = 'train-status' class = 'col-12 display-4  d-none text-center'></div>
+</div>
+
+<!-- training queue-->
+<div class = "middle-section">
+    <button class="btn" data-toggle="collapse" data-target="#training-queue">
+        <h1>Training Queue</h1>
+    </button>
+
+    <div id = "training-queue" class="collapse show">
+        <div class = 'display-4 text-center'>No AI is training</div>
     </div>
 </div>
 
 <!-- train advanced config-->
-<div class="middle-section">
+<div class="middle-section d-none">
     <button class="btn" data-toggle="collapse" data-target="#train-advanced-config ">Advance</button>
     <div id = "train-advanced-config" class='collapse'>
         <div id="div_epsilon" class="form-group required">

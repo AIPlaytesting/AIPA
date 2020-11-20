@@ -3,6 +3,7 @@ const rootPath = require('electron-root-path').rootPath
 const cardRenderer = require('../scripts/cardRenderer')
 const utils = require('../scripts/utils')
 const pagePlaytest = require('../scripts/pagePlaytest')
+const pageTrain = require('../scripts/pageTrain')
 
 const PythonProcess = require('../Scripts/pythonProcess.js')
 
@@ -29,11 +30,11 @@ function onFinishDBLoad(){
     $('#create-new-game-btn').off()
     $('#create-new-game-btn').click(function(){onClickCreateNewGame()})
 
-    // refresh design page
+    // refresh all pages
     updateDesignPage()
-    // also update playtest
     updatePlaytestPage()
-
+    updateTrainPage()
+    
     function updateGameTemplateList(){
         let gameTemplateList = $("#game-template-list");
         gameTemplateList.text("");
@@ -66,39 +67,7 @@ function onClickPlay(){
 }
 
 function onClickTrain(){
-    $('#train-btn').addClass('d-none')
-    $('#train-config').addClass('d-none')
-    $('#train-progress').removeClass('d-none')
-    $('#train-status').removeClass('d-none')
-    $('#train-status').text('load AI...')
-    let gameID = dbmanager.getCurrentGameName()
-    let deckID = currentGameData.rules.deck
-    let iterationNums = $('#train-iter-config').val()
-    // lock the deck before training
-    dbmanager.updateGameData(gameID,'lockedDeck',deckID,refreshLibraryPage)
-    let pyProcess = new PythonProcess(
-        11,
-        {'game_id':gameID,'deck_id':deckID,'iterations':iterationNums},
-	    function () { console.log('success!') },
-        onReceiveTrainMesssage,
-        function(err){popupWarning(err)})
-}
-
-function onReceiveTrainMesssage(data){
-    trainInfo = JSON.parse(data).content
-    let curprogress =  trainInfo.curprogress
-    let maxprogress = trainInfo.maxprogress
-    let percentage = Math.ceil(100*curprogress/maxprogress)
-    $('#train-progress').attr("class","c100 p"+percentage)
-    $('#train-progress-text').text(curprogress + "/" + maxprogress)
-    if(trainInfo.is_finished){
-        $('#train-status').text('training is over')
-        // also update playtest
-        updatePlaytestPage()
-    }
-    else{
-        $('#train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
-    }
+    pageTrain.startTrain(dbmanager.getCurrentGameName(),currentGameData.rules.deck)
 }
 
 function onClickCreateNewGame(){
@@ -349,6 +318,12 @@ function updateDesignPage(){
 
 function updatePlaytestPage(){
     pagePlaytest.updatePlaytestPage()
+}
+
+function updateTrainPage(){
+    let gameName = dbmanager.getCurrentGameName()
+    let deckName = dbmanager.loadGameData(gameName).rules.deck
+    pageTrain.updateTrainPageView(gameName,deckName)
 }
 
 function popupWarning(message){

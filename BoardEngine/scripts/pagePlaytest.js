@@ -132,32 +132,42 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     $('#win-rate-progress').attr("class","green c100 p"+percentage)
 
     // draw distributions
-    dataVisualizer.drawDistribution("../static/tempdistribution.csv","v-pills-game-len")
-    dataVisualizer.drawDualDistribution("../static/tempdualdistribution.csv","v-pills-ending-hp")
+    dataVisualizer.drawDistribution(playtestData.game_len_distribution_csv_url,"v-pills-game-len")
+    dataVisualizer.drawDualDistribution(playtestData.hp_distribution_csv_url,"v-pills-ending-hp")
+
+    // card analysis
+    drawCardAnalysisSection(playtestData)
 
     // relationship heat map
     dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url,'card-relationship-table',gamename)
     
     // top combos
-    drawTopCombos('top-combo',gamename, playtestData.comboInfo)
-
-    //dataVisualizer.drawRankChart( playtestData.card_perfromance_csv_url,'Card Name','card-data-rankChart')
+    drawTopCombosSection('top-combo',gamename, playtestData.comboInfo)
 }
 
-function drawTopCombos(divID,gameName,comboInfo){
+function drawTopCombosSection(divID,gameName,comboInfo){
     let rootDiv = $('#'+divID)
     rootDiv.text("").append(createComboAnnoatationRow())
     let topNum = 5
-    let curNum = 0
+    let rankedCombos = []
     for(let combo in comboInfo.trios){
-        if(curNum >= topNum){
-            break;
-        }
-        curNum++
+        rankedCombos.push(combo)
+    }
+    for(let i = rankedCombos.length - 1; i >= 0 && i > rankedCombos.length - topNum -1; i--){
+        let combo = rankedCombos[i]
         let names = parseCardNamesFromComboName(combo)
         let comboElement = createComboElement(names[0],names[1],names[2],comboInfo.trios[combo])
         rootDiv.append(comboElement)
     }
+    // for(let combo in comboInfo.trios){
+    //     if(curNum >= topNum){
+    //         break;
+    //     }
+    //     curNum++
+    //     let names = parseCardNamesFromComboName(combo)
+    //     let comboElement = createComboElement(names[0],names[1],names[2],comboInfo.trios[combo])
+    //     rootDiv.append(comboElement)
+    // }
 
     function parseCardNamesFromComboName(comboName){
         return comboName.split('-')
@@ -207,5 +217,67 @@ function drawTopCombos(divID,gameName,comboInfo){
         return comboDiv
     }
 }
+
+function drawCardAnalysisSection(playtestData){
+    dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url,'Card Name','Card Utilization','card-utilization-histogram','red')
+    dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url,'Card Name','Avg Play Position','card-playpos-histogram','green')
+    dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url,'Card Name','Card Play Count','card-playcount-histogram','blue')
+
+    let sectionRoot = $('#card-analysis-list').text("")
+    for(let analysis of createCardAnalysises(playtestData)){
+        sectionRoot.append(createCardAnalysisElement(analysis))
+    }
+
+    function createCardAnalysises(playtestData){
+        let res  = []
+        for(let i = 0; i <5;i++){
+            res.push({"gameName":'Demo',"cardName":'Bash',"opportunity":0.2,"reward":2.3})
+        }
+        return res
+    }
+}
+
+function createCardAnalysisElement(cardAnalysis){
+    // create card elements
+    let cardEle = cardRenderer.createCardElementByName(cardAnalysis.gameName,cardAnalysis.cardName)
+    cardEle.attr('class','col-6')
+    // creatte card attrs
+    let cardAttrs = $(document.createElement('div')).addClass('col-6')
+    let opportunityAttr = createCardAttrElement('Opportunity Utilize',23,'blue')
+    let playPos = createCardAttrElement('Card Play Position',44,'red')
+    let rewardAttr = createCardAttrElement('Average Reward',77,'yellow')
+    let playCount = createCardAttrElement('PlayCount',22,'pink')
+    cardAttrs.append(opportunityAttr,playPos, rewardAttr,playCount)
+    // build final div
+    let analysisDiv = $(document.createElement('div'))
+    .addClass('row')
+    .addClass('col-3')
+    .css('border-radius','20px')
+    .css('margin-top','10px')
+    .css('margin-bottom','10px')
+    .css('margin-left','30px')
+    .css('background-color','white')
+    .append(cardEle,cardAttrs)
+
+    return analysisDiv
+
+    function createCardAttrElement(attrName,attrValue,color){
+        let nameTitle = $(document.createElement('h4')).text(attrName)
+        let progressbar = $(document.createElement('div'))
+        .attr('class','progress-bar')
+        .attr('role','progressbar')
+        .css('width',attrValue+'%')
+        .css('background-color',color)
+        let valueIndicator = $(document.createElement('div'))
+        .css('height','6px')
+        .attr('class','progress md-progress')
+        .append(progressbar)
+
+        let rootDiv = $(document.createElement('div'))
+        .append(nameTitle,valueIndicator)
+        return rootDiv
+    }
+}
+
 
 module.exports ={onClickPlaytest,viewPlaytestData,updatePlaytestPage}
