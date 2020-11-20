@@ -340,3 +340,8 @@ function popupConfirmDialog(title, message,onConfirmCallback){
         console.log("call back!")
         onConfirmCallback()})
 }
+
+module.exports = {
+    popupConfirmDialog,
+    popupWarning
+  }

@@ -4,9 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script>let $ = require('jquery');</script>
-
+  <!-- Bootstrap4 -->
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script>let $ = require('jquery');</script>
+  <script>require('popper.js');</script>
+  <script>require('bootstrap');</script>
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src='../scripts/cardList.js'></script>
   <link rel="stylesheet" href="../css/cardList.css">
@@ -14,6 +17,16 @@
 </head>
 
 <body onload="onLoadCardList()">
+  <!--load sub pages htmls from exernal files-->
+  <script>
+    $(document).ready(function (e) {
+      // $('#train-section').load('pageTrain.html')
+      // $('#game-edit-section').load('pageDesign.html')
+      // $('#playtest-section').load('pagePlaytest.html')
+      $('#modal-basic').load('modalBasic.html')
+      // var stepper = new Stepper($('.bs-stepper')[0], stepperOptions)
+    }); 
+  </script>
   <div class='container m-3'>
     <div class="row">
       <div class='col-1'>
@@ -67,7 +80,9 @@
     </div>
 
   </div>
-
+  <div id='modals'>
+    <div id = 'modal-basic'></div>
+  </div>
 </body>
 
 </html>

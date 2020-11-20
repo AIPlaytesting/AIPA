@@ -1,6 +1,7 @@
 var fs = require('fs');
 const { windowsStore } = require('process');
 const dbmanager = require('../scripts/dbmanager');
+const library = require('../scripts/library');
 
 var filePath = '';
 var appPath = '';
@@ -69,7 +70,7 @@ function onLoadCards() {
       hoverImgPath
     )
 
-    let deleteBtn = createDeleteBtn();
+    let deleteBtn = createDeleteBtn(cardObj.name);
     div.appendChild(deleteBtn);
 
 
@@ -99,7 +100,9 @@ function onLoadCards() {
   cards.prepend(div);
 }
 
-function createDeleteBtn() {
+function createDeleteBtn(cardName) {
+  const test = $('#curapp').text();
+  console.log(test);
   const icon = document.createElement('i');
   icon.className = 'material-icons';
   icon.innerHTML = 'clear';
@@ -117,27 +120,32 @@ function createDeleteBtn() {
     icon.style.opacity = '1';
     icon.style.backgroundColor = 'red';
   })
-  icon.addEventListener('click', function(e) {
+
+  icon.addEventListener('click', function (e) {
     e.preventDefault();
-    deleteCard(e);
+    console.log(e.target.parentNode.lastChild.children[2].innerHTML);
+
+    library.popupConfirmDialog("Calm down", "Are you sure to delete: " + cardName,
+      function () {
+        deleteCardbyName(cardName);
+      }
+    );
+
   })
 
   return icon;
 }
 
-function deleteCard(e) {
+function deleteCardbyName(cardName) {
   console.log('delete card');
-  console.log(e.target.parentNode.lastChild.children[2].innerHTML);
-  const cardName = e.target.parentNode.lastChild.children[2].innerHTML;
 
   let cardFile = cardFolderPath + cardName + '.json';
   console.log(cardFile);
   try {
     fs.unlinkSync(cardFile);
     location.reload();
-    //file removed
-  } catch(err) {
-    console.error(err)
+  } catch (err) {
+    library.popupWarning(err);
   }
 }
 function GoToCardByName(cardName) {
