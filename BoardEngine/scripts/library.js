@@ -331,6 +331,15 @@ function popupWarning(message){
     $('#warning-modal-body').text(message)
 }
 
+function popupSuccess(message, onConfirmCallback) {
+    $('#success-modal').modal()
+    $('#success-modal-body').text(message)
+    $('#success-modal-confirm-btn').off()
+    $('#success-modal-confirm-btn').click(function(){
+        console.log("call back!")
+        onConfirmCallback()})
+  }
+
 function popupConfirmDialog(title, message,onConfirmCallback){
     $('#confirm-modal').modal()
     $('#confirm-modal-title').text(title)
@@ -343,5 +352,6 @@ function popupConfirmDialog(title, message,onConfirmCallback){
 
 module.exports = {
     popupConfirmDialog,
-    popupWarning
+    popupWarning,
+    popupSuccess
   }

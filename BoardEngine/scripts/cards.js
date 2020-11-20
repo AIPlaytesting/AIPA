@@ -1,5 +1,6 @@
 var fs = require('fs');
 const dbmanager = require('../scripts/dbmanager');
+const library = require('../scripts/library');
 
 var cardFolderPath = '';
 var cardName = '';
@@ -161,12 +162,12 @@ function submitForm(e) {
   let nameElement = document.getElementById('name');
   if (nameElement.value == '') {
     console.log('Card name is required.');
-    alert('Card name is required. Please type a card name.');
+    library.popupWarning('Card name is required. Please type a card name.');
     return;
   }
   if (!textIsValid(nameElement.value)) {
     console.log('Card name can only contain alphabet, number, and space.');
-    alert('Card name can only contain alphabet, number, and space.');
+    library.popupWarning('Card name can only contain alphabet, number, and space.');
     nameElement.value = '';
     return;
   }
@@ -247,10 +248,10 @@ function submitForm(e) {
   fs.writeFile(`${cardFolderPath}${fileName}.json`, data, (err) => {
     if (err) throw err;
     console.log('Data written to file');
-    alert('Data written to file');
-    location.reload();
+    library.popupSuccess('Data has written to file.', function(){window.location = `cardList.html`});
   });
 }
+
 
 function imgUpload(data) {
   let imgName = data['img_relative_path'];
