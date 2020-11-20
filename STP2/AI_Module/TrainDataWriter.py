@@ -266,9 +266,9 @@ class TrainDataWriter:
 
         self.workbook.close()
 
-        #writing the rolling rewards to a csv`
-        with open( self.path + 'train_rewards.csv', 'w', newline='') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(['Episode Reward'])
-            for i in range(len(self.data_collector.roll_avg_reward)):
-                csvwriter.writerow([self.data_collector.roll_avg_reward[i]])
+        # #writing the rolling rewards to a csv`
+        # with open( self.path + 'train_rewards.csv', 'w', newline='') as csvfile:
+        #     csvwriter = csv.writer(csvfile)
+        #     csvwriter.writerow(['Episode Reward'])
+        #     for i in range(len(self.data_collector.roll_avg_reward)):
+        #         csvwriter.writerow([self.data_collector.roll_avg_reward[i]])

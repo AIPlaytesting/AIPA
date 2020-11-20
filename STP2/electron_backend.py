@@ -57,6 +57,7 @@ def train_mainloop(config):
         train_info['remaining_hours'] = rem_hrs
         train_info['remaining_minutes'] = rem_min
         train_info['is_finished'] = i+1 == num_games
+        train_info['reward_history'] = ai_trainer.data_writer.data_collector.roll_avg_reward
         connection.send_response(ResponseMessage("electron",train_info))
 
     #enable print again
