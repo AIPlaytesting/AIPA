@@ -50,13 +50,14 @@ def train_mainloop(config):
         remaining_time = avg_train_time * (num_games - i + 1)
         rem_hrs = remaining_time // 3600
         rem_min = int((remaining_time - rem_hrs * 3600 ) % 60)
-
         train_info ={}
         train_info['curprogress'] = i+1
         train_info['maxprogress'] = num_games
         train_info['remaining_hours'] = rem_hrs
         train_info['remaining_minutes'] = rem_min
         train_info['is_finished'] = i+1 == num_games
+        # update reward values before filled into train_info
+        ai_trainer.data_writer.data_collector.UpdateRollingReward()
         train_info['reward_history'] = ai_trainer.data_writer.data_collector.roll_avg_reward
         connection.send_response(ResponseMessage("electron",train_info))
 
