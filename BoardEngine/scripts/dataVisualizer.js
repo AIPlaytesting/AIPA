@@ -44,7 +44,7 @@ function drawCurve(divID,yDomain,xDomin,data) {
     if(data.length > 0){
         let lastValue = data[data.length-1][1]
         svg.append("circle").attr("cx", 30).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
-        svg.append("text").attr("x", 50).attr("y", 30).text("win rate: "+lastValue+"%").style("font-size", "15px").attr("alignment-baseline", "middle")    
+        svg.append("text").attr("x", 50).attr("y", 30).text("lastest reward: "+lastValue).style("font-size", "15px").attr("alignment-baseline", "middle")    
     }
 }
 

@@ -153,11 +153,12 @@ function onReceiveTrainMesssage(sessionID,data){
     }
 
     //draw Curves
-    let dummyData = []
-    for(let i = 0; i <curprogress; i++){
-        dummyData.push([i,100*i/maxprogress])
+    console.log(trainInfo.t_reward_history)
+    let trainCurveData = []
+    for(let i=0; i<trainInfo.reward_history.length; i++){
+        trainCurveData.push([i,trainInfo.reward_history[i]])
     }
-    dataVisualizer.drawCurve(sessionID+'-winrate-curve',[0,100],[0,maxprogress],dummyData)
+    dataVisualizer.drawCurve(sessionID+'-winrate-curve',[-20,120],[0,maxprogress],trainCurveData)
 }
 
 function updateTrainingQueueView(){
