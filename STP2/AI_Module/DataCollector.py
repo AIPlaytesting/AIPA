@@ -8,7 +8,7 @@ class DataCollector:
         self.action_space = action_space #key : index, value : string name
         self.isTrain = isTrain
 
-        self.anomaly_tracker = AI_Module.TestStatCollector.AnomalyTracker()
+        self.anomaly_tracker = AI_Module.TestStatCollector.AnomalyTracker(self.state_space, self.action_space)
         self.card_rel_tracker = AI_Module.TestStatCollector.CardRelationshipTrackers(self.action_space)
 
         #to keep track of win rate
@@ -131,6 +131,10 @@ class DataCollector:
         for card_name in self.card_played_when_available:
             if not self.available_cards[card_name] == 0:
                 self.card_played_when_available[card_name] = self.card_play_count[card_name] / self.available_cards[card_name]
+        
+        if not self.isTrain:
+            self.anomaly_tracker.GenerateGameDictsFromAnomalies(self.all_game_states, self.all_card_seq)
+            self.anomaly_dict = self.anomaly_tracker.anomaly_dict
 
 
     def StoreDeckConfig(self, deck_config):

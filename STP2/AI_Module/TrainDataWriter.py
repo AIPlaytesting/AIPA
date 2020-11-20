@@ -1,4 +1,5 @@
 import xlsxwriter
+import csv
 from datetime import datetime
 import os
 import AI_Module.DataCollector
@@ -9,8 +10,8 @@ class TrainDataWriter:
     def __init__(self, data_collector:AI_Module.DataCollector.DataCollector, path):
 
         self.data_collector = data_collector
-
-        self.filepath = path + " Training.xlsx"
+        self.path = path
+        self.filepath = self.path + " Training.xlsx"
         
         self.trainin_data_header = ['Episode #', 'Epsilon', 'Total Cards Played', 'Total Reward', 'Win/Loss', 'Boss End HP', 'Player End HP', 'Max Dmg (1 Turn)', 'Avg Dmg Per Turn', 'Roll Avg Reward']
         
@@ -264,3 +265,10 @@ class TrainDataWriter:
             sa_space_worksheet.write(i, 5, self.data_collector.action_space[key], self.border)
 
         self.workbook.close()
+
+        #writing the rolling rewards to a csv`
+        with open( self.path + 'train_rewards.csv', 'w', newline='') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(['Episode Reward'])
+            for i in range(len(self.data_collector.roll_avg_reward)):
+                csvwriter.writerow([self.data_collector.roll_avg_reward[i]])

@@ -28,6 +28,16 @@ class TestDataWriter():
         self.card_performance_stats['card_play_count'] = self.data_collector.card_play_count
         self.card_performance_stats['card_utilization'] = self.data_collector.card_played_when_available
 
+        self.card_perf_json_form = {}
+
+        for card in self.data_collector.card_count_in_deck:
+            card_temp_dict = {}
+            card_temp_dict['deck_count'] = self.card_performance_stats['deck_count'][card]
+            card_temp_dict['avg_play_pos'] = self.card_performance_stats['avg_play_pos'][card]
+            card_temp_dict['card_play_count'] = self.card_performance_stats['card_play_count'][card]
+            card_temp_dict['card_utilization'] = self.card_performance_stats['card_utilization'][card]
+            self.card_perf_json_form[card] = card_temp_dict.copy()
+
         self.card_pair_counter = self.data_collector.card_rel_tracker.card_pair_counter
         card_trio_dict = self.data_collector.card_rel_tracker.card_trio_counter 
         self.card_rel_stats['trios'] = {k: v for k, v in sorted(card_trio_dict.items(), key=lambda item: item[1])}
@@ -104,6 +114,12 @@ class TestDataWriter():
         with open(self.test_data_path + "\\card_seqs.json", 'w') as jsonfile:
             json.dump(self.card_rel_stats, jsonfile)
         
+        with open(self.test_data_path + "\\anomalies.json", 'w') as jsonfile:
+            json.dump(self.data_collector.anomaly_dict, jsonfile)
+
+        with open(self.test_data_path + "\\card_perf.json", 'w') as jsonfile:
+            json.dump(self.card_perf_json_form, jsonfile)
+
 
     def CalculateGenStats(self, inlist):
         if len(inlist) == 0:
