@@ -326,6 +326,10 @@ function appendSelectBuff() {
   // if in current buff table, continue
   // read all current buff from buff table
   let selectBuff = document.getElementById('selectBuff');
+  const option = document.createElement('option');
+  option.innerHTML = 'select buff to add here';
+  option.selected = true;
+  selectBuff.appendChild(option);
 
   for (let i = 0; i < buffs.length; i++) {
     let isExisted = false;

@@ -98,6 +98,7 @@ function onLoadCards() {
   div.appendChild(imgDiv);
   cards.prepend(div);
 }
+
 function createDeleteBtn() {
   const icon = document.createElement('i');
   icon.className = 'material-icons';
