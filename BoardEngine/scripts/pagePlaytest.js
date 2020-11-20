@@ -230,8 +230,15 @@ function drawCardAnalysisSection(playtestData){
 
     function createCardAnalysises(playtestData){
         let res  = []
-        for(let i = 0; i <5;i++){
-            res.push({"gameName":'Demo',"cardName":'Bash',"opportunity":0.2,"reward":2.3})
+        for(let cardName in playtestData.cardAnalysis) {
+            let cardAnalysis = {
+                "gameName": playtestData.gameName,
+                "cardName":cardName,
+                "cardUtilization":playtestData.cardAnalysis[cardName].card_utilization,
+                "playPos":playtestData.cardAnalysis[cardName].avg_play_pos,
+                "playCount":playtestData.cardAnalysis[cardName].card_play_count,
+            }
+            res.push(cardAnalysis)
         }
         return res
     }
@@ -243,11 +250,10 @@ function createCardAnalysisElement(cardAnalysis){
     cardEle.attr('class','col-6')
     // creatte card attrs
     let cardAttrs = $(document.createElement('div')).addClass('col-6')
-    let opportunityAttr = createCardAttrElement('Opportunity Utilize',23,'blue')
-    let playPos = createCardAttrElement('Card Play Position',44,'red')
-    let rewardAttr = createCardAttrElement('Average Reward',77,'yellow')
-    let playCount = createCardAttrElement('PlayCount',22,'pink')
-    cardAttrs.append(opportunityAttr,playPos, rewardAttr,playCount)
+    let opportunityAttr = createCardAttrElement('Opportunity Utilize',cardAnalysis.cardUtilization*100,'blue',true)
+    let playPos = createCardAttrElement('Card Play Position',100*(cardAnalysis.playPos/3),'red',true)
+    let playCount = createCardAttrElement('PlayCount',cardAnalysis.playCount,'black')
+    cardAttrs.append(opportunityAttr,playPos,playCount)
     // build final div
     let analysisDiv = $(document.createElement('div'))
     .addClass('row')
@@ -261,18 +267,24 @@ function createCardAnalysisElement(cardAnalysis){
 
     return analysisDiv
 
-    function createCardAttrElement(attrName,attrValue,color){
+    function createCardAttrElement(attrName,attrValue,color,useBar = false){
         let nameTitle = $(document.createElement('h4')).text(attrName)
-        let progressbar = $(document.createElement('div'))
-        .attr('class','progress-bar')
-        .attr('role','progressbar')
-        .css('width',attrValue+'%')
-        .css('background-color',color)
-        let valueIndicator = $(document.createElement('div'))
-        .css('height','6px')
-        .attr('class','progress md-progress')
-        .append(progressbar)
-
+        let valueIndicator
+        if(useBar){
+            attrValue = parseInt(attrValue)
+            let progressbar = $(document.createElement('div'))
+            .attr('class','progress-bar')
+            .attr('role','progressbar')
+            .css('width',attrValue+'%')
+            .css('background-color',color)
+            valueIndicator = $(document.createElement('div'))
+            .css('height','6px')
+            .attr('class','progress md-progress')
+            .append(progressbar)    
+        }
+        else{
+            valueIndicator = $(document.createElement('h3')).text(attrValue).css('color',color)
+        }
         let rootDiv = $(document.createElement('div'))
         .append(nameTitle,valueIndicator)
         return rootDiv

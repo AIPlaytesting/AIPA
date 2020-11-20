@@ -153,7 +153,7 @@ function onReceiveTrainMesssage(sessionID,data){
     }
 
     //draw Curves
-    console.log(trainInfo.t_reward_history)
+    console.log(trainInfo.reward_history)
     let trainCurveData = []
     for(let i=0; i<trainInfo.reward_history.length; i++){
         trainCurveData.push([i,trainInfo.reward_history[i]])
