@@ -65,15 +65,19 @@ function onLoadCards() {
       cardObj.name,
       cardObj.description,
       cardObj.energy_cost,
-      function(){GoToCardByName(cardObj.name)},
+      function () { GoToCardByName(cardObj.name) },
       hoverImgPath
     )
+
+    let deleteBtn = createDeleteBtn();
+    div.appendChild(deleteBtn);
+
 
     // append to DOM tree
     div.appendChild(imgDiv);
     cards.appendChild(div);
   }
-  
+
   // add new card: img
   //
   let div = document.createElement('div');
@@ -86,7 +90,7 @@ function onLoadCards() {
   img.width = '100';
   img.height = '110';
   img.style.cursor = 'pointer';
-  img.addEventListener('click', function(e) {
+  img.addEventListener('click', function (e) {
     e.preventDefault();
     window.location = 'cards.html';
   })
@@ -94,7 +98,47 @@ function onLoadCards() {
   div.appendChild(imgDiv);
   cards.prepend(div);
 }
+function createDeleteBtn() {
+  const icon = document.createElement('i');
+  icon.className = 'material-icons';
+  icon.innerHTML = 'clear';
+  icon.style.position = 'absolute';
+  icon.style.right = '0';
+  // icon.style.bottom = '0';
+  icon.style.zIndex = '2';
+  icon.style.backgroundColor = 'red';
+  icon.style.cursor = 'pointer';
+  icon.addEventListener('mouseover', function () {
+    icon.style.opacity = '1';
+    icon.style.backgroundColor = 'orange';
+  })
+  icon.addEventListener('mouseout', function () {
+    icon.style.opacity = '1';
+    icon.style.backgroundColor = 'red';
+  })
+  icon.addEventListener('click', function(e) {
+    e.preventDefault();
+    deleteCard(e);
+  })
 
+  return icon;
+}
+
+function deleteCard(e) {
+  console.log('delete card');
+  console.log(e.target.parentNode.lastChild.children[2].innerHTML);
+  const cardName = e.target.parentNode.lastChild.children[2].innerHTML;
+
+  let cardFile = cardFolderPath + cardName + '.json';
+  console.log(cardFile);
+  try {
+    fs.unlinkSync(cardFile);
+    location.reload();
+    //file removed
+  } catch(err) {
+    console.error(err)
+  }
+}
 function GoToCardByName(cardName) {
   window.location = `cards.html?cardName="${cardName}"`;
 }
@@ -107,7 +151,7 @@ function createCard(imgPath, cardName, description, energy, onClickListener = un
 
   let imgDiv = document.createElement('div');
   imgDiv.style.cursor = 'pointer';
-  imgDiv.addEventListener('click', function(e) {
+  imgDiv.addEventListener('click', function (e) {
     e.preventDefault();
     onClickListener();
   })
@@ -164,12 +208,12 @@ function createCard(imgPath, cardName, description, energy, onClickListener = un
   hoverSign.style.top = '15%';
   hoverSign.style.left = '15%';
   hoverSign.style.opacity = '0';
-  hoverSign.addEventListener('mouseover', function() {
+  hoverSign.addEventListener('mouseover', function () {
     hoverSign.style.opacity = '1';
     hoverSign.style.backgroundColor = 'rgba(1,0,0,0)';
     hoverSign.style.cursor = 'pointer';
   })
-  hoverSign.addEventListener('mouseout', function() {
+  hoverSign.addEventListener('mouseout', function () {
     hoverSign.style.opacity = '0';
     hoverSign.style.backgroundColor = 'rgbs(0,0,0,0)';
     hoverSign.style.cursor = 'default';
