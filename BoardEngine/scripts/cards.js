@@ -87,6 +87,7 @@ function createBuff(buff_name, value_target_pair) {
   let tr = document.createElement('tr');
   let td = document.createElement('td');
   let label = document.createElement('label');
+  label.className = 'col-form-label';
   let labelText = document.createTextNode(buff_name);
   label.appendChild(labelText);
   td.appendChild(label);
@@ -95,6 +96,7 @@ function createBuff(buff_name, value_target_pair) {
   td = document.createElement('td');
   let input = document.createElement('input');
   input.id = `buff_${buff_name}_value`;
+  input.className = 'form-control';
   input.type = 'number';
   input.name = `buff_${buff_name}_value`;
   input.value = `${value_target_pair.value}`;
@@ -105,6 +107,7 @@ function createBuff(buff_name, value_target_pair) {
   td = document.createElement('td');
   let buff_target_select = document.createElement('select');
   buff_target_select.id = `buff_${buff_name}_target`;
+  buff_target_select.className = 'form-control';
   buff_target_select.name = `buff_${buff_name}_target`;
   buff_target_select.setAttribute('onchange', 'indicator(this)');
   options = ['self', 'enemy']
@@ -120,6 +123,11 @@ function createBuff(buff_name, value_target_pair) {
 
   td.appendChild(buff_target_select)
   tr.appendChild(td);
+
+  // create delete button to remove current row
+  // td = document.createElement('td');
+  // let 
+
   return tr;
 }
 
