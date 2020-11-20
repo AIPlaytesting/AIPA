@@ -41,7 +41,7 @@ function onFinishDBLoad() {
     document.getElementById('name').className = 'form-control';
   }
   // read information
-    readCard();
+  readCard();
 
   // add eventListenser to write data into json file
   const form = document.getElementById('saveForm');
@@ -59,7 +59,7 @@ function readBuff(isNewCard, card) {
   }
   // append buffSelect on
   appendSelectBuff();
-  
+
 }
 function appendBuffList(card) {
   console.log(card);
@@ -73,45 +73,54 @@ function appendBuffList(card) {
     if (value_target_pair['value'] == '0') {
       continue;
     }
-    let tr = document.createElement('tr');
-    let td = document.createElement('td');
-    let label = document.createElement('label');
-    let labelText = document.createTextNode(buff_name);
-    label.appendChild(labelText);
-    td.appendChild(label);
-    tr.appendChild(td);
 
-    td = document.createElement('td');
-    let input = document.createElement('input');
-    input.id = `buff_${buff_name}_value`;
-    input.type = 'number';
-    input.name = `buff_${buff_name}_value`;
-    input.value = `${value_target_pair.value}`;
-    input.setAttribute('onchange', 'indicator(this)');
-    td.appendChild(input);
-    tr.appendChild(td);
+    let buff = createBuff(buff_name, value_target_pair);
+    table.appendChild(buff);
+  }
+}
 
-    td = document.createElement('td');
-    let buff_target_select = document.createElement('select');
-    buff_target_select.id = `buff_${buff_name}_target`;
-    buff_target_select.name = `buff_${buff_name}_target`;
-    buff_target_select.setAttribute('onchange', 'indicator(this)');
-    options = ['self', 'enemy']
-    options.forEach(option => {
-      let opt = document.createElement('option');
-      opt.value = option;
-      opt.innerHTML = option;
-      if (option == value_target_pair.target) {
-        opt.selected = 'selected';
-      }
-      buff_target_select.appendChild(opt);
-    });
+// create buff row by its name and value target pair
+// return tr elements
+// name:buff name
+// map: value, target pair
+function createBuff(buff_name, value_target_pair) {
+  let tr = document.createElement('tr');
+  let td = document.createElement('td');
+  let label = document.createElement('label');
+  let labelText = document.createTextNode(buff_name);
+  label.appendChild(labelText);
+  td.appendChild(label);
+  tr.appendChild(td);
 
-    td.appendChild(buff_target_select)
-    tr.appendChild(td);
+  td = document.createElement('td');
+  let input = document.createElement('input');
+  input.id = `buff_${buff_name}_value`;
+  input.type = 'number';
+  input.name = `buff_${buff_name}_value`;
+  input.value = `${value_target_pair.value}`;
+  input.setAttribute('onchange', 'indicator(this)');
+  td.appendChild(input);
+  tr.appendChild(td);
 
-    table.appendChild(tr);
-  }  
+  td = document.createElement('td');
+  let buff_target_select = document.createElement('select');
+  buff_target_select.id = `buff_${buff_name}_target`;
+  buff_target_select.name = `buff_${buff_name}_target`;
+  buff_target_select.setAttribute('onchange', 'indicator(this)');
+  options = ['self', 'enemy']
+  options.forEach(option => {
+    let opt = document.createElement('option');
+    opt.value = option;
+    opt.innerHTML = option;
+    if (option == value_target_pair.target) {
+      opt.selected = 'selected';
+    }
+    buff_target_select.appendChild(opt);
+  });
+
+  td.appendChild(buff_target_select)
+  tr.appendChild(td);
+  return tr;
 }
 
 function appendSelectCard() {
@@ -202,9 +211,9 @@ function submitForm(e) {
   let trs = table.children;
   console.log(trs);
   for (let i = 0; i < trs.length; i++) {
-    if (i == 0) {
-      continue;
-    }
+    // if (i == 0) {
+    //   continue;
+    // }
     let buff_name = trs[i].firstChild.firstChild.innerHTML;
     console.log('buff_name = ' + buff_name);
     data['buffs_info'][buff_name] = {
@@ -262,14 +271,14 @@ function readCard() {
     cardPath = `${cardFolderPath}${cardName}.json`;
     console.log(cardPath);
     let data = fs.readFileSync(cardPath);
-    card = JSON.parse(data);  
+    card = JSON.parse(data);
+    // read by card json
+    read(card);
   }
 
   // read buff
   readBuff(isNewCard, card);
 
-  // read by card json
-  read(card);
 }
 
 // set card by card json
@@ -305,7 +314,7 @@ function read(card) {
   imgTag.src = dest;
 }
 
-// TODO: initialize selectBuff select bar
+// initialize selectBuff select bar
 // put other buffs that are not added into current card into select bar
 function appendSelectBuff() {
   const table = document.getElementById('buff-table');
@@ -348,8 +357,21 @@ function cleanBuffSelect() {
 // 1. add this buff info from select bar into buff table
 // 2. delete this buff option from select bar
 function addBuff() {
+  // 1. add this buff info from select bar into buff table
   const buffName = document.getElementById('selectBuff').value;
   console.log(buffName);
+  const table = document.getElementById('buff-table');
+  let buff = createBuff(buffName, { "value": 0, "target": "enemy" });
+  table.appendChild(buff);
+  // 2. delete this buff option from select bar
+  let selectBuff = document.getElementById('selectBuff');
+  console.log(selectBuff.children.length);
+  for (let i = 0; i < selectBuff.children.length; i++) {
+    if (selectBuff.children[i].innerHTML == buffName) {
+      selectBuff.children[i].remove();
+      return;
+    }
+  }
 }
 // if target value is not equal to original value, change background color
 function indicator(obj) {
