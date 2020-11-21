@@ -4,7 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap4 -->
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script>let $ = require('jquery');</script>
+  <script>require('popper.js');</script>
+  <script>require('bootstrap');</script>
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../css/decks.css">
   <link rel="stylesheet" href="../css/cardList.css">
@@ -13,6 +18,11 @@
 </head>
 
 <body onload="onLoadDesign()">
+  <script>
+    $(document).ready(function (e) {
+      $('#modal-basic').load('modalBasic.html')
+    }); 
+  </script>
   <div class='container m-3'>
     <div class="row">
       <div class='col-1'>
@@ -104,7 +114,9 @@
 
   </div>
 
-
+  <div id='modals'>
+    <div id = 'modal-basic'></div>
+  </div>
 </body>
 
 </html>

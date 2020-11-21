@@ -1,6 +1,7 @@
 var fs = require('fs');
 const dbmanager = require('../scripts/dbmanager');
 const cardList = require('../scripts/cardList');
+const library = require('../scripts/library');
 // const { disconnect } = require('process');
 // input needed: 
 
@@ -410,8 +411,9 @@ function saveDeckBtn(e) {
   fs.writeFile(`${deckFolderPath}${fileName}.json`, data, (err) => {
     if (err) throw err;
     console.log('Deck written to file');
-    alert('Deck written to file');
-    location.reload();
+    library.popupSuccess('Data has written to file.', function () { window.location = `decks.html` });
+    // alert('Deck written to file');
+    // location.reload();
   });
 }
 
