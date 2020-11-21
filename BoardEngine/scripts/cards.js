@@ -252,6 +252,11 @@ function submitForm(e) {
   });
 }
 
+function setImgPath() {
+  let imgPath = document.getElementById('img_relative_path');
+  imgPath.value = document.getElementById("image-file").files[0].name;
+  console.log(document.getElementById("image-file").files[0].name);
+}
 
 function imgUpload(data) {
   let imgName = data['img_relative_path'];
