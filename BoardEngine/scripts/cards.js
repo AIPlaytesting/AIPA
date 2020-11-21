@@ -248,7 +248,7 @@ function submitForm(e) {
   fs.writeFile(`${cardFolderPath}${fileName}.json`, data, (err) => {
     if (err) throw err;
     console.log('Data written to file');
-    library.popupSuccess('Data has written to file.', function(){window.location = `cardList.html`});
+    library.popupSuccess('Data has written to file.', function () { window.location = `cardList.html` });
   });
 }
 
@@ -429,7 +429,13 @@ function indicator(obj) {
         let buff_infos = obj.id.split('_');
         let buff_name = buff_infos[1];
         let buff_value = buff_infos[2];
-        defaultVal = card['buffs_info'][buff_name][buff_value];
+        console.log(card['buffs_info'][buff_name]);
+        // no original buffs info in json file
+        if (card['buffs_info'][buff_name] == undefined) {
+          defaultVal = 0;
+        } else { 
+          defaultVal = card['buffs_info'][buff_name][buff_value]; 
+        }
       }
     }
     // if type is number, if value is text or is negative or is bigger than 100, 
