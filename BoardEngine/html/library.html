@@ -25,10 +25,12 @@
     <!--load sub pages htmls from exernal files-->
     <script>
         $(document).ready(function(e) {
+            // load sub pages
             $('#train-section').load('pageTrain.html')
             $('#game-edit-section').load('pageDesign.html')
             $('#playtest-section').load('pagePlaytest.html')
             $('#modal-basic').load('modalBasic.html')
+            // stepper
             var stepper = new Stepper($('.bs-stepper')[0],stepperOptions)
         });
     </script>

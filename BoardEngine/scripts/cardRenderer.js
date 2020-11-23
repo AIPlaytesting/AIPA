@@ -1,5 +1,7 @@
 const dbmanager = require('../scripts/dbmanager')
 
+var cachedGameData  = undefined
+
 function createCardElement(imgPath,cardName,description,energy,hoverImgPath = "", onClickListener = undefined){
     let frameWidth = '166px'
     let textFrameWidth = '130px'
@@ -95,4 +97,29 @@ function createCardElementByName(gameName,cardName){
     return cardElement
 }
 
-module.exports = {createCardElement,createCardElementByName}
+function setCachedGameData(gameName){
+    cachedGameData = dbmanager.loadGameData(gameName)
+}
+
+function createCardElementByCaching(cardName){
+    let gamedata = cachedGameData
+    let card = gamedata.cards[cardName]
+    let cardImgFullPath = "../static/defaultcard.png"
+    if( "img_relative_path" in card){
+        cardImgFullPath = dbmanager.getResourceRoot()+'\\'+card.img_relative_path
+    }
+
+    let cardElement = createCardElement(
+        cardImgFullPath,
+        cardName,                    
+        card.description,
+        card.energy_cost)
+
+    return cardElement
+}
+
+
+module.exports = {createCardElement,
+    createCardElementByName,
+    setCachedGameData,
+    createCardElementByCaching}
