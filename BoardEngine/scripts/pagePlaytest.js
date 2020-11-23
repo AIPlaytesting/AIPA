@@ -143,6 +143,9 @@ function viewPlaytestData(gamename,deckname,trainVersion){
     
     // top combos
     drawTopCombosSection('top-combo',gamename, playtestData.comboInfo)
+
+    // nomalies
+    DrawAnomiliesSection(playtestData)
 }
 
 function drawTopCombosSection(divID,gameName,comboInfo){
@@ -241,6 +244,64 @@ function drawCardAnalysisSection(playtestData){
             res.push(cardAnalysis)
         }
         return res
+    }
+}
+
+function DrawAnomiliesSection(playtestData){
+    $('#anomalies').text("")
+    for(let anomalyName in playtestData.anomalies){
+        $('#anomalies').append(createAnomalyElement(playtestData.gameName,anomalyName,playtestData.anomalies[anomalyName]))
+    }
+}
+
+function createAnomalyElement(gameName,anomalyName,anomalyData){
+    cardRenderer.setCachedGameData(gameName)
+
+    console.log(anomalyData)
+    let rootDiv =  $(document.createElement('div'))
+    let collapseBtn = $(document.createElement('button'))
+    .text(anomalyName)
+    .addClass('btn')
+    .attr('data-toggle', 'collapse')
+    .attr('data-target','#'+anomalyName+'-collapse')
+
+    let collapseDiv = $(document.createElement('div'))
+    .attr('id',anomalyName+'-collapse')
+    .addClass('collapse')
+
+    rootDiv.append(collapseBtn,collapseDiv)
+    for(let turnName in anomalyData.game_states){
+        collapseDiv.append(createTurnElement(turnName,anomalyData.game_states[turnName]))
+    }
+    return rootDiv
+
+    function createTurnElement(turnName,turnData){
+        let rootDiv = $(document.createElement('div')).addClass("row")
+        let turnTitle = $(document.createElement('h3')).text(turnName).addClass('col-12')
+        rootDiv.append(turnTitle)
+        for(let step in turnData){
+            // create elements for this step
+            let stepData = turnData[step]
+            let cardName = stepData.card_played
+            if(cardName != 'End Turn'){
+                let cardImg = cardRenderer.createCardElementByCaching(stepData.card_played)
+                let statusNode = $(document.createElement('div'))
+                .addClass('col-1')
+                .append($(document.createElement('h4')).text("Player HP: "+stepData.player_health))
+                .append($(document.createElement('h4')).text("Boss HP: "+stepData.boss_health))
+                let detailBtn = $(document.createElement('button'))
+                .addClass('btn')
+                .attr('data-container','body')
+                .attr('data-toggle','popover')
+                .attr('data-placement','bottom')
+                .attr('data-content','hi~~~')
+                .text('details')
+                statusNode.append(detailBtn)
+            
+                rootDiv.append(cardImg,statusNode)
+            }
+        }
+        return rootDiv
     }
 }
 
