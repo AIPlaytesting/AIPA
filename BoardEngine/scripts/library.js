@@ -361,6 +361,13 @@ function updateDesignPage() {
             .attr('data-toggle', 'modal')
             .attr('data-target', '#add-card-modal')
             .append(addCardImg)
+            .click(function(){
+                // fill grid of cards 
+                $('#add-card-modal-grid').text("")
+                for(let cardName of Object.keys(gameData.cards)){
+                    $('#add-card-modal-grid').append(cardRenderer.createCardElementByName(gameData.gameName,cardName).attr('class','col-3'))
+                }
+            })
         rootDiv.append(addCardBtn)
         return rootDiv
     }
