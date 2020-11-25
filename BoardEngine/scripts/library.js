@@ -8,6 +8,7 @@ const pageTrain = require('../scripts/pageTrain')
 const PythonProcess = require('../Scripts/pythonProcess.js')
 
 var currentGameData = {}
+var cardsToAdd = []
 
 function refreshLibraryPage() {
     console.log("refresh!")
@@ -103,18 +104,15 @@ function onClickCreateNewDeck() {
 }
 
 function onClickAddNewCard() {
-    const defaultText = 'please select'
     let deckname = currentGameData.rules.deck
-    let cardname = $('#newcard-name-dropdown').text()
-    if (cardname == defaultText) {
-        popupWarning('need to select a card to add!')
-        return
+    for(let cardname of cardsToAdd){
+        let newCardCopies = 1
+        if (cardname in currentGameData.decks[deckname]) {
+            newCardCopies = currentGameData.decks[deckname][cardname] + 1
+            currentGameData.decks[deckname][cardname]  = newCardCopies
+        }
+        dbmanager.modifyDeck(deckname, cardname, newCardCopies)
     }
-    let newCardCopies = 1
-    if (cardname in currentGameData.decks[deckname]) {
-        newCardCopies = currentGameData.decks[deckname][cardname] + 1
-    }
-    dbmanager.modifyDeck(deckname, cardname, newCardCopies)
     refreshLibraryPage()
 }
 
@@ -369,9 +367,11 @@ function updateDesignPage() {
     }
 
     function updateAddCardModal(){
+        // clear previous info
         $('#add-card-modal-grid').text("")
         $("#added-card-pool").text("")
-
+        cardsToAdd = []
+        // draw card grid
         for(let cardName of Object.keys(gameData.cards)){
             let cardElement = cardRenderer.createCardElementByName(
                 gameData.gameName,
@@ -381,6 +381,7 @@ function updateDesignPage() {
                     let cardToAdd = cardRenderer.createCardElementByName(gameData.gameName,cardName)
                     .attr("class","col-1")
                     $("#added-card-pool").append(cardToAdd)
+                    cardsToAdd.push(cardName)
                 })
                 
             cardElement.attr('class','col-3')
