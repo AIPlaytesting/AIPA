@@ -376,7 +376,7 @@ function updateDesignPage() {
             let cardElement = cardRenderer.createCardElementByName(
                 gameData.gameName,
                 cardName,
-                "../static/defaultcard.png",
+                "../static/noun_add.png",
                 function(){
                     let cardToAdd = cardRenderer.createCardElementByName(gameData.gameName,cardName)
                     .attr("class","col-1")
