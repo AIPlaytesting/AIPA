@@ -362,14 +362,30 @@ function updateDesignPage() {
             .attr('data-target', '#add-card-modal')
             .append(addCardImg)
             .click(function(){
-                // fill grid of cards 
-                $('#add-card-modal-grid').text("")
-                for(let cardName of Object.keys(gameData.cards)){
-                    $('#add-card-modal-grid').append(cardRenderer.createCardElementByName(gameData.gameName,cardName).attr('class','col-3'))
-                }
+               updateAddCardModal()
             })
         rootDiv.append(addCardBtn)
         return rootDiv
+    }
+
+    function updateAddCardModal(){
+        $('#add-card-modal-grid').text("")
+        $("#added-card-pool").text("")
+
+        for(let cardName of Object.keys(gameData.cards)){
+            let cardElement = cardRenderer.createCardElementByName(
+                gameData.gameName,
+                cardName,
+                "../static/defaultcard.png",
+                function(){
+                    let cardToAdd = cardRenderer.createCardElementByName(gameData.gameName,cardName)
+                    .attr("class","col-1")
+                    $("#added-card-pool").append(cardToAdd)
+                })
+                
+            cardElement.attr('class','col-3')
+            $('#add-card-modal-grid').append(cardElement)
+        }
     }
 
     function updateDeckDropdown() {

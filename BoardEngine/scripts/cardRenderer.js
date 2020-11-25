@@ -80,7 +80,7 @@ function createCardElement(imgPath,cardName,description,energy,hoverImgPath = ""
     return imgDiv
 }
 
-function createCardElementByName(gameName,cardName){
+function createCardElementByName(gameName,cardName,hoverImgPath = "", onClickListener = undefined){
     let gamedata = dbmanager.loadGameData(gameName)
     let card = gamedata.cards[cardName]
     let cardImgFullPath = "../static/defaultcard.png"
@@ -92,7 +92,9 @@ function createCardElementByName(gameName,cardName){
         cardImgFullPath,
         cardName,                    
         card.description,
-        card.energy_cost)
+        card.energy_cost,
+        hoverImgPath,
+        onClickListener)
 
     return cardElement
 }
