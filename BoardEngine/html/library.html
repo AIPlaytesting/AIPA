@@ -60,8 +60,15 @@
                 </div>  
         
                 <div id = "game-main-page" class = 'col-10' style = "background: #fff;">
-                    <div id = "game-basic-section">
-                        <div class = "text-center">
+                    <div id = "game-basic-section" class = "row">
+                        <div class ="col">
+                            <div class=" dropdown">
+                                <button id = 'create-deck-btn' class="btn btn-dark" data-toggle = 'modal' data-target = '#create-deck-modal'>+</button>                           
+                                <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                                <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+                            </div>
+                        </div>
+                        <div class = "text-center col">
                             <h1 id = 'game-title'>Game</h1>
                             <span class="dropdown">
                                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>

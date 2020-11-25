@@ -240,7 +240,7 @@ function updateDesignPage() {
         $('#player-hp-save-btn')
             .off()
             .click(function () {
-                dbmanager.updateGameData(currentGameData.gameName, "bossHP", $('#player-hp-input').val())
+                dbmanager.updateGameData(currentGameData.gameName, "playerHP", $('#player-hp-input').val())
                 $('#player-hp-input').css('color', '').css('background-color','')
                 $('#player-hp-save-btn').addClass('d-none')
                 $('#player-hp-undo-btn').addClass('d-none')

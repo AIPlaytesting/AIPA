@@ -244,14 +244,14 @@ function updateGameData(gameName,attr,value,onFinishCallback = undefined){
         let gameDataRoot = getGameAppRoot(gameName)
         let ruleObjPath = gameDataRoot+'/rules.json'
         let rulesObj = loadObjectFromJSONFile(ruleObjPath)
-        rulesObj.player_hp = value
+        rulesObj.player_hp = parseInt(value)
         saveObjectToFileAsJSON(rulesObj,ruleObjPath)
     }
     else if(attr == "bossHP"){
         let gameDataRoot = getGameAppRoot(gameName)
         let ruleObjPath = gameDataRoot+'/rules.json'
         let rulesObj = loadObjectFromJSONFile(ruleObjPath)
-        rulesObj.boss_hp = value
+        rulesObj.boss_hp = parseInt(value)
         saveObjectToFileAsJSON(rulesObj,ruleObjPath)
     }
     else{
