@@ -93,7 +93,7 @@ function onClickPlaytest(){
 	    function () { console.log('success!') },
         onReceivePlaytestMesssage,
         function(err){popupWarning(err)})
-    $('#playtest-status').text('load trained AI modal...')
+    $('#playtest-status').text('Loading...')
 }
 
 function onReceivePlaytestMesssage(data){
@@ -101,7 +101,7 @@ function onReceivePlaytestMesssage(data){
     let curprogress =   simulateInfo.curprogress
     let maxprogress =  simulateInfo.maxprogress
     let percentage = Math.ceil(100*curprogress/maxprogress)
-    $('#playtest-status').text('Is playtesting...')
+    $('#playtest-status').text('Playtesting...')
     $('#playtest-progress-bar').attr("class","c100 p"+percentage)
     $('#playtest-progress-text').text(curprogress+'/'+maxprogress)
     if(simulateInfo.is_finished){
