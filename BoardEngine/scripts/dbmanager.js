@@ -118,6 +118,7 @@ function loadPlaytestData(gamename,deckname,trainVersion = ""){
     playtestData['game_len_distribution_csv_url'] = playtestDataRoot + "\\game_len_dist.csv"
     playtestData['comboInfo'] = loadObjectFromJSONFile(playtestDataRoot+'\\card_seqs.json')
     playtestData['cardAnalysis'] = loadObjectFromJSONFile(playtestDataRoot+'\\card_perf.json')
+    playtestData['anomalies'] = loadObjectFromJSONFile(playtestDataRoot+'\\anomalies.json')
     return playtestData
 }
 
@@ -191,7 +192,7 @@ function saveManifest(){
 // return: gameData
 function loadGameData(gameName){
     let gameRoot = getGameAppRoot(gameName);
-    let gameData = {};
+    let gameData = {"gameName":gameName};
     // load init.json
     gameData.init = loadObjectFromJSONFile(gameRoot+'\\init.json') 
 
@@ -237,6 +238,20 @@ function updateGameData(gameName,attr,value,onFinishCallback = undefined){
         if(!rulesObj.locked_decks.includes(value)){
             rulesObj.locked_decks.push(value)
         }
+        saveObjectToFileAsJSON(rulesObj,ruleObjPath)
+    }
+    else if(attr == "playerHP"){
+        let gameDataRoot = getGameAppRoot(gameName)
+        let ruleObjPath = gameDataRoot+'/rules.json'
+        let rulesObj = loadObjectFromJSONFile(ruleObjPath)
+        rulesObj.player_hp = parseInt(value)
+        saveObjectToFileAsJSON(rulesObj,ruleObjPath)
+    }
+    else if(attr == "bossHP"){
+        let gameDataRoot = getGameAppRoot(gameName)
+        let ruleObjPath = gameDataRoot+'/rules.json'
+        let rulesObj = loadObjectFromJSONFile(ruleObjPath)
+        rulesObj.boss_hp = parseInt(value)
         saveObjectToFileAsJSON(rulesObj,ruleObjPath)
     }
     else{

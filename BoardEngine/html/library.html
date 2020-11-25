@@ -25,10 +25,12 @@
     <!--load sub pages htmls from exernal files-->
     <script>
         $(document).ready(function(e) {
+            // load sub pages
             $('#train-section').load('pageTrain.html')
             $('#game-edit-section').load('pageDesign.html')
             $('#playtest-section').load('pagePlaytest.html')
             $('#modal-basic').load('modalBasic.html')
+            // stepper
             var stepper = new Stepper($('.bs-stepper')[0],stepperOptions)
         });
     </script>
@@ -58,8 +60,15 @@
                 </div>  
         
                 <div id = "game-main-page" class = 'col-10' style = "background: #fff;">
-                    <div id = "game-basic-section">
-                        <div class = "text-center">
+                    <div id = "game-basic-section" class = "row">
+                        <div class ="col">
+                            <div class=" dropdown">
+                                <button id = 'create-deck-btn' class="btn btn-dark" data-toggle = 'modal' data-target = '#create-deck-modal'>+</button>                           
+                                <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                                <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+                            </div>
+                        </div>
+                        <div class = "text-center col">
                             <h1 id = 'game-title'>Game</h1>
                             <span class="dropdown">
                                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
@@ -176,13 +185,14 @@
         </div>
         <!--add card -->
         <div id = "add-card-modal" class="modal fade">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg" >
                 <div class="modal-content">
                     <div class="modal-header">
                     <h4 class="modal-title">add new card</h4>
                     </div>
             
                     <div class="modal-body">
+                        <div id = "add-card-modal-grid" class="row overflow-auto" style = "height:600px"></div>
                         <div id = "newcard-name" class="dropdown">
                             <span>select card to add:</span>
                             <button id ="newcard-name-dropdown" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>

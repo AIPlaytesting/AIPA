@@ -174,7 +174,7 @@ function setTrainHeadPannel(isTrainScheduled){
         $('#train-config').addClass('d-none')
     
         $('#train-status').removeClass('d-none')
-        $('#train-status').text('The train has been scheduled :-)')
+        $('#train-status').text('This deck has been scheduled :-)')
     }
     else{
         $('#train-btn').removeClass('d-none')
