@@ -390,16 +390,25 @@ function updateDesignPage() {
     }
 
     function updateDeckDropdown() {
-        $('#current-deck-dropdown-btn').text(currentGameData.rules.deck)
+        $('#current-deck-name').text(currentGameData.rules.deck)
         let deckList = $('#current-deck-dropdown-list')
         deckList.text("")
+
         for (let deckName in currentGameData.decks) {
             let deckSwitchBtn = $(document.createElement('button'))
-            deckSwitchBtn.text(deckName)
+            deckSwitchBtn.text("switch to: "+deckName)
             deckSwitchBtn.click(function () { onSwitchCurrentDeck(deckName) })
             deckSwitchBtn.attr('class', 'dropdown-item')
             deckList.append(deckSwitchBtn)
         }
+
+        let createDeckBtn = $(document.createElement('button'))
+        .attr('data-toggle', 'modal')
+        .attr('data-target', '#create-deck-modal')
+        .text('+ New')
+        .attr('class',"dropdown-item")
+        .css('color',"green")
+        deckList.append(createDeckBtn)
     }
 }
 

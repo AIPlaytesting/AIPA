@@ -51,32 +51,31 @@
 
     <div class="row">
         <div id = 'lib-root' class = 'col-12'>
-            <hr>
-            <div class=" d-flex  mt-100">
-                <div id = "game-library" >
+            <div class=" d-flex  mt-100 ">
+                <div id = "game-library">
                     <ul class="nav nav-tabs"  role="tablist"></ul>
                     <div id = "game-entry-list" class="btn-group-vertical"></div>
                     </ul>
                 </div>  
         
-                <div id = "game-main-page" class = 'col-10' style = "background: #fff;">
+                <div id = "game-main-page" class = 'col-11' style = "background: #fff;">
+                    <br>
                     <div id = "game-basic-section" class = "row">
-                        <div class ="col">
-                            <div class=" dropdown">
-                                <button id = 'create-deck-btn' class="btn btn-dark" data-toggle = 'modal' data-target = '#create-deck-modal'>+</button>                           
-                                <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                        <span id = 'game-title' class = 'display-3'>GameTitle</span>
+                        <span class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
+                            <div class="dropdown-menu">
+                                <button type="button" class="dropdown-item" onclick="location.href='appIndex.html'">Advance</button>
+                                <button id = "remove-game-btn" class="dropdown-item" onclick="onClickRemoveGame()" style="color:red;"> Remove</button>
+                            </div>
+                        </span>
+                        <span class = "display-3"> /</span>
+                        <span id = 'current-deck-name' class = 'display-3'>DeckName</span>
+                        <div class ="col-4">
+                            <div class=" dropdown">                          
+                                <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown"></button>
                                 <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
                             </div>
-                        </div>
-                        <div class = "text-center col">
-                            <h1 id = 'game-title'>Game</h1>
-                            <span class="dropdown">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
-                                <div class="dropdown-menu">
-                                    <button type="button" class="dropdown-item" onclick="location.href='appIndex.html'">Advance</button>
-                                    <button id = "remove-game-btn" class="dropdown-item" onclick="onClickRemoveGame()" style="color:red;"> Remove</button>
-                                </div>
-                            </span>
                         </div>
                     </div>
                     <div class="bs-stepper">

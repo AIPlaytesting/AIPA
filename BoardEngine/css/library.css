@@ -6,6 +6,10 @@
     transform: translate(-50%, -50%); 
 }
 
+.horizontal-tab{
+    font-size:30px;
+    font-weight: bold;
+}
 .card-div{
     width: 200px;
     height: 250px;

@@ -183,15 +183,15 @@ function drawTopCombosSection(divID,gameName,comboInfo){
         let space = $(document.createElement('div')).attr('class','col-1')
         let occurNumber = $(document.createElement('div'))
             .attr('class','col-2')
-            .append($(document.createElement('h1')).text("occurTimes"))
+            .append($(document.createElement('h1')).text("Occur Times"))
         
         comboDiv.append(space)
         .append(occurNumber)
-        .append($(document.createElement('h1')).text("firstCard").attr('class','col-2'))
+        .append($(document.createElement('h1')).text("1st Card").attr('class','col-2'))
         .append($(document.createElement('div')).attr('class','col-1'))
-        .append($(document.createElement('h1')).text("secondCard").attr('class','col-2'))
+        .append($(document.createElement('h1')).text("2nd Card").attr('class','col-2'))
         .append($(document.createElement('div')).attr('class','col-1'))
-        .append($(document.createElement('h1')).text("thirdCard").attr('class','col-2'))
+        .append($(document.createElement('h1')).text("3rd Card").attr('class','col-2'))
         
         return comboDiv
     }
