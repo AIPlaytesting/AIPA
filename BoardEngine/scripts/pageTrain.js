@@ -6,6 +6,7 @@ var trainingQueue = []
 class TrainSession{
     constructor(trainInfo){
         this.trainInfo = trainInfo
+        this.winrateHistory = []
     }
 
     isTrainOf(gameName,deckName){
@@ -26,13 +27,14 @@ class TrainSession{
         dbmanager.updateGameData(gameName,'lockedDeck',deckName,refreshLibraryPage)
 
         let sessionID = this.getSessionID()
+        let trainSession = this
         let pyProcess = new PythonProcess(
             11,
             {'game_id':gameName,
             'deck_id':deckName,
             'iterations':this.trainInfo.iterations},
             function () { console.log('success!') },
-            function (data) {onReceiveTrainMesssage(sessionID,data) },
+            function (data) {onReceiveTrainMesssage(trainSession,sessionID,data) },
             function(err){popupWarning(err)})
     }
     
@@ -137,7 +139,7 @@ function updateTrainPageView(currentGame,currentDeck){
     $('#'+hookedTrainSession.getSessionID()+'-train-session').css('background-color','#dde8cf')
 }
 
-function onReceiveTrainMesssage(sessionID,data){
+function onReceiveTrainMesssage(trainSession, sessionID, data){
     let trainInfo = JSON.parse(data).content
     let curprogress =  trainInfo.curprogress
     let maxprogress = trainInfo.maxprogress
@@ -153,12 +155,13 @@ function onReceiveTrainMesssage(sessionID,data){
     }
 
     //draw Curves
-    console.log(trainInfo.reward_history)
+    trainSession.winrateHistory.push([trainSession.winrateHistory.length,trainInfo.recent_winrate])
+    //console.log("recent winrate curve",trainSession.winrateHistory)
     let trainCurveData = []
     for(let i=0; i<trainInfo.reward_history.length; i++){
         trainCurveData.push([i,trainInfo.reward_history[i]])
     }
-    dataVisualizer.drawCurve(sessionID+'-winrate-curve',[-20,120],[0,maxprogress],trainCurveData)
+    dataVisualizer.drawCurve(sessionID+'-winrate-curve',[0,100],[0,maxprogress],trainCurveData,trainSession.winrateHistory)
 }
 
 function updateTrainingQueueView(){

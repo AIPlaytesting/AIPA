@@ -1,7 +1,7 @@
 const cardRenderer = require('../scripts/cardRenderer'
 )
 
-function drawCurve(divID,yDomain,xDomin,data) {
+function drawCurve(divID,yDomain,xDomin,data1,data2) {
     $('#' + divID).text("")
     // set the dimensions and margins of the graph
     var margin = { top: 10, right: 30, bottom: 30, left: 60 },
@@ -33,18 +33,37 @@ function drawCurve(divID,yDomain,xDomin,data) {
 
     // Add the line
     svg.append("path")
-        .datum(data)
+        .datum(data1)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "#85847d")
         .attr("stroke-width", 1.5)
         .attr("d", d3.line()
             .x(function (d) { return x(d[0]) })
             .y(function (d) { return y(d[1]) })
         )
-    if(data.length > 0){
-        let lastValue = data[data.length-1][1]
-        svg.append("circle").attr("cx", 30).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
-        svg.append("text").attr("x", 50).attr("y", 30).text("lastest reward: "+lastValue).style("font-size", "15px").attr("alignment-baseline", "middle")    
+
+
+    svg.append("path")
+    .datum(data2)
+    .attr("fill", "none")
+    .attr("stroke", "#6223a2")
+    .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+        .x(function (d) { return x(d[0]) })
+        .y(function (d) { return y(d[1]) })
+    )
+
+    // draw lastest indicator
+    if(data1.length > 0){
+        let lastValue = data1[data1.length-1][1].toFixed(2)
+        svg.append("circle").attr("cx", 30).attr("cy", 30).attr("r", 6).style("fill", "#85847d")
+        svg.append("text").attr("x", 50).attr("y", 30).text("latest reward: "+lastValue).style("font-size", "15px").attr("alignment-baseline", "middle")    
+    }
+
+    if(data2.length > 0){
+        let lastValue = data2[data2.length-1][1].toFixed(2)
+        svg.append("circle").attr("cx", 30).attr("cy", 10).attr("r", 9).style("fill", "#6223a2")
+        svg.append("text").attr("x", 50).attr("y", 10).text("recent win rate: "+lastValue+"%").style("font-size", "20px").attr("alignment-baseline", "middle")    
     }
 }
 
