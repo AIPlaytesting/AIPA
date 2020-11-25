@@ -220,31 +220,31 @@ function submitForm(e) {
     nameElement.value = '';
     return;
   }
-
+  console.log(typeof(parseInt(document.getElementById('energy_cost').value)));
   // get input to object
   let data = {
     "name": document.getElementById('name').value,
     "type": document.getElementById('type').value,
-    "energy_cost": document.getElementById('energy_cost').value,
+    "energy_cost": parseInt(document.getElementById('energy_cost').value),
     "damage_target": document.getElementById('damage_target').value,
     "description": document.getElementById('description').value,
     "img_relative_path": document.getElementById('img_relative_path').value,
 
     "damage_block_info": {
-      "damage": document.getElementById('damage').value,
-      "damage_instances": document.getElementById('damage_instances').value,
-      "block": document.getElementById('block').value
+      "damage": parseInt(document.getElementById('damage').value),
+      "damage_instances": parseInt(document.getElementById('damage_instances').value),
+      "block": parseInt(document.getElementById('block').value)
     },
 
     "card_life_cycle_info": {
-      "copies_in_discard_pile_when_played": document.getElementById('copies_in_discard_pile_when_played').value,
-      "draw_card": document.getElementById('draw_card').value
+      "copies_in_discard_pile_when_played": parseInt(document.getElementById('copies_in_discard_pile_when_played').value),
+      "draw_card": parseInt(document.getElementById('draw_card').value)
     },
     "buffs_info": {},
     "special_modifiers_info": {
       "unique_damage": document.getElementById('unique_damage').value,
-      "strength_multiplier": document.getElementById('strength_multiplier').value,
-      "next_attack_count": document.getElementById('next_attack_count').value
+      "strength_multiplier": parseInt(document.getElementById('strength_multiplier').value),
+      "next_attack_count": parseInt(document.getElementById('next_attack_count').value)
     }
   };
 
@@ -275,7 +275,7 @@ function submitForm(e) {
     let buff_name = trs[i].firstChild.firstChild.innerHTML;
     console.log('buff_name = ' + buff_name);
     data['buffs_info'][buff_name] = {
-      value: document.getElementById(`buff_${buff_name}_value`).value,
+      value: parseInt(document.getElementById(`buff_${buff_name}_value`).value),
       target: document.getElementById(`buff_${buff_name}_target`).value
     }
   }
