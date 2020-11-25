@@ -1,3 +1,4 @@
+const { timeEnd } = require('console');
 var fs = require('fs');
 const dbmanager = require('../scripts/dbmanager');
 const library = require('../scripts/library');
@@ -122,14 +123,62 @@ function createBuff(buff_name, value_target_pair) {
     buff_target_select.appendChild(opt);
   });
 
-  td.appendChild(buff_target_select)
+  td.appendChild(buff_target_select);
   tr.appendChild(td);
 
   // create delete button to remove current row
-  // td = document.createElement('td');
-  // let 
+  td = document.createElement('td');
+  td.style.textAlign = 'center';
+  let icon = createDeleteBuffBtn(buff_name);
+  td.appendChild(icon);
+
+  tr.appendChild(td);
+
+
 
   return tr;
+}
+
+function createDeleteBuffBtn(buff_name) {
+  let icon = document.createElement('i');
+  icon.style.marginTop = '5px';
+  icon.className = 'material-icons';
+  icon.innerHTML = 'clear';
+  icon.style.cursor = 'pointer';
+  icon.style.backgroundColor = 'red';
+  icon.addEventListener('mouseover', function () {
+    icon.style.backgroundColor = 'orange';
+  })
+  icon.addEventListener('mouseout', function () {
+    icon.style.backgroundColor = 'red';
+  })
+  icon.addEventListener('click', function (e) {
+    e.preventDefault();
+    // console.log(e.target.parentNode.lastChild.children[2].innerHTML);
+
+    library.popupConfirmDialog("Calm down", "Are you sure to delete: " + buff_name,
+      function () {
+        deleteBuffByName(buff_name);
+      }
+    );
+
+  })
+
+  return icon;
+}
+
+function deleteBuffByName(buff_name) {
+  console.log('deleteBuffByName');
+  let buff_table = document.getElementById('buff-table');
+  let tr = buff_table.children;
+  for (let i = 0; i < tr.length; i++) {
+    if (tr[i].firstChild.firstChild.innerHTML == buff_name) {
+      tr[i].remove();
+      cleanBuffSelect();
+      appendSelectBuff();
+      return;
+    }
+  }
 }
 
 function appendSelectCard() {
@@ -360,6 +409,7 @@ function appendSelectBuff() {
       option.value = buffs[i];
       option.innerHTML = buffs[i];
       selectBuff.appendChild(option);
+      console.log(`append option ${option.value} in select buff bar`);
     }
   }
 }
