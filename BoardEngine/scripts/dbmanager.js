@@ -192,7 +192,7 @@ function saveManifest(){
 // return: gameData
 function loadGameData(gameName){
     let gameRoot = getGameAppRoot(gameName);
-    let gameData = {};
+    let gameData = {"gameName":gameName};
     // load init.json
     gameData.init = loadObjectFromJSONFile(gameRoot+'\\init.json') 
 
@@ -238,6 +238,20 @@ function updateGameData(gameName,attr,value,onFinishCallback = undefined){
         if(!rulesObj.locked_decks.includes(value)){
             rulesObj.locked_decks.push(value)
         }
+        saveObjectToFileAsJSON(rulesObj,ruleObjPath)
+    }
+    else if(attr == "playerHP"){
+        let gameDataRoot = getGameAppRoot(gameName)
+        let ruleObjPath = gameDataRoot+'/rules.json'
+        let rulesObj = loadObjectFromJSONFile(ruleObjPath)
+        rulesObj.player_hp = value
+        saveObjectToFileAsJSON(rulesObj,ruleObjPath)
+    }
+    else if(attr == "bossHP"){
+        let gameDataRoot = getGameAppRoot(gameName)
+        let ruleObjPath = gameDataRoot+'/rules.json'
+        let rulesObj = loadObjectFromJSONFile(ruleObjPath)
+        rulesObj.boss_hp = value
         saveObjectToFileAsJSON(rulesObj,ruleObjPath)
     }
     else{

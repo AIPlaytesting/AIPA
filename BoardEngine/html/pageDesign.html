@@ -25,20 +25,25 @@
         </div> -->
     </div>                                        
     <!--game edit config-->
-    <div class = "col-6 d-none">
+    <div class = "col-6">
         <div>
             <div class  ="row" style="height:50px;">
                 <img src = '../static/player-hp-icon.png' class="col-4" style = "height:40px">
-                <h1 id = 'player-hp-slider-value' class="col-5" >0</h1>
+                <input id = 'player-hp-input' type="text" class="col-3" style = "font-size:large">
+                <button id = 'player-hp-save-btn' class = "btn btn-primary d-none">Save</button>
+                <button id = 'player-hp-undo-btn'class = "btn btn-secondary d-none">Undo</button>
             </div>
-            <input id = 'player-hp-slider' type="range" class="custom-range " >
+            <!-- <input id = 'player-hp-slider' type="range" class="custom-range " > -->
         </div>
+        <br>
         <div>
             <div class  ="row" style="height:50px;">
                 <img src = '../static/boss-hp-icon.png' class="col-4" style = "height:40px">
-                <h1 id = 'boss-hp-slider-value' class="col-5" >0</h1>
+                <input id = 'boss-hp-input' type="text" class="col-3" style = "font-size:large">
+                <button id = 'boss-hp-save-btn' class = "btn btn-primary d-none">Save</button>
+                <button id = 'boss-hp-undo-btn' class = "btn btn-secondary d-none">Undo</button>
             </div>
-            <input id = 'boss-hp-slider' type="range" class="custom-range">
+            <!-- <input id = 'boss-hp-slider' type="range" class="custom-range"> -->
         </div>
     </div>
 </div>
