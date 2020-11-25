@@ -2,6 +2,7 @@ const { timeEnd } = require('console');
 var fs = require('fs');
 const dbmanager = require('../scripts/dbmanager');
 const library = require('../scripts/library');
+const shell = require('electron').shell;
 
 var cardFolderPath = '';
 var cardName = '';
@@ -48,6 +49,21 @@ function onFinishDBLoad() {
   // add eventListenser to write data into json file
   const form = document.getElementById('saveForm');
   form.addEventListener('submit', submitForm);
+
+  // add external link
+  addBuffLink();
+}
+
+function addBuffLink() {
+  let buffLink = $('#open-in-browser');
+  buffLink
+    .click((event) => {
+      event.preventDefault();
+      shell.openExternal(event.target.href);
+    })
+    .css('color', 'black')
+
+
 }
 
 function readBuff(isNewCard, card) {
@@ -220,7 +236,7 @@ function submitForm(e) {
     nameElement.value = '';
     return;
   }
-  console.log(typeof(parseInt(document.getElementById('energy_cost').value)));
+  console.log(typeof (parseInt(document.getElementById('energy_cost').value)));
   // get input to object
   let data = {
     "name": document.getElementById('name').value,
@@ -483,8 +499,8 @@ function indicator(obj) {
         // no original buffs info in json file
         if (card['buffs_info'][buff_name] == undefined) {
           defaultVal = 0;
-        } else { 
-          defaultVal = card['buffs_info'][buff_name][buff_value]; 
+        } else {
+          defaultVal = card['buffs_info'][buff_name][buff_value];
         }
       }
     }

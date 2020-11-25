@@ -17,7 +17,8 @@
 <body onload="onLoadCards()">
   <script>
     $(document).ready(function (e) {
-      $('#modal-basic').load('modalBasic.html')
+      $('#modal-basic').load('modalBasic.html');
+      $('[data-toggle="tooltip"]').tooltip();
     }); 
   </script>
   <div class='container m-3'>
@@ -71,21 +72,23 @@
                   <img id="card-img" src="" width='200' />
                 </div>
                 <div>
-                  <input class='btn' id="image-file" type="file" onchange="setImgPath()"/>
+                  <input class='btn' id="image-file" type="file" onchange="setImgPath()" />
                 </div>
               </div>
             </div>
             <div class='col-sm-9'>
               <form id='saveForm'>
                 <div class="form-group row">
-                  <label class='col-sm-3 col-form-label' for="name">Name</label>
+                  <label class='col-sm-3 col-form-label' for="name" data-toggle="tooltip" data-placement="left"
+                    title="Name of the card. Giving duplicated card name may overwrite the previous card with the same name.">Name</label>
                   <div class="col-sm-9">
                     <input readonly class='form-control-plaintext' type="text" id="name" name="name"
                       placeholder="card name" onchange='indicator(this)'>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class='col-sm-3 col-form-label' for="type">Type</label>
+                  <label class='col-sm-3 col-form-label' for="type" data-toggle="tooltip" data-placement="left"
+                    title="Two type of cards: Attack and Skill.">Type</label>
                   <div class='col-sm-9'>
                     <select class='form-control' id="type" name="type" onchange='indicator(this)'>
                       <option value="Attack">Attack</option>
@@ -94,14 +97,17 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class='col-sm-3 col-form-label' for="energy_cost">Energy cost</label>
+                  <label class='col-sm-3 col-form-label' for="energy_cost" data-toggle="tooltip" data-placement="left"
+                    title="Energy is the resource used to play cards. The energy cost of a card is at the top left and typically ranges from 0-3.">Energy
+                    cost</label>
                   <div class='col-sm-9'>
                     <input class="form-control" type='number' id="energy_cost" name="energy_cost" value="0"
                       onchange='indicator(this)'>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class='col-sm-3 col-form-label' for="damage_target">Damage target</label>
+                  <label class='col-sm-3 col-form-label' for="damage_target" data-toggle="tooltip" data-placement="left"
+                    title="Deal the damage to who?">Damage target</label>
                   <div class='col-sm-9'>
                     <select class="form-control" id="damage_target" name="damage_target" onchange='indicator(this)'>
                       <option value="enemy">enemy</option>
@@ -117,7 +123,10 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class='col-sm-3 col-form-label' for="img_relative_path">Image path</label>
+                  <label class='col-sm-3 col-form-label' for="img_relative_path" data-toggle="tooltip"
+                    data-placement="left"
+                    title="Save the image with this name. Giving duplicated image path may overwrite pre-existing images.">Image
+                    path</label>
                   <div class='col-sm-9'>
                     <input class="form-control" type='text' id="img_relative_path" name="img_relative_path"
                       value="img.png" onchange='indicator(this)'>
@@ -129,21 +138,25 @@
                   <div class='col-sm-6'>
                     <h5>Damage block info:</h5>
                     <div class="form-group row">
-                      <label class='col-sm-8 col-form-label' for="damage">Damage</label>
+                      <label class='col-sm-8 col-form-label' for="damage" data-toggle="tooltip" data-placement="left"
+                        title="How much damage this card can deal?">Damage</label>
                       <div class='col-sm-4'>
                         <input class="form-control" type='number' id='damage' name='Damage' value="0"
                           onchange='indicator(this)'>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class='col-sm-8 col-form-label' for="damage_instances">Damage instances</label>
+                      <label class='col-sm-8 col-form-label' for="damage_instances" data-toggle="tooltip"
+                        data-placement="left" title="Normally set to 1. If set to 2, it means deal damage twice.">Damage
+                        instances</label>
                       <div class="col-sm-4">
                         <input class='form-control' type='number' id='damage_instances' name='damage_instances'
                           value="1" onchange='indicator(this)'>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class='col-sm-8 col-form-label' for="block">Block</label>
+                      <label class='col-sm-8 col-form-label' for="block" data-toggle="tooltip" data-placement="left"
+                        title="How many block value this card can have?">Block</label>
                       <div class="col-sm-4">
                         <input class='form-control' type='number' id='block' name='block' value="0"
                           onchange='indicator(this)'>
@@ -154,7 +167,10 @@
                   <div class='col-sm-6'>
                     <h5>Card life cycle info:</h5>
                     <div class="form-group row">
-                      <label class='col-sm-8 col-form-label' for="copies_in_discard_pile_when_played">Copies in discard
+                      <label class='col-sm-8 col-form-label' for="copies_in_discard_pile_when_played"
+                        data-toggle="tooltip" data-placement="left"
+                        title="After playing out this card, how many copies of this card will appear in the discard pile?">Copies
+                        in discard
                         pile</label>
                       <div class="col-sm-4">
                         <input class='form-control' type='number' id='copies_in_discard_pile_when_played'
@@ -162,7 +178,8 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class='col-sm-8 col-form-label' for="draw_card">Draw card</label>
+                      <label class='col-sm-8 col-form-label' for="draw_card" data-toggle="tooltip" data-placement="left"
+                        title="After playing out this card, trigger to draw X cards.">Draw card</label>
                       <div class="col-sm-4">
                         <input class='form-control' type='number' id='draw_card' name='draw_card' value="0"
                           onchange='indicator(this)'>
@@ -172,7 +189,12 @@
                 </div>
 
                 <br>
-                <h5>Buffs info:</h5>
+                <h5>
+                  <a href='https://slay-the-spire.fandom.com/wiki/Buffs' id='open-in-browser' for="unique_damage"
+                    data-toggle="tooltip" data-placement="left" title="Please click for more buff information. It will lead you to https://slay-the-spire.fandom.com/wiki/Buffs">
+                    Buffs info:
+                  </a>
+                </h5>
                 <select class='form-control' name="selectBuff" id="selectBuff" onchange="addBuff()">
                 </select>
 
@@ -184,21 +206,26 @@
                 <br>
                 <h5>Special modifiers info:</h5>
                 <div class="form-group row">
-                  <label class='col-sm-8 col-form-label' for="unique_damage">Unique damage</label>
+                  <label class='col-sm-8 col-form-label' for="unique_damage" data-toggle="tooltip" data-placement="left"
+                    title="If using hero's current block value as attack, change this to 'block'.">Unique damage</label>
                   <div class="col-sm-4">
                     <input class='form-control' type='text' id='unique_damage' name='unique_damage' value="none"
                       onchange='indicator(this)'>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class='col-sm-8 col-form-label' for="strength_multiplier">Strength multiplier</label>
+                  <label class='col-sm-8 col-form-label' for="strength_multiplier" data-toggle="tooltip"
+                    data-placement="left" title="Apply attack value * strength multiplier.">Strength multiplier</label>
                   <div class="col-sm-4">
                     <input class='form-control' type='number' id='strength_multiplier' name='strength_multiplier'
                       value="1" onchange='indicator(this)'>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class='col-sm-8 col-form-label' for="next_attack_count">Next attack count</label>
+                  <label class='col-sm-8 col-form-label' for="next_attack_count" data-toggle="tooltip"
+                    data-placement="left"
+                    title="Specify how many attack instances for the next card played. For example, Next attack count of 'double tap' card is 2.">Next
+                    attack count</label>
                   <div class="col-sm-4">
                     <input class='form-control' type='number' id='next_attack_count' name='next_attack_count' value="1"
                       onchange='indicator(this)'>
@@ -223,7 +250,7 @@
   </div>
 
   <div id='modals'>
-    <div id = 'modal-basic'></div>
+    <div id='modal-basic'></div>
   </div>
 </body>
 
