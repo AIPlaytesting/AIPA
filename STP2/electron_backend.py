@@ -39,7 +39,7 @@ def train_mainloop(config):
     ai_trainer = ai_train_controller.AI_Trainer(app_id=config['game_id'], deck_id=config['deck_id'])
     train_time_list = []
     num_games = int(config['iterations'])
-
+    recent_win_lost_record = []
     for i in range(num_games):
         train_time = ai_trainer.TrainOneIteration(i)
         if train_time > 1:
@@ -56,6 +56,13 @@ def train_mainloop(config):
         train_info['remaining_hours'] = rem_hrs
         train_info['remaining_minutes'] = rem_min
         train_info['is_finished'] = i+1 == num_games
+        # calculate winrate
+        is_win = ai_trainer.data_writer.data_collector.win_data_list[-1] == 1
+        recent_win_lost_record.append(1 if is_win else 0)
+        MAX_RECORD_LEN = 120
+        if len(recent_win_lost_record) > MAX_RECORD_LEN:
+            recent_win_lost_record.pop(0)
+        train_info['recent_winrate'] = 100 * sum(recent_win_lost_record)/len(recent_win_lost_record)
         # update reward values before filled into train_info
         ai_trainer.data_writer.data_collector.UpdateRollingReward()
         train_info['reward_history'] = ai_trainer.data_writer.data_collector.roll_avg_reward
