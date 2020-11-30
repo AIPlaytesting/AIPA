@@ -7,6 +7,7 @@ class TrainSession{
     constructor(trainInfo){
         this.trainInfo = trainInfo
         this.winrateHistory = []
+        this.rewardHistory = []
     }
 
     isTrainOf(gameName,deckName){
@@ -15,6 +16,19 @@ class TrainSession{
 
     getSessionID(){
         return this.trainInfo.gameName+this.trainInfo.deckName
+    }
+
+    updateRewardHistory(offset,values){
+        // fill index gap 
+        let expectedLen = offset + values.length 
+        while(this.rewardHistory.length < expectedLen){
+            this.rewardHistory.push([this.rewardHistory.length,0])
+        }
+
+        // update values
+        for(let i = 0; i < values.length;i++){
+            this.rewardHistory[i+offset][1] = values[i]
+        }
     }
 
     startTrain(){
@@ -156,12 +170,8 @@ function onReceiveTrainMesssage(trainSession, sessionID, data){
 
     //draw Curves
     trainSession.winrateHistory.push([trainSession.winrateHistory.length,trainInfo.recent_winrate])
-    //console.log("recent winrate curve",trainSession.winrateHistory)
-    let trainCurveData = []
-    for(let i=0; i<trainInfo.reward_history.length; i++){
-        trainCurveData.push([i,trainInfo.reward_history[i]])
-    }
-    dataVisualizer.drawCurve(sessionID+'-winrate-curve',[0,100],[0,maxprogress],trainCurveData,trainSession.winrateHistory)
+    trainSession.updateRewardHistory(trainInfo.reward_offset,trainInfo.lastest_rewards)
+    dataVisualizer.drawCurve(sessionID+'-winrate-curve',[0,100],[0,maxprogress],trainSession.rewardHistory,trainSession.winrateHistory)
 }
 
 function updateTrainingQueueView(){

@@ -65,7 +65,12 @@ def train_mainloop(config):
         train_info['recent_winrate'] = 100 * sum(recent_win_lost_record)/len(recent_win_lost_record)
         # update reward values before filled into train_info
         ai_trainer.data_writer.data_collector.UpdateRollingReward()
-        train_info['reward_history'] = ai_trainer.data_writer.data_collector.roll_avg_reward
+        REWARD_WINDOW_LEN = 100
+        reward_window_end = len(ai_trainer.data_writer.data_collector.roll_avg_reward)
+        reward_window_start = len(ai_trainer.data_writer.data_collector.roll_avg_reward) - REWARD_WINDOW_LEN
+        reward_window_start = max(0,reward_window_start)
+        train_info['reward_offset'] =  reward_window_start
+        train_info['lastest_rewards'] = ai_trainer.data_writer.data_collector.roll_avg_reward[reward_window_start:reward_window_end]
         connection.send_response(ResponseMessage("electron",train_info))
 
     #enable print again
