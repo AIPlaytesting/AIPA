@@ -1,8 +1,12 @@
 {
-    "deck": "deck1",
+    "deck": "Deck10",
     "player_hp": 80,
     "boss_hp": 240,
     "locked_decks": [
-        "deck2"
+        "deck2",
+        "Deck4",
+        "Deck 5",
+        "Deck8",
+        "Deck9"
     ]
 }
