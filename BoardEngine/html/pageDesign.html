@@ -1,29 +1,29 @@
 <!--head pannel-->
-<div class = "row head-pannel">
+<div class="row head-pannel">
     <!--play game operation-->
-    <div class = "col-3">
-        <button id ='play-btn' class="btn" onclick="onClickPlay()">
+    <div class="col-3">
+        <button id='play-btn' class="btn" onclick="onClickPlay()">
             <img src="../static/play-btn.png">
         </button>
-    </div>                                     
+    </div>
     <!--game edit config-->
-    <div class = "col-6">
+    <div class="col-6">
         <div>
-            <div class  ="row" style="height:50px;">
-                <img src = '../static/player-hp-icon.png' class="col-4" style = "height:40px">
-                <input id = 'player-hp-input' type="text" class="col-3" style = "font-size:large">
-                <button id = 'player-hp-save-btn' class = "btn btn-primary d-none">Save</button>
-                <button id = 'player-hp-undo-btn'class = "btn btn-secondary d-none">Undo</button>
+            <div class="row" style="height:50px;">
+                <img src='../static/player-hp-icon.png' class="col-4" style="height:40px">
+                <input id='player-hp-input' type="text" class="col-3" style="font-size:large">
+                <button id='player-hp-save-btn' class="btn btn-primary d-none">Save</button>
+                <button id='player-hp-undo-btn' class="btn btn-secondary d-none">Undo</button>
             </div>
             <!-- <input id = 'player-hp-slider' type="range" class="custom-range " > -->
         </div>
         <br>
         <div>
-            <div class  ="row" style="height:50px;">
-                <img src = '../static/boss-hp-icon.png' class="col-4" style = "height:40px">
-                <input id = 'boss-hp-input' type="text" class="col-3" style = "font-size:large">
-                <button id = 'boss-hp-save-btn' class = "btn btn-primary d-none">Save</button>
-                <button id = 'boss-hp-undo-btn' class = "btn btn-secondary d-none">Undo</button>
+            <div class="row" style="height:50px;">
+                <img src='../static/boss-hp-icon.png' class="col-4" style="height:40px">
+                <input id='boss-hp-input' type="text" class="col-3" style="font-size:large">
+                <button id='boss-hp-save-btn' class="btn btn-primary d-none">Save</button>
+                <button id='boss-hp-undo-btn' class="btn btn-secondary d-none">Undo</button>
             </div>
             <!-- <input id = 'boss-hp-slider' type="range" class="custom-range"> -->
         </div>
@@ -32,10 +32,14 @@
 
 <!--design lock div-->
 <div class="overlaycontainer">
-    <div id = "deck-img-view" class="middle-section overlaycontainer">
-    </div>     
-    <!--design lock overlay-->
-    <div id = "game-edit-section-overlay" class="overlay d-none">
-        <div class="hovertext">Deck is locked after you train, create  a new deck instead</div>
+    <div id="deck-img-view" class="middle-section overlaycontainer">
     </div>
-</div>       
+    <!--design lock overlay-->
+    <div id="game-edit-section-overlay" class="overlay d-none">
+        <div class="hovertext">
+            <p>Deck is locked after you train, create a new deck instead</p>
+            <button class='btn btn-primary' data-toggle='modal' data-target='#create-deck-modal'>Create New
+                Deck</button>
+        </div>
+    </div>
+</div>
