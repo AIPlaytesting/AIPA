@@ -105,11 +105,11 @@ function onClickCreateNewDeck() {
 
 function onClickAddNewCard() {
     let deckname = currentGameData.rules.deck
-    for(let cardname of cardsToAdd){
+    for (let cardname of cardsToAdd) {
         let newCardCopies = 1
         if (cardname in currentGameData.decks[deckname]) {
             newCardCopies = currentGameData.decks[deckname][cardname] + 1
-            currentGameData.decks[deckname][cardname]  = newCardCopies
+            currentGameData.decks[deckname][cardname] = newCardCopies
         }
         dbmanager.modifyDeck(deckname, cardname, newCardCopies)
     }
@@ -221,9 +221,6 @@ function updateDesignPage() {
         $('#deck-count').text(Object.keys(gameData.decks).length)
         $('#card-count').text(Object.keys(gameData.cards).length)
         $('#buff-count').text(gameData.buffInfo.registered_buffnames.length)
-        // won't use silider for hp editing
-        // utils.setupSlider('player-hp-slider','player-hp-slider-value',30,100)
-        // utils.setupSlider('boss-hp-slider','boss-hp-slider-value',100,400)
 
         // set up playter hp edit
         $('#player-hp-input')
@@ -232,14 +229,14 @@ function updateDesignPage() {
             .change(function () {
                 $('#player-hp-save-btn').removeClass('d-none')
                 $('#player-hp-undo-btn').removeClass('d-none')
-                $(this).css('background-color','#f6f7ba').css('color','red')
+                $(this).css('background-color', '#f6f7ba').css('color', 'red')
             })
 
         $('#player-hp-save-btn')
             .off()
             .click(function () {
                 dbmanager.updateGameData(currentGameData.gameName, "playerHP", $('#player-hp-input').val())
-                $('#player-hp-input').css('color', '').css('background-color','')
+                $('#player-hp-input').css('color', '').css('background-color', '')
                 $('#player-hp-save-btn').addClass('d-none')
                 $('#player-hp-undo-btn').addClass('d-none')
             }
@@ -249,7 +246,7 @@ function updateDesignPage() {
             .off()
             .click(function () {
                 $('#player-hp-input').val(gameData.rules.player_hp)
-                $('#player-hp-input').css('color', '').css('background-color','')
+                $('#player-hp-input').css('color', '').css('background-color', '')
                 $('#player-hp-save-btn').addClass('d-none')
                 $('#player-hp-undo-btn').addClass('d-none')
             }
@@ -262,7 +259,7 @@ function updateDesignPage() {
             .change(function () {
                 $('#boss-hp-save-btn').removeClass('d-none')
                 $('#boss-hp-undo-btn').removeClass('d-none')
-                $(this).css('background-color','#f6f7ba').css('color','red')
+                $(this).css('background-color', '#f6f7ba').css('color', 'red')
             })
 
 
@@ -270,7 +267,7 @@ function updateDesignPage() {
             .off()
             .click(function () {
                 dbmanager.updateGameData(currentGameData.gameName, "bossHP", $('#boss-hp-input').val())
-                $('#boss-hp-input').css('color', '').css('background-color','')
+                $('#boss-hp-input').css('color', '').css('background-color', '')
                 $('#boss-hp-save-btn').addClass('d-none')
                 $('#boss-hp-undo-btn').addClass('d-none')
             }
@@ -280,7 +277,7 @@ function updateDesignPage() {
             .off()
             .click(function () {
                 $('#boss-hp-input').val(gameData.rules.boss_hp)
-                $('#boss-hp-input').css('color', '').css('background-color','')
+                $('#boss-hp-input').css('color', '').css('background-color', '')
                 $('#boss-hp-save-btn').addClass('d-none')
                 $('#boss-hp-undo-btn').addClass('d-none')
             }
@@ -359,32 +356,32 @@ function updateDesignPage() {
             .attr('data-toggle', 'modal')
             .attr('data-target', '#add-card-modal')
             .append(addCardImg)
-            .click(function(){
-               updateAddCardModal()
+            .click(function () {
+                updateAddCardModal()
             })
         rootDiv.append(addCardBtn)
         return rootDiv
     }
 
-    function updateAddCardModal(){
+    function updateAddCardModal() {
         // clear previous info
         $('#add-card-modal-grid').text("")
         $("#added-card-pool").text("")
         cardsToAdd = []
         // draw card grid
-        for(let cardName of Object.keys(gameData.cards)){
+        for (let cardName of Object.keys(gameData.cards)) {
             let cardElement = cardRenderer.createCardElementByName(
                 gameData.gameName,
                 cardName,
                 "../static/noun_add.png",
-                function(){
-                    let cardToAdd = cardRenderer.createCardElementByName(gameData.gameName,cardName)
-                    .attr("class","col-1")
+                function () {
+                    let cardToAdd = cardRenderer.createCardElementByName(gameData.gameName, cardName)
+                        .attr("class", "col-1")
                     $("#added-card-pool").append(cardToAdd)
                     cardsToAdd.push(cardName)
                 })
-                
-            cardElement.attr('class','col-3')
+
+            cardElement.attr('class', 'col-3')
             $('#add-card-modal-grid').append(cardElement)
         }
     }
@@ -396,19 +393,42 @@ function updateDesignPage() {
 
         for (let deckName in currentGameData.decks) {
             let deckSwitchBtn = $(document.createElement('button'))
-            deckSwitchBtn.text("switch to: "+deckName)
+            deckSwitchBtn.text("switch to: " + deckName)
             deckSwitchBtn.click(function () { onSwitchCurrentDeck(deckName) })
             deckSwitchBtn.attr('class', 'dropdown-item')
             deckList.append(deckSwitchBtn)
         }
 
+        // create deck btn
         let createDeckBtn = $(document.createElement('button'))
-        .attr('data-toggle', 'modal')
-        .attr('data-target', '#create-deck-modal')
-        .text('+ New')
-        .attr('class',"dropdown-item")
-        .css('color',"green")
+            .attr('data-toggle', 'modal')
+            .attr('data-target', '#create-deck-modal')
+            .text('+ New')
+            .attr('class', "dropdown-item")
+            .css('color', "green")
         deckList.append(createDeckBtn)
+
+        // del deck btn
+        let deleteDeckBtn = $(document.createElement('button'))
+            .text('+ Delete Current Deck')
+            .attr('class', "dropdown-item")
+            .css('color', "red")
+            .click(function () {
+                popupConfirmDialog("Calm down",
+                    "are you sure to delete deck: " + currentGameData.rules.deck,
+                    function () {
+                        try {
+                            dbmanager.removeDeckSync(currentGameData.gameName,currentGameData.rules.deck)
+                            refreshLibraryPage()
+                        }
+                        catch (error) {
+                            popupWarning(error)
+                        }
+                    }
+                )
+            })
+
+        deckList.append(deleteDeckBtn)
     }
 }
 

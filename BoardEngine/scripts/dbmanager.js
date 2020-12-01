@@ -185,6 +185,35 @@ function removeGame(gameName,onFinishCallback){
     onFinishCallback()
 }
 
+function removeDeckSync(gameName,deckName){
+    let gameRoot = getGameAppRoot(gameName)
+    gameInit = loadObjectFromJSONFile(gameRoot+'\\init.json') 
+    
+    let deckFileRoot = gameRoot +'\\'+gameInit.decks_directory;
+    // all decks are stored in ../DeckFileRoot/(deckname).json 
+    let preDeckFiles = fs.readdirSync(deckFileRoot,"utf8")
+    if(preDeckFiles.length <= 1){
+        throw "cannot delete deck when you have only one deck!"
+    }
+
+    let newDecks = []
+    for(deckFile of preDeckFiles){
+        if(deckFile.split('.')[0] == deckName){
+            fs.unlinkSync(deckFileRoot+'\\'+deckFile)
+        } 
+        else{
+            newDecks.push(deckFile.split('.')[0])
+        }
+    }
+
+    // switch current deck if it has been deleted
+    gameRules = loadObjectFromJSONFile(gameRoot +'\\' + gameInit.rules_file) 
+    if(deckName == gameRules.deck){
+        gameRules.deck = newDecks[0]
+    }
+    saveObjectToFileAsJSON(gameRules,gameRoot +'\\' + gameInit.rules_file)
+}
+
 function saveManifest(){
     fs.writeFileSync(dbRoot +'/manifest.json', JSON.stringify(manifest, null, 4))
 }
@@ -321,6 +350,7 @@ module.exports = {
     createNewDeckOnCurrentGame,
     modifyDeck,
     removeGame,
+    removeDeckSync,
     getGameAppRoot,
     getResourceRoot,
     getGameRecordDataRoot,
