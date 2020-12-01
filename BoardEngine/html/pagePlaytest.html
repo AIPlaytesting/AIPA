@@ -48,6 +48,16 @@
 
 <!--data visualization-->
 <div id="data-display-root" class="d-none">
+
+    <!--anomalies-->
+    <div class="middle-section">
+        <button class="btn" data-toggle="collapse" data-target="#anomalies">
+            <h1>Anomalies</h1>
+        </button>
+        <div id='anomalies' class='collapse show'>
+        </div>
+    </div>
+
     <!--basic info-->
     <div class="middle-section">
         <button class="btn" data-toggle="collapse" data-target="#basic-info">
@@ -109,8 +119,8 @@
                 </div>
                 <div class="tab-pane fade" id="card-analysis-histogram-content" role="tabpanel"
                     aria-labelledby="profile-tab">
-                    <div id='card-utilization-histogram' ></div>
-                    <div id='card-playpos-histogram' ></div>
+                    <div id='card-utilization-histogram'></div>
+                    <div id='card-playpos-histogram'></div>
                     <div id='card-playcount-histogram'></div>
                 </div>
             </div>
@@ -137,7 +147,8 @@
             </ul>
             <!--tab contents-->
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="card-pairs-content" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active" id="card-pairs-content" role="tabpanel"
+                    aria-labelledby="home-tab">
                     <div class="row">
                         <div id='card-relationship-table' class="col-6"></div>
                         <div id='card-relationship-card1' class="col-3">c1</div>
@@ -148,22 +159,6 @@
                     <div id='top-combo'></div>
                 </div>
             </div>
-        </div>
-    </div>
-
-
-    <!-- <div class="middle-section">
-        <button class="btn" data-toggle="collapse" data-target="#top-combo">
-            <h1>Top Combos</h1>
-        </button>
-    </div> -->
-
-    <!--anomalies-->
-    <div class="middle-section d-none">
-        <button class="btn" data-toggle="collapse" data-target="#anomalies">
-            <h1>Anomalies</h1>
-        </button>
-        <div id='anomalies' class='collapse'>
         </div>
     </div>
 </div>
