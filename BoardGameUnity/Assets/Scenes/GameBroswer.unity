@@ -3795,7 +3795,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 502, y: -159}
+  m_AnchoredPosition: {x: 437, y: -46}
   m_SizeDelta: {x: 1000, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &447216542
@@ -5927,7 +5927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &785994246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21579,6 +21579,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2020574363}
     m_Modifications:
+    - target: {fileID: 800481432716043201, guid: a78e3de23fbd26f45b2c727d9cdd5dd9,
+        type: 3}
+      propertyPath: m_text
+      value: Discard Pile
+      objectReference: {fileID: 0}
     - target: {fileID: 7128911574776049800, guid: a78e3de23fbd26f45b2c727d9cdd5dd9,
         type: 3}
       propertyPath: m_AnchorMax.x
