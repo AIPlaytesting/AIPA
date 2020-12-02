@@ -8,16 +8,6 @@ body {
     -webkit-font-smoothing: antialiased
 }
 
-
-/* .bg {
-    background-image: url("../static/mainbg.png"); 
-
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
-
 #title{
     /* color: white; */
     margin-top: 100px;
@@ -34,8 +24,3 @@ body {
     width: 30px;
     height: 30px;
 }
-
-
-/* .nav-text{
-    color: aliceblue;
-} */

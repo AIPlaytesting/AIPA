@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <link rel='stylesheet' href='../css/index.css'>
+    <title>AI Playtesting</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-	    <!--  Bootstrap4 -->
-        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-        <script>let $ = require('jquery');</script>
-        <script>require('popper.js');</script>
-        <script>require('bootstrap');</script>
-        <script src="../scripts/index.js"></script>
+    <script src="../scripts/index.js"></script>
+    <!--  Bootstrap4 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script>let $ = require('jquery');</script>
+    <script>require('popper.js');</script>
+    <script>require('bootstrap');</script>
+    <!-- css -->
+    <link rel='stylesheet' href='../css/index.css'>
+    <link rel="stylesheet" href="../css/tab.css">
 </head>
+
 <body>
     <script>onStart()</script>
-    <div id = "root" class="bg">
+    <header>
         <div class="btn-group">
-            <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/');">
-                <img class = "nav-icon" src="../static/icon-website.png">
-                <p class = "nav-text">website</p>
+            <button type="button" class="btn"
+                onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/');">
+                <img class="nav-icon" src="../static/icon-website.png">
+                <p class="nav-text">website</p>
             </button>
-            <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/index.php/technical-report-draft/');">
-                <img class = "nav-icon" src="../static/icon-document.png">
-                <p class = "nav-text">Document</p>
+            <button type="button" class="btn"
+                onclick="require('electron').shell.openExternal('https://www.etc.cmu.edu/projects/ai-playtesting/index.php/technical-report-draft/');">
+                <img class="nav-icon" src="../static/icon-document.png">
+                <p class="nav-text">Document</p>
             </button>
-            <button type="button" class="btn" onclick="require('electron').shell.openExternal('https://github.com/AIPlaytesting');">
-                <img class = "nav-icon" src="../static/github-icon.png">
-                <p class = "nav-text">Github</p>
+            <button type="button" class="btn"
+                onclick="require('electron').shell.openExternal('https://github.com/AIPlaytesting');">
+                <img class="nav-icon" src="../static/github-icon.png">
+                <p class="nav-text">Github</p>
             </button>
         </div>
-        <h1 id = "title" class = "display-1 col-12 text-center">
-            Welcome
+    </header>
+
+    <div id="root" class="bg">
+        <h1 id="title" class="display-1 col-12 text-center">
+            AI Playtesting
         </h1>
-        <div id ="env-detect-div" class = "text-center" style="height:85px">
-            <div id = "env-loading">
+        <div id="env-detect-div" class="text-center" style="height:85px">
+            <div id="env-loading">
                 <span class="spinner-border text-dark" role="status"></span>
-                <span >Detecting Environment ...</span>
+                <span>Detecting Environment ...</span>
             </div>
-            <p id = "py-env-version" ></p>
-            <p id = "tf-env-version" ></span> </p>
+            <p id="py-env-version"></p>
+            <p id="tf-env-version"></span> </p>
         </div>
         <div class="text-center">
-            <button id  = "start-btn" class = "btn btn-primary rounded" onclick="location.href='library.html'">
-                <h3>GO</h3>
+            <button id="start-btn" class="btn btn-primary rounded" onclick="location.href='library.html'">
+                <h3>Start</h3>
             </button>
-        </div>    
+        </div>
     </div>
 </body>
+
 </html>
