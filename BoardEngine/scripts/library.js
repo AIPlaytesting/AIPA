@@ -57,7 +57,7 @@ function onClickPlay() {
     let child = require('child_process').execFile;
     let executablePath = rootPath + '/executables/unitybuild/AIPA.exe';
     console.log('launch unity at: ' + executablePath)
-    child(executablePath, function (err, data) {
+    let unityProcess = child(executablePath, function (err, data) {
         if (err) {
             console.error(err);
             return;
@@ -65,6 +65,11 @@ function onClickPlay() {
 
         console.log(data.toString());
     });
+
+    $('#play-btn').prop('disabled',true)
+    unityProcess.on('exit', function () {
+        $('#play-btn').prop('disabled',false)
+    })
 }
 
 function onClickTrain() {
