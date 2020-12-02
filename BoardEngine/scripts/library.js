@@ -110,10 +110,19 @@ function onClickCreateNewDeck() {
 
 function onClickAddNewCard() {
     let deckname = currentGameData.rules.deck
-    for (let cardname of cardsToAdd) {
-        let newCardCopies = 1
+    let cardsToAddDict = {}
+    for (let cardname of cardsToAdd){
+        if(cardname in cardsToAddDict){
+            cardsToAddDict[cardname] += 1
+        }
+        else{
+            cardsToAddDict[cardname] = 1
+        }
+    }
+    for (let cardname in cardsToAddDict) {
+        let newCardCopies = cardsToAddDict[cardname]
         if (cardname in currentGameData.decks[deckname]) {
-            newCardCopies = currentGameData.decks[deckname][cardname] + 1
+            newCardCopies = currentGameData.decks[deckname][cardname] + cardsToAddDict[cardname]
             currentGameData.decks[deckname][cardname] = newCardCopies
         }
         dbmanager.modifyDeck(deckname, cardname, newCardCopies)
