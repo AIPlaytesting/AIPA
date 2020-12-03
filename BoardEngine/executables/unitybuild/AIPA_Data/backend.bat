@@ -1,1 +1,0 @@
-python  C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\backend_launcher.py
