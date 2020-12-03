@@ -9386,7 +9386,7 @@ MonoBehaviour:
       argumentPath: C:\Users\siqiwan2\Documents\GitHub\AIPA\STP2\backend_launcher.py
       argvUseRelativePath: 0
       enabled: 1
-    showWindow: 1
+    showWindow: 0
     startManually: 0
 --- !u!4 &1185227819
 Transform:
