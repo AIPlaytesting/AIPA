@@ -67,6 +67,12 @@ function onClickPlay() {
     });
 
     $('#play-btn').prop('disabled',true)
+
+    unityProcess.stdout.on('data', (data) => {
+        console.log(`unity app stdout: ${data}`);
+      });
+
+      
     unityProcess.on('exit', function () {
         $('#play-btn').prop('disabled',false)
     })
