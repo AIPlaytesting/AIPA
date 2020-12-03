@@ -68,6 +68,12 @@ namespace GameBrowser {
         }
 
         private void Init() {
+            #if UNITY_EDITOR
+                Debug.logger.logEnabled = true;
+            #else
+                Debug.unityLogger.logEnabled = false;
+            #endif
+
             dependencies.frontEndConnection.Init();
             dependencies.renderManager.Init();
             frontEndConnection.onReceiveResponse += ProcessResponse;
