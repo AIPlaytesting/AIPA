@@ -2,7 +2,8 @@ from .connection import Connection
 from .gameplay_kernel import GameplayKernel
 from .db_accessor import DBAccessor
 from .protocol import RequestMessage,ResponseMessage, PlayerStep,DBQuery, MarkupFactory
-
+import os
+import sys
 class BackendMainloop:
     def __init__(self,connection:Connection,gameplay_kernal:GameplayKernel,db_accessor:DBAccessor):
         self.__connection  = connection
@@ -12,6 +13,8 @@ class BackendMainloop:
 
     def run(self):
         print("back end running....")
+        #disable printing
+        sys.stdout = open(os.devnull, 'w')
         while True:
             request = self.__connection.wait_one_request()
             if request.method == 'ResetGame':
@@ -26,6 +29,8 @@ class BackendMainloop:
                 self.__gameplay_kernal.save_record(True)
                 print("[Backend Mainloop] recv terminate action...")
                 break
+        #enable print again
+        sys.stdout = sys.__stdout__
         print("[Backend Mainloop] backend mainloop terminated!")
 
     def __on_recv_reverse_gamestate(self,gamestate_markup):
