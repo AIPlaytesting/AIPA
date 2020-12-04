@@ -63,7 +63,7 @@ class EventManager:
     def execute_enemy_intent(self,game_state:GameState)->[]:
         intent = game_state.boss_intent
         if intent.is_attack :
-            return self.__on_attack(game_state,game_state.boss,game_state.player,intent.attack_value)
+            return self.__on_attack(game_state,game_state.boss,game_state.player,intent.attack_value,{})
         elif intent.is_block:
             return self.__on_change_block_value(intent.block_value,game_state.boss) 
         elif intent.is_debuff:
@@ -73,14 +73,14 @@ class EventManager:
         return  []
 
     # return [BuffExtension,BuffExtensionCtx][]
-    def __iterate_buff_extension(self,game_state:GameState, buffhost:CombatUnit):
+    def __iterate_buff_extension(self,game_state:GameState, buffhost:CombatUnit,extra_info:dict):
         result = [] 
         for buffname in buffhost.buff_dict: 
             buff_value =  buffhost.buff_dict[buffname]
             if buff_value != 0:
                 extension = self.extension_manager.get_buff_extension(buffname)
                 if extension != None:
-                    ctx = BuffExtensionCtx(game_state,buffname,buff_value,buffhost)
+                    ctx = BuffExtensionCtx(game_state,buffname,buff_value,buffhost,extra_info)
                     result.append([extension,ctx])
         return result
 
@@ -115,8 +115,12 @@ class EventManager:
             elif card.special_mod['unique_damage'] == 'block':
                 damage_value = game_state.player.block
             
+            # fill extra info of the card
+            extra_info = {
+                'strength_multiplier':card.special_mod['strength_multiplier']
+            }
             # apply attack
-            damage_events = self.__on_attack(game_state, game_state.player,game_state.boss,damage_value)
+            damage_events = self.__on_attack(game_state, game_state.player,game_state.boss,damage_value,extra_info)
             game_events.extend(damage_events)
 
             # damage_events = self.card_effects_manager.DealDamage(self.game_manager.game_state.player, self.game_manager.game_state.boss,
@@ -139,7 +143,7 @@ class EventManager:
     # TODO：remove game state from paras
     # TODO: heavy blade,strength_multiplier
     # return GameEvent[]
-    def __on_attack(self,game_state:GameState,attack_source:CombatUnit, attack_target:CombatUnit, attack_value:int):
+    def __on_attack(self,game_state:GameState,attack_source:CombatUnit, attack_target:CombatUnit, attack_value:int,extra_info:dict):
         game_events = []
 
         # TODO: buff extension doesn't support game event, so leave 'Thorn' here
@@ -147,9 +151,9 @@ class EventManager:
            thron_damage_events = self.__on_take_damage(game_state,attack_target,attack_source,attack_target.buff_dict['Thorns'])
            game_events.extend(thron_damage_events)
         # consider buff extensions 
-        for buff_extension,ctx in self.__iterate_buff_extension(game_state,attack_source):
+        for buff_extension,ctx in self.__iterate_buff_extension(game_state,attack_source,extra_info):
             attack_value = buff_extension.before_launch_attack(ctx,attack_target,attack_value)
-        for buff_extension,ctx in self.__iterate_buff_extension(game_state,attack_target):
+        for buff_extension,ctx in self.__iterate_buff_extension(game_state,attack_target,extra_info):
             attack_value = buff_extension.before_receive_attack(ctx,attack_source,attack_value)
 
         attack_value = int(attack_value)
