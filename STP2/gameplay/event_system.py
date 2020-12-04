@@ -176,9 +176,9 @@ class EventManager:
         else:
             blocked_value = target_block     
         # get real damage after block
-        damage_value -= blocked_value      
+        damage_value -= blocked_value     
         # change block
-        block_events = self.__on_change_block_value(blocked_value,damage_target)
+        block_events = self.__on_change_block_value(-blocked_value,damage_target)
         game_events.extend(block_events)
 
         # apply damage
