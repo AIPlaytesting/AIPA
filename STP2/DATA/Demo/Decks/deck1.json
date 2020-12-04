@@ -1,10 +1,12 @@
 {
-    "Defend" : 3,
-    "Strike Plus" : 4,
-    "Shrug It Off" : 1,
-    "Pommel Strike Plus" : 1,
-    "Flex" : 1,
-    "Thunderclap" : 1,
-    "Twin Strike Plus" : 1,
-    "Bludgeon" : 1
+    "Defend": 1,
+    "Strike Plus": 2,
+    "Shrug It Off": 1,
+    "Pommel Strike Plus": 1,
+    "Flex": 1,
+    "Thunderclap": 0,
+    "Twin Strike Plus": 1,
+    "Bludgeon": 1,
+    "Heavy Blade Plus": 2,
+    "Flex Plus": 2
 }
