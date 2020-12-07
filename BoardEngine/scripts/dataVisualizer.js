@@ -393,11 +393,11 @@ function drawRelationshipTable(cvsURL, divID, gameName) {
     function refreshCardTooltips(cardName1, cardName2) {
         $('#' + card1DivID).text("")
             .append(cardRenderer.createCardElementByName(gameName, cardName1))
-            .append('<h2>FristCard</h2>')
+            .append('<h2>First Card</h2>')
 
         $('#' + card2DivID).text("")
             .append(cardRenderer.createCardElementByName(gameName, cardName2))
-            .append('<h2>SecondCard</h2>')
+            .append('<h2>Second Card</h2>')
     }
 
     function clearCardTooltips(cardName1, cardName2) {

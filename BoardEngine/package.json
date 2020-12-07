@@ -32,7 +32,9 @@
   "description": "AIP",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\static\\logo.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
