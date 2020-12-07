@@ -68,11 +68,13 @@ function updatePlaytestPage() {
     }
 }
 
+var recentPlaytestTrainVersion
 function onClickPlaytest() {
     let gameNums = $('#playtest-game-num').val()
     let gameName = dbmanager.getCurrentGameName()
     let deckName = currentGameData.rules.deck
     let trainVersion = $('#AI-dropdown-btn').text()
+    recentPlaytestTrainVersion = trainVersion
 
     if (!dbmanager.getAllTrainedVersion(gameName, deckName).includes(trainVersion)) {
         popupWarning("must select correct AI to playtest!")
@@ -107,7 +109,7 @@ function onReceivePlaytestMesssage(data) {
     if (simulateInfo.is_finished) {
         let gamename = dbmanager.getCurrentGameName()
         let deckname = currentGameData.rules.deck
-        let trainVersion = $('#AI-dropdown-btn').text()
+        let trainVersion = recentPlaytestTrainVersion
         dbmanager.recordPlaytestHistory(gamename, deckname, maxprogress, trainVersion)
         updatePlaytestPage()
         viewPlaytestData(gamename, deckname, trainVersion)
@@ -257,7 +259,7 @@ function DrawAnomiliesSection(playtestData) {
 function createAnomalyElement(gameName, anomalyName, anomalyData) {
     cardRenderer.setCachedGameData(gameName)
 
-    console.log(anomalyData)
+    //console.log(anomalyData)
     let rootDiv = $(document.createElement('div'))
     let collapseHead =$( document.createElement('div')).addClass('row')
     let collapseBtn = $(document.createElement('button'))
