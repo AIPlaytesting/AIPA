@@ -150,7 +150,9 @@ function updateTrainPageView(currentGame,currentDeck){
     }
 
     updateTrainingQueueView()
-    $('#'+hookedTrainSession.getSessionID()+'-train-session').css('background-color','#dde8cf')
+    if(hookedTrainSession){
+        $('#'+hookedTrainSession.getSessionID()+'-train-session').css('background-color','#dde8cf')
+    }
 }
 
 function onReceiveTrainMesssage(trainSession, sessionID, data){
