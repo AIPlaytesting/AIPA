@@ -50,7 +50,7 @@ class GameplayKernel:
             if game_state.game_stage == 'PlayerTurn' or game_state.game_stage == 'EnemyTurn':
                 return True,""
             else:
-                return False,"cannot end turn in this context"
+                return False,"cannot end turn in this context(state is:"+ game_state.game_stage +")"
         else:
             return False,"able to validate player step"
 

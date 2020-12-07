@@ -69,7 +69,7 @@ namespace GameBrowser {
 
         private void Init() {
             #if UNITY_EDITOR
-                Debug.logger.logEnabled = true;
+                Debug.unityLogger.logEnabled = true;
             #else
                 Debug.unityLogger.logEnabled = false;
             #endif
