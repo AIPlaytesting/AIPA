@@ -36,4 +36,20 @@ function createProgressBar(curVal,maxVal,color = 'red'){
     .append(progressbar)
     return parent
 }
-module.exports ={setupDropdown,setupSlider,createProgressBar}
+
+function createTooltipDiv(givenID,tooltipContents){
+    let rootDiv = $(document.createElement('div'))
+    let btn = $(document.createElement('button'))
+    .attr('class','btn btn-warning')
+    .text('explanation')
+    .attr('data-toggle','collapse')
+    .attr('data-target','#' + givenID)
+    let contentDiv = $(document.createElement('div'))
+    .attr('class','collapse tooltip-section')
+    .attr('id',givenID)
+    for(let c of tooltipContents){
+        contentDiv.append($(document.createElement('p')).text(c))
+    }
+    return rootDiv.append(btn,contentDiv)
+}
+module.exports ={setupDropdown,setupSlider,createProgressBar,createTooltipDiv}

@@ -36,6 +36,14 @@
     margin-bottom:10px;
 }
 
+.tooltip-section{
+    background-color: rgb(253, 238, 168);
+    border-radius: 10px;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+
 /*tab CSS start*/
 #logo{
     width: 100px;

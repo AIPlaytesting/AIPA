@@ -2,6 +2,8 @@ const dataVisualizer = require('../scripts/dataVisualizer')
 const dbmanager = require('../scripts/dbmanager')
 const utils = require('../scripts/utils')
 const cardRenderer = require('./cardRenderer')
+const explanation = require('../scripts/explanation')
+const { createTooltipDiv } = require('../scripts/utils')
 
 function updatePlaytestPage() {
     utils.setupDropdown(
@@ -134,14 +136,17 @@ function viewPlaytestData(gamename, deckname, trainVersion) {
     $('#win-rate-progress').attr("class", "green c100 p" + percentage)
 
     // draw distributions
-    dataVisualizer.drawDistribution(playtestData.game_len_distribution_csv_url, "v-pills-game-len")
-    dataVisualizer.drawDualDistribution(playtestData.hp_distribution_csv_url, "v-pills-ending-hp")
+    dataVisualizer.drawDistribution(playtestData.game_len_distribution_csv_url, "v-pills-game-len-graph")
+    $("#v-pills-game-len-tooltip").text("").append(utils.createTooltipDiv('game-len-tooltip', explanation.gameLen))
+    dataVisualizer.drawDualDistribution(playtestData.hp_distribution_csv_url, "v-pills-ending-hp-graph")
+    $("#v-pills-ending-hp-tooltip").text("").append(utils.createTooltipDiv('ending-hp-tooltip',explanation.endingMargin))
 
     // card analysis
     drawCardAnalysisSection(playtestData)
 
     // relationship heat map
     dataVisualizer.drawRelationshipTable(playtestData.card_relationship_csv_url, 'card-relationship-table', gamename)
+    $('#pairs-exp').text("").append(utils.createTooltipDiv('pairs-tooltip',explanation.pairsRelationship))
 
     // top combos
     drawTopCombosSection('top-combo', gamename, playtestData.comboInfo)
@@ -164,6 +169,8 @@ function drawTopCombosSection(divID, gameName, comboInfo) {
         let comboElement = createComboElement(names[0], names[1], names[2], comboInfo.trios[combo])
         rootDiv.append(comboElement)
     }
+
+    $('#triples-exp').text("").append(utils.createTooltipDiv('triples-tooltip',explanation.triplesRelationship))
     // for(let combo in comboInfo.trios){
     //     if(curNum >= topNum){
     //         break;
@@ -223,11 +230,15 @@ function drawTopCombosSection(divID, gameName, comboInfo) {
     }
 }
 
+
 function drawCardAnalysisSection(playtestData) {
     dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url, 'Card Name', 'Card Utilization', 'card-utilization-histogram', 'red')
+    $("#card-utilization-tooltip").text("").append(utils.createTooltipDiv('Card-Utilization-tooltip',explanation.cardUtil))
     dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url, 'Card Name', 'Avg Play Position', 'card-playpos-histogram', 'green')
+    $("#card-playpos-tooltip").text("").append(utils.createTooltipDiv('Avg-Play-Position-tooltip',explanation.cardPlayPos))  
     dataVisualizer.drawHistorgram(playtestData.card_perfromance_csv_url, 'Card Name', 'Card Play Count', 'card-playcount-histogram', 'blue')
-
+    $("#card-playcount-tooltip").text("").append(utils.createTooltipDiv('Card-Play-Count-tooltip',explanation.cardPlayCount))
+   
     let sectionRoot = $('#card-analysis-list').text("")
     for (let analysis of createCardAnalysises(playtestData)) {
         sectionRoot.append(createCardAnalysisElement(analysis))
@@ -251,6 +262,7 @@ function drawCardAnalysisSection(playtestData) {
 
 function DrawAnomiliesSection(playtestData) {
     $('#anomalies').text("")
+    $('#anomalies').append(createTooltipDiv('anomalies-tooltip',explanation.anomalies))
     for (let anomalyName in playtestData.anomalies) {
         $('#anomalies').append(createAnomalyElement(playtestData.gameName, anomalyName, playtestData.anomalies[anomalyName]))
     }
@@ -261,7 +273,7 @@ function createAnomalyElement(gameName, anomalyName, anomalyData) {
 
     //console.log(anomalyData)
     let rootDiv = $(document.createElement('div'))
-    let collapseHead =$( document.createElement('div')).addClass('row')
+    let collapseHead = $(document.createElement('div')).addClass('row')
     let collapseBtn = $(document.createElement('button'))
         .text(anomalyName)
         .addClass('btn')
@@ -332,8 +344,8 @@ function createAnomalyElement(gameName, anomalyName, anomalyData) {
             .css('height', '200px')
             .addClass('inner-section')
 
-        let playerHPbar = utils.createProgressBar(stepData.player_health,100)
-        let bossHPbar = utils.createProgressBar(stepData.boss_health,240)
+        let playerHPbar = utils.createProgressBar(stepData.player_health, 100)
+        let bossHPbar = utils.createProgressBar(stepData.boss_health, 240)
 
         page1.append($(document.createElement('h4')).text("Player HP: " + stepData.player_health))
             .append(playerHPbar)

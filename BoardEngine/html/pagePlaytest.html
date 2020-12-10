@@ -74,10 +74,17 @@
                     aria-controls="v-pills-profile" aria-selected="false">Ending Margin</a>
             </div>
             <div class="col-8 tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-game-len" role="tabpanel"
-                    aria-labelledby="v-pills-home-tab">
+                <div class="tab-pane fade show active" id="v-pills-game-len" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div class="row">
+                        <div class="col-8" id="v-pills-game-len-graph"></div>
+                        <div class="col-3" id="v-pills-game-len-tooltip"></div>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-ending-hp" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <div class="tab-pane fade row" id="v-pills-ending-hp" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="row">
+                        <div class="col-8" id="v-pills-ending-hp-graph"></div>
+                        <div class="col-3" id="v-pills-ending-hp-tooltip"></div>
+                    </div>
                 </div>
             </div>
             <!--basic attrs end-->
@@ -92,26 +99,36 @@
         <div id="card-analysis" class='collapse'>
             <!--tab-->
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active horizontal-tab" data-toggle="tab" href="#card-analysis-content" role="tab"
-                        aria-controls="home" aria-selected="true">Card List</a>
-                </li>
                 <li class="nav-item horizontal-tab">
-                    <a class="nav-link" data-toggle="tab" href="#card-analysis-histogram-content" role="tab"
+                    <a class="nav-link active" data-toggle="tab" href="#card-analysis-histogram-content" role="tab"
                         aria-controls="profile" aria-selected="false">histogram</a>
+                </li>
+
+                <li class="nav-item horizontal-tab">
+                    <a class="nav-link" data-toggle="tab" href="#card-analysis-content" role="tab"
+                        aria-controls="home" aria-selected="true">Card List</a>
                 </li>
             </ul>
             <!--tab contents-->
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="card-analysis-content" role="tabpanel"
+                <div class="tab-pane fade show active" id="card-analysis-histogram-content" role="tabpanel"
+                aria-labelledby="profile-tab">
+                <div class="row">
+                    <div class="col-8" id='card-utilization-histogram'></div>
+                    <div class="col-4" id = "card-utilization-tooltip"></div>
+                </div>
+                <div class="row">
+                    <div class="col-8" id='card-playpos-histogram'></div>
+                    <div class="col-4" id = "card-playpos-tooltip"></div>
+                </div>
+                <div class="row">
+                    <div class="col-8" id='card-playcount-histogram'></div>
+                    <div class="col-4" id = "card-playcount-tooltip"></div>
+                </div>
+            </div>
+                <div class="tab-pane fade" id="card-analysis-content" role="tabpanel"
                     aria-labelledby="home-tab">
                     <div id="card-analysis-list" class="row"></div>
-                </div>
-                <div class="tab-pane fade" id="card-analysis-histogram-content" role="tabpanel"
-                    aria-labelledby="profile-tab">
-                    <div id='card-utilization-histogram'></div>
-                    <div id='card-playpos-histogram'></div>
-                    <div id='card-playcount-histogram'></div>
                 </div>
             </div>
         </div>
@@ -141,12 +158,16 @@
                     aria-labelledby="home-tab">
                     <div class="row">
                         <div id='card-relationship-table' class="col-6"></div>
-                        <div id='card-relationship-card1' class="col-3">c1</div>
-                        <div id='card-relationship-card2' class="col-3">c2</div>
+                        <div id='card-relationship-card1' class="col-2">c1</div>
+                        <div id='card-relationship-card2' class="col-2">c2</div>
+                        <div id = 'pairs-exp' class="col-2"></div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="card-trios-content" role="tabpanel" aria-labelledby="profile-tab">
-                    <div id='top-combo'></div>
+                    <div class="row">
+                        <div class="col-10" id='top-combo'></div>
+                        <div id = 'triples-exp' class="col-2"></div>
+                    </div>
                 </div>
             </div>
         </div>
