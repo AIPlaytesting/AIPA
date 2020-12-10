@@ -75,7 +75,23 @@ def calculate_root_dir():
     parent_dir =  os.path.dirname(Path(cur_dir))
     root_dir = parent_dir+'\\'+ROOT_FOLDER_NAME
     root_config = load_json_from_file(root_dir+'\\'+'db.json')
-    redirected_root_path = root_dir+'\\'+root_config['redirected_relative_path']
+
+    folder_sequence = root_dir.split('\\')
+    #print("fseqequnce:",folder_sequence)
+    for redirect_folder in root_config['redirected_relative_path'].split('\\'): 
+        #print('f folder',redirect_folder)
+        if redirect_folder == '':
+            continue
+        elif redirect_folder == '..':
+            folder_sequence.pop()
+        else:
+            folder_sequence.append(redirect_folder)
+    redirected_root_path = ""
+    for folder in folder_sequence:
+        if len(redirected_root_path) != 0:
+            redirected_root_path += '\\'
+        redirected_root_path += folder
+    print("redirect folder:",redirected_root_path)
     return redirected_root_path
 
 def calculate_resouces_dir():
