@@ -16,7 +16,10 @@ var resourceRoot = "";
 function calculateDBRoot(){	
     if(config.isDevMode){
 		console.log("set db root in development mode...")
-		return config.devDependencies.pythonProject+'\\DATA'
+        originalRoot = config.devDependencies.pythonProject+'\\DATA'
+        rootConfig = loadObjectFromJSONFile(originalRoot+'\\db.json')
+        redirectedRoot = originalRoot + '\\'+ rootConfig.redirected_relative_path
+        return redirectedRoot
 	}
 	else{
 		console.log("set db root in build mode...")
@@ -25,7 +28,8 @@ function calculateDBRoot(){
 }
 
 function loadDB(onFinishLoad){
-    let manifestPath = dbRoot +'/manifest.json';
+    console.log(dbRoot)
+    let manifestPath = dbRoot +'\\manifest.json';
     fs.readFile(manifestPath, 'utf8', function(err, data){ 
         if (err) throw err;
         manifest = JSON.parse(data);

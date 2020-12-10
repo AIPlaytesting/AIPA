@@ -65,6 +65,11 @@ def build(root_path):
     makesure_clean_path(pyexe_dir)
     copy_dir(config['buildConfig']['pythonEnvSource'],pyexe_dir)
 
+    #copy database
+    print("[build] - make database...")
+    copy_dir(config['buildConfig']['databaseSource'],output_dir)
+    #setup database
+
     print("[build] - done")   
 
 build(ORIGINAL_BUILD_DIR)

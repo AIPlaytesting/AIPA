@@ -7,7 +7,8 @@
     "buildConfig":{
         "outputDir":"C:\\AIPABuild",
         "pythonEnvSource":"C:\\Users\\siqiwan2\\Desktop\\pyexe",
-        "unityPythonLauncherSource":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\executables\\backend-unity-postbuild.bat" 
+        "unityPythonLauncherSource":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\BoardEngine\\executables\\backend-unity-postbuild.bat",
+        "databaseSource":"C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\DATA" 
     },
     "buildDependencies":{
         "pyLauncher": "executables\\runpy.bat"
