@@ -66,15 +66,16 @@ function onClickPlay() {
         console.log(data.toString());
     });
 
-    $('#play-btn').prop('disabled',true)
-
+    $('#play-btn').addClass('d-none')
+    $('#unity-loading').removeClass('d-none')
     unityProcess.stdout.on('data', (data) => {
         console.log(`unity app stdout: ${data}`);
       });
 
       
     unityProcess.on('exit', function () {
-        $('#play-btn').prop('disabled',false)
+        $('#play-btn').removeClass('d-none')
+        $('#unity-loading').addClass('d-none')
     })
 }
 
