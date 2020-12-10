@@ -67,8 +67,16 @@ def build(root_path):
 
     #copy database
     print("[build] - make database...")
-    copy_dir(config['buildConfig']['databaseSource'],output_dir)
-    #setup database
+    db_path = output_dir +'\\DATA'
+    makesure_clean_path(db_path)
+    copy_dir(config['buildConfig']['databaseSource'],db_path)
+    
+    #setup database 
+    print("[build] - set database for python project...")
+    pyproj_redirect_config_path = pyproj_dir + '\\DATA\\db.json'
+    pyproj_redirect_config = load_json_from_file(pyproj_redirect_config_path)
+    pyproj_redirect_config["redirected_relative_path"] = '..\\..\\..\\..\\..\\..\\DATA'
+    save_json_obj_to_file(pyproj_redirect_config,pyproj_redirect_config_path)
 
     print("[build] - done")   
 

@@ -23,7 +23,7 @@ function calculateDBRoot(){
 	}
 	else{
 		console.log("set db root in build mode...")
-		return  rootPath+'\\executables\\pyproj\\DATA'
+		return  rootPath+'\\..\\..\\..\\DATA'
 	}
 }
 
