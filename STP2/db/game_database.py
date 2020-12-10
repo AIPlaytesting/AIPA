@@ -64,12 +64,19 @@ class GameDatabase:
                     print("[data base]-[ERROR]: buffname ",buff_name,"int",card.name, "is not found in buffs")
         return is_consist
 
+def load_json_from_file(file_path):
+    with open(file_path, "r") as file:
+        raw_json_data = file.read()
+        return json.loads(raw_json_data)  
+
 def calculate_root_dir():
     ROOT_FOLDER_NAME = "DATA" 
     cur_dir = os.path.dirname(os.path.realpath(__file__))
     parent_dir =  os.path.dirname(Path(cur_dir))
     root_dir = parent_dir+'\\'+ROOT_FOLDER_NAME
-    return root_dir
+    root_config = load_json_from_file(root_dir+'\\'+'db.json')
+    redirected_root_path = root_dir+'\\'+root_config['redirected_relative_path']
+    return redirected_root_path
 
 def calculate_resouces_dir():
     root_dir = calculate_root_dir()

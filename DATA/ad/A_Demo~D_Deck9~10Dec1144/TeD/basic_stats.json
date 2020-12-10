@@ -1,0 +1,1 @@
+{"win_rate": 0.433, "avg_game_length": {"mean": 26.097, "median": 26.0, "mode": 25, "maxVal": 39, "minVal": 14}, "avg_player_hp": {"mean": 1.033, "median": -1.0, "mode": 0, "maxVal": 37, "minVal": -23}, "avg_boss_hp": {"mean": 11.698, "median": 6.0, "mode": -1, "maxVal": 129, "minVal": -52}}
