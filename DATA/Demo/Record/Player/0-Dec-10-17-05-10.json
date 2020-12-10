@@ -1,0 +1,1579 @@
+{
+ "fragments": [
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "unnamed_intent",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 240,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 0,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 2,
+     "information": {
+      "combatUnitGUID": "player",
+      "newBlockValue": "5"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "5"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 5,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 235,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Feed Plus9",
+      "name": "Feed Plus",
+      "energyCost": 1,
+      "description": "Deal 12 damage. If Fatal, raise your Max HP by 4. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\feed.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 2,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 5,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "12"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 5,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 223,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 17,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 5,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 223,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 17,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 2,
+     "information": {
+      "combatUnitGUID": "boss",
+      "newBlockValue": "9"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 5,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 223,
+      "maxHP": 240,
+      "block": 9,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Charging Up",
+      "is_attack": false,
+      "attack_value": 0,
+      "is_block": true,
+      "block_value": 9,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 17,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "PlayerTurn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 223,
+      "maxHP": 240,
+      "block": 9,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 3,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 17,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 2,
+     "information": {
+      "combatUnitGUID": "boss",
+      "newBlockValue": "0"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "boss",
+      "hurtValue": "10"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "PlayerTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 213,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [
+       {
+        "buffName": "Weakened",
+        "buffValue": 1
+       },
+       {
+        "buffName": "Vulnerable",
+        "buffValue": 1
+       }
+      ],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 27,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 1,
+     "cardEvent": 0,
+     "combatUnitEvent": 0,
+     "information": {
+      "turnName": "Enemy Turn"
+     }
+    }
+   ]
+  },
+  {
+   "startState": {
+    "gameStage": "EnemyTurn",
+    "player": {
+     "name": "Player",
+     "currentHP": 80,
+     "maxHP": 80,
+     "block": 0,
+     "gameUniqueID": "player",
+     "buffs": [],
+     "information": {}
+    },
+    "enemies": [
+     {
+      "name": "The Guardian",
+      "currentHP": 213,
+      "maxHP": 240,
+      "block": 0,
+      "gameUniqueID": "boss",
+      "buffs": [],
+      "information": {
+       "mode": "Offensive"
+      }
+     }
+    ],
+    "enemyIntents": [
+     {
+      "name": "Fierce Bash",
+      "is_attack": true,
+      "attack_value": 32,
+      "is_block": false,
+      "block_value": 0,
+      "is_debuff": false,
+      "debuff_type": "",
+      "debuff_value": 1,
+      "is_enbuff": false,
+      "enbuff_type": "",
+      "enbuff_value": 1
+     }
+    ],
+    "cardsOnHand": [],
+    "drawPile": [
+     {
+      "gameUniqueID": "Shockwave1",
+      "name": "Shockwave",
+      "energyCost": 2,
+      "description": "Apply 3 Weak and Vulnerable to ALL enemies. Exhaust.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\shockwave.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus3",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Sword Boomerang Plus4",
+      "name": "Sword Boomerang Plus",
+      "energyCost": 1,
+      "description": "Deal 3 damage to a random enemy 4 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\swordboomerang.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus12",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Flex Plus14",
+      "name": "Flex Plus",
+      "energyCost": 0,
+      "description": "gain 4 strength, and lost it at the end of turn ",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\flex.png"
+     }
+    ],
+    "discardPile": [
+     {
+      "gameUniqueID": "Iron Wave7",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Bash0",
+      "name": "Bash",
+      "energyCost": 2,
+      "description": "Deal 8 damage. Apply 2 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\bash.png"
+     },
+     {
+      "gameUniqueID": "Heavy Blade Plus13",
+      "name": "Heavy Blade Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Strength affects Heavy Blade 5 times.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\heavyblade.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus6",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Uppercut2",
+      "name": "Uppercut",
+      "energyCost": 2,
+      "description": "Deal 13 damage. Apply 1 Weak. Apply 1 Vulnerable.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\uppercut.png"
+     },
+     {
+      "gameUniqueID": "Iron Wave8",
+      "name": "Iron Wave",
+      "energyCost": 1,
+      "description": "Gain 5 Block. Deal 5 damage.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\ironwave.png"
+     },
+     {
+      "gameUniqueID": "Cleave Plus5",
+      "name": "Cleave Plus",
+      "energyCost": 1,
+      "description": "Deal 11 damage to ALL enemies.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\cleave.png"
+     },
+     {
+      "gameUniqueID": "Clothesline Plus10",
+      "name": "Clothesline Plus",
+      "energyCost": 2,
+      "description": "Deal 14 damage. Apply 3 Weak.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\clothesline.png"
+     },
+     {
+      "gameUniqueID": "Double Tap11",
+      "name": "Double Tap",
+      "energyCost": 1,
+      "description": "This turn, your next Attack is played twice.",
+      "imgAbsPath": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA\\..\\..\\DATA\\Resources\\doubletap.png"
+     }
+    ],
+    "energy": {
+     "name": "energy",
+     "curValue": 1,
+     "maxValue": 3,
+     "renderClass": "energy"
+    },
+    "guadianModeValue": {
+     "name": "guadianModeValue",
+     "curValue": 27,
+     "maxValue": 30,
+     "renderClass": "guadian"
+    }
+   },
+   "gameEvents": [
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 4,
+     "information": {
+      "combatUnitGUID": "boss"
+     }
+    },
+    {
+     "eventChannel": 3,
+     "cardEvent": 0,
+     "combatUnitEvent": 1,
+     "information": {
+      "combatUnitGUID": "player",
+      "hurtValue": "32"
+     }
+    }
+   ]
+  }
+ ]
+}
