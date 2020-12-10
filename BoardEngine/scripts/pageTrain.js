@@ -1,6 +1,7 @@
 const dbmanager = require('../scripts/dbmanager')
 const dataVisualizer = require('../scripts/dataVisualizer')
-
+const BrowserWindow = require('electron').remote.BrowserWindow
+const mainWindow = BrowserWindow.getAllWindows()[0]
 var trainingQueue = []
 
 class TrainSession{
@@ -165,9 +166,13 @@ function onReceiveTrainMesssage(trainSession, sessionID, data){
     $('#'+sessionID+'-train-progress-text').text(curprogress + "/" + maxprogress)
     if(trainInfo.is_finished){
         onTrainFinish(sessionID)
+        // show prgress
+        mainWindow.setProgressBar(0.0)
     }
     else{
         $('#'+sessionID+'-train-status').text('Remaining Time :  ' + trainInfo.remaining_hours + ' Hrs ' + trainInfo.remaining_minutes + ' Min.')
+        // show prgress
+        mainWindow.setProgressBar(curprogress/maxprogress)
     }
 
     //draw Curves

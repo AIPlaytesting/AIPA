@@ -6,7 +6,8 @@ function createWindow () {
     height: 1200,
     icon: __dirname + '/static/logo.png',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true
     }
   })
 
