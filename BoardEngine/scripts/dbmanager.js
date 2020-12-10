@@ -157,15 +157,18 @@ function createNewDeckOnCurrentGame(templateDeck,newDeckName){
     let gameName = getCurrentGameName()
     let gameData = loadGameData(gameName)
 
-    if(!templateDeck in gameData.decks){
-        throw "no template named: " + templateDeck
-    }
-
     if(newDeckName in gameData.decks){
         throw "game named: "+newDeckName+" already exists!"
     }
 
-    let newDeck = JSON.parse(JSON.stringify(gameData.decks[templateDeck]))  
+    let newDeck
+    if(!(templateDeck in gameData.decks)){
+        newDeck = {}
+    }
+    else{
+        newDeck = JSON.parse(JSON.stringify(gameData.decks[templateDeck]))  
+    }
+    
     let newDeckPath= dbRoot + '\\' + gameName+'\\Decks\\'+ newDeckName +'.json'
     saveObjectToFileAsJSON(newDeck,newDeckPath)
 }

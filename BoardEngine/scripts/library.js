@@ -231,7 +231,7 @@ function updateDesignPage() {
     updateGameSettingSection()
 
     utils.setupDropdown('newcard-name-list', 'newcard-name-dropdown', Object.keys(gameData.cards))
-    utils.setupDropdown('deck-template-list', 'deck-template-dropdown', Object.keys(gameData.decks))
+    utils.setupDropdown('deck-template-list', 'deck-template-dropdown', Object.keys(gameData.decks),'empty deck')
 
     updateDeckDropdown()
 
