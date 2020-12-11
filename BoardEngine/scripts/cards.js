@@ -462,6 +462,17 @@ function addBuff() {
 }
 // if target value is not equal to original value, change background color
 function indicator(obj) {
+
+  // check validation of image relative path
+  if (obj.name == 'img_relative_path') {
+    if (!imgPathIsValid(obj.value)) {
+      console.log('Image path name can only contain alphabet, number, space, and dot.');
+      library.popupWarning('Image path name can only contain alphabet, number, space, and dot.');
+      obj.value = '';
+      return;
+    }
+  }
+
   // console.log(obj);
   // console.log(obj.id);
   // console.log(obj.value);
@@ -556,6 +567,14 @@ function addBuffTableHead() {
 function textIsValid(text) {
   let letterNumberSpace = /^[A-Za-z0-9 ]+$/i;
   if (text.match(letterNumberSpace) == null) {
+    return false;
+  }
+  return true;
+}
+
+function imgPathIsValid(text) {
+  let letterNumberSpaceDot = /^[A-Za-z0-9 .]+$/i;
+  if (text.match(letterNumberSpaceDot) == null) {
     return false;
   }
   return true;
