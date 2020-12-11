@@ -321,6 +321,9 @@ function setImgPath() {
   let imgPath = document.getElementById('img_relative_path');
   imgPath.value = document.getElementById("image-file").files[0].name;
   console.log(document.getElementById("image-file").files[0].name);
+
+  let frame = document.getElementById("card-img");
+  frame.src=URL.createObjectURL(event.target.files[0]);
 }
 
 function imgUpload(data) {
