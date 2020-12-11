@@ -343,9 +343,9 @@ function createDeckCard(card_name, amount) {
   let divInput = document.createElement('div');
   divInput.className = 'col-sm-4';
   let input = document.createElement('input');
-  input.id = `buff_${card_name}_value`;
+  input.id = `card_${card_name}_value`;
   input.type = 'number';
-  input.name = `buff_${card_name}_value`;
+  input.name = `card_${card_name}_value`;
   input.value = `${amount}`;
   input.className = 'form-control';
   input.setAttribute('onchange', 'indicator(this)');
@@ -358,6 +358,7 @@ function indicator(obj) {
   console.log(obj);
   console.log(obj.id.split('_')[1]);
   console.log(obj.value);
+
   // get original json deck card data
   let deckName = document.getElementById('decksSelect').value;
   let deckJsonPath = `${deckFolderPath}${deckName}.json`;
@@ -373,6 +374,18 @@ function indicator(obj) {
     // console.log(amount);
     // console.log(obj.value);
     if (card_name == obj.id.split('_')[1]) {
+      // input validation
+      let message = document.getElementById("message");
+      try {
+        if (obj.value == '') throw 'is Empty';
+        if (isNaN(obj.value)) throw "not a number";
+        if (obj.value > 100) throw "too high";
+        if (obj.value < 0) throw "too low";
+      }
+      catch (err) {
+        message.innerHTML = "Input " + err;
+        obj.value = amount;
+      }      
       if (amount != obj.value) {
         isChanged = true;
       }
@@ -395,10 +408,12 @@ function saveDeckBtn(e) {
   // iterate through deckForm and append key value pair
   let n = form.children.length
   for (let i = 0; i < n; i++) {
+    // skip the save button dom
     if (i == n - 1) {
       break;
     }
-    data[form.children[i].firstChild.innerHTML] = form.children[i].lastChild.firstChild.value;
+    // get data from deckForm, transfer to integer
+    data[form.children[i].firstChild.innerHTML] = parseInt(form.children[i].lastChild.firstChild.value);
     console.log(form.children[i]);
     console.log(form.children[i].firstChild.innerHTML);
     console.log(form.children[i].lastChild.firstChild.value);
