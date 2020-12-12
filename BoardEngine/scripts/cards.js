@@ -401,9 +401,23 @@ function read(card) {
 function appendSelectBuff() {
   const table = document.getElementById('buff-table');
   let trs = table.children;
-  // get all buffs
-  let data = fs.readFileSync(filePath + 'buffs.json');
-  data = JSON.parse(data);
+  // get all buffs from json database
+  // let data = fs.readFileSync(filePath + 'buffs.json');
+  // data = JSON.parse(data);
+
+  // get hard coded data for 4 buffs we have
+  let data = 
+  {
+    "registered_buffnames":[
+        "Weakened",
+        "Vulnerable",
+        "Strength",
+        "Thorns",
+        "Flex",
+        "DoubleTapActive"
+    ]
+  }
+
   let buffs = data['registered_buffnames'];
   // if in current buff table, continue
   // read all current buff from buff table
