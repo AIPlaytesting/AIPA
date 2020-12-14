@@ -15,6 +15,16 @@ function refreshLibraryPage() {
     dbmanager.loadDB(onFinishDBLoad)
 }
 
+function refreshManually(){
+    refreshLibraryPage()
+    $('#refresh-div').addClass('d-none')
+}
+
+function onClickAdvancedMode(){
+    window.open('decks.html')
+    $('#refresh-div').removeClass('d-none')
+}
+
 function onFinishDBLoad() {
     let installedGames = dbmanager.getInstalledGameApps()
     // fill game lib list

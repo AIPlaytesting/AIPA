@@ -61,20 +61,31 @@
                 <div id = "game-main-page" class = 'col-11' style = "background: #fff;">
                     <br>
                     <div id = "game-basic-section" class = "row">
+                        <!--game title-->
                         <span id = 'game-title' class = 'display-3' data-toggle="tooltip"  title = "name of the game" style ="margin-left: 60px;">GameTitle</span>
                         <span class="dropdown">
                             <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" ></button>
                             <div class="dropdown-menu">
-                                <button type="button" class="dropdown-item" onclick="window.open('decks.html')">Advance</button>
+                                <button type="button" class="dropdown-item" onclick="onClickAdvancedMode();">Advance</button>
                                 <button id = "remove-game-btn" class="dropdown-item" onclick="onClickRemoveGame()" style="color:red;"> Remove</button>
                             </div>
                         </span>
                         <span class = "display-3"> /</span>
+                        <!--deck title-->
                         <span id = 'current-deck-name' class = 'display-3' data-toggle="tooltip" title = "name of the deck">DeckName</span>
-                        <div class ="col-4">
+                        <span>
                             <div class=" dropdown">                          
                                 <button id ="current-deck-dropdown-btn" type="button" class="btn dropdown-toggle" data-toggle="dropdown"></button>
                                 <div id ="current-deck-dropdown-list" class="dropdown-menu"></div>
+                            </div>
+                        </span>
+                        <!--refresh-->
+                        <div id = "refresh-div" class="card bg-warning text-white col-3 d-none">
+                            <div class="card-body">
+                                <button class = "btn" onclick="refreshManually()">
+                                    <img src="../static/refresh.png" style="height: 50px;width:50px">
+                                </button>
+                                <span style = "font-size:20px;">Refresh to apply changes</span>
                             </div>
                         </div>
                     </div>
