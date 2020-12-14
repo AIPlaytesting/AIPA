@@ -299,7 +299,15 @@ function createAnomalyElement(gameName, anomalyName, anomalyData) {
             .addClass('col-1')
             .css('border-right', '5px solid grey')
         rootDiv.append(turnTitle)
+        stepCount = 0
         for (let step in turnData) {
+            if(stepCount != 0 && stepCount%3 == 0){
+                let preSpace = $(document.createElement('div')).addClass('col-2')
+                let lineSpace = $(document.createElement('div')).addClass('col-1').css('border-right', '5px solid grey')
+                rootDiv.append(preSpace,lineSpace)
+            }
+            stepCount += 1
+
             let stepDiv = $(document.createElement('div'))
                 //.css('border-style','dotted')
                 .attr('class', 'col-3 row')
@@ -336,7 +344,7 @@ function createAnomalyElement(gameName, anomalyName, anomalyData) {
 
     function createStepDetailInfoElement2(stepData) {
         let rootDiv = $(document.createElement('div'))
-            .attr('class', 'overflow-auto col-6')
+            .attr('class', 'overflow-auto col-7')
             .css('height', '200px')
             .css('margin-left', '50px')
 
