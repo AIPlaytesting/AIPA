@@ -258,6 +258,18 @@ function updateDesignPage() {
             .val(gameData.rules.player_hp)
             .off()
             .change(function () {
+                let newVal = $(this).val()
+                try{
+                    let intVal = parseInt(newVal)
+                    if(isNaN(intVal) || intVal <= 0){
+                        $(this).val(gameData.rules.player_hp)
+                        return
+                    }
+                }
+                catch (error) {
+                    $(this).val(gameData.rules.player_hp)
+                    return
+                }
                 $('#player-hp-save-btn').removeClass('d-none')
                 $('#player-hp-undo-btn').removeClass('d-none')
                 $(this).css('background-color', '#f6f7ba').css('color', 'red')
@@ -288,6 +300,20 @@ function updateDesignPage() {
             .val(gameData.rules.boss_hp)
             .off()
             .change(function () {
+                let newVal = $(this).val()
+                try{
+                    let intVal = parseInt(newVal)
+                    $(this).val(intVal)
+                    if(isNaN(intVal) || intVal <= 0){
+                        $(this).val(gameData.rules.boss_hp)
+                        return
+                    }
+                }
+                catch (error) {
+                    $(this).val(gameData.rules.boss_hp)
+                    return
+                }
+
                 $('#boss-hp-save-btn').removeClass('d-none')
                 $('#boss-hp-undo-btn').removeClass('d-none')
                 $(this).css('background-color', '#f6f7ba').css('color', 'red')
