@@ -1,0 +1,32 @@
+{
+  "name": "Flex",
+  "type": "Skill",
+  "energy_cost": 0,
+  "damage_target": "enemy",
+  "description": "gain 2 strength, and lost it at the end of turn",
+  "img_relative_path": "flex.png",
+  "damage_block_info": {
+    "damage": 0,
+    "damage_instances": 0,
+    "block": 0
+  },
+  "card_life_cycle_info": {
+    "copies_in_discard_pile_when_played": 1,
+    "draw_card": 0
+  },
+  "buffs_info": {
+    "Strength": {
+      "value": 2,
+      "target": "self"
+    },
+    "Flex": {
+      "value": 2,
+      "target": "self"
+    }
+  },
+  "special_modifiers_info": {
+    "unique_damage": "none",
+    "strength_multiplier": 1,
+    "next_attack_count": 1
+  }
+}

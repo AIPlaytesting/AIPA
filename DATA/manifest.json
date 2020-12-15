@@ -1,8 +1,8 @@
 {
-    "game_app": "Demo",
+    "game_app": "SampleGame",
     "root_directory": "C:\\Users\\siqiwan2\\Documents\\GitHub\\AIPA\\STP2\\DATA",
     "resource_directory": "Resources",
     "installed_app": [
-        "Demo"
+        "SampleGame"
     ]
 }
